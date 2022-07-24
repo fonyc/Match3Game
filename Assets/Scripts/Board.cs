@@ -57,6 +57,7 @@ public class Board : MonoBehaviour
                 int randomEmblem = GenerateRandomEmblem();
                 int currentIterations = 0;
 
+                //Prevent repeated adjacent emblems 
                 while (MatchesAt(new Vector2Int(x, y), emblemDB[randomEmblem]) && currentIterations < maxIterations)
                 {
                     randomEmblem = GenerateRandomEmblem();
