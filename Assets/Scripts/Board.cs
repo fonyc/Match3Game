@@ -15,6 +15,8 @@ public class Board : MonoBehaviour
 
     private Emblem[,] boardStatus;
 
+    public BoardStates currentState = BoardStates.Move;
+
     [SerializeField][Range(1f, 10f)] private float emblemSpeed = 7f;
     [SerializeField][Range(0f, 1f)] private float swipeBackTime = .5f;
     [SerializeField][Range(0f, 1f)] private float refillTime = .1f;
@@ -39,11 +41,6 @@ public class Board : MonoBehaviour
     {
         BoardStatus = new Emblem[Width, Height];
         SetUp();
-    }
-
-    private void Update()
-    {
-        MatchFinder.FindAllMatches();
     }
 
     private void SetUp()
@@ -79,7 +76,7 @@ public class Board : MonoBehaviour
     private void SpawnEmblem(Vector2Int position, Emblem emblemToSpawn)
     {
         //if (boardStatus[position.x, position.y] != null) return;
-        Vector3 position3d = new Vector3(position.x, position.y, 0);
+        Vector3 position3d = new Vector3(position.x, position.y + height, 0);
         Emblem emblem = Instantiate(emblemToSpawn, position3d, Quaternion.identity);
         emblem.transform.parent = transform;
         emblem.name = "Emblem - (" + position.x + ", " + position.y + ")";
@@ -190,6 +187,11 @@ public class Board : MonoBehaviour
             yield return new WaitForSeconds(.75f);
             DestroyMatches();
         }
+        else
+        {
+            yield return new WaitForSeconds(refillTime);
+            currentState = BoardStates.Move;
+        }
     }
 
     private void RefillBoard()
@@ -206,6 +208,31 @@ public class Board : MonoBehaviour
                 }
             }
         }
+        CheckMisplacedEmblems();
+    }
+
+    private void CheckMisplacedEmblems()
+    {
+        List<Emblem> foundEmblems = new();
+
+        foundEmblems.AddRange(FindObjectsOfType<Emblem>());
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (foundEmblems.Contains(boardStatus[x,y]))
+                {
+                    foundEmblems.Remove(boardStatus[x,y]);
+                }
+            }
+        }
+
+        foreach(Emblem emblem in foundEmblems)
+        {
+            Destroy(emblem.gameObject);
+        }
+
     }
 
     //private void RefillBoard()
