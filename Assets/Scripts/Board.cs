@@ -17,6 +17,7 @@ public class Board : MonoBehaviour
 
     [SerializeField][Range(1f, 10f)] private float emblemSpeed = 7f;
     [SerializeField][Range(0f, 1f)] private float swipeBackTime = .5f;
+    [SerializeField][Range(0f, 1f)] private float refillTime = .1f;
     [SerializeField][Range(0f, 1f)] private float columnColapse = .2f;
     public int maxIterations = 100;
     [SerializeField][Range(0.1f, 1f)] private float touchSensibility = 0.5f;
@@ -63,7 +64,6 @@ public class Board : MonoBehaviour
                 {
                     randomEmblem = GenerateRandomEmblem();
                     currentIterations++;
-                    Debug.Log(currentIterations + "/" + maxIterations);
                 }
 
                 SpawnEmblem(new Vector2Int(x, y), emblemDB[randomEmblem]);
@@ -139,10 +139,10 @@ public class Board : MonoBehaviour
                 DestroyMatchedEmblemAt(matchFinder.CurrentMatches[x].PosIndex);
             }
         }
-        StartCoroutine(IncreaseRow_Coro());
+        StartCoroutine(DecreaseRow_Coro());
     }
 
-    private IEnumerator IncreaseRow_Coro()
+    private IEnumerator DecreaseRow_Coro()
     {
         yield return new WaitForSeconds(columnColapse);
 
@@ -170,6 +170,59 @@ public class Board : MonoBehaviour
             }
             nullCounter = 0;
         }
+
+        StartCoroutine(FillBoard_Coro());
     }
 
+    private IEnumerator FillBoard_Coro()
+    {
+        yield return new WaitForSeconds(refillTime);
+
+        RefillBoard();
+
+        yield return new WaitForSeconds(refillTime);
+
+        matchFinder.FindAllMatches();
+
+        //New emblem generation created new matches
+        if(matchFinder.CurrentMatches.Count > 0)
+        {
+            yield return new WaitForSeconds(.75f);
+            DestroyMatches();
+        }
+    }
+
+    private void RefillBoard()
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (boardStatus[x, y] == null)
+                {
+                    int randomEmblem = GenerateRandomEmblem();
+                    Vector2Int position = new Vector2Int(x, y);
+                    SpawnEmblem(position, emblemDB[randomEmblem]);
+                }
+            }
+        }
+    }
+
+    //private void RefillBoard()
+    //{
+    //    bool spawned = false;
+    //    int y = Height - 1;
+    //    for (int x = 0; x < Width; x++)
+    //    {
+    //        if (boardStatus[x, y] == null)
+    //        {
+    //            spawned = true;
+    //            int randomEmblem = GenerateRandomEmblem();
+    //            Vector2Int position = new Vector2Int(x, y);
+    //            SpawnEmblem(position, emblemDB[randomEmblem]);
+    //        }
+    //    }
+    //    if (spawned) StartCoroutine(DecreaseRow_Coro());
+    //    //else PlayerTurn = true;
+    //}
 }

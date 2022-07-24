@@ -56,6 +56,8 @@ MonoBehaviour:
   - {fileID: 5170459994283608010, guid: 41c83b8ac307e3441b634980422b04d5, type: 3}
   emblemSpeed: 7
   swipeBackTime: 0.4
+  refillTime: 0.1
+  columnColapse: 0.2
   maxIterations: 50
   touchSensibility: 0.1
 --- !u!114 &5938852798633207595
