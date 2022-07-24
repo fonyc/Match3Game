@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5103290458170677925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5103290458170677927}
+  - component: {fileID: 5103290458170677924}
+  - component: {fileID: 5938852798633207595}
+  m_Layer: 0
+  m_Name: Board
+  m_TagString: Board
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5103290458170677927
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5103290458170677925}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5103290458170677924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5103290458170677925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f7b303b6e3a7af4aa79a31ab59a1c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 7
+  height: 7
+  bgTilePrefab: {fileID: 5746089541364691027, guid: 34cccd369a806b74fb08666a2b5ec0c4, type: 3}
+  emblemDB:
+  - {fileID: 5170459994283608010, guid: ec82805123c94fc4ca84b81837f8f920, type: 3}
+  - {fileID: 5170459994283608010, guid: aeb05bfbf31293d47b306ebd2440e2eb, type: 3}
+  - {fileID: 5170459994283608010, guid: a8c9caec9b0ea9e4fb6ac256c3f4f788, type: 3}
+  - {fileID: 5170459994283608010, guid: b80c927f68480aa4cabff072aedd3081, type: 3}
+  - {fileID: 5170459994283608010, guid: 41c83b8ac307e3441b634980422b04d5, type: 3}
+  emblemSpeed: 7
+  swipeBackTime: 0.4
+  maxIterations: 50
+  touchSensibility: 0.1
+--- !u!114 &5938852798633207595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5103290458170677925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f647900f8851ec948ab10c8bca277c63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentMatches: []
