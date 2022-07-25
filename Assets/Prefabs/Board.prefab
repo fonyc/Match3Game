@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 7
-  height: 7
+  height: 5
   bgTilePrefab: {fileID: 5746089541364691027, guid: 34cccd369a806b74fb08666a2b5ec0c4, type: 3}
   emblemDB:
   - {fileID: 5170459994283608010, guid: ec82805123c94fc4ca84b81837f8f920, type: 3}
@@ -54,6 +54,15 @@ MonoBehaviour:
   - {fileID: 5170459994283608010, guid: a8c9caec9b0ea9e4fb6ac256c3f4f788, type: 3}
   - {fileID: 5170459994283608010, guid: b80c927f68480aa4cabff072aedd3081, type: 3}
   - {fileID: 5170459994283608010, guid: 41c83b8ac307e3441b634980422b04d5, type: 3}
+  crossDB:
+  - {fileID: 5949605657948437056, guid: 64f1747b1193002429e93cddf1a46563, type: 3}
+  - {fileID: 5949605657948437056, guid: bb4b035a645b30f418ea75fdb014160f, type: 3}
+  - {fileID: 5949605657948437056, guid: 30d6166084160df4fbabc06fb7d208c5, type: 3}
+  - {fileID: 5949605657948437056, guid: 982684ead62bc744c952cc97eba6b98f, type: 3}
+  - {fileID: 5949605657948437056, guid: 275bc670165b6c346ac50532c1780c83, type: 3}
+  boosterToSpawn: {fileID: 0}
+  boosterPos: {x: -1, y: -1}
+  currentState: 0
   emblemSpeed: 7
   swipeBackTime: 0.4
   refillTime: 0.1
