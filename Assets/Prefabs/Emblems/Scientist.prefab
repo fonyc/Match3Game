@@ -67,6 +67,10 @@ PrefabInstance:
       propertyPath: emblemType
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5309902973596776829, guid: bbf801b999ca0b54f8506c1279e8b840, type: 3}
+      propertyPath: emblemColor
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bbf801b999ca0b54f8506c1279e8b840, type: 3}
 --- !u!1 &1586919637400552579 stripped

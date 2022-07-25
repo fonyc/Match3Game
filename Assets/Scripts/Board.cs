@@ -10,13 +10,20 @@ public class Board : MonoBehaviour
     [SerializeField] private GameObject bgTilePrefab;
 
     public Emblem[] emblemDB;
+    public Emblem[] crossDB;
 
     private MatchFinder matchFinder;
 
     private Emblem[,] boardStatus;
 
+    public Emblem boosterToSpawn = null;
+    public Vector2Int boosterPos = new Vector2Int(-1, -1);
+
+    public BoardStates currentState = BoardStates.Move;
+
     [SerializeField][Range(1f, 10f)] private float emblemSpeed = 7f;
     [SerializeField][Range(0f, 1f)] private float swipeBackTime = .5f;
+    [SerializeField][Range(0f, 1f)] private float refillTime = .1f;
     [SerializeField][Range(0f, 1f)] private float columnColapse = .2f;
     public int maxIterations = 100;
     [SerializeField][Range(0.1f, 1f)] private float touchSensibility = 0.5f;
@@ -40,11 +47,6 @@ public class Board : MonoBehaviour
         SetUp();
     }
 
-    private void Update()
-    {
-        MatchFinder.FindAllMatches();
-    }
-
     private void SetUp()
     {
         for (int x = 0; x < width; x++)
@@ -59,11 +61,11 @@ public class Board : MonoBehaviour
                 int randomEmblem = GenerateRandomEmblem();
                 int currentIterations = 0;
 
+                //Prevent repeated adjacent emblems 
                 while (MatchesAt(new Vector2Int(x, y), emblemDB[randomEmblem]) && currentIterations < maxIterations)
                 {
                     randomEmblem = GenerateRandomEmblem();
                     currentIterations++;
-                    Debug.Log(currentIterations + "/" + maxIterations);
                 }
 
                 SpawnEmblem(new Vector2Int(x, y), emblemDB[randomEmblem]);
@@ -79,7 +81,7 @@ public class Board : MonoBehaviour
     private void SpawnEmblem(Vector2Int position, Emblem emblemToSpawn)
     {
         //if (boardStatus[position.x, position.y] != null) return;
-        Vector3 position3d = new Vector3(position.x, position.y, 0);
+        Vector3 position3d = new Vector3(position.x, position.y + height, 0);
         Emblem emblem = Instantiate(emblemToSpawn, position3d, Quaternion.identity);
         emblem.transform.parent = transform;
         emblem.name = "Emblem - (" + position.x + ", " + position.y + ")";
@@ -91,13 +93,19 @@ public class Board : MonoBehaviour
         emblem.SetUpEmblem(position, this);
     }
 
+    /// <summary>
+    /// Method for preventing matches on horizontal and vertical positions
+    /// </summary>
+    /// <param name="pos">Position of the studied tile</param>
+    /// <param name="emblem">Emblem script of the studied tile</param>
+    /// <returns>if there are any matches up/down right/left</returns>
     private bool MatchesAt(Vector2Int pos, Emblem emblem)
     {
         if (pos.x > 1)
         {
             //Check left and left-1 tiles
-            if (boardStatus[pos.x - 1, pos.y].EmblemType == emblem.EmblemType
-                && boardStatus[pos.x - 2, pos.y].EmblemType == emblem.EmblemType)
+            if (boardStatus[pos.x - 1, pos.y].EmblemColor == emblem.EmblemColor
+                && boardStatus[pos.x - 2, pos.y].EmblemColor == emblem.EmblemColor)
             {
                 return true;
             }
@@ -106,8 +114,8 @@ public class Board : MonoBehaviour
         if (pos.y > 1)
         {
             //Check left and left-1 tiles
-            if (boardStatus[pos.x, pos.y - 1].EmblemType == emblem.EmblemType
-                && boardStatus[pos.x, pos.y - 2].EmblemType == emblem.EmblemType)
+            if (boardStatus[pos.x, pos.y - 1].EmblemColor == emblem.EmblemColor
+                && boardStatus[pos.x, pos.y - 2].EmblemColor == emblem.EmblemColor)
             {
                 return true;
             }
@@ -127,6 +135,17 @@ public class Board : MonoBehaviour
             }
         }
     }
+
+    private void DestroyNonMatchedEmblem(Vector2Int position)
+    {
+        Emblem emblem = boardStatus[position.x, position.y];
+        if (emblem != null)
+        {
+            Destroy(emblem.gameObject);
+            emblem = null;
+        }
+    }
+
     /// <summary>
     /// Iterates through match list in matchfinder and destroy every match
     /// </summary>
@@ -139,10 +158,10 @@ public class Board : MonoBehaviour
                 DestroyMatchedEmblemAt(matchFinder.CurrentMatches[x].PosIndex);
             }
         }
-        StartCoroutine(IncreaseRow_Coro());
+        StartCoroutine(DecreaseRow_Coro());
     }
 
-    private IEnumerator IncreaseRow_Coro()
+    private IEnumerator DecreaseRow_Coro()
     {
         yield return new WaitForSeconds(columnColapse);
 
@@ -170,6 +189,83 @@ public class Board : MonoBehaviour
             }
             nullCounter = 0;
         }
+
+        StartCoroutine(FillBoard_Coro());
     }
 
+    private IEnumerator FillBoard_Coro()
+    {
+        yield return new WaitForSeconds(refillTime);
+
+        RefillBoard();
+
+        yield return new WaitForSeconds(refillTime);
+
+        //changes current matches in match finder so DestroyMatches has something to actually destroy
+        matchFinder.FindAllMatches();
+
+        //New emblem generation created new matches
+        if (matchFinder.CurrentMatches.Count > 0)
+        {
+            yield return new WaitForSeconds(.75f);
+            DestroyMatches();
+        }
+        else
+        {
+            yield return new WaitForSeconds(refillTime);
+            currentState = BoardStates.Move;
+        }
+    }
+
+    private void RefillBoard()
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (boardStatus[x, y] == null)
+                {
+                    int randomEmblem = GenerateRandomEmblem();
+                    Vector2Int position = new Vector2Int(x, y);
+                    SpawnEmblem(position, emblemDB[randomEmblem]);
+                }
+            }
+        }
+        SpawnBoosterIfAble();
+        CheckMisplacedEmblems();
+    }
+
+    private void SpawnBoosterIfAble()
+    {
+        if (boosterToSpawn == null) return;
+        
+        DestroyNonMatchedEmblem(boosterPos);
+        SpawnEmblem(boosterPos, boosterToSpawn);
+
+        boosterToSpawn = null;
+    }
+
+    private void CheckMisplacedEmblems()
+    {
+        List<Emblem> foundEmblems = new();
+
+        foundEmblems.AddRange(FindObjectsOfType<Emblem>());
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (foundEmblems.Contains(boardStatus[x, y]))
+                {
+                    foundEmblems.Remove(boardStatus[x, y]);
+                }
+            }
+        }
+
+        foreach (Emblem emblem in foundEmblems)
+        {
+            Destroy(emblem.gameObject);
+        }
+
+    }
 }

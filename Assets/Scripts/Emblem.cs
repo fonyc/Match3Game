@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Emblem : MonoBehaviour
@@ -9,7 +8,9 @@ public class Emblem : MonoBehaviour
     /// </summary>
     [SerializeField] public Vector2Int posIndex;
     [SerializeField] private Vector2Int previousPosition;
-    [SerializeField] private EmblemTypes emblemType;
+    [SerializeField] private EmblemColor emblemColor;
+    [SerializeField] private EmblemClass emblemClass;
+
     public Vector2Int PosIndex { get => posIndex; set => posIndex = value; }
     public bool isMatched;
 
@@ -20,8 +21,16 @@ public class Emblem : MonoBehaviour
 
     private Emblem otherEmblem;
 
-    public EmblemTypes EmblemType { get => emblemType; set => emblemType = value; }
+    [Header("--- POWER UPS ---")]
+    [Space(5)]
+    [SerializeField] private bool isCross;
+    [SerializeField] private bool isCrystal;
+
     public Vector2Int PreviousPosition { get => previousPosition; set => previousPosition = value; }
+    public bool IsCross { get => isCross; set => isCross = value; }
+    public bool IsCrystal { get => isCrystal; set => isCrystal = value; }
+    public EmblemColor EmblemColor { get => emblemColor; set => emblemColor = value; }
+    public EmblemClass EmblemClass { get => emblemClass; set => emblemClass = value; }
 
     private void Update()
     {
@@ -51,11 +60,13 @@ public class Emblem : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (board.currentState != BoardStates.Move) return;
         firstTouchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition).normalized;
     }
 
     private void OnMouseUp()
     {
+        if (board.currentState != BoardStates.Move) return;
         lastTouchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition).normalized;
         swipeAngle = CalculateAngle(firstTouchPos, lastTouchPos);
 
@@ -114,11 +125,16 @@ public class Emblem : MonoBehaviour
         board.BoardStatus[posIndex.x, posIndex.y] = this;
         board.BoardStatus[otherEmblem.posIndex.x, otherEmblem.posIndex.y] = otherEmblem;
 
+        //Notify board of the last touched emblem (it may become a special one)
+        board.boosterPos = PosIndex;
+
         StartCoroutine(CheckSwipe_Coro());
     }
 
     private IEnumerator CheckSwipe_Coro()
     {
+        board.currentState = BoardStates.Wait;
+
         //After the swap, wait to make the check and swap back (or not)
         yield return new WaitForSeconds(board.SwipeBackTime);
 
@@ -137,6 +153,10 @@ public class Emblem : MonoBehaviour
                 //Notify board of swipe changes
                 board.BoardStatus[posIndex.x, posIndex.y] = this;
                 board.BoardStatus[otherEmblem.posIndex.x, otherEmblem.posIndex.y] = otherEmblem;
+
+                yield return new WaitForSeconds(board.SwipeBackTime);
+
+                board.currentState = BoardStates.Move;
             }
             //Swipe is valid, destroy the matches
             else
