@@ -42,7 +42,7 @@ PrefabInstance:
     - target: {fileID: 1762145951003720245, guid: bbf801b999ca0b54f8506c1279e8b840, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 21e6ae2a27be5194286929e9efe79d04, type: 3}
+      objectReference: {fileID: 21300000, guid: a12588b0d8cd1cf4d9a06bf7b1b1a75c, type: 3}
     - target: {fileID: 1762145951003720245, guid: bbf801b999ca0b54f8506c1279e8b840, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -91,6 +91,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5309902973596776829, guid: bbf801b999ca0b54f8506c1279e8b840, type: 3}
+      propertyPath: emblemType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5309902973596776829, guid: bbf801b999ca0b54f8506c1279e8b840, type: 3}
+      propertyPath: emblemColor
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bbf801b999ca0b54f8506c1279e8b840, type: 3}
 --- !u!1 &1586919637400552579 stripped
@@ -98,7 +106,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1762145951003720244, guid: bbf801b999ca0b54f8506c1279e8b840, type: 3}
   m_PrefabInstance: {fileID: 1040816842570088119}
   m_PrefabAsset: {fileID: 0}
---- !u!61 &8693841456338636419
+--- !u!61 &-5346124217747378986
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,7 +123,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 5.12, y: 5.12}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

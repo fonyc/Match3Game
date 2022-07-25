@@ -34,15 +34,18 @@ public class CombatManager : MonoBehaviour
 
         UIManager.Instance.UpdateEnemyHealth(enemyCurrentHP, enemy.HP);
         UIManager.Instance.UpdatePlayerHealth(heroCurrentHP, hero.HP);
+        UIManager.Instance.UpdateEnemyTurns(currentTurns, turnsToAttack);
     }
 
     public void UpdateEnemyTurns()
     {
         currentTurns++;
+        UIManager.Instance.UpdateEnemyTurns(currentTurns, turnsToAttack);
         if(currentTurns == turnsToAttack)
         {
             AttackPlayer();
             currentTurns = 0;
+            UIManager.Instance.UpdateEnemyTurns(currentTurns, turnsToAttack);
         }
     }
 

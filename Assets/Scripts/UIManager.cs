@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI enemyHP_txt;
     [SerializeField] private TextMeshProUGUI playerHP_txt;
+    [SerializeField] private TextMeshProUGUI enemyTurns_txt;
 
     [SerializeField] RectTransform enemyFill;
     [SerializeField] RectTransform playerFill;
@@ -39,5 +40,10 @@ public class UIManager : MonoBehaviour
         enemyHP_txt.text = hp.ToString() + " / " + max.ToString();
         float scaleX = (float)hp / (float)max;
         enemyFill.localScale = new Vector3(scaleX, playerFill.localScale.y, playerFill.localScale.z);
+    }
+
+    public void UpdateEnemyTurns(int currentTurns, int turnsToAttack)
+    {
+        enemyTurns_txt.text = (turnsToAttack - currentTurns).ToString();
     }
 }
