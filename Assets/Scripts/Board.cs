@@ -214,6 +214,9 @@ public class Board : MonoBehaviour
         {
             yield return new WaitForSeconds(refillTime);
             currentState = BoardStates.Move;
+            
+            //Enemy can attack
+            GetComponent<CombatManager>().UpdateEnemyTurns();
         }
     }
 

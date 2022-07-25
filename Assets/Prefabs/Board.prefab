@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5103290458170677927}
   - component: {fileID: 5103290458170677924}
   - component: {fileID: 5938852798633207595}
+  - component: {fileID: 991595409971942066}
   m_Layer: 0
   m_Name: Board
   m_TagString: Board
@@ -82,3 +83,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentMatches: []
+--- !u!114 &991595409971942066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5103290458170677925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82aae0660ef1e9e448b8679c97fdcc3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 11400000, guid: 423a4284f535e2641afad99bc022ef8f, type: 2}
+  hero: {fileID: 11400000, guid: 85120e4feaedfd54f905f0bed64afb07, type: 2}

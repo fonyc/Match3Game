@@ -5,6 +5,7 @@ using UnityEngine;
 public class MatchFinder : MonoBehaviour
 {
     private Board board;
+    private CombatManager combatManager;
 
     [SerializeField] private List<Emblem> currentMatches = new();
 
@@ -13,6 +14,7 @@ public class MatchFinder : MonoBehaviour
     private void Awake()
     {
         board = GetComponent<Board>();
+        combatManager = GetComponent<CombatManager>();
     }
 
     public void FindAllMatches()
@@ -124,43 +126,75 @@ public class MatchFinder : MonoBehaviour
                     }
                 }
             }
-            //Checks if the board must spawn a booster
-            //CheckIfBooster();
+        }
+        //Checks if the board must spawn a booster
+        //CheckIfBooster();
+        SendAttackReport();
+    }
+
+    #region BOOSTER RELATED
+    private void CheckIfBooster()
+    {
+        if (currentMatches.Count == 4)
+        {
+            int emblemColor = (int)currentMatches[0].EmblemColor;
+            board.boosterToSpawn = board.crossDB[emblemColor];
+        }
+        else if (currentMatches.Count > 4)
+        {
+            //int emblemColor = (int)currentMatches[0].EmblemColor;
+            //board.boosterToSpawn = board.crossDB[emblemColor];
         }
     }
-        private void CheckIfBooster()
-        {
-            if (currentMatches.Count == 4)
-            {
-                int emblemColor = (int)currentMatches[0].EmblemColor;
-                board.boosterToSpawn = board.crossDB[emblemColor];
-            }
-            else if (currentMatches.Count > 4)
-            {
-                //int emblemColor = (int)currentMatches[0].EmblemColor;
-                //board.boosterToSpawn = board.crossDB[emblemColor];
-            }
-        }
+    #endregion
 
-        #region UTILITY METHODS
-        private bool HorizontalLimits(int x, int y)
-        {
-            return x > 0 && x < board.Width - 1;
-        }
-
-        private bool VerticalLimits(int x, int y)
-        {
-            return y > 0 && y < board.Height - 1;
-        }
-
-        private bool HasSameEmblemColor(Emblem emblem1, Emblem emblem2)
-        {
-            return emblem1.EmblemColor == emblem2.EmblemColor;
-        }
-
-        private void AddItemToList(Emblem emblem, List<Emblem> list)
-        {
-            if (!list.Contains(emblem)) list.Add(emblem);
-        }
-        #endregion
+    #region UTILITY METHODS
+    private bool HorizontalLimits(int x, int y)
+    {
+        return x > 0 && x < board.Width - 1;
     }
+
+    private bool VerticalLimits(int x, int y)
+    {
+        return y > 0 && y < board.Height - 1;
+    }
+
+    private bool HasSameEmblemColor(Emblem emblem1, Emblem emblem2)
+    {
+        return emblem1.EmblemColor == emblem2.EmblemColor;
+    }
+
+    private void AddItemToList(Emblem emblem, List<Emblem> list)
+    {
+        if (!list.Contains(emblem)) list.Add(emblem);
+    }
+    #endregion
+
+    #region COMBAT MANAGER RELATED
+
+    private void SendAttackReport()
+    {
+        if (currentMatches.Count > 2)
+        {
+            Dictionary<EmblemColor, int> attackReport = new();
+
+            foreach (Emblem emblem in currentMatches)
+            {
+                if (!attackReport.ContainsKey(emblem.EmblemColor))
+                {
+                    attackReport.Add(emblem.EmblemColor, 1);
+                }
+                else
+                {
+                    attackReport[emblem.EmblemColor] += 1;
+                }
+            }
+            if (attackReport == null || attackReport.Count == 0) return;
+
+            combatManager.UpdateAttackReport(attackReport);
+        }
+
+    }
+
+    #endregion
+}
