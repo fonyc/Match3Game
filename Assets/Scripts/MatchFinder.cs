@@ -135,16 +135,31 @@ public class MatchFinder : MonoBehaviour
     #region BOOSTER RELATED
     private void CheckIfBooster()
     {
-        if (currentMatches.Count == 4)
+        //int emblemColor = (int)currentMatches[0].EmblemColor;
+        //board.boosterToSpawn = board.crystalDB[emblemColor];
+    }
+
+    public Dictionary<EmblemColor, List<Emblem>> GroupMatchesByEmblem(List<Emblem> matchList)
+    {
+        Dictionary<EmblemColor, List<Emblem>> matchDictionary = new();
+
+
+        foreach (Emblem emblem in matchList)
         {
-            int emblemColor = (int)currentMatches[0].EmblemColor;
-            board.boosterToSpawn = board.crossDB[emblemColor];
+            if (!matchDictionary.ContainsKey(emblem.EmblemColor))
+            {
+                List<Emblem> emblemList = new();
+                emblemList.Add(emblem);
+                matchDictionary.Add(emblem.EmblemColor, emblemList);
+            }
+            else
+            {
+                List<Emblem> emblemList = matchDictionary[emblem.EmblemColor];
+                if (!emblemList.Contains(emblem)) emblemList.Add(emblem);
+            }
         }
-        else if (currentMatches.Count > 4)
-        {
-            //int emblemColor = (int)currentMatches[0].EmblemColor;
-            //board.boosterToSpawn = board.crossDB[emblemColor];
-        }
+
+        return matchDictionary;
     }
     #endregion
 

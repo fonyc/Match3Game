@@ -50,7 +50,7 @@ MonoBehaviour:
   height: 5
   bgTilePrefab: {fileID: 5746089541364691027, guid: 34cccd369a806b74fb08666a2b5ec0c4, type: 3}
   emblemDB:
-  - {fileID: 5170459994283608010, guid: ec82805123c94fc4ca84b81837f8f920, type: 3}
+  - {fileID: 5170459994283608010, guid: 8daa7314339900d44840c3435d7292e3, type: 3}
   - {fileID: 5170459994283608010, guid: aeb05bfbf31293d47b306ebd2440e2eb, type: 3}
   - {fileID: 5170459994283608010, guid: a8c9caec9b0ea9e4fb6ac256c3f4f788, type: 3}
   - {fileID: 5170459994283608010, guid: b80c927f68480aa4cabff072aedd3081, type: 3}
@@ -61,6 +61,12 @@ MonoBehaviour:
   - {fileID: 5949605657948437056, guid: 30d6166084160df4fbabc06fb7d208c5, type: 3}
   - {fileID: 5949605657948437056, guid: 982684ead62bc744c952cc97eba6b98f, type: 3}
   - {fileID: 5949605657948437056, guid: 275bc670165b6c346ac50532c1780c83, type: 3}
+  crystalDB:
+  - {fileID: 3000826051439795926, guid: d71f5a77bc9b08745b45431060e97edd, type: 3}
+  - {fileID: 3000826051439795926, guid: 15777968d7860984aa20d2850911f5cf, type: 3}
+  - {fileID: 3000826051439795926, guid: a00d3b5f195adeb479f79e350ff5ffbe, type: 3}
+  - {fileID: 3000826051439795926, guid: 922086d268f94b740a74f3ce26d6f49a, type: 3}
+  - {fileID: 3000826051439795926, guid: 228e85738265bbc4bbb7f9ca00e18747, type: 3}
   boosterToSpawn: {fileID: 0}
   boosterPos: {x: -1, y: -1}
   currentState: 0

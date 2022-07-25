@@ -43,6 +43,7 @@ public class Emblem : MonoBehaviour
         {
             //Sprite and board are in different positions. Lerp to sprite to board pos
             transform.position = Vector2.Lerp(transform.position, posIndex, board.EmblemSpeed * Time.deltaTime);
+            //use vector3.Movetowards?
         }
         else
         {

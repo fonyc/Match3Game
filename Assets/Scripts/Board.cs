@@ -11,6 +11,7 @@ public class Board : MonoBehaviour
 
     public Emblem[] emblemDB;
     public Emblem[] crossDB;
+    public Emblem[] crystalDB;
 
     private MatchFinder matchFinder;
 
@@ -82,7 +83,7 @@ public class Board : MonoBehaviour
     {
         //if (boardStatus[position.x, position.y] != null) return;
         Vector3 position3d = new Vector3(position.x, position.y + height, 0);
-        Emblem emblem = Instantiate(emblemToSpawn, position3d, Quaternion.identity);
+        Emblem emblem = Instantiate(emblemToSpawn, position3d, Quaternion.identity, transform);
         emblem.transform.parent = transform;
         emblem.name = "Emblem - (" + position.x + ", " + position.y + ")";
 
