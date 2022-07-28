@@ -43,7 +43,6 @@ public class Emblem : MonoBehaviour
         {
             //Sprite and board are in different positions. Lerp to sprite to board pos
             transform.position = Vector2.Lerp(transform.position, posIndex, board.EmblemSpeed * Time.deltaTime);
-            //use vector3.Movetowards?
         }
         else
         {
@@ -121,6 +120,9 @@ public class Emblem : MonoBehaviour
             otherEmblem.posIndex.x++;
             posIndex.x--;
         }
+
+        //In case player swaps outside the board
+        if (otherEmblem == null) return;
 
         //Notify board of swipe changes
         board.BoardStatus[posIndex.x, posIndex.y] = this;

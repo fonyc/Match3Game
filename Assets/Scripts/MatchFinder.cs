@@ -135,6 +135,13 @@ public class MatchFinder : MonoBehaviour
     #region BOOSTER RELATED
     private void CheckIfBooster()
     {
+        Dictionary<EmblemColor, List<Emblem>> matchesDictionary = GroupMatchesByEmblem(currentMatches);
+        
+        foreach(KeyValuePair<EmblemColor, List<Emblem>> colorList in matchesDictionary)
+        {
+            //if(colorList.)
+        }
+
         //int emblemColor = (int)currentMatches[0].EmblemColor;
         //board.boosterToSpawn = board.crystalDB[emblemColor];
     }
@@ -142,7 +149,6 @@ public class MatchFinder : MonoBehaviour
     public Dictionary<EmblemColor, List<Emblem>> GroupMatchesByEmblem(List<Emblem> matchList)
     {
         Dictionary<EmblemColor, List<Emblem>> matchDictionary = new();
-
 
         foreach (Emblem emblem in matchList)
         {
