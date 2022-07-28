@@ -21,15 +21,18 @@ public class Board : MonoBehaviour
     [SerializeField][Range(0f, 1f)] private float refillTime = .1f;
     [SerializeField][Range(0f, 1f)] private float columnColapse = .2f;
 
+    [Header("AVOID INITIAL MATCHES")]
+    [Space(5)]
+    [SerializeField] private int maxIterations = 100;
+
+    [Header("INPUT SETTINGS")]
+    [Space(5)]
+    [SerializeField][Range(0.1f, 1f)] private float touchSensibility = 0.5f;
+
     private MatchFinder matchFinder;
     private Emblem[,] boardStatus;
 
-    public Emblem boosterToSpawn = null;
-
     public BoardStates currentState = BoardStates.Move;
-
-    public int maxIterations = 100;
-    [SerializeField][Range(0.1f, 1f)] private float touchSensibility = 0.5f;
 
     #region PROPERTIES
     public float TouchSensibility { get => touchSensibility; set => touchSensibility = value; }
@@ -152,9 +155,6 @@ public class Board : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Iterates through match list in matchfinder and destroy every match
-    /// </summary>
     public void DestroyMatches()
     {
         for (int x = 0; x < matchFinder.CurrentMatches.Count; x++)
