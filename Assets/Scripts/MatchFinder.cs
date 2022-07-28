@@ -28,7 +28,6 @@ public class MatchFinder : MonoBehaviour
                 Emblem currentEmblem = board.BoardStatus[x, y];
                 if (currentEmblem == null) continue;
 
-                //Horizontal axis limits
                 if (HorizontalLimits(x, y))
                 {
                     Emblem leftEmblem = board.BoardStatus[x - 1, y];
@@ -45,35 +44,6 @@ public class MatchFinder : MonoBehaviour
                             AddItemToList(currentEmblem, currentMatches);
                             AddItemToList(leftEmblem, currentMatches);
                             AddItemToList(rightEmblem, currentMatches);
-
-                            #region CROSS CHECK VERTICAL
-                            //If the tile is a cross and its A MATCH, add the up and down tiles (nvm the color up or down)
-                            if (currentEmblem.EmblemClass == EmblemClass.Cross)
-                            {
-                                //Add down emblem if not on bottom position
-                                if (y > 0)
-                                {
-                                    Emblem downEmblem = board.BoardStatus[x, y - 1];
-                                    if (downEmblem != null)
-                                    {
-                                        downEmblem.isMatched = true;
-                                        AddItemToList(downEmblem, currentMatches);
-                                    }
-                                }
-                                //Add upper emblem if not on top position
-                                if (y < board.Height - 1)
-                                {
-                                    Emblem upEmblem = board.BoardStatus[x, y + 1];
-                                    if (upEmblem != null)
-                                    {
-                                        upEmblem.isMatched = true;
-                                        AddItemToList(upEmblem, currentMatches);
-                                    }
-                                }
-                                #endregion
-
-                            }
-
                         }
                     }
                 }
@@ -94,57 +64,15 @@ public class MatchFinder : MonoBehaviour
                             AddItemToList(currentEmblem, currentMatches);
                             AddItemToList(upEmblem, currentMatches);
                             AddItemToList(downEmblem, currentMatches);
-
-                            #region CROSS CHECK HORIZONTAL
-                            //If the tile is a cross and its A MATCH, add the up and down tiles (nvm the color up or down)
-                            if (currentEmblem.EmblemClass == EmblemClass.Cross)
-                            {
-                                //Add down emblem if not on bottom position
-                                if (x > 0)
-                                {
-                                    Emblem leftEmblem = board.BoardStatus[x - 1, y];
-                                    if (leftEmblem != null)
-                                    {
-                                        leftEmblem.isMatched = true;
-                                        AddItemToList(leftEmblem, currentMatches);
-                                    }
-                                }
-                                //Add upper emblem if not on top position
-                                if (x < board.Width - 1)
-                                {
-                                    Emblem rightEmblem = board.BoardStatus[x + 1, y];
-                                    if (rightEmblem != null)
-                                    {
-                                        rightEmblem.isMatched = true;
-                                        AddItemToList(rightEmblem, currentMatches);
-                                    }
-                                }
-                            }
-                            #endregion
-
                         }
                     }
                 }
             }
         }
-        //Checks if the board must spawn a booster
-        //CheckIfBooster();
         SendAttackReport();
     }
 
     #region BOOSTER RELATED
-    private void CheckIfBooster()
-    {
-        Dictionary<EmblemColor, List<Emblem>> matchesDictionary = GroupMatchesByEmblem(currentMatches);
-        
-        foreach(KeyValuePair<EmblemColor, List<Emblem>> colorList in matchesDictionary)
-        {
-            //if(colorList.)
-        }
-
-        //int emblemColor = (int)currentMatches[0].EmblemColor;
-        //board.boosterToSpawn = board.crystalDB[emblemColor];
-    }
 
     public Dictionary<EmblemColor, List<Emblem>> GroupMatchesByEmblem(List<Emblem> matchList)
     {

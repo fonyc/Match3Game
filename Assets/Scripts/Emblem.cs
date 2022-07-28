@@ -9,7 +9,6 @@ public class Emblem : MonoBehaviour
     [SerializeField] public Vector2Int posIndex;
     [SerializeField] private Vector2Int previousPosition;
     [SerializeField] private EmblemColor emblemColor;
-    [SerializeField] private EmblemClass emblemClass;
 
     public Vector2Int PosIndex { get => posIndex; set => posIndex = value; }
     public bool isMatched;
@@ -21,16 +20,8 @@ public class Emblem : MonoBehaviour
 
     private Emblem otherEmblem;
 
-    [Header("--- POWER UPS ---")]
-    [Space(5)]
-    [SerializeField] private bool isCross;
-    [SerializeField] private bool isCrystal;
-
     public Vector2Int PreviousPosition { get => previousPosition; set => previousPosition = value; }
-    public bool IsCross { get => isCross; set => isCross = value; }
-    public bool IsCrystal { get => isCrystal; set => isCrystal = value; }
     public EmblemColor EmblemColor { get => emblemColor; set => emblemColor = value; }
-    public EmblemClass EmblemClass { get => emblemClass; set => emblemClass = value; }
 
     private void Update()
     {
@@ -127,9 +118,6 @@ public class Emblem : MonoBehaviour
         //Notify board of swipe changes
         board.BoardStatus[posIndex.x, posIndex.y] = this;
         board.BoardStatus[otherEmblem.posIndex.x, otherEmblem.posIndex.y] = otherEmblem;
-
-        //Notify board of the last touched emblem (it may become a special one)
-        board.boosterPos = PosIndex;
 
         StartCoroutine(CheckSwipe_Coro());
     }

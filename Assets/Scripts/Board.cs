@@ -4,31 +4,34 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
+    [Header("BOARD SIZE")]
+    [Space(5)]
     [SerializeField] private int width;
     [SerializeField] private int height;
 
+    [Header("BOARD PREFABS")]
+    [Space(5)]
     [SerializeField] private GameObject bgTilePrefab;
+    [SerializeField] private Emblem[] emblemDB;
 
-    public Emblem[] emblemDB;
-    public Emblem[] crossDB;
-    public Emblem[] crystalDB;
-
-    private MatchFinder matchFinder;
-
-    private Emblem[,] boardStatus;
-
-    public Emblem boosterToSpawn = null;
-    public Vector2Int boosterPos = new Vector2Int(-1, -1);
-
-    public BoardStates currentState = BoardStates.Move;
-
+    [Header("BOARD ANIMATION TIMES")]
+    [Space(5)]
     [SerializeField][Range(1f, 10f)] private float emblemSpeed = 7f;
     [SerializeField][Range(0f, 1f)] private float swipeBackTime = .5f;
     [SerializeField][Range(0f, 1f)] private float refillTime = .1f;
     [SerializeField][Range(0f, 1f)] private float columnColapse = .2f;
+
+    private MatchFinder matchFinder;
+    private Emblem[,] boardStatus;
+
+    public Emblem boosterToSpawn = null;
+
+    public BoardStates currentState = BoardStates.Move;
+
     public int maxIterations = 100;
     [SerializeField][Range(0.1f, 1f)] private float touchSensibility = 0.5f;
 
+    #region PROPERTIES
     public float TouchSensibility { get => touchSensibility; set => touchSensibility = value; }
     public Emblem[,] BoardStatus { get => boardStatus; set => boardStatus = value; }
     public int Width { get => width; set => width = value; }
@@ -36,6 +39,8 @@ public class Board : MonoBehaviour
     public float EmblemSpeed { get => emblemSpeed; set => emblemSpeed = value; }
     public float SwipeBackTime { get => swipeBackTime; set => swipeBackTime = value; }
     public MatchFinder MatchFinder { get => matchFinder; set => matchFinder = value; }
+    public Emblem[] EmblemDB { get => emblemDB; set => emblemDB = value; }
+    #endregion
 
     private void Awake()
     {
@@ -63,20 +68,20 @@ public class Board : MonoBehaviour
                 int currentIterations = 0;
 
                 //Prevent repeated adjacent emblems 
-                while (MatchesAt(new Vector2Int(x, y), emblemDB[randomEmblem]) && currentIterations < maxIterations)
+                while (MatchesAt(new Vector2Int(x, y), EmblemDB[randomEmblem]) && currentIterations < maxIterations)
                 {
                     randomEmblem = GenerateRandomEmblem();
                     currentIterations++;
                 }
 
-                SpawnEmblem(new Vector2Int(x, y), emblemDB[randomEmblem]);
+                SpawnEmblem(new Vector2Int(x, y), EmblemDB[randomEmblem]);
             }
         }
     }
 
     private int GenerateRandomEmblem()
     {
-        return Random.Range(0, emblemDB.Length);
+        return Random.Range(0, EmblemDB.Length);
     }
 
     private void SpawnEmblem(Vector2Int position, Emblem emblemToSpawn)
@@ -231,22 +236,11 @@ public class Board : MonoBehaviour
                 {
                     int randomEmblem = GenerateRandomEmblem();
                     Vector2Int position = new Vector2Int(x, y);
-                    SpawnEmblem(position, emblemDB[randomEmblem]);
+                    SpawnEmblem(position, EmblemDB[randomEmblem]);
                 }
             }
         }
-        SpawnBoosterIfAble();
         CheckMisplacedEmblems();
-    }
-
-    private void SpawnBoosterIfAble()
-    {
-        if (boosterToSpawn == null) return;
-        
-        DestroyNonMatchedEmblem(boosterPos);
-        SpawnEmblem(boosterPos, boosterToSpawn);
-
-        boosterToSpawn = null;
     }
 
     private void CheckMisplacedEmblems()
