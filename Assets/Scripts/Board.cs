@@ -29,6 +29,10 @@ public class Board : MonoBehaviour
     [Space(5)]
     [SerializeField][Range(0.1f, 1f)] private float touchSensibility = 0.5f;
 
+    [Header("SKILL SETTINGS")]
+    [Space(5)]
+    [SerializeField] private Emblem selectedEmblem;
+
     private MatchFinder matchFinder;
     private Emblem[,] boardStatus;
 

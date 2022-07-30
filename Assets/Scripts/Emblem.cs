@@ -28,27 +28,7 @@ public class Emblem : MonoBehaviour
         PieceAnimation();
     }
 
-    private void PieceAnimation()
-    {
-        if (Vector2.Distance(transform.position, posIndex) > .01f)
-        {
-            //Sprite and board are in different positions. Lerp to sprite to board pos
-            transform.position = Vector2.Lerp(transform.position, posIndex, board.EmblemSpeed * Time.deltaTime);
-        }
-        else
-        {
-            //Make sure the emblem is in the correct position
-            transform.position = new Vector3(posIndex.x, posIndex.y, 0f);
-            board.BoardStatus[posIndex.x, posIndex.y] = this;
-        }
-    }
-
-    public void SetUpEmblem(Vector2Int pos, Board board)
-    {
-        posIndex = pos;
-        this.board = board;
-    }
-
+    #region INPUT
     private void OnMouseDown()
     {
         if (board.currentState != BoardStates.Move) return;
@@ -66,15 +46,19 @@ public class Emblem : MonoBehaviour
 
         MovePieces();
     }
+    #endregion
 
     private float CalculateAngle(Vector2 origin, Vector2 destination)
     {
         return Mathf.Atan2(destination.y - origin.y, destination.x - origin.x) * 180 / Mathf.PI;
     }
 
-    /// <summary>
-    /// Moves the pieces according the swipe angle. Notifies the board of the changes
-    /// </summary>
+    public void SetUpEmblem(Vector2Int pos, Board board)
+    {
+        posIndex = pos;
+        this.board = board;
+    }
+
     private void MovePieces()
     {
         previousPosition = posIndex;
@@ -120,6 +104,21 @@ public class Emblem : MonoBehaviour
         board.BoardStatus[otherEmblem.posIndex.x, otherEmblem.posIndex.y] = otherEmblem;
 
         StartCoroutine(CheckSwipe_Coro());
+    }
+
+    private void PieceAnimation()
+    {
+        if (Vector2.Distance(transform.position, posIndex) > .01f)
+        {
+            //Sprite and board are in different positions. Lerp to sprite to board pos
+            transform.position = Vector2.Lerp(transform.position, posIndex, board.EmblemSpeed * Time.deltaTime);
+        }
+        else
+        {
+            //Make sure the emblem is in the correct position
+            transform.position = new Vector3(posIndex.x, posIndex.y, 0f);
+            board.BoardStatus[posIndex.x, posIndex.y] = this;
+        }
     }
 
     private IEnumerator CheckSwipe_Coro()
