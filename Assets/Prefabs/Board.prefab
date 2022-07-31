@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5103290458170677924}
   - component: {fileID: 5938852798633207595}
   - component: {fileID: 991595409971942066}
+  - component: {fileID: 444003099}
   m_Layer: 0
   m_Name: Board
   m_TagString: Board
@@ -46,8 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7b303b6e3a7af4aa79a31ab59a1c92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 7
-  height: 5
+  width: 6
+  height: 6
   bgTilePrefab: {fileID: 5746089541364691027, guid: 34cccd369a806b74fb08666a2b5ec0c4, type: 3}
   emblemDB:
   - {fileID: 5170459994283608010, guid: 8daa7314339900d44840c3435d7292e3, type: 3}
@@ -55,27 +56,14 @@ MonoBehaviour:
   - {fileID: 5170459994283608010, guid: a8c9caec9b0ea9e4fb6ac256c3f4f788, type: 3}
   - {fileID: 5170459994283608010, guid: b80c927f68480aa4cabff072aedd3081, type: 3}
   - {fileID: 5170459994283608010, guid: 41c83b8ac307e3441b634980422b04d5, type: 3}
-  crossDB:
-  - {fileID: 5949605657948437056, guid: 64f1747b1193002429e93cddf1a46563, type: 3}
-  - {fileID: 5949605657948437056, guid: bb4b035a645b30f418ea75fdb014160f, type: 3}
-  - {fileID: 5949605657948437056, guid: 30d6166084160df4fbabc06fb7d208c5, type: 3}
-  - {fileID: 5949605657948437056, guid: 982684ead62bc744c952cc97eba6b98f, type: 3}
-  - {fileID: 5949605657948437056, guid: 275bc670165b6c346ac50532c1780c83, type: 3}
-  crystalDB:
-  - {fileID: 3000826051439795926, guid: d71f5a77bc9b08745b45431060e97edd, type: 3}
-  - {fileID: 3000826051439795926, guid: 15777968d7860984aa20d2850911f5cf, type: 3}
-  - {fileID: 3000826051439795926, guid: a00d3b5f195adeb479f79e350ff5ffbe, type: 3}
-  - {fileID: 3000826051439795926, guid: 922086d268f94b740a74f3ce26d6f49a, type: 3}
-  - {fileID: 3000826051439795926, guid: 228e85738265bbc4bbb7f9ca00e18747, type: 3}
-  boosterToSpawn: {fileID: 0}
-  boosterPos: {x: -1, y: -1}
-  currentState: 0
   emblemSpeed: 7
   swipeBackTime: 0.4
   refillTime: 0.1
   columnColapse: 0.2
   maxIterations: 50
   touchSensibility: 0.1
+  skillManager: {fileID: 0}
+  currentState: 0
 --- !u!114 &5938852798633207595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,3 +91,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 11400000, guid: 423a4284f535e2641afad99bc022ef8f, type: 2}
   hero: {fileID: 11400000, guid: 85120e4feaedfd54f905f0bed64afb07, type: 2}
+--- !u!114 &444003099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5103290458170677925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2309cf168b571c647bee99199f2e45f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _emblemSelected: {fileID: 0}

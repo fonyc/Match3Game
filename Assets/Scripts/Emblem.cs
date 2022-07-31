@@ -20,12 +20,48 @@ public class Emblem : MonoBehaviour
 
     private Emblem otherEmblem;
 
+    private bool touched = false;
+
     public Vector2Int PreviousPosition { get => previousPosition; set => previousPosition = value; }
     public EmblemColor EmblemColor { get => emblemColor; set => emblemColor = value; }
 
     private void Update()
     {
+        //InputTouch();
         PieceAnimation();
+    }
+
+    private void InputTouch()
+    {
+        if (board.currentState != BoardStates.Move) return;
+
+        //Check multitouch. Just one finger is valid
+        if (Input.touchCount != 1)
+        {
+            touched = false;
+            return;
+        }
+
+        Touch touch = Input.touches[0];
+
+        if(touch.phase == TouchPhase.Began)
+        {
+            firstTouchPos = Camera.main.ScreenToWorldPoint(touch.position);
+            Debug.Log(firstTouchPos);
+            touched = true;
+        }
+
+        if (touched && touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
+        {
+            lastTouchPos = Camera.main.ScreenToWorldPoint(touch.position);
+            swipeAngle = CalculateAngle(firstTouchPos, lastTouchPos);
+            Debug.Log(lastTouchPos);
+            //Avoid unvoluntary clicking
+            if (Vector3.Distance(firstTouchPos, lastTouchPos) < board.TouchSensibility) return;
+
+            MovePieces();
+            touched = false;
+        }
     }
 
     #region INPUT
@@ -33,11 +69,15 @@ public class Emblem : MonoBehaviour
     {
         if (board.currentState != BoardStates.Move) return;
         firstTouchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition).normalized;
+
+        //Check if the emblem is being selected as skill target
+        board.skillManager.SetEmblemSelected(this);
     }
 
     private void OnMouseUp()
     {
         if (board.currentState != BoardStates.Move) return;
+
         lastTouchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition).normalized;
         swipeAngle = CalculateAngle(firstTouchPos, lastTouchPos);
 

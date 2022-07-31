@@ -1,4 +1,6 @@
+using System.Collections.Generic;
+
 public interface ITileRemover
 {
-    void RemoveEmblems(Board board, Emblem emblem);
+    List<Emblem> RemoveEmblems(Board board, Emblem emblem);
 }

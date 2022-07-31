@@ -31,7 +31,7 @@ public class Board : MonoBehaviour
 
     [Header("SKILL SETTINGS")]
     [Space(5)]
-    [SerializeField] private Emblem selectedEmblem;
+    [SerializeField] public SkillManager skillManager;
 
     private MatchFinder matchFinder;
     private Emblem[,] boardStatus;
@@ -52,6 +52,7 @@ public class Board : MonoBehaviour
     private void Awake()
     {
         MatchFinder = GetComponent<MatchFinder>();
+        skillManager = GetComponent<SkillManager>();
     }
 
     private void Start()
@@ -146,16 +147,6 @@ public class Board : MonoBehaviour
                 Destroy(emblem.gameObject);
                 emblem = null;
             }
-        }
-    }
-
-    private void DestroyNonMatchedEmblem(Vector2Int position)
-    {
-        Emblem emblem = boardStatus[position.x, position.y];
-        if (emblem != null)
-        {
-            Destroy(emblem.gameObject);
-            emblem = null;
         }
     }
 

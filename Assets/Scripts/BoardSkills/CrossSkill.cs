@@ -4,24 +4,30 @@ using UnityEngine;
 
 public class CrossSkill : ITileRemover
 {
-    public void RemoveEmblems(Board board, Emblem emblem)
+    public List<Emblem> RemoveEmblems(Board board, Emblem emblem)
     {
-        Vector2Int posIndex = emblem.posIndex;
-
         List<Emblem> crossEmblems = new();
 
-        for (int row = 0; row < board.Width - 1; row++)
+        for (int x = 0; x < board.Width; x++)
         {
-            Emblem emblemToAdd = board.BoardStatus[row, emblem.posIndex.y];
-            if (!crossEmblems.Contains(emblemToAdd))crossEmblems.Add(emblemToAdd);
-            Debug.Log(board.BoardStatus[row, emblem.posIndex.y]);
+            Emblem emblemToAdd = board.BoardStatus[emblem.posIndex.x, x];
+            if (!crossEmblems.Contains(emblemToAdd)) 
+            {
+                emblemToAdd.isMatched = true;
+                crossEmblems.Add(emblemToAdd);
+            }   
+            
         }
 
-        for (int col = 0; col < board.Width - 1; col++)
+        for (int x = 0; x < board.Height; x++)
         {
-            Emblem emblemToAdd = board.BoardStatus[emblem.posIndex.x, col];
-            if (!crossEmblems.Contains(emblemToAdd)) crossEmblems.Add(emblemToAdd);
-            Debug.Log(board.BoardStatus[emblem.posIndex.x, col]);
+            Emblem emblemToAdd = board.BoardStatus[x, emblem.posIndex.y];
+            if (!crossEmblems.Contains(emblemToAdd))
+            {
+                emblemToAdd.isMatched = true;
+                crossEmblems.Add(emblemToAdd);
+            }
         }
+        return crossEmblems;
     }
 }
