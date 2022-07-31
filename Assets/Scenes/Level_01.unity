@@ -1969,18 +1969,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 428310916}
   m_CullTransparentMesh: 0
---- !u!1 &444003094 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5103290458170677925, guid: b4a20f420bd825c4d9a6ad86e3240466, type: 3}
+--- !u!114 &444003099 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 444003099, guid: b4a20f420bd825c4d9a6ad86e3240466, type: 3}
   m_PrefabInstance: {fileID: 5103290458679068265}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &444003099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 444003094}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2309cf168b571c647bee99199f2e45f6, type: 3}
@@ -9254,14 +9248,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5103290458170677924, guid: b4a20f420bd825c4d9a6ad86e3240466, type: 3}
-      propertyPath: width
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5103290458170677924, guid: b4a20f420bd825c4d9a6ad86e3240466, type: 3}
-      propertyPath: height
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 5103290458170677925, guid: b4a20f420bd825c4d9a6ad86e3240466, type: 3}
       propertyPath: m_Name
       value: Board
