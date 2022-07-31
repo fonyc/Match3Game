@@ -4,30 +4,41 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
+    [Header("BOARD SIZE")]
+    [Space(5)]
     [SerializeField] private int width;
     [SerializeField] private int height;
 
+    [Header("BOARD PREFABS")]
+    [Space(5)]
     [SerializeField] private GameObject bgTilePrefab;
+    [SerializeField] private Emblem[] emblemDB;
 
-    public Emblem[] emblemDB;
-    public Emblem[] crossDB;
-
-    private MatchFinder matchFinder;
-
-    private Emblem[,] boardStatus;
-
-    public Emblem boosterToSpawn = null;
-    public Vector2Int boosterPos = new Vector2Int(-1, -1);
-
-    public BoardStates currentState = BoardStates.Move;
-
+    [Header("BOARD ANIMATION TIMES")]
+    [Space(5)]
     [SerializeField][Range(1f, 10f)] private float emblemSpeed = 7f;
     [SerializeField][Range(0f, 1f)] private float swipeBackTime = .5f;
     [SerializeField][Range(0f, 1f)] private float refillTime = .1f;
     [SerializeField][Range(0f, 1f)] private float columnColapse = .2f;
-    public int maxIterations = 100;
+
+    [Header("AVOID INITIAL MATCHES")]
+    [Space(5)]
+    [SerializeField] private int maxIterations = 100;
+
+    [Header("INPUT SETTINGS")]
+    [Space(5)]
     [SerializeField][Range(0.1f, 1f)] private float touchSensibility = 0.5f;
 
+    [Header("SKILL SETTINGS")]
+    [Space(5)]
+    [SerializeField] public SkillManager skillManager;
+
+    private MatchFinder matchFinder;
+    private Emblem[,] boardStatus;
+
+    public BoardStates currentState = BoardStates.Move;
+
+    #region PROPERTIES
     public float TouchSensibility { get => touchSensibility; set => touchSensibility = value; }
     public Emblem[,] BoardStatus { get => boardStatus; set => boardStatus = value; }
     public int Width { get => width; set => width = value; }
@@ -35,10 +46,13 @@ public class Board : MonoBehaviour
     public float EmblemSpeed { get => emblemSpeed; set => emblemSpeed = value; }
     public float SwipeBackTime { get => swipeBackTime; set => swipeBackTime = value; }
     public MatchFinder MatchFinder { get => matchFinder; set => matchFinder = value; }
+    public Emblem[] EmblemDB { get => emblemDB; set => emblemDB = value; }
+    #endregion
 
     private void Awake()
     {
         MatchFinder = GetComponent<MatchFinder>();
+        skillManager = GetComponent<SkillManager>();
     }
 
     private void Start()
@@ -62,27 +76,27 @@ public class Board : MonoBehaviour
                 int currentIterations = 0;
 
                 //Prevent repeated adjacent emblems 
-                while (MatchesAt(new Vector2Int(x, y), emblemDB[randomEmblem]) && currentIterations < maxIterations)
+                while (MatchesAt(new Vector2Int(x, y), EmblemDB[randomEmblem]) && currentIterations < maxIterations)
                 {
                     randomEmblem = GenerateRandomEmblem();
                     currentIterations++;
                 }
 
-                SpawnEmblem(new Vector2Int(x, y), emblemDB[randomEmblem]);
+                SpawnEmblem(new Vector2Int(x, y), EmblemDB[randomEmblem]);
             }
         }
     }
 
     private int GenerateRandomEmblem()
     {
-        return Random.Range(0, emblemDB.Length);
+        return Random.Range(0, EmblemDB.Length);
     }
 
     private void SpawnEmblem(Vector2Int position, Emblem emblemToSpawn)
     {
         //if (boardStatus[position.x, position.y] != null) return;
         Vector3 position3d = new Vector3(position.x, position.y + height, 0);
-        Emblem emblem = Instantiate(emblemToSpawn, position3d, Quaternion.identity);
+        Emblem emblem = Instantiate(emblemToSpawn, position3d, Quaternion.identity, transform);
         emblem.transform.parent = transform;
         emblem.name = "Emblem - (" + position.x + ", " + position.y + ")";
 
@@ -136,19 +150,6 @@ public class Board : MonoBehaviour
         }
     }
 
-    private void DestroyNonMatchedEmblem(Vector2Int position)
-    {
-        Emblem emblem = boardStatus[position.x, position.y];
-        if (emblem != null)
-        {
-            Destroy(emblem.gameObject);
-            emblem = null;
-        }
-    }
-
-    /// <summary>
-    /// Iterates through match list in matchfinder and destroy every match
-    /// </summary>
     public void DestroyMatches()
     {
         for (int x = 0; x < matchFinder.CurrentMatches.Count; x++)
@@ -214,6 +215,9 @@ public class Board : MonoBehaviour
         {
             yield return new WaitForSeconds(refillTime);
             currentState = BoardStates.Move;
+            
+            //Enemy can attack
+            GetComponent<CombatManager>().UpdateEnemyTurns();
         }
     }
 
@@ -227,22 +231,11 @@ public class Board : MonoBehaviour
                 {
                     int randomEmblem = GenerateRandomEmblem();
                     Vector2Int position = new Vector2Int(x, y);
-                    SpawnEmblem(position, emblemDB[randomEmblem]);
+                    SpawnEmblem(position, EmblemDB[randomEmblem]);
                 }
             }
         }
-        SpawnBoosterIfAble();
         CheckMisplacedEmblems();
-    }
-
-    private void SpawnBoosterIfAble()
-    {
-        if (boosterToSpawn == null) return;
-        
-        DestroyNonMatchedEmblem(boosterPos);
-        SpawnEmblem(boosterPos, boosterToSpawn);
-
-        boosterToSpawn = null;
     }
 
     private void CheckMisplacedEmblems()

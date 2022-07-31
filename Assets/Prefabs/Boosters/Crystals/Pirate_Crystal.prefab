@@ -7,6 +7,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 189432373018403642, guid: c3f22703a2d1a664b902b8e9489af5a2, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 189432373018403642, guid: c3f22703a2d1a664b902b8e9489af5a2, type: 3}
+      propertyPath: m_Color.r
+      value: 0.30588236
+      objectReference: {fileID: 0}
     - target: {fileID: 3301762121726278793, guid: c3f22703a2d1a664b902b8e9489af5a2, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -66,6 +74,10 @@ PrefabInstance:
     - target: {fileID: 4160755359850432186, guid: c3f22703a2d1a664b902b8e9489af5a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323623303717419457, guid: c3f22703a2d1a664b902b8e9489af5a2, type: 3}
+      propertyPath: emblemColor
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3f22703a2d1a664b902b8e9489af5a2, type: 3}

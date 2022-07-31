@@ -9,7 +9,6 @@ public class Emblem : MonoBehaviour
     [SerializeField] public Vector2Int posIndex;
     [SerializeField] private Vector2Int previousPosition;
     [SerializeField] private EmblemColor emblemColor;
-    [SerializeField] private EmblemClass emblemClass;
 
     public Vector2Int PosIndex { get => posIndex; set => posIndex = value; }
     public bool isMatched;
@@ -21,52 +20,64 @@ public class Emblem : MonoBehaviour
 
     private Emblem otherEmblem;
 
-    [Header("--- POWER UPS ---")]
-    [Space(5)]
-    [SerializeField] private bool isCross;
-    [SerializeField] private bool isCrystal;
+    private bool touched = false;
 
     public Vector2Int PreviousPosition { get => previousPosition; set => previousPosition = value; }
-    public bool IsCross { get => isCross; set => isCross = value; }
-    public bool IsCrystal { get => isCrystal; set => isCrystal = value; }
     public EmblemColor EmblemColor { get => emblemColor; set => emblemColor = value; }
-    public EmblemClass EmblemClass { get => emblemClass; set => emblemClass = value; }
 
     private void Update()
     {
+        //InputTouch();
         PieceAnimation();
     }
 
-    private void PieceAnimation()
+    private void InputTouch()
     {
-        if (Vector2.Distance(transform.position, posIndex) > .01f)
+        if (board.currentState != BoardStates.Move) return;
+
+        //Check multitouch. Just one finger is valid
+        if (Input.touchCount != 1)
         {
-            //Sprite and board are in different positions. Lerp to sprite to board pos
-            transform.position = Vector2.Lerp(transform.position, posIndex, board.EmblemSpeed * Time.deltaTime);
+            touched = false;
+            return;
         }
-        else
+
+        Touch touch = Input.touches[0];
+
+        if(touch.phase == TouchPhase.Began)
         {
-            //Make sure the emblem is in the correct position
-            transform.position = new Vector3(posIndex.x, posIndex.y, 0f);
-            board.BoardStatus[posIndex.x, posIndex.y] = this;
+            firstTouchPos = Camera.main.ScreenToWorldPoint(touch.position);
+            Debug.Log(firstTouchPos);
+            touched = true;
+        }
+
+        if (touched && touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
+        {
+            lastTouchPos = Camera.main.ScreenToWorldPoint(touch.position);
+            swipeAngle = CalculateAngle(firstTouchPos, lastTouchPos);
+            Debug.Log(lastTouchPos);
+            //Avoid unvoluntary clicking
+            if (Vector3.Distance(firstTouchPos, lastTouchPos) < board.TouchSensibility) return;
+
+            MovePieces();
+            touched = false;
         }
     }
 
-    public void SetUpEmblem(Vector2Int pos, Board board)
-    {
-        posIndex = pos;
-        this.board = board;
-    }
-
+    #region INPUT
     private void OnMouseDown()
     {
         if (board.currentState != BoardStates.Move) return;
         firstTouchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition).normalized;
+
+        //Check if the emblem is being selected as skill target
+        board.skillManager.SetEmblemSelected(this);
     }
 
     private void OnMouseUp()
     {
         if (board.currentState != BoardStates.Move) return;
+
         lastTouchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition).normalized;
         swipeAngle = CalculateAngle(firstTouchPos, lastTouchPos);
 
@@ -75,15 +86,19 @@ public class Emblem : MonoBehaviour
 
         MovePieces();
     }
+    #endregion
 
     private float CalculateAngle(Vector2 origin, Vector2 destination)
     {
         return Mathf.Atan2(destination.y - origin.y, destination.x - origin.x) * 180 / Mathf.PI;
     }
 
-    /// <summary>
-    /// Moves the pieces according the swipe angle. Notifies the board of the changes
-    /// </summary>
+    public void SetUpEmblem(Vector2Int pos, Board board)
+    {
+        posIndex = pos;
+        this.board = board;
+    }
+
     private void MovePieces()
     {
         previousPosition = posIndex;
@@ -121,14 +136,29 @@ public class Emblem : MonoBehaviour
             posIndex.x--;
         }
 
+        //In case player swaps outside the board
+        if (otherEmblem == null) return;
+
         //Notify board of swipe changes
         board.BoardStatus[posIndex.x, posIndex.y] = this;
         board.BoardStatus[otherEmblem.posIndex.x, otherEmblem.posIndex.y] = otherEmblem;
 
-        //Notify board of the last touched emblem (it may become a special one)
-        board.boosterPos = PosIndex;
-
         StartCoroutine(CheckSwipe_Coro());
+    }
+
+    private void PieceAnimation()
+    {
+        if (Vector2.Distance(transform.position, posIndex) > .01f)
+        {
+            //Sprite and board are in different positions. Lerp to sprite to board pos
+            transform.position = Vector2.Lerp(transform.position, posIndex, board.EmblemSpeed * Time.deltaTime);
+        }
+        else
+        {
+            //Make sure the emblem is in the correct position
+            transform.position = new Vector3(posIndex.x, posIndex.y, 0f);
+            board.BoardStatus[posIndex.x, posIndex.y] = this;
+        }
     }
 
     private IEnumerator CheckSwipe_Coro()
