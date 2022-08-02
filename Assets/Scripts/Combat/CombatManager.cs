@@ -20,6 +20,8 @@ public class CombatManager : MonoBehaviour
 
     Dictionary<EmblemColor, int> attackReport = new();
 
+    [SerializeField] private EventBus _OnBossDied;
+    [SerializeField] private EventBus _OnPlayerDied;
 
     private void Start()
     {
@@ -41,7 +43,7 @@ public class CombatManager : MonoBehaviour
     {
         currentTurns++;
         UIManager.Instance.UpdateEnemyTurns(currentTurns, turnsToAttack);
-        if(currentTurns == turnsToAttack)
+        if (currentTurns == turnsToAttack)
         {
             AttackPlayer();
             currentTurns = 0;
@@ -60,8 +62,7 @@ public class CombatManager : MonoBehaviour
         if (CheckDeath(heroCurrentHP))
         {
             //Endgame. Player lose
-            GameManager.Instance.GameOver();
-            Debug.Log("Player Lose");
+            _OnBossDied.TriggerEvents();
         }
     }
 
@@ -86,14 +87,7 @@ public class CombatManager : MonoBehaviour
 
             UIManager.Instance.UpdateEnemyHealth(enemyCurrentHP, enemy.HP);
 
-            //Debug.Log("Enemy Recieved " + attack.Value + " attacks of type " + attack.Key + "causing DMG: " + dmg + " and HP is now " + enemyCurrentHP);
-            if(CheckDeath(enemyCurrentHP))
-            {
-                //Endgame player wins
-                GameManager.Instance.GameOver();
-                Debug.Log("Player Wins");
-            }
-
+            if (CheckDeath(enemyCurrentHP)) _OnBossDied.TriggerEvents();
         }
     }
 

@@ -9,9 +9,11 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get => _instance; }
 
+    [SerializeField] private EventBus _OnBossDied;
+    [SerializeField] private EventBus _OnPlayerDied;
+
     private void Awake()
     {
-        // if the singleton hasn't been initialized yet
         if (_instance != null && _instance != this)
         {
             Destroy(gameObject);
@@ -19,11 +21,18 @@ public class GameManager : MonoBehaviour
 
         _instance = this;
         DontDestroyOnLoad(gameObject);
+
+        _OnBossDied.AddListener(GameOver);
     }
 
     public void GameOver()
     {
         SceneManager.LoadScene(0);
+    }
+
+    private void OnDestroy()
+    {
+        _OnBossDied.RemoveListener(GameOver);
     }
 }
 
