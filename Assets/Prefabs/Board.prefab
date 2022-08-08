@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 5938852798633207595}
   - component: {fileID: 991595409971942066}
   - component: {fileID: 444003099}
+  - component: {fileID: 691251317}
+  - component: {fileID: 1441736422}
   m_Layer: 0
   m_Name: Board
   m_TagString: Board
@@ -89,8 +91,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82aae0660ef1e9e448b8679c97fdcc3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 11400000, guid: 423a4284f535e2641afad99bc022ef8f, type: 2}
-  hero: {fileID: 11400000, guid: 85120e4feaedfd54f905f0bed64afb07, type: 2}
+  Hero: {fileID: 11400000, guid: 85120e4feaedfd54f905f0bed64afb07, type: 2}
+  Enemy: {fileID: 11400000, guid: 423a4284f535e2641afad99bc022ef8f, type: 2}
+  _OnBossDied: {fileID: 11400000, guid: 6e9b95a40066e094792ff335d236f2e4, type: 2}
+  _OnPlayerDied: {fileID: 11400000, guid: 0caf39db5ed491744991509e13487cce, type: 2}
+  _OnEnemyHealthChanged: {fileID: 11400000, guid: 56fc849d4aa6c7b46bd18e05f63441e9, type: 2}
+  _OnEnemyTurnsChanged: {fileID: 11400000, guid: b878a42ddc5b27d4b964b1b0ab34819c, type: 2}
+  _OnPlayerHealthChanged: {fileID: 11400000, guid: 015f376843c0ac643952118e7a20663c, type: 2}
+  _OnPlayerCrossManaChanged: {fileID: 11400000, guid: 7d9ba4faa36844b42b04ee58d9c6feb9, type: 2}
+  _OnPlayerVerticalManaChanged: {fileID: 11400000, guid: 5dc3430a659f74b4f92c757aac09591e, type: 2}
+  _OnPlayerHorizontalManaChanged: {fileID: 11400000, guid: 3e6b15c63b1de6643ab3c144064c8156, type: 2}
+  _OnCrossManaSkillReady: {fileID: 11400000, guid: ead97bb31b8e04c4a80c03eb253f409c, type: 2}
+  _OnVerticalManaSkillReady: {fileID: 11400000, guid: f922a76eca4155f4182750287b4a5b57, type: 2}
+  _OnHorizontalManaSkillReady: {fileID: 11400000, guid: c6c68a4f14549144193a494260121c0b, type: 2}
 --- !u!114 &444003099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,3 +117,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _emblemSelected: {fileID: 0}
+  _OnPlayerCrossManaChanged: {fileID: 11400000, guid: 7d9ba4faa36844b42b04ee58d9c6feb9, type: 2}
+  _OnPlayerVerticalManaChanged: {fileID: 11400000, guid: 5dc3430a659f74b4f92c757aac09591e, type: 2}
+  _OnPlayerHorizontalManaChanged: {fileID: 11400000, guid: 3e6b15c63b1de6643ab3c144064c8156, type: 2}
+  _OnCrossManaSkillReady: {fileID: 11400000, guid: ead97bb31b8e04c4a80c03eb253f409c, type: 2}
+  _OnVerticalManaSkillReady: {fileID: 11400000, guid: f922a76eca4155f4182750287b4a5b57, type: 2}
+  _OnHorizontalManaSkillReady: {fileID: 11400000, guid: c6c68a4f14549144193a494260121c0b, type: 2}
+--- !u!114 &691251317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5103290458170677925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cec08ee57c91a4a44b34b54630c979d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCreationList:
+  - {fileID: 11400000, guid: 423a4284f535e2641afad99bc022ef8f, type: 2}
+  _heroStats: {fileID: 11400000, guid: 85120e4feaedfd54f905f0bed64afb07, type: 2}
+--- !u!114 &1441736422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5103290458170677925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f07d58f66ee94d42871f56b92e5bfd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _OnPlayerCrossManaChanged: {fileID: 11400000, guid: 7d9ba4faa36844b42b04ee58d9c6feb9, type: 2}
+  _OnPlayerVerticalManaChanged: {fileID: 11400000, guid: 5dc3430a659f74b4f92c757aac09591e, type: 2}
+  _OnPlayerHorizontalManaChanged: {fileID: 11400000, guid: 3e6b15c63b1de6643ab3c144064c8156, type: 2}
+  _OnPlayerHealthChanged: {fileID: 11400000, guid: 015f376843c0ac643952118e7a20663c, type: 2}
+  _OnCrossManaSkillReady: {fileID: 11400000, guid: ead97bb31b8e04c4a80c03eb253f409c, type: 2}
+  _OnVerticalManaSkillReady: {fileID: 11400000, guid: f922a76eca4155f4182750287b4a5b57, type: 2}
+  _OnHorizontalManaSkillReady: {fileID: 11400000, guid: c6c68a4f14549144193a494260121c0b, type: 2}
