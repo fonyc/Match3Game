@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: YellowDragon
   m_EditorClassIdentifier: 
   emblemColor: 3
-  HP: 800
+  HP: 1500
   attack: 20
   turnsToAttack: 3
   colorWeaknesses: 04000000

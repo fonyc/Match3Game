@@ -99,6 +99,10 @@ PrefabInstance:
       propertyPath: emblemColor
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5309902973596776829, guid: bbf801b999ca0b54f8506c1279e8b840, type: 3}
+      propertyPath: VFX_explosion
+      value: 
+      objectReference: {fileID: 4347338162180433862, guid: 4c8f23cdf0432c345bfc7df1ad5514e0, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bbf801b999ca0b54f8506c1279e8b840, type: 3}
 --- !u!1 &1586919637400552579 stripped

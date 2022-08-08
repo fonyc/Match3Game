@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class Emblem : MonoBehaviour
 {
-    [SerializeField] public Vector2Int posIndex;
-    [SerializeField] private Vector2Int previousPosition;
+    public Vector2Int posIndex;
+    private Vector2Int previousPosition;
     [SerializeField] private EmblemColor emblemColor;
-    [SerializeField] private OrientationAttack orientationAttack = OrientationAttack.None;
+    private OrientationAttack orientationAttack = OrientationAttack.None;
+    public GameObject VFX_explosion;
 
     public Vector2Int PosIndex { get => posIndex; set => posIndex = value; }
     public bool isMatched;

@@ -15,12 +15,14 @@ public class CombatManager : MonoBehaviour
     [Space(5)]
     [SerializeField] private EnemyStats Enemy;
     private Enemy _enemy;
+    private Board _board;
 
     //private BattlegroundManager _bgManager;
 
     List<Emblem> attackReport = new();
 
     public Hero HERO { get => _hero; set => _hero = value; }
+    public Enemy ENEMY { get => _enemy; set => _enemy = value; }
     #endregion
 
     #region EVENTS
@@ -43,7 +45,8 @@ public class CombatManager : MonoBehaviour
     private void Awake()
     {
         HERO = new Hero(Hero);
-        _enemy = new Enemy(Enemy);
+        ENEMY = new Enemy(Enemy);
+        _board = GetComponent<Board>();
 
         //_bgManager = GetComponent<BattlegroundManager>();
     }
@@ -51,8 +54,8 @@ public class CombatManager : MonoBehaviour
     private void Start()
     {
         _OnPlayerHealthChanged.TriggerEvents(HERO.currentHP, HERO.HP);
-        _OnEnemyHealthChanged.TriggerEvents(_enemy.currentHP, _enemy.HP);
-        _OnEnemyTurnsChanged.TriggerEvents(_enemy.currentTurns);
+        _OnEnemyHealthChanged.TriggerEvents(ENEMY.currentHP, ENEMY.HP);
+        _OnEnemyTurnsChanged.TriggerEvents(ENEMY.currentTurns);
     }
 
     public void UpdateAttackReport(List<Emblem> newAttackReport)
@@ -89,7 +92,6 @@ public class CombatManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("Orientationless mana");
                 continue;
             }
         }
@@ -119,30 +121,30 @@ public class CombatManager : MonoBehaviour
         {
             dmg += (int)Mathf.Round(
                 HERO.attack * 
-                TypeBonification(emblem.EmblemColor, _enemy.colorWeaknesses, _enemy.colorStrengths) *
+                TypeBonification(emblem.EmblemColor, ENEMY.colorWeaknesses, ENEMY.colorStrengths) *
                 OrientationBonification(OrientationAttack.Vertical, OrientationAttack.Vertical));
         }
 
-        _enemy.currentHP = _enemy.currentHP - dmg < 0 ? 0 : _enemy.currentHP - dmg;
-        if (CheckDeath(_enemy.currentHP)) _OnBossDied.TriggerEvents();
+        ENEMY.currentHP = ENEMY.currentHP - dmg < 0 ? 0 : ENEMY.currentHP - dmg;
+        if (CheckDeath(ENEMY.currentHP)) _OnBossDied.TriggerEvents();
         else UpdateEnemyTurns();
-        _OnEnemyHealthChanged.TriggerEvents(_enemy.currentHP, _enemy.HP);
+        _OnEnemyHealthChanged.TriggerEvents(ENEMY.currentHP, ENEMY.HP);
     }
 
     public void UpdateEnemyTurns()
     {
-        if (_enemy.currentTurns == 0)
+        if (ENEMY.currentTurns == 0)
         {
             AttackPlayer();
-            _enemy.currentTurns = _enemy.turnsToAttack;
+            ENEMY.currentTurns = ENEMY.turnsToAttack;
         }
-        else _enemy.currentTurns--;
-        _OnEnemyTurnsChanged.TriggerEvents(_enemy.currentTurns);
+        else ENEMY.currentTurns--;
+        _OnEnemyTurnsChanged.TriggerEvents(ENEMY.currentTurns);
     }
 
     private void AttackPlayer()
     {
-        int dmg = _enemy.attack - HERO.defense;
+        int dmg = ENEMY.attack - HERO.defense;
         if (dmg > 0) HERO.currentHP = HERO.currentHP - dmg < 0 ? 0 : HERO.currentHP - dmg;
 
         _OnPlayerHealthChanged.TriggerEvents(HERO.currentHP, HERO.HP);
@@ -151,6 +153,7 @@ public class CombatManager : MonoBehaviour
         {
             //Endgame. Player lose
             _OnPlayerDied.TriggerEvents();
+            
         }
     }
 

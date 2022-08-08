@@ -8,19 +8,29 @@ public class GameManager : MonoBehaviour
     [SerializeField] private NoArgument_Event _OnBossDied;
     [SerializeField] private NoArgument_Event _OnPlayerDied;
 
+    [SerializeField] GameObject defeatPanel;
+    [SerializeField] GameObject victoryPanel;
+
     private void Awake()
     {
-        _OnBossDied.AddListener(GameOver);
+        _OnBossDied.AddListener(Victory);
+        _OnPlayerDied.AddListener(Defeat);
     }
 
-    public void GameOver()
+    public void Defeat()
     {
-        SceneManager.LoadScene(0);
+        defeatPanel.SetActive(true);
+    }
+
+    private void Victory()
+    {
+        victoryPanel.SetActive(true);
     }
 
     private void OnDestroy()
     {
-        _OnBossDied.RemoveListener(GameOver);
+        _OnBossDied.RemoveListener(Victory);
+        _OnPlayerDied.RemoveListener(Defeat);
     }
 }
 

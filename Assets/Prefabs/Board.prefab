@@ -65,6 +65,7 @@ MonoBehaviour:
   maxIterations: 50
   touchSensibility: 0.1
   skillManager: {fileID: 0}
+  sfxManager: {fileID: 0}
   currentState: 0
 --- !u!114 &5938852798633207595
 MonoBehaviour:

@@ -35,6 +35,7 @@ public class Board : MonoBehaviour
 
     private MatchFinder matchFinder;
     private Emblem[,] boardStatus;
+    [SerializeField] SFXManager sfxManager;
 
     public BoardStates currentState = BoardStates.Move;
 
@@ -136,6 +137,9 @@ public class Board : MonoBehaviour
         {
             if (emblem.isMatched)
             {
+                sfxManager.PlayAndInterrupt(SFX.EmblemExplosion);
+                Instantiate(boardStatus[position.x, position.y].VFX_explosion, new Vector2(position.x, position.y), Quaternion.identity);
+
                 Destroy(emblem.gameObject);
                 emblem = null;
             }
