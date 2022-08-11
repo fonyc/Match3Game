@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MVC.Model;
-using System.Linq;
 
 namespace MVC.Controller
 {
@@ -13,6 +12,7 @@ namespace MVC.Controller
         //Events 
         //OnCellCreated, OnCellDestroyed, OnCellMoved ??
 
+        //The controller constructor just passes the info to the model, so the model can be created with the view info
         public BoardController(int width, int heigth, EmblemItem[,] initValues = null)
         {
             Model = new BoardModel(width, heigth, initValues);
@@ -47,6 +47,12 @@ namespace MVC.Controller
             }
         }
 
+        /// <summary>
+        /// Open/close Fran's algorythm. 
+        /// </summary>
+        /// <param name="touchedCell"></param>
+        /// <param name="extraAllowedMatches"></param>
+        /// <returns></returns>
         private List<EmblemModel> FindAllMatches(EmblemModel touchedCell, List<int> extraAllowedMatches)
         {
             List<EmblemModel> closed = new List<EmblemModel>();

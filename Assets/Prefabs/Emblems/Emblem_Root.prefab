@@ -98,4 +98,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   posIndex: {x: 0, y: 0}
-  board: {fileID: 0}
+  emblemColor: 0
+  VFX_explosion: {fileID: 0}
+  isMatched: 0

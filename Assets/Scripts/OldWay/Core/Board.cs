@@ -137,9 +137,12 @@ public class Board : MonoBehaviour
         {
             if (emblem.isMatched)
             {
+                //SFX/VFX
                 sfxManager.PlayAndInterrupt(SFX.EmblemExplosion);
-                Instantiate(boardStatus[position.x, position.y].VFX_explosion, new Vector2(position.x, position.y), Quaternion.identity);
+                GameObject vfx = Instantiate(boardStatus[position.x, position.y].VFX_explosion, new Vector2(position.x, position.y), Quaternion.identity);
+                Destroy(vfx, 1f);
 
+                //Emblem management
                 Destroy(emblem.gameObject);
                 emblem = null;
             }

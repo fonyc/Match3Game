@@ -74,7 +74,7 @@ PrefabInstance:
     - target: {fileID: 5309902973596776829, guid: bbf801b999ca0b54f8506c1279e8b840, type: 3}
       propertyPath: VFX_explosion
       value: 
-      objectReference: {fileID: 2343300930867886194, guid: 5d37066d5759da34996b2c20c883641f, type: 3}
+      objectReference: {fileID: 4618942251344773544, guid: 2279320ef6b163340838ab698a68beea, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bbf801b999ca0b54f8506c1279e8b840, type: 3}
 --- !u!1 &1586919637400552579 stripped
