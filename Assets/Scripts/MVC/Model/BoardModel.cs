@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MVC.Model
 {
-    public class BoardModel 
+    public class BoardModel
     {
         private EmblemModel[,] _boardStatus;
 
@@ -27,7 +27,8 @@ namespace MVC.Model
                     _boardStatus[x, y] = new EmblemModel
                     {
                         Position = new Vector2Int(x, y),
-                        Item = initialValues?[x, y]
+                        //Item = initialValues?[x, y]
+                        Item = new EmblemItem { EmblemColor = (EmblemColor)Random.Range(0, 5) }
                     };
                 }
             }
@@ -38,7 +39,12 @@ namespace MVC.Model
         public EmblemModel GetEmblem(int x, int y) => _boardStatus[x, y];
 
         public EmblemModel GetEmblem(Vector2Int pos) => _boardStatus[pos.x, pos.y];
-        
+
+        public EmblemModel[,] BoardStatus()
+        {
+            return _boardStatus;
+        }
+
         public void Clear()
         {
             for (int y = 0; y < Height; ++y)
