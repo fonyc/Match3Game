@@ -22,21 +22,6 @@ namespace MVC.Controller
         public BoardController(int width, int heigth, EmblemItem[,] initValues = null)
         {
             Model = new BoardModel(width, heigth, initValues);
-            VerifyBoard();
-        }
-
-        private void VerifyBoard()
-        {
-            for (int y = 0; y < Model.Height; y++)
-            {
-                for (int x = 0; x < Model.Width; x++)
-                {
-                    while (FindMatchesAt(new Vector2Int(x, y)))
-                    {
-                        Model.GetEmblem(x, y).Item.EmblemColor = (EmblemColor)Random.Range(0, 5);
-                    }
-                }
-            }
         }
 
         //This method requires the board to iterate first y then x and have 5 or more items(FIX)
@@ -101,65 +86,73 @@ namespace MVC.Controller
             {
                 OnEmblemMoved(originEmblem, destinationEmblem);
 
-                foreach (EmblemModel emblem in swapMatches)
-                {
-                    //Destroy View
-                    OnEmblemDestroyed(emblem);
-                    //Destroy model item
-                    Model.GetEmblem(emblem.Position).Item = null;
-                }
-
-                //ColapseColumns();
-                ProcessCollapse();
-
-                //do { ColapseColumns(); }
-                //while (FindAllMatches().Count != 0);
+                DestroyAndCollapse(swapMatches);
             }
         }
+
+        private void DestroyAndCollapse(List<EmblemModel> comboMatches)
+        {
+            foreach (EmblemModel emblem in comboMatches)
+            {
+                //Destroy model item
+                Model.GetEmblem(emblem.Position).Item = null;
+
+                //Destroy View
+                OnEmblemDestroyed(emblem);
+            }
+            ProcessCollapse();
+        }
+
+        #region Collapse Version 2
+        //private void ProcessCollapse()
+        //{
+        //    for (int y = 0; y < Model.Height; ++y)
+        //    {
+        //        for (int x = 0; x < Model.Width; ++x)
+        //        {
+        //            if (!Model.GetEmblem(x, y).IsEmpty()) continue;
+
+        //            int nextY = y;
+        //            while (nextY < Model.Height)
+        //            {
+        //                nextY++;
+        //                if (nextY == Model.Height)
+        //                {
+        //                    Model.GetEmblem(x, nextY - 1).Item = new EmblemItem()
+        //                    {
+        //                        EmblemColor = (EmblemColor)Random.Range(0, 5)
+        //                    };
+        //                    OnEmblemCreated(Model.GetEmblem(x, nextY - 1), Model.GetEmblem(x, nextY - 1).Item);
+        //                    if (y < nextY - 1)
+        //                    {
+        //                        Model.GetEmblem(x, y).Item = Model.GetEmblem(x, nextY - 1).Item;
+        //                        Model.GetEmblem(x, nextY - 1).Item = null;
+        //                        OnEmblemColapse(Model.GetEmblem(x, nextY - 1), Model.GetEmblem(x, y));
+        //                    }
+
+        //                    break;
+        //                }
+
+        //                if (!Model.GetEmblem(x, nextY).IsEmpty())
+        //                {
+        //                    Model.GetEmblem(x, y).Item = Model.GetEmblem(x, nextY).Item;
+        //                    Model.GetEmblem(x, nextY).Item = null;
+        //                    OnEmblemColapse(Model.GetEmblem(x, nextY), Model.GetEmblem(x, y));
+        //                    break;
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    List<EmblemModel> comboMatches = FindAllMatches();
+        //    if (comboMatches.Count > 0)
+        //    {
+        //        DestroyAndCollapse(comboMatches);
+        //    }
+        //}
+        #endregion
 
         private void ProcessCollapse()
-        {
-            for (int y = 0; y < Model.Height; ++y)
-            {
-                for (int x = 0; x < Model.Width; ++x)
-                {
-                    if (!Model.GetEmblem(x, y).IsEmpty())
-                        continue;
-
-                    int nextY = y;
-                    while (nextY < Model.Height)
-                    {
-                        nextY++;
-                        if (nextY == Model.Height)
-                        {
-                            Model.GetEmblem(x, nextY - 1).Item = new EmblemItem()
-                            {
-                                EmblemColor = (EmblemColor)Random.Range(0, 5)
-                            };
-                            OnEmblemCreated(Model.GetEmblem(x, nextY - 1), Model.GetEmblem(x, nextY - 1).Item);
-                            if (y < nextY - 1)
-                            {
-                                Model.GetEmblem(x, y).Item = Model.GetEmblem(x, nextY - 1).Item;
-                                Model.GetEmblem(x, nextY - 1).Item = null;
-                                OnEmblemColapse(Model.GetEmblem(x, nextY - 1), Model.GetEmblem(x, y));
-                            }
-
-                            break;
-                        }
-
-                        if (!Model.GetEmblem(x, nextY).IsEmpty())
-                        {
-                            Model.GetEmblem(x, y).Item = Model.GetEmblem(x, nextY).Item;
-                            Model.GetEmblem(x, nextY).Item = null;
-                            OnEmblemColapse(Model.GetEmblem(x, nextY), Model.GetEmblem(x, y));
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        private void ColapseColumns()
         {
             int nullCounter = 0;
 
@@ -167,38 +160,44 @@ namespace MVC.Controller
             {
                 for (int y = 0; y < Model.Height; y++)
                 {
-                    //EMBLEM DISPLACEMENT
                     if (Model.GetEmblem(x, y).IsEmpty())
                     {
                         nullCounter++;
                     }
                     else if (nullCounter > 0)
                     {
-                        //Update Model
-                        Model.GetEmblem(x, y).Item = Model.GetEmblem(x, y - nullCounter).Item;
+                        //Switch emblems in model 
+                        Model.GetEmblem(x, y - nullCounter).Item = Model.GetEmblem(x, y).Item;
 
-                        //Update View
+                        //Send view to new position
                         OnEmblemColapse(Model.GetEmblem(x, y), Model.GetEmblem(x, y - nullCounter));
                     }
 
-                    //EMBLEM CREATION
                     if (y == Model.Height - 1 && nullCounter > 0)
                     {
-                        for (int destroyCol = Model.Height - nullCounter; destroyCol < Model.Height; destroyCol++)
+                        for (int fill = Model.Height - nullCounter; fill < Model.Height; fill++)
                         {
-                            Model.GetEmblem(x, destroyCol).Item = new EmblemItem()
+                            //Create model emblem
+                            Model.GetEmblem(x, fill).Item = new EmblemItem()
                             {
                                 EmblemColor = (EmblemColor)Random.Range(0, 5)
                             };
-                            OnEmblemCreated(Model.GetEmblem(x, destroyCol), Model.GetEmblem(x, destroyCol).Item);
+
+                            //Createm view emblem
+                            OnEmblemCreated(Model.GetEmblem(x, fill), Model.GetEmblem(x, fill).Item);
                         }
                     }
                 }
                 nullCounter = 0;
             }
+
+            List<EmblemModel> comboMatches = FindAllMatches();
+            if (comboMatches.Count > 0)
+            {
+                DestroyAndCollapse(comboMatches);
+            }
         }
 
-        //Find matches in the whole board
         private List<EmblemModel> FindAllMatches()
         {
             List<EmblemModel> currentMatches = new();
@@ -259,7 +258,7 @@ namespace MVC.Controller
             originEmblem.Item = destinationEmblem.Item;
             destinationEmblem.Item = originItem;
         }
-        
+
         private bool HasSameColor(EmblemModel emblem1, EmblemModel emblem2)
         {
             return emblem1.Item.EmblemColor == emblem2.Item.EmblemColor;

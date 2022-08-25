@@ -19,9 +19,9 @@ namespace MVC.View
 
         IEnumerator AnimationCoroutine(BoardView board)
         {
+            if (_emblem == null) yield break;
             board.RemoveEmblemView(_emblem);
             yield return _emblem.DestroyTile();
         }
     }
-
 }

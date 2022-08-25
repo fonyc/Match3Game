@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace MVC.View
 {
-    public class MoveEmblemAnimation : IViewAnimation
+    public class SwapEmblemAnimation : IViewAnimation
     {
         private Vector2Int _origin; 
         private Vector2Int _destination;
 
-        public MoveEmblemAnimation(Vector2Int origin, Vector2Int destination)
+        public SwapEmblemAnimation(Vector2Int origin, Vector2Int destination)
         {
             _origin = origin;
             _destination = destination;

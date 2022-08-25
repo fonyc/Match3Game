@@ -13,17 +13,6 @@ namespace MVC.View
             Position = new Vector2Int(xPosition, yPosition);
         }
 
-        public virtual Coroutine Appear(Vector2Int newPosition)
-        {
-            Position = newPosition;
-            return StartCoroutine(Appear_Coro());
-        }
-
-        private IEnumerator Appear_Coro()
-        {
-            yield return new WaitForSeconds(0.01f);
-        }
-
         public virtual Coroutine MoveTo(Vector2Int newPosition)
         {
             return StartCoroutine(MoveTo_Coro(newPosition));
@@ -33,7 +22,8 @@ namespace MVC.View
         {
             Position = newPosition;
             transform.DOMove(new Vector3(newPosition.x, newPosition.y), 0.15f).SetEase(Ease.InOutQuad);
-            yield return new WaitForSeconds(0.15f);
+            //yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(0.5f);
         }
 
         public virtual Coroutine DestroyTile()
@@ -44,7 +34,7 @@ namespace MVC.View
         private IEnumerator DestroyTile_Coro()
         {
             transform.GetChild(0).GetComponent<SpriteRenderer>().DOFade(0f, 0.1f).SetEase(Ease.InOutBounce);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.5f);
             Destroy(gameObject);
         }
     }

@@ -75,6 +75,7 @@ namespace MVC.View
                 touches[1] = GetSecondEmblemByAngle(swipeAngle, touches[0]);
 
                 _controller.CheckInput(touches[0], touches[1]);
+                //StartCoroutine(ProcessAnimations());
             }
         }
 
@@ -82,7 +83,7 @@ namespace MVC.View
 
         private void OnEmblemMoved(EmblemModel origin, EmblemModel destination)
         {
-            _animations.Add(new MoveEmblemAnimation(origin.Position, destination.Position));
+            _animations.Add(new SwapEmblemAnimation(origin.Position, destination.Position));
             if (_animations.Count == 1)
             {
                 StartCoroutine(ProcessAnimations());
@@ -107,9 +108,9 @@ namespace MVC.View
             }
         }
 
-        private void OnEmblemDestroyed(EmblemModel tileToDetroy)
+        private void OnEmblemDestroyed(EmblemModel emblemToDestroy)
         {
-            _animations.Add(new DestroyEmblemAnimation(GetEmblemViewAtPosition(tileToDetroy.Position)));
+            _animations.Add(new DestroyEmblemAnimation(GetEmblemViewAtPosition(emblemToDestroy.Position)));
             if (_animations.Count == 1)
             {
                 StartCoroutine(ProcessAnimations());

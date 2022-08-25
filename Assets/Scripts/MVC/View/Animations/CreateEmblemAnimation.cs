@@ -29,8 +29,9 @@ namespace MVC.View
                 board.transform);
 
             EmblemView emblemView = emblem.GetComponent<EmblemView>();
-
+            //emblemView.Position = _position;
             board.AddEmblemView(emblemView);
+
             yield return emblemView.MoveTo(_position);
         }
     }
