@@ -34,9 +34,8 @@ namespace MVC.View
         private IEnumerator DestroyTile_Coro()
         {
             transform.GetChild(0).GetComponent<SpriteRenderer>().DOFade(0f, 0.1f).SetEase(Ease.InOutBounce);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.15f);
             Destroy(gameObject);
         }
     }
-
 }

@@ -45,6 +45,17 @@ namespace MVC.Model
             return _boardStatus;
         }
 
+        public List<EmblemModel> GetEmblemsFromColumn(int x)
+        {
+            List<EmblemModel> emblemList = new();
+
+            for(int col = 0; col < Height; col++)
+            {
+                emblemList.Add(GetEmblem(x,col));
+            }
+            return emblemList;
+        }
+
         public void Clear()
         {
             for (int y = 0; y < Height; ++y)

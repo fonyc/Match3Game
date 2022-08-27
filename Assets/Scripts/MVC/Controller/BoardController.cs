@@ -11,8 +11,6 @@ namespace MVC.Controller
     {
         private BoardModel Model;
 
-        private List<int> itemsLeftInColumn;
-
         //Events 
         public event Action<EmblemModel, EmblemModel> OnEmblemMoved = delegate (EmblemModel origin, EmblemModel destination) { };
         public event Action<EmblemModel> OnEmblemDestroyed = delegate (EmblemModel emblemDestroyed) { };
@@ -21,16 +19,6 @@ namespace MVC.Controller
         public BoardController(int width, int height, EmblemItem[,] initValues = null)
         {
             Model = new BoardModel(width, height, initValues);
-            itemsLeftInColumn = new();
-            FillColumnCounter(height);
-        }
-
-        public void FillColumnCounter(int height)
-        {
-            for (int x = 0; x < height; x++)
-            {
-                itemsLeftInColumn.Add(height);
-            }
         }
 
         public int GetEmblemColor(int x, int y)
@@ -66,7 +54,6 @@ namespace MVC.Controller
             {
                 //Destroy model item
                 Model.GetEmblem(emblem.Position).Item = null;
-                itemsLeftInColumn[emblem.Position.y]--;
 
                 //Destroy View
                 OnEmblemDestroyed(emblem);
@@ -97,42 +84,67 @@ namespace MVC.Controller
                         //Send view to new position
                         OnEmblemMoved(Model.GetEmblem(x, y), Model.GetEmblem(x, y - nullCounter));
                     }
-                    
+
                     //FUTURE ITEM CREATION
                     //if (y == Model.Height - 1 && nullCounter > 0)
                     //{
-                        //Item creation
-                        //for (int fill = Model.Height - nullCounter; fill < Model.Height; fill++)
-                        //{
-                        //    //Create model emblem
-                        //    Model.GetEmblem(x, fill).Item = new EmblemItem()
-                        //    {
-                        //        EmblemColor = (EmblemColor)Random.Range(0, 5)
-                        //    };
+                    //Item creation
+                    //for (int fill = Model.Height - nullCounter; fill < Model.Height; fill++)
+                    //{
+                    //    //Create model emblem
+                    //    Model.GetEmblem(x, fill).Item = new EmblemItem()
+                    //    {
+                    //        EmblemColor = (EmblemColor)Random.Range(0, 5)
+                    //    };
 
-                        //    //Createm view emblem
-                        //    OnEmblemCreated(Model.GetEmblem(x, fill), Model.GetEmblem(x, fill).Item);
-                        //}
+                    //    //Createm view emblem
+                    //    OnEmblemCreated(Model.GetEmblem(x, fill), Model.GetEmblem(x, fill).Item);
+                    //}
                     //}
                 }
                 nullCounter = 0;
             }
 
-            //Horizontal Collapse
+            //Horizontal Collapse 
             if (BoardIsSeparated())
             {
-                //Means there are null columns separating items 
+                nullCounter = 0;
+                for (int x = 0; x < Model.Width; x++)
+                {
+                    if (ColumnIsNull(x))
+                    {
+                        nullCounter++;
+                        continue;
+                    }
+                    else if (nullCounter > 0)
+                    {
+                        for (int y = 0; y < Model.Height; y++)
+                        {
+                            //Switch emblems in model 
+                            EmblemItem aux = Model.GetEmblem(x - nullCounter, y).Item;
+                            Model.GetEmblem(x - nullCounter, y).Item = Model.GetEmblem(x, y).Item;
+                            Model.GetEmblem(x, y).Item = aux;
 
+                            //Send view to new position
+                            OnEmblemMoved(Model.GetEmblem(x, y), Model.GetEmblem(x - nullCounter, y));
+                        }
+                    }
+                }
             }
         }
 
         private bool BoardIsSeparated()
         {
-            //foreach (int col )
-            //{
-
-            //}
+            for (int x = 0; x < Model.Width; x++)
+            {
+                if (Model.GetEmblem(x, 0).IsEmpty()) return true;
+            }
             return false;
+        }
+
+        private bool ColumnIsNull(int x)
+        {
+            return Model.GetEmblem(x, 0).IsEmpty();
         }
 
         private List<EmblemModel> RecursiveSearch(EmblemModel currentEmblem, List<EmblemModel> exclude = null)
