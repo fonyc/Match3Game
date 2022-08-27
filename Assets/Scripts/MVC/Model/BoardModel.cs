@@ -20,9 +20,9 @@ namespace MVC.Model
 
             _boardStatus = new EmblemModel[width, height];
 
-            for (int y = 0; y < Height; ++y)
+            for (int y = 0; y < Height; y++)
             {
-                for (int x = 0; x < Width; ++x)
+                for (int x = 0; x < Width; x++)
                 {
                     _boardStatus[x, y] = new EmblemModel
                     {

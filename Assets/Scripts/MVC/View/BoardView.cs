@@ -19,7 +19,7 @@ namespace MVC.View
 
         //Input
         private Plane _boardPlane;
-        private Vector2Int[] touches = new Vector2Int[2];
+        private Vector2Int touch;
 
         //Animations
         private List<IViewAnimation> _animations = new List<IViewAnimation>();
@@ -38,8 +38,6 @@ namespace MVC.View
             _controller = new BoardController(_boardSize.x, _boardSize.y);
 
             _controller.OnEmblemMoved += OnEmblemMoved;
-            _controller.OnEmblemColapse += OnEmblemColapse;
-            _controller.OnWrongEmblemMoved += OnWrongEmblemMoved;
             _controller.OnEmblemDestroyed += OnEmblemDestroyed;
             _controller.OnEmblemCreated += OnEmblemCreated;
         }
@@ -66,16 +64,8 @@ namespace MVC.View
         {
             if (Input.GetMouseButtonDown(0))
             {
-                touches[0] = GetEmblemFromTouch(_boardPlane);
-            }
-
-            if (Input.GetMouseButtonUp(0))
-            {
-                float swipeAngle = CalculateAngle(touches[0], GetEmblemFromTouch(_boardPlane));
-                touches[1] = GetSecondEmblemByAngle(swipeAngle, touches[0]);
-
-                _controller.CheckInput(touches[0], touches[1]);
-                //StartCoroutine(ProcessAnimations());
+                touch = GetEmblemFromTouch(_boardPlane);
+                _controller.CheckInput(touch);
             }
         }
 
@@ -83,25 +73,7 @@ namespace MVC.View
 
         private void OnEmblemMoved(EmblemModel origin, EmblemModel destination)
         {
-            _animations.Add(new SwapEmblemAnimation(origin.Position, destination.Position));
-            if (_animations.Count == 1)
-            {
-                StartCoroutine(ProcessAnimations());
-            }
-        }
-
-        private void OnEmblemColapse(EmblemModel origin, EmblemModel destination)
-        {
-            _animations.Add(new ColapseEmblemAnimation(origin.Position, destination.Position));
-            if (_animations.Count == 1)
-            {
-                StartCoroutine(ProcessAnimations());
-            }
-        }
-
-        private void OnWrongEmblemMoved(EmblemModel origin, EmblemModel destination)
-        {
-            _animations.Add(new WrongSwapEmblemAnimation(origin.Position, destination.Position));
+            _animations.Add(new MoveEmblemAnimation(origin.Position, destination.Position));
             if (_animations.Count == 1)
             {
                 StartCoroutine(ProcessAnimations());
@@ -133,42 +105,6 @@ namespace MVC.View
                 yield return _animations[0].PlayAnimation(this);
                 _animations.RemoveAt(0);
             }
-        }
-
-        #endregion
-
-        #region INPUT PROCESSING
-
-        private Vector2Int GetSecondEmblemByAngle(float swipeAngle, Vector2Int firstTouch)
-        {
-            Vector2Int secondTouch = firstTouch;
-
-            //Right Swap 
-            if (swipeAngle < 45 && swipeAngle > -45)
-            {
-                secondTouch = new Vector2Int(secondTouch.x + 1, secondTouch.y);
-            }
-            //Swipe up
-            else if (swipeAngle > 45 && swipeAngle <= 135)
-            {
-                secondTouch = new Vector2Int(secondTouch.x , secondTouch.y + 1);
-            }
-            //Swipe down
-            else if (swipeAngle >= -135 && swipeAngle < -45)
-            {
-                secondTouch = new Vector2Int(secondTouch.x, secondTouch.y - 1);
-            }
-            //Swipe Left
-            if ((swipeAngle > 135 || swipeAngle < -135))
-            {
-                secondTouch = new Vector2Int(secondTouch.x - 1, secondTouch.y);
-            }
-            return secondTouch;
-        }
-
-        private float CalculateAngle(Vector2 origin, Vector2 destination)
-        {
-            return Mathf.Atan2(destination.y - origin.y, destination.x - origin.x) * 180 / Mathf.PI;
         }
 
         #endregion

@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace MVC.View
 {
-    public class ColapseEmblemAnimation : IViewAnimation
+    public class MoveEmblemAnimation : IViewAnimation
     {
         private Vector2Int _origin;
         private Vector2Int _destination;
 
-        public ColapseEmblemAnimation(Vector2Int origin, Vector2Int destination)
+        public MoveEmblemAnimation(Vector2Int origin, Vector2Int destination)
         {
             _origin = origin;
             _destination = destination;
