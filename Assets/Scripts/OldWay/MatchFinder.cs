@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MatchFinder : MonoBehaviour
 {
-    private Board board;
+    private OldBoard board;
     private CombatManager combatManager;
 
     [SerializeField] private List<Emblem> currentMatches = new();
@@ -14,7 +14,7 @@ public class MatchFinder : MonoBehaviour
 
     private void Awake()
     {
-        board = GetComponent<Board>();
+        board = GetComponent<OldBoard>();
         combatManager = GetComponent<CombatManager>();
     }
 

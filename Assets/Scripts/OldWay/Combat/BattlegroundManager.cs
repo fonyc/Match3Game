@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Board))]
+[RequireComponent(typeof(OldBoard))]
 public class BattlegroundManager : MonoBehaviour
 {
     [SerializeField] List<EnemyStats> enemyCreationList = new();
@@ -14,7 +14,7 @@ public class BattlegroundManager : MonoBehaviour
 
     [SerializeField] private Hero _hero;
 
-    Board _board;
+    OldBoard _board;
 
     public Enemy[] EnemiesInColumns { get => enemiesInColumns; set => enemiesInColumns = value; }
     public List<Enemy> EnemyList { get => enemyList; set => enemyList = value; }
@@ -22,7 +22,7 @@ public class BattlegroundManager : MonoBehaviour
     private void Awake()
     {
         EnemyList = new();
-        _board = GetComponent<Board>();
+        _board = GetComponent<OldBoard>();
         EnemiesInColumns = new Enemy[_board.Width];
     }
 

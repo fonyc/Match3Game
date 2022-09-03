@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class HorizontalSkill : ITileRemover
 {
-    public List<Emblem> RemoveEmblems(Board board, Emblem emblem, Hero hero)
+    public List<Emblem> RemoveEmblems(OldBoard board, Emblem emblem, Hero hero)
     {
         List<Emblem> horizontalEmblems = new();
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CrossSkill : ITileRemover
 {
-    public List<Emblem> RemoveEmblems(Board board, Emblem emblem, Hero hero)
+    public List<Emblem> RemoveEmblems(OldBoard board, Emblem emblem, Hero hero)
     {
         List<Emblem> crossEmblems = new();
 

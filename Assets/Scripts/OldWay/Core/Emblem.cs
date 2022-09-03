@@ -12,7 +12,7 @@ public class Emblem : MonoBehaviour
     public Vector2Int PosIndex { get => posIndex; set => posIndex = value; }
     public bool isMatched;
 
-    private Board board;
+    private OldBoard board;
     private Vector2 firstTouchPos;
     private Vector2 lastTouchPos;
     private float swipeAngle = 0;
@@ -57,7 +57,7 @@ public class Emblem : MonoBehaviour
         return Mathf.Atan2(destination.y - origin.y, destination.x - origin.x) * 180 / Mathf.PI;
     }
 
-    public void SetUpEmblem(Vector2Int pos, Board board)
+    public void SetUpEmblem(Vector2Int pos, OldBoard board)
     {
         posIndex = pos;
         this.board = board;

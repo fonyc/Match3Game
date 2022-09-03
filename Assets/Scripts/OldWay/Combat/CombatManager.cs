@@ -15,7 +15,7 @@ public class CombatManager : MonoBehaviour
     [Space(5)]
     [SerializeField] private EnemyStats Enemy;
     private Enemy _enemy;
-    private Board _board;
+    private OldBoard _board;
 
     //private BattlegroundManager _bgManager;
 
@@ -46,7 +46,7 @@ public class CombatManager : MonoBehaviour
     {
         HERO = new Hero(Hero);
         ENEMY = new Enemy(Enemy);
-        _board = GetComponent<Board>();
+        _board = GetComponent<OldBoard>();
 
         //_bgManager = GetComponent<BattlegroundManager>();
     }

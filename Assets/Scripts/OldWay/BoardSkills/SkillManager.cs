@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
-    Board _board;
+    OldBoard _board;
     CombatManager _combatManager;
 
     [SerializeField] Emblem _emblemSelected;
@@ -23,7 +23,7 @@ public class SkillManager : MonoBehaviour
 
     private void Awake()
     {
-        _board = GetComponent<Board>();
+        _board = GetComponent<OldBoard>();
         _combatManager = GetComponent<CombatManager>();
     }
 
