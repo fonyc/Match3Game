@@ -10,7 +10,7 @@ public class BattlegroundManager : MonoBehaviour
     [SerializeField] Enemy[] enemiesInColumns;
     [SerializeField] List<Enemy> enemyList;
 
-    [SerializeField] HeroStats _heroStats;
+    [SerializeField] HeroStats2 _heroStats;
 
     [SerializeField] private Hero _hero;
 

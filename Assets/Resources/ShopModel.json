@@ -1,3 +1,56 @@
-{"Items":[{"Id":"0.00","Title":"Health Potion","Image":"HealthPotion","Cost":{"Type":"Gold","Amount":20},"Reward":{"Type":"HealthPotion","Amount":1}},{"Id":"1.00","Title":"Mana Potion","Image":"ManaPotion","Cost":{"Type":"Gold","Amount":30},"Reward":{"Type":"ManaPotion","Amount":1}},
-{"Id":"2.00","Title":"Attack Potion","Image":"AttackPotion","Cost":{"Type":"Gold","Amount":50},"Reward":{"Type":"AttackPotion","Amount":1}},
-{"Id":"3.00","Title":"Hero Token","Image":"HeroToken","Cost":{"Type":"Gems","Amount":100},"Reward":{"Type":"HeroToken","Amount":1}}]}
+{
+	"Items": [
+		{
+			"Id": "0.00",
+			"Title": "Health Potion",
+			"Image": "HealthPotion",
+			"Cost": {
+				"Type": "Gold",
+				"Amount": 20
+			},
+			"Reward": {
+				"Type": "HealthPotion",
+				"Amount": 1
+			}
+		},
+		{
+			"Id": "1.00",
+			"Title": "Mana Potion",
+			"Image": "ManaPotion",
+			"Cost": {
+				"Type": "Gold",
+				"Amount": 30
+			},
+			"Reward": {
+				"Type": "ManaPotion",
+				"Amount": 1
+			}
+		},
+		{
+			"Id": "2.00",
+			"Title": "Attack Potion",
+			"Image": "AttackPotion",
+			"Cost": {
+				"Type": "Gold",
+				"Amount": 50
+			},
+			"Reward": {
+				"Type": "AttackPotion",
+				"Amount": 1
+			}
+		},
+		{
+			"Id": "3.00",
+			"Title": "Hero Token",
+			"Image": "HeroToken",
+			"Cost": {
+				"Type": "Gems",
+				"Amount": 100
+			},
+			"Reward": {
+				"Type": "HeroToken",
+				"Amount": 1
+			}
+		}
+	]
+}

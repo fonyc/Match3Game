@@ -33,14 +33,14 @@ namespace Shop.View
             }
         }
 
+        public void AddGold()
+        {
+            _controller.FreeResource();
+        }
+
         private void OnPurchaseItem(ShopItemModel model)
         {
             _controller.PurchaseItem(model);
-        }
-
-        public void OnClosed()
-        {
-            Destroy(gameObject);
         }
     }
 }

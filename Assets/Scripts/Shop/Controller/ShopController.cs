@@ -5,7 +5,6 @@ namespace Shop.Controller
 {
     public class ShopController 
     {
-
         public ShopModel Model { get; private set; }
 
         public UserData UserData { get; private set; }
@@ -22,14 +21,16 @@ namespace Shop.Controller
 
         public void PurchaseItem(ShopItemModel model)
         {
-            if (UserData.GetResourceAmount(model.Cost.Type) < model.Cost.Amount)
-            {
-                Debug.LogError("The user does not have enough resources to perform the action");
-                return;
-            }
+            if (UserData.GetResourceAmount(model.Cost.Type) < model.Cost.Amount) return;
 
             UserData.RemoveResource(model.Cost);
             UserData.AddResource(model.Reward);
+            UserData.Save();
+        }
+
+        public void FreeResource()
+        {
+            UserData.AddGold();
             UserData.Save();
         }
 

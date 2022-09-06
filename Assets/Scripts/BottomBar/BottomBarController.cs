@@ -6,13 +6,17 @@ public class BottomBarController : MonoBehaviour
     GameObject currentOpenedTab = null;
 
     [SerializeField] ShopView shopTab;
-    
+    [SerializeField] HeroesView heroesTab;
+
     public void AddTab(object tab)
     {
         switch (tab)
         {
             case ShopView shop:
                 shopTab = (ShopView)tab;
+                break;
+            case HeroesView heroes:
+                heroesTab = (HeroesView)tab;
                 break;
         }
     }
@@ -24,8 +28,10 @@ public class BottomBarController : MonoBehaviour
             case "Shop":
                 return shopTab.gameObject;
             case "Heroes":
+                return  heroesTab.gameObject; 
+            case "Levels":
                 return null;
-            case "Missions":
+            case "Equip":
                 return null;
             default:
                 return null;
@@ -50,6 +56,7 @@ public class BottomBarController : MonoBehaviour
         else
         {
             newTab.SetActive(true);
+            currentOpenedTab.SetActive(false);
             currentOpenedTab = newTab;
         }
     }

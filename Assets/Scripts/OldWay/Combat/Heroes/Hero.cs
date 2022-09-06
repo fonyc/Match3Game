@@ -25,7 +25,7 @@ public class Hero
     public int verticalManaReg;
     public int crossManaReg;
 
-    public Hero(HeroStats heroStats)
+    public Hero(HeroStats2 heroStats)
     {
         HP = heroStats.HP;
         currentHP = HP;

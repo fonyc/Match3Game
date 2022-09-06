@@ -9,6 +9,7 @@ namespace Shop.View
 {
     public class ShopItemView : MonoBehaviour
     {
+        #region UI FIELDS
         [SerializeField]
         private List<Sprite> _imageSprites = new List<Sprite>();
 
@@ -26,6 +27,7 @@ namespace Shop.View
 
         [SerializeField]
         private TMP_Text _costText = null;
+        #endregion
 
         private ShopItemModel _model;
         private UserData _userData;

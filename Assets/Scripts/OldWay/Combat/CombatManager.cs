@@ -8,7 +8,7 @@ public class CombatManager : MonoBehaviour
     #region VARIABLES
     [Header("--- PLAYER HERO ---")]
     [Space(5)]
-    [SerializeField] private HeroStats Hero;
+    [SerializeField] private HeroStats2 Hero;
     private Hero _hero;
 
     [Header("--- ENEMY ---")]

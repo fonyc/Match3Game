@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Match3/Hero")]
-public class HeroStats : ScriptableObject
+public class HeroStats2 : ScriptableObject
 {
     [Header("--- BASE STATS ---")]
     [Space(5)]
