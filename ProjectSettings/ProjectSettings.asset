@@ -154,7 +154,8 @@ PlayerSettings:
   resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
-  applicationIdentifier: {}
+  applicationIdentifier:
+    Standalone: com.DefaultCompany.Match3Game
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -700,7 +701,8 @@ PlayerSettings:
   XboxOneOverrideIdentityName: 
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
-  cloudServicesEnabled: {}
+  cloudServicesEnabled:
+    Game Performance: 1
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -714,11 +716,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 
+  cloudProjectId: 1b509d16-ab63-4800-8146-d6548c007c92
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: Timeless Heroes
+  organizationId: fonan
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 

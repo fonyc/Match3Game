@@ -1,0 +1,124 @@
+{
+	"Items": [
+		{
+			"Id": "0.00",
+			"Title": "Health Potion",
+			"Image": "HealthPotion",
+			"Cost": {
+				"Name":"Gold",
+				"Type": "Resources",
+				"Amount": 20
+			},
+			"Reward": {
+				"Name": "HealthPotion",
+				"Type": "BattleItem",
+				"Amount": 1
+			}
+		},
+		{
+			"Id": "1.00",
+			"Title": "Mana Potion",
+			"Image": "ManaPotion",
+			"Cost": {
+				"Name":"Gold",
+				"Type": "Resources",
+				"Amount": 30
+			},
+			"Reward": {
+				"Name":"ManaPotion",
+				"Type": "BattleItem",
+				"Amount": 1
+			}
+		},
+		{
+			"Id": "2.00",
+			"Title": "Attack Potion",
+			"Image": "AttackPotion",
+			"Cost": {
+				"Name":"Gold",
+				"Type": "Resources",
+				"Amount": 40
+			},
+			"Reward": {
+				"Name":"AttackPotion",
+				"Type": "BattleItem",
+				"Amount": 1
+			}
+		},
+		{
+			"Id": "3.00",
+			"Title": "Morgan le Fay",
+			"Image": "MorganLefay",
+			"Cost": {
+				"Name":"Gems",
+				"Type": "Resources",
+				"Amount": 100
+			},
+			"Reward": {
+				"Name":"MorganLefay",
+				"Type": "Hero",
+				"Amount": 1
+			}
+		},
+		{
+			"Id": "4.00",
+			"Title": "Francisco Pizarro",
+			"Image": "FranciscoPizarro",
+			"Cost": {
+				"Name":"Gems",
+				"Type": "Resources",
+				"Amount": 100
+			},
+			"Reward": {
+				"Name":"FranciscoPizarro",
+				"Type": "Hero",
+				"Amount": 1
+			}
+		},
+		{
+			"Id": "5.00",
+			"Title": "Redbeard",
+			"Image": "Redbeard",
+			"Cost": {
+				"Name":"Gems",
+				"Type": "Resources",
+				"Amount": 100
+			},
+			"Reward": {
+				"Name":"Redbeard",
+				"Type": "Hero",
+				"Amount": 1
+			}
+		},
+		{
+			"Id": "6.00",
+			"Title": "Nicola Tesla",
+			"Image": "NicolaTesla",
+			"Cost": {
+				"Name":"Gems",
+				"Type": "Resources",
+				"Amount": 100
+			},
+			"Reward": {
+				"Name":"NicolaTesla",
+				"Type": "Hero",
+				"Amount": 1
+			}
+		},
+		{
+			"Id": "7.00",
+			"Title": "Leonardo Da Vinci",
+			"Image": "LeonardoDaVinci",
+			"Cost": {
+				"Name":"Gems",
+				"Type": "Resources",
+				"Amount": 100
+			},
+			"Reward": {
+				"Name":"LeonardoDaVinci",
+				"Type": "Hero",
+				"Amount": 1
+			}
+		}
+	]
+}

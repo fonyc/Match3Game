@@ -1,0 +1,74 @@
+{
+	"Heroes": [
+		{
+			"Id": 0,
+			"Name": "Leonardo da Vinci",
+			"AvatarImage": "LeonardoDaVinci",
+			"Color": 0,
+			"ColorImage": "Artist",
+			"Stats": {
+				"ATK": 100,
+				"DEF": 100,
+				"HP": 100,
+				"Progression": 10
+			},
+			"Skill": "Create"
+		},
+		{
+			"Id": 1,
+			"Name": "Morgan le Fay",
+			"AvatarImage": "MorganLefay",
+			"Color": 4,
+			"ColorImage": "Wizard",
+			"Stats": {
+				"ATK": 100,
+				"DEF": 100,
+				"HP": 100,
+				"Progression": 10
+			},
+			"Skill": "Swap"
+		},
+		{
+			"Id": 2,
+			"Name": "Francisco Pizarro",
+			"AvatarImage": "FranciscoPizarro",
+			"Color": 1,
+			"ColorImage": "Conqueror",
+			"Stats": {
+				"ATK": 100,
+				"DEF": 100,
+				"HP": 100,
+				"Progression": 10
+			},
+			"Skill": "Destroy"
+		},
+		{
+			"Id": 3,
+			"Name": "Redbeard",
+			"AvatarImage": "Redbeard",
+			"Color": 2,
+			"ColorImage": "Pirate",
+			"Stats": {
+				"ATK": 100,
+				"DEF": 100,
+				"HP": 100,
+				"Progression": 10
+			},
+			"Skill": "Decolorate"
+		},
+		{
+			"Id": 4,
+			"Name": "Nicola Tesla",
+			"AvatarImage": "NicolaTesla",
+			"Color": 3,
+			"ColorImage": "Scientist",
+			"Stats": {
+				"ATK": 100,
+				"DEF": 100,
+				"HP": 100,
+				"Progression": 10
+			},
+			"Skill": "Shuffle"
+		}
+	]
+}
