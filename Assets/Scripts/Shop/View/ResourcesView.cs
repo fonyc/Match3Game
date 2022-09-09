@@ -7,6 +7,7 @@ public class ResourcesView : MonoBehaviour
 {
     [SerializeField]
     private TMP_Text _goldText;
+
     [SerializeField]
     private TMP_Text _gemsText;
 

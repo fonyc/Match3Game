@@ -37,14 +37,22 @@ public class HeroItemView : MonoBehaviour
 
     private HeroItemModel _model;
     private UserData _userData;
-    private Action<HeroItemModel> _onClickedEvent;
 
-    public void SetData(HeroItemModel model, UserData userData, Action<HeroItemModel> onClickdEvent)
+    public void SetData(HeroItemModel model, UserData userData)
     {
         _model = model;
-        _onClickedEvent = onClickdEvent;
         _userData = userData;
-        //_userData.OnResourceModified += InventoryUpdated;
+        _userData.OnHeroModified += HeroUpdated;
+        UpdateVisuals();
+    }
+
+    private void OnDestroy()
+    {
+        if (_userData != null) _userData.OnHeroModified -= HeroUpdated;
+    }
+
+    private void HeroUpdated(string resource)
+    {
         UpdateVisuals();
     }
 
@@ -54,17 +62,10 @@ public class HeroItemView : MonoBehaviour
 
         _heroAvatar.sprite = _avatarSprites.Find(sprite => sprite.name == _model.AvatarImage);
         _color.sprite = _colorSprites.Find(sprite => sprite.name == _model.ColorImage);
-        _heroName.text = _model.name;
+        _heroName.text = _model.Name;
         _ATK.text = ": " + _model.Stats.ATK.ToString();
         _DEF.text = ": " + _model.Stats.DEF.ToString();
         _HP.text = ": " + _model.Stats.HP.ToString();
         _Skill.text = _model.Skill;
-
-        _heroAvatar.color = IsOwned() ? Color.white : Color.grey;
-    }
-
-    private bool IsOwned()
-    {
-        return true;
     }
 }

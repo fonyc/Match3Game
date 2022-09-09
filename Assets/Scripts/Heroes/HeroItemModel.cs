@@ -3,7 +3,7 @@
 public class HeroItemModel
 {
     public int Id;
-    public string name;
+    public string Name;
     public string AvatarImage;
     public int Color;
     public string ColorImage;

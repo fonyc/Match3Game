@@ -1,6 +1,3 @@
-using Shop.Model;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HeroesController 
@@ -12,5 +9,15 @@ public class HeroesController
     public HeroesController(UserData userData)
     {
         UserData = userData;
+    }
+
+    public void Initialize()
+    {
+        Load();
+    }
+
+    private void Load()
+    {
+        Model = JsonUtility.FromJson<HeroModel>(Resources.Load<TextAsset>("HeroModel").text);
     }
 }

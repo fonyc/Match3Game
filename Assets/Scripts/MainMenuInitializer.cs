@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MainMenuInitializer : MonoBehaviour
 {
+    #region SERIALIZED FIELDS
     [Header("--- PREFABS ---")]
     [SerializeField]
     private ResourcesView _topBarResourcesPrefab = null;
@@ -16,14 +17,16 @@ public class MainMenuInitializer : MonoBehaviour
 
     [SerializeField]
     private BottomBarController _bottomBarPrefab = null;
+    #endregion
 
+    #region INJECTIONS
     private UserData _userData = null;
     private ShopController _shopController = null;
     private HeroesController _heroesController = null;
+    #endregion
 
     private void Start()
     {
-        //Create all tabs and userData --> inyect it to the ones they need to save something
         _userData = new UserData();
         _shopController = new ShopController(_userData);
         _heroesController = new HeroesController(_userData);
@@ -31,7 +34,6 @@ public class MainMenuInitializer : MonoBehaviour
         //Create bottom main menu
         BottomBarController bottomBar = Instantiate(_bottomBarPrefab, transform);
 
-        //Initialize data
         _userData.Load();
 
         //Initialize resources top bar
@@ -39,6 +41,7 @@ public class MainMenuInitializer : MonoBehaviour
 
         //Initialize controllers
         _shopController.Initialize();
+        _heroesController.Initialize();
 
         //Initialize tabs and disable them for later
 

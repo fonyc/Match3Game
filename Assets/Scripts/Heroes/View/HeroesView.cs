@@ -1,6 +1,3 @@
-using Shop.Controller;
-using Shop.Model;
-using Shop.View;
 using UnityEngine;
 
 public class HeroesView : MonoBehaviour
@@ -13,10 +10,19 @@ public class HeroesView : MonoBehaviour
 
     private HeroesController _controller;
 
+    private UserData _userData;
+
     public void Initialize(HeroesController controller, UserData userData)
     {
+        _userData = userData;
         _controller = controller;
+        userData.OnHeroAdded += CreateHeroCollection;
 
+        CreateHeroCollection();
+    }
+
+    private void CreateHeroCollection()
+    {
         //Ensure there are no previous items
         while (_itemsParent.childCount > 0)
         {
@@ -26,14 +32,13 @@ public class HeroesView : MonoBehaviour
         }
 
         //Instantiate the owned heroes 
-        foreach (OwnedHero ownedHero in userData.GetOwnedHeroList())
+        foreach (OwnedHero ownedHero in _userData.GetOwnedHeroList())
         {
-            Instantiate(_heroItemPrefab, _itemsParent);//.SetData(shopItemModel, userData, OnPurchaseItem);
+            foreach(HeroItemModel heroModel in _controller.Model.Heroes)
+            {
+                if (ownedHero.Name != heroModel.AvatarImage) continue;
+                Instantiate(_heroItemPrefab, _itemsParent).SetData(heroModel, _userData);
+            }
         }
     }
-
-    //private void OnPurchaseItem(ShopItemModel model)
-    //{
-    //    _controller.PurchaseItem(model);
-    //}
 }

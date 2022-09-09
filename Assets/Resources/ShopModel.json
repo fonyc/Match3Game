@@ -5,11 +5,13 @@
 			"Title": "Health Potion",
 			"Image": "HealthPotion",
 			"Cost": {
-				"Type": "Gold",
+				"Name":"Gold",
+				"Type": "Resources",
 				"Amount": 20
 			},
 			"Reward": {
-				"Type": "HealthPotion",
+				"Name": "HealthPotion",
+				"Type": "BattleItem",
 				"Amount": 1
 			}
 		},
@@ -18,11 +20,13 @@
 			"Title": "Mana Potion",
 			"Image": "ManaPotion",
 			"Cost": {
-				"Type": "Gold",
+				"Name":"Gold",
+				"Type": "Resources",
 				"Amount": 30
 			},
 			"Reward": {
-				"Type": "ManaPotion",
+				"Name":"ManaPotion",
+				"Type": "BattleItem",
 				"Amount": 1
 			}
 		},
@@ -31,24 +35,88 @@
 			"Title": "Attack Potion",
 			"Image": "AttackPotion",
 			"Cost": {
-				"Type": "Gold",
-				"Amount": 50
+				"Name":"Gold",
+				"Type": "Resources",
+				"Amount": 40
 			},
 			"Reward": {
-				"Type": "AttackPotion",
+				"Name":"AttackPotion",
+				"Type": "BattleItem",
 				"Amount": 1
 			}
 		},
 		{
 			"Id": "3.00",
-			"Title": "Hero Token",
-			"Image": "HeroToken",
+			"Title": "Morgan le Fay",
+			"Image": "MorganLefay",
 			"Cost": {
-				"Type": "Gems",
+				"Name":"Gems",
+				"Type": "Resources",
 				"Amount": 100
 			},
 			"Reward": {
-				"Type": "HeroToken",
+				"Name":"MorganLefay",
+				"Type": "Hero",
+				"Amount": 1
+			}
+		},
+		{
+			"Id": "4.00",
+			"Title": "Francisco Pizarro",
+			"Image": "FranciscoPizarro",
+			"Cost": {
+				"Name":"Gems",
+				"Type": "Resources",
+				"Amount": 100
+			},
+			"Reward": {
+				"Name":"FranciscoPizarro",
+				"Type": "Hero",
+				"Amount": 1
+			}
+		},
+		{
+			"Id": "5.00",
+			"Title": "Redbeard",
+			"Image": "Redbeard",
+			"Cost": {
+				"Name":"Gems",
+				"Type": "Resources",
+				"Amount": 100
+			},
+			"Reward": {
+				"Name":"Redbeard",
+				"Type": "Hero",
+				"Amount": 1
+			}
+		},
+		{
+			"Id": "6.00",
+			"Title": "Nicola Tesla",
+			"Image": "NicolaTesla",
+			"Cost": {
+				"Name":"Gems",
+				"Type": "Resources",
+				"Amount": 100
+			},
+			"Reward": {
+				"Name":"NicolaTesla",
+				"Type": "Hero",
+				"Amount": 1
+			}
+		},
+		{
+			"Id": "7.00",
+			"Title": "Leonardo Da Vinci",
+			"Image": "LeonardoDaVinci",
+			"Cost": {
+				"Name":"Gems",
+				"Type": "Resources",
+				"Amount": 100
+			},
+			"Reward": {
+				"Name":"LeonardoDaVinci",
+				"Type": "Hero",
 				"Amount": 1
 			}
 		}

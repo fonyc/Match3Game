@@ -21,16 +21,26 @@ namespace Shop.Controller
 
         public void PurchaseItem(ShopItemModel model)
         {
-            if (UserData.GetResourceAmount(model.Cost.Type) < model.Cost.Amount) return;
+            if (UserData.GetResourceAmount(model.Cost.Name) < model.Cost.Amount) return;
 
             UserData.RemoveResource(model.Cost);
             UserData.AddResource(model.Reward);
             UserData.Save();
         }
 
+        public void PurchaseHero(ShopItemModel model)
+        {
+            if (UserData.GetResourceAmount(model.Cost.Name) < model.Cost.Amount) return;
+
+            UserData.RemoveResource(model.Cost);
+            UserData.AddHero(model.Reward);
+            UserData.Save();
+        }
+
         public void FreeResource()
         {
-            UserData.AddGold();
+            UserData.AddPrimaryResources("Gold");
+            UserData.AddPrimaryResources("Gems");
             UserData.Save();
         }
 

@@ -40,7 +40,15 @@ namespace Shop.View
 
         private void OnPurchaseItem(ShopItemModel model)
         {
-            _controller.PurchaseItem(model);
+            switch (model.Reward.Type)
+            {
+                case "Hero":
+                _controller.PurchaseHero(model);
+                    break;
+                default:
+                _controller.PurchaseItem(model);
+                    break;
+            }
         }
     }
 }

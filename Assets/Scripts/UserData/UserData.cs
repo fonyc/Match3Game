@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class UserData
 {
@@ -16,48 +15,49 @@ public class UserData
     private string path = Application.persistentDataPath + "/userData.data";
     public event Action<string> OnResourceModified = resource => { };
     public event Action<string> OnHeroModified = hero => { };
+    public event Action OnHeroAdded;
 
     #region RESOURCES
 
-    public void AddGold()
+    public void AddPrimaryResources(string resource)
     {
         foreach (ResourceItem resourceItem in Items)
         {
-            if (resourceItem.Type == "Gold")
+            if (resourceItem.Name == resource)
             {
                 resourceItem.Amount += 100;
-                OnResourceModified("Gold");
+                OnResourceModified(resource);
                 return;
             }
         }
-        Items.Add(new ResourceItem { Type = "Gold", Amount = 100 });
-        OnResourceModified("Gold");
+        Items.Add(new ResourceItem { Name = resource, Type = "Resources", Amount = 100 });
+        OnResourceModified(resource);
     }
 
     public void AddResource(ResourceItem item)
     {
         foreach (ResourceItem resourceItem in Items)
         {
-            if (resourceItem.Type == item.Type)
+            if (resourceItem.Name == item.Name)
             {
                 resourceItem.Amount += item.Amount;
-                OnResourceModified(item.Type);
+                OnResourceModified(item.Name);
                 return;
             }
         }
 
-        Items.Add(new ResourceItem { Type = item.Type, Amount = item.Amount });
-        OnResourceModified(item.Type);
+        Items.Add(new ResourceItem { Name = item.Name, Type = item.Type, Amount = item.Amount });
+        OnResourceModified(item.Name);
     }
 
     public void RemoveResource(ResourceItem item)
     {
         foreach (ResourceItem resourceItem in Items)
         {
-            if (resourceItem.Type == item.Type)
+            if (resourceItem.Name == item.Name)
             {
                 resourceItem.Amount = Mathf.Max(0, resourceItem.Amount - item.Amount);
-                OnResourceModified(item.Type);
+                OnResourceModified(item.Name);
                 return;
             }
         }
@@ -67,7 +67,7 @@ public class UserData
     {
         foreach (ResourceItem item in Items)
         {
-            if (item.Type == resourceType)
+            if (item.Name == resourceType)
             {
                 return item.Amount;
             }
@@ -79,18 +79,21 @@ public class UserData
 
     #region HEROES
 
-    public void AddHero(OwnedHero newHero)
+    public void AddHero(ResourceItem item)
     {
-        bool found = false;
         foreach (OwnedHero hero in Heroes)
         {
-            if (hero.Name == newHero.Name)
+            if (hero.Name == item.Name)
             {
+                //Hero is found and modified
                 hero.Level++;
-                found = true;
+                OnHeroModified?.Invoke(hero.Name);
+                return;
             }
         }
-        if (!found) Heroes.Add(newHero);
+        //New hero added to collection
+        Heroes.Add(new OwnedHero(item.Name, 1));
+        OnHeroAdded?.Invoke();
     }
 
 
@@ -101,11 +104,7 @@ public class UserData
 
     #endregion
 
-    //public void Save() => PlayerPrefs.SetString("USERDATA2", JsonUtility.ToJson(this));
-
-    //public void Load() => JsonUtility.FromJsonOverwrite(PlayerPrefs.GetString("USERDATA2", "{}"), this);
-
-
+    #region SAVE/LOAD
     public void Save()
     {
         string jsonObject = JsonUtility.ToJson(this);
@@ -121,4 +120,5 @@ public class UserData
         
         JsonUtility.FromJsonOverwrite(readFile, this);
     }
+    #endregion
 }

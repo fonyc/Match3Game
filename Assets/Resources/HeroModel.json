@@ -1,31 +1,32 @@
-"Heroes": [
+{
+	"Heroes": [
 		{
 			"Id": 0,
 			"Name": "Leonardo da Vinci",
 			"AvatarImage": "LeonardoDaVinci",
 			"Color": 0,
 			"ColorImage": "Artist",
-			"Stats":{
+			"Stats": {
 				"ATK": 100,
 				"DEF": 100,
 				"HP": 100,
 				"Progression": 10
 			},
-			"Skill": "EmblemCreation"
+			"Skill": "Create"
 		},
 		{
 			"Id": 1,
-			"Name": "Morgana Lefay",
-			"AvatarImage": "MorganaLefay",
+			"Name": "Morgan le Fay",
+			"AvatarImage": "MorganLefay",
 			"Color": 4,
 			"ColorImage": "Wizard",
-			"Stats":{
+			"Stats": {
 				"ATK": 100,
 				"DEF": 100,
 				"HP": 100,
 				"Progression": 10
 			},
-			"Skill": "EmblemSwap"
+			"Skill": "Swap"
 		},
 		{
 			"Id": 2,
@@ -33,13 +34,13 @@
 			"AvatarImage": "FranciscoPizarro",
 			"Color": 1,
 			"ColorImage": "Conqueror",
-			"Stats":{
+			"Stats": {
 				"ATK": 100,
 				"DEF": 100,
 				"HP": 100,
 				"Progression": 10
 			},
-			"Skill": "EmblemDestruction"
+			"Skill": "Destroy"
 		},
 		{
 			"Id": 3,
@@ -47,13 +48,13 @@
 			"AvatarImage": "Redbeard",
 			"Color": 2,
 			"ColorImage": "Pirate",
-			"Stats":{
+			"Stats": {
 				"ATK": 100,
 				"DEF": 100,
 				"HP": 100,
 				"Progression": 10
 			},
-			"Skill": "EmblemSwap"
+			"Skill": "Decolorate"
 		},
 		{
 			"Id": 4,
@@ -61,13 +62,13 @@
 			"AvatarImage": "NicolaTesla",
 			"Color": 3,
 			"ColorImage": "Scientist",
-			"Stats":{
+			"Stats": {
 				"ATK": 100,
 				"DEF": 100,
 				"HP": 100,
 				"Progression": 10
 			},
-			"Skill": "BoardShuffle"
+			"Skill": "Shuffle"
 		}
 	]
 }

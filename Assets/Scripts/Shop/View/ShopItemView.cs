@@ -33,10 +33,10 @@ namespace Shop.View
         private UserData _userData;
         private Action<ShopItemModel> _onClickedEvent;
 
-        public void SetData(ShopItemModel model, UserData userData, Action<ShopItemModel> onClickdEvent)
+        public void SetData(ShopItemModel model, UserData userData, Action<ShopItemModel> onClickedEvent)
         {
             _model = model;
-            _onClickedEvent = onClickdEvent;
+            _onClickedEvent = onClickedEvent;
             _userData = userData;
             _userData.OnResourceModified += InventoryUpdated;
             UpdateVisuals();
@@ -57,14 +57,14 @@ namespace Shop.View
             if (_model == null) return;
 
             _image.sprite = _imageSprites.Find(sprite => sprite.name == _model.Image);
-            _costImage.sprite = _imageSprites.Find(sprite => sprite.name == _model.Cost.Type);
+            _costImage.sprite = _imageSprites.Find(sprite => sprite.name == _model.Cost.Name);
             _title.text = _model.Title;
             _amount.text = "x " + _model.Reward.Amount.ToString();
             _costText.text = _model.Cost.Amount.ToString();
             _costText.color = CanPay() ? Color.white : Color.red;
         }
 
-        private bool CanPay() => _userData.GetResourceAmount(_model.Cost.Type) >= _model.Cost.Amount;
+        private bool CanPay() => _userData.GetResourceAmount(_model.Cost.Name) >= _model.Cost.Amount;
 
         public void OnClicked()
         {
@@ -73,7 +73,6 @@ namespace Shop.View
             if (!CanPay()) return;
 
             _onClickedEvent?.Invoke(_model);
-
         }
     }
 
