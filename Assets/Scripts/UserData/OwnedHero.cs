@@ -4,6 +4,7 @@ using System;
 public class OwnedHero
 {
     public string Name;
+    public string Type;
     public int Level;
 
     public OwnedHero(string name, int level)

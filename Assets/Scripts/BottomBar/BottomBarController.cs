@@ -7,6 +7,7 @@ public class BottomBarController : MonoBehaviour
 
     [SerializeField] ShopView shopTab;
     [SerializeField] HeroesView heroesTab;
+    [SerializeField] TeamView teamTab;
 
     public void AddTab(object tab)
     {
@@ -17,6 +18,9 @@ public class BottomBarController : MonoBehaviour
                 break;
             case HeroesView heroes:
                 heroesTab = (HeroesView)tab;
+                break;
+            case TeamView team:
+                teamTab = (TeamView)tab;
                 break;
         }
     }
@@ -29,9 +33,9 @@ public class BottomBarController : MonoBehaviour
                 return shopTab.gameObject;
             case "Heroes":
                 return  heroesTab.gameObject; 
+            case "Team":
+                return teamTab.gameObject;
             case "Levels":
-                return null;
-            case "Equip":
                 return null;
             default:
                 return null;

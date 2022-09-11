@@ -1,3 +1,4 @@
+using Shop.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,16 +7,20 @@ using UnityEngine;
 
 public class UserData
 {
-    //Stores Gold, Gems, potions and hero tokens (qty)
+    //Stores Gold, Gems, and potions (qty)
     [SerializeField] private List<ResourceItem> Items = new();
 
     //Stores Owned Heroes
     [SerializeField] private List<OwnedHero> Heroes = new();
 
+    [SerializeField] private List<OwnedBattleItem> BattleItems = new();
+
     private string path = Application.persistentDataPath + "/userData.data";
     public event Action<string> OnResourceModified = resource => { };
     public event Action<string> OnHeroModified = hero => { };
     public event Action OnHeroAdded;
+    public event Action<string> OnBattleItemModified = hero => { };
+    public event Action OnBattleItemAdded;
 
     #region RESOURCES
 
@@ -96,10 +101,51 @@ public class UserData
         OnHeroAdded?.Invoke();
     }
 
-
-    public List<OwnedHero> GetOwnedHeroList()
+    public List<OwnedHero> GetOwnedHeroes()
     {
         return Heroes;
+    }
+
+    #endregion
+
+    #region BATTLEITEMS
+
+    public void AddBattleItem(ResourceItem item)
+    {
+        foreach (OwnedBattleItem battleItem in BattleItems)
+        {
+            if (battleItem.Name == item.Name)
+            {
+                battleItem.Amount++;
+                OnBattleItemModified?.Invoke(battleItem.Name);
+                return;
+            }
+        }
+        BattleItems.Add(new OwnedBattleItem(item.Name, 1));
+        OnBattleItemAdded?.Invoke();
+    }
+
+    public void RemoveBattleItem(string itemName)
+    {
+        foreach (OwnedBattleItem battleItem in BattleItems)
+        {
+            if (battleItem.Name == itemName)
+            {
+                if(battleItem.Amount - 1 > 0)
+                {
+                    battleItem.Amount--;
+                    OnBattleItemModified?.Invoke(battleItem.Name);
+                    return;
+                }
+                BattleItems.Remove(battleItem);
+                OnBattleItemAdded?.Invoke();
+            }
+        }
+    }
+
+    public List<OwnedBattleItem> GetOwnedBattleItems()
+    {
+        return BattleItems;
     }
 
     #endregion

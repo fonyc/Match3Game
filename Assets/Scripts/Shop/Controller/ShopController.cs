@@ -37,6 +37,14 @@ namespace Shop.Controller
             UserData.Save();
         }
 
+        public void PurchaseBattleItem(ShopItemModel model)
+        {
+            if (UserData.GetResourceAmount(model.Cost.Name) < model.Cost.Amount) return;
+            UserData.RemoveResource(model.Cost);
+            UserData.AddBattleItem(model.Reward);
+            UserData.Save();
+        }
+
         public void FreeResource()
         {
             UserData.AddPrimaryResources("Gold");

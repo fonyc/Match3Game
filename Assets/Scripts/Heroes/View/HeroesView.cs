@@ -23,7 +23,6 @@ public class HeroesView : MonoBehaviour
 
     private void CreateHeroCollection()
     {
-        //Ensure there are no previous items
         while (_itemsParent.childCount > 0)
         {
             Transform child = _itemsParent.GetChild(0);
@@ -31,8 +30,7 @@ public class HeroesView : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        //Instantiate the owned heroes 
-        foreach (OwnedHero ownedHero in _userData.GetOwnedHeroList())
+        foreach (OwnedHero ownedHero in _userData.GetOwnedHeroes())
         {
             foreach(HeroItemModel heroModel in _controller.Model.Heroes)
             {
