@@ -3,12 +3,14 @@ using System;
 [Serializable]
 public class OwnedBattleItem
 {
-    public string Name;
+    public string Id;
+    public string Type;
     public int Amount;
 
-    public OwnedBattleItem(string name, int amount)
+    public OwnedBattleItem(string id, string type, int amount)
     {
-        Name = name;
+        Id = id;
+        Type = type;
         Amount = amount;
     }
 }

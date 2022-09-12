@@ -1,0 +1,31 @@
+{
+	"BattleItems": [
+		{
+			"Id": "ManaPotion",
+			"Name": "Mana Potion",
+			"AvatarImage": "ManaPotion",
+			"ItemEffect": {
+				"Stat": "MANA",
+				"Amount": 100
+			}
+		},
+		{
+			"Id": "HealthPotion",
+			"Name": "Health Potion",
+			"AvatarImage": "HealthPotion",
+			"ItemEffect": {
+				"Stat": "HP",
+				"Amount": 100
+			}
+		},
+		{
+			"Id": "AttackPotion",
+			"Name": "Attack Potion",
+			"AvatarImage": "AttackPotion",
+			"ItemEffect": {
+				"Stat": "ATK",
+				"Amount": 100
+			}
+		}
+	]
+}

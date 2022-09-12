@@ -1,7 +1,7 @@
 {
 	"Items": [
 		{
-			"Id": "0.00",
+			"Id": "HealthPotion",
 			"Title": "Health Potion",
 			"Image": "HealthPotion",
 			"Cost": {
@@ -16,7 +16,7 @@
 			}
 		},
 		{
-			"Id": "1.00",
+			"Id": "ManaPotion",
 			"Title": "Mana Potion",
 			"Image": "ManaPotion",
 			"Cost": {
@@ -31,7 +31,7 @@
 			}
 		},
 		{
-			"Id": "2.00",
+			"Id": "AttackPotion",
 			"Title": "Attack Potion",
 			"Image": "AttackPotion",
 			"Cost": {
@@ -46,7 +46,7 @@
 			}
 		},
 		{
-			"Id": "3.00",
+			"Id": "MorganLefay",
 			"Title": "Morgan le Fay",
 			"Image": "MorganLefay",
 			"Cost": {
@@ -61,7 +61,7 @@
 			}
 		},
 		{
-			"Id": "4.00",
+			"Id": "FranciscoPizarro",
 			"Title": "Francisco Pizarro",
 			"Image": "FranciscoPizarro",
 			"Cost": {
@@ -76,7 +76,7 @@
 			}
 		},
 		{
-			"Id": "5.00",
+			"Id": "Redbeard",
 			"Title": "Redbeard",
 			"Image": "Redbeard",
 			"Cost": {
@@ -91,7 +91,7 @@
 			}
 		},
 		{
-			"Id": "6.00",
+			"Id": "NicolaTesla",
 			"Title": "Nicola Tesla",
 			"Image": "NicolaTesla",
 			"Cost": {
@@ -106,7 +106,7 @@
 			}
 		},
 		{
-			"Id": "7.00",
+			"Id": "LeonardoDaVinci",
 			"Title": "Leonardo Da Vinci",
 			"Image": "LeonardoDaVinci",
 			"Cost": {

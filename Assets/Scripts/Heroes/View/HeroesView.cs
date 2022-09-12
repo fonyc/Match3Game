@@ -34,7 +34,7 @@ public class HeroesView : MonoBehaviour
         {
             foreach(HeroItemModel heroModel in _controller.Model.Heroes)
             {
-                if (ownedHero.Name != heroModel.AvatarImage) continue;
+                if (ownedHero.Id != heroModel.AvatarImage) continue;
                 Instantiate(_heroItemPrefab, _itemsParent).SetData(heroModel, _userData);
             }
         }

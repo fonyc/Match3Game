@@ -3,13 +3,14 @@ using System;
 [Serializable]
 public class OwnedHero
 {
-    public string Name;
+    public string Id;
     public string Type;
     public int Level;
 
-    public OwnedHero(string name, int level)
+    public OwnedHero(string id,string type, int level)
     {
-        Name = name;
+        Id = id;
+        Type = type;
         Level = level;
     }
 }

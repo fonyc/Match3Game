@@ -49,8 +49,6 @@ public class MainMenuInitializer : MonoBehaviour
         _heroesController.Initialize();
         _teamController.Initialize();
 
-        //Initialize tabs and disable them for later
-
         //SHOP TAB
         ShopView shop = Instantiate(_shopViewPrefab, transform); 
         shop.Initialize(_shopController, _userData);

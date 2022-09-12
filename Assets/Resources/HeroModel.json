@@ -1,7 +1,7 @@
 {
 	"Heroes": [
 		{
-			"Id": 0,
+			"Id": "LeonardoDaVinci",
 			"Name": "Leonardo da Vinci",
 			"AvatarImage": "LeonardoDaVinci",
 			"Color": 0,
@@ -15,7 +15,7 @@
 			"Skill": "Create"
 		},
 		{
-			"Id": 1,
+			"Id": "MorganLefay",
 			"Name": "Morgan le Fay",
 			"AvatarImage": "MorganLefay",
 			"Color": 4,
@@ -29,7 +29,7 @@
 			"Skill": "Swap"
 		},
 		{
-			"Id": 2,
+			"Id": "FranciscoPizarro",
 			"Name": "Francisco Pizarro",
 			"AvatarImage": "FranciscoPizarro",
 			"Color": 1,
@@ -43,7 +43,7 @@
 			"Skill": "Destroy"
 		},
 		{
-			"Id": 3,
+			"Id": "Redbeard",
 			"Name": "Redbeard",
 			"AvatarImage": "Redbeard",
 			"Color": 2,
@@ -57,7 +57,7 @@
 			"Skill": "Decolorate"
 		},
 		{
-			"Id": 4,
+			"Id": "NicolaTesla",
 			"Name": "Nicola Tesla",
 			"AvatarImage": "NicolaTesla",
 			"Color": 3,

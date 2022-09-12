@@ -1,8 +1,6 @@
-using Shop.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using UnityEngine;
 
 public class UserData
@@ -15,12 +13,17 @@ public class UserData
 
     [SerializeField] private List<OwnedBattleItem> BattleItems = new();
 
-    private string path = Application.persistentDataPath + "/userData.data";
+    [SerializeField] private string SelectedHero = null;
+
+    [SerializeField] private List<string> SelectedItems = new();
+
+    private string path = Application.persistentDataPath + "/userData.json";
     public event Action<string> OnResourceModified = resource => { };
     public event Action<string> OnHeroModified = hero => { };
     public event Action OnHeroAdded;
-    public event Action<string> OnBattleItemModified = hero => { };
+    public event Action OnBattleItemModified;
     public event Action OnBattleItemAdded;
+    //public event Action OnBattleItemAdded;
 
     #region RESOURCES
 
@@ -84,26 +87,41 @@ public class UserData
 
     #region HEROES
 
+    public void SelectHero(string newHero)
+    {
+        SelectedHero = newHero;
+    }
+
+    public void SelectItem(string newItem)
+    {
+
+    }
+
     public void AddHero(ResourceItem item)
     {
         foreach (OwnedHero hero in Heroes)
         {
-            if (hero.Name == item.Name)
+            if (hero.Id == item.Name)
             {
                 //Hero is found and modified
                 hero.Level++;
-                OnHeroModified?.Invoke(hero.Name);
+                OnHeroModified?.Invoke(hero.Id);
                 return;
             }
         }
         //New hero added to collection
-        Heroes.Add(new OwnedHero(item.Name, 1));
+        Heroes.Add(new OwnedHero(item.Name, "Hero", 1));
         OnHeroAdded?.Invoke();
     }
 
     public List<OwnedHero> GetOwnedHeroes()
     {
         return Heroes;
+    }
+
+    public string GetSelectedHero()
+    {
+        return SelectedHero;
     }
 
     #endregion
@@ -114,14 +132,14 @@ public class UserData
     {
         foreach (OwnedBattleItem battleItem in BattleItems)
         {
-            if (battleItem.Name == item.Name)
+            if (battleItem.Id == item.Name)
             {
                 battleItem.Amount++;
-                OnBattleItemModified?.Invoke(battleItem.Name);
+                OnBattleItemModified?.Invoke();
                 return;
             }
         }
-        BattleItems.Add(new OwnedBattleItem(item.Name, 1));
+        BattleItems.Add(new OwnedBattleItem(item.Name, "BattleItem", 1));
         OnBattleItemAdded?.Invoke();
     }
 
@@ -129,12 +147,12 @@ public class UserData
     {
         foreach (OwnedBattleItem battleItem in BattleItems)
         {
-            if (battleItem.Name == itemName)
+            if (battleItem.Id == itemName)
             {
-                if(battleItem.Amount - 1 > 0)
+                if (battleItem.Amount - 1 > 0)
                 {
                     battleItem.Amount--;
-                    OnBattleItemModified?.Invoke(battleItem.Name);
+                    OnBattleItemModified?.Invoke();
                     return;
                 }
                 BattleItems.Remove(battleItem);
@@ -148,22 +166,29 @@ public class UserData
         return BattleItems;
     }
 
+    public int GetBattleItemAmount(string itemName)
+    {
+        foreach(OwnedBattleItem item in BattleItems)
+        {
+            if (item.Id == itemName) return item.Amount;
+        }
+        return 0;
+    }
+
     #endregion
 
     #region SAVE/LOAD
     public void Save()
     {
         string jsonObject = JsonUtility.ToJson(this);
-
-        FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
-        fs.Write(Encoding.UTF8.GetBytes(jsonObject), 0, Encoding.UTF8.GetByteCount(jsonObject));
-        fs.Close();
+        
+        File.WriteAllText(path, jsonObject);
     }
 
     public void Load()
     {
         string readFile = File.Exists(path) ? File.ReadAllText(path) : "{}";
-        
+
         JsonUtility.FromJsonOverwrite(readFile, this);
     }
     #endregion
