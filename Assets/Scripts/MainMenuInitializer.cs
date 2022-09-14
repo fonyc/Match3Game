@@ -19,6 +19,9 @@ public class MainMenuInitializer : MonoBehaviour
     private TeamView _teamViewPrefab = null;
 
     [SerializeField]
+    private LevelsView _levelsViewPrefab = null;
+
+    [SerializeField]
     private BottomBarController _bottomBarPrefab = null;
     #endregion
 
@@ -27,6 +30,7 @@ public class MainMenuInitializer : MonoBehaviour
     private ShopController _shopController = null;
     private HeroesController _heroesController = null;
     private TeamController _teamController = null;
+    private LevelsController _levelController = null;
     #endregion
 
     private void Start()
@@ -35,6 +39,7 @@ public class MainMenuInitializer : MonoBehaviour
         _shopController = new ShopController(_userData);
         _heroesController = new HeroesController(_userData);
         _teamController = new TeamController(_userData);
+        _levelController = new LevelsController(_userData);
 
         //Create bottom main menu
         BottomBarController bottomBar = Instantiate(_bottomBarPrefab, transform);
@@ -44,10 +49,14 @@ public class MainMenuInitializer : MonoBehaviour
         //Initialize resources top bar
         Instantiate(_topBarResourcesPrefab, transform).Initialize(_userData);
 
-        //Initialize controllers
+        #region INIT CONTROLLERS
         _shopController.Initialize();
         _heroesController.Initialize();
         _teamController.Initialize();
+        _levelController.Initialize();
+        #endregion
+
+        #region INIT TABS
 
         //SHOP TAB
         ShopView shop = Instantiate(_shopViewPrefab, transform); 
@@ -66,5 +75,13 @@ public class MainMenuInitializer : MonoBehaviour
         teamView.Initialize(_teamController,_userData);
         bottomBar.AddTab(teamView);
         teamView.gameObject.SetActive(false);
+
+        //LEVELS TAB
+        LevelsView levelsView = Instantiate(_levelsViewPrefab, transform);
+        levelsView.Initialize(_levelController, _userData);
+        bottomBar.AddTab(levelsView);
+        levelsView.gameObject.SetActive(false);
+
+        #endregion
     }
 }

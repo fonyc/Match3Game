@@ -25,20 +25,23 @@ public class TeamView : MonoBehaviour
     private UserData _userData;
 
     private List<TeamHeroView> heroesToSelect = new();
+    private List<TeamBattleItemView> itemsToSelect = new();
+
     #endregion
 
     public void Initialize(TeamController teamController, UserData userData)
     {
         _teamController = teamController;
         _userData = userData;
-        userData.OnHeroAdded += CreateHeroCollection;
-        userData.OnBattleItemAdded += CreateBattleItemCollection;
-        userData.OnBattleItemModified += CreateBattleItemCollection;
+        _userData.OnHeroAdded += CreateHeroCollection;
+        _userData.OnBattleItemAdded += CreateBattleItemCollection;
+        _userData.OnBattleItemModified += CreateBattleItemCollection;
 
         CreateHeroCollection();
         OnHeroSelected(_userData.GetSelectedHero());
 
         CreateBattleItemCollection();
+        UpdateSelectedItemsOnStart();
     }
 
     private void OnHeroSelected(string heroName)
@@ -57,10 +60,31 @@ public class TeamView : MonoBehaviour
         if (itemName == null) return;
         _teamController.SelectItem(itemName);
 
-        //foreach (TeamHeroView hero in heroesToSelect)
-        //{
-        //    hero.SetTick(hero.GetId() == itemName);
-        //}
+        foreach (TeamBattleItemView battleItem in itemsToSelect)
+        {
+            battleItem.SetTick(false);
+        }
+
+        foreach (TeamBattleItemView battleItem in itemsToSelect)
+        {
+            foreach (string item in _userData.GetSelectedItems())
+            {
+                if (battleItem.GetId() == item) battleItem.SetTick(true);
+            }
+        }
+        
+    }
+
+    private void UpdateSelectedItemsOnStart()
+    {
+        foreach (TeamBattleItemView battleItem in itemsToSelect)
+        {
+            foreach (string item in _userData.GetSelectedItems())
+            {
+                if (battleItem.GetId() == item) battleItem.SetTick(true);
+            }
+        }
+
     }
 
     private void CreateHeroCollection()
@@ -89,7 +113,7 @@ public class TeamView : MonoBehaviour
 
     private void CreateBattleItemCollection()
     {
-        //itemsToSelect.Clear();
+        itemsToSelect.Clear();
         while (_battleItemsParent.childCount > 0)
         {
             Transform child = _battleItemsParent.GetChild(0);
@@ -102,8 +126,11 @@ public class TeamView : MonoBehaviour
             foreach(BattleItemModel battleItemModel in _teamController.battleItemModel.BattleItems)
             {
                 if (battleItemModel.Id != item.Id) continue;
-                Instantiate(_battleItemSelectPrefab, _battleItemsParent).SetData(battleItemModel, _userData, OnItemSelected);
+                TeamBattleItemView createdItem = Instantiate(_battleItemSelectPrefab, _battleItemsParent);
+                createdItem.SetData(battleItemModel, _userData, OnItemSelected);
+                itemsToSelect.Add(createdItem);
             }
         }
+        UpdateSelectedItemsOnStart();
     }
 }

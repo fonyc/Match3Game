@@ -308,6 +308,7 @@ MonoBehaviour:
   _shopViewPrefab: {fileID: 8448842334386265445, guid: acfa9bfdefc0f9742a4be5a338a29779, type: 3}
   _heroesViewPrefab: {fileID: 4869219621729432654, guid: 2288ed7d13c6663468b3b0d7f09cbc22, type: 3}
   _teamViewPrefab: {fileID: 7708930174490922942, guid: 05971352121063d42a3833652b889fa2, type: 3}
+  _levelsViewPrefab: {fileID: 1898875682116912377, guid: 5d69694a435299c42bde4c25fc7442ce, type: 3}
   _bottomBarPrefab: {fileID: 3662893602105721655, guid: 549920a0746be5d4ab51f65e85dfedbd, type: 3}
 --- !u!1001 &957261355
 PrefabInstance:

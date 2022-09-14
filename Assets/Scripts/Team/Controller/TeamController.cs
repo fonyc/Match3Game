@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TeamController 
@@ -8,9 +9,10 @@ public class TeamController
 
     public BattleItemsModel battleItemModel;
 
-    //private BattleItemModel[] itemsSelected;
+    private List<string> itemsSelected = new();
 
     private UserData _userData;
+
 
     public TeamController(UserData userData)
     {
@@ -25,7 +27,16 @@ public class TeamController
 
     public void SelectItem(string itemName)
     {
-        _userData.SelectItem(itemName);
+        List<string> selectedItems = _userData.GetSelectedItems();
+
+        if (selectedItems.Contains(itemName)) _userData.DeselectItem(itemName);
+        else if (selectedItems.Count < 2) _userData.SelectItem(itemName);
+        else 
+        {
+            _userData.DeselectItem(selectedItems.Last());
+            _userData.SelectItem(itemName);
+        }
+
         _userData.Save();
     }
 

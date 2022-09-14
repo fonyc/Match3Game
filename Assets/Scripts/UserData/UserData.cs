@@ -23,7 +23,8 @@ public class UserData
     public event Action OnHeroAdded;
     public event Action OnBattleItemModified;
     public event Action OnBattleItemAdded;
-    //public event Action OnBattleItemAdded;
+    public event Action OnBattleItemSelected;
+    public event Action OnBattleItemDeSelected;
 
     #region RESOURCES
 
@@ -94,7 +95,17 @@ public class UserData
 
     public void SelectItem(string newItem)
     {
+        if (SelectedItems.Count < 2) 
+        { 
+            SelectedItems.Add(newItem);
+            OnBattleItemSelected?.Invoke();
+        }
+    }
 
+    public void DeselectItem(string item)
+    {
+        SelectedItems.Remove(item);
+        OnBattleItemDeSelected?.Invoke();
     }
 
     public void AddHero(ResourceItem item)
@@ -103,13 +114,11 @@ public class UserData
         {
             if (hero.Id == item.Name)
             {
-                //Hero is found and modified
                 hero.Level++;
                 OnHeroModified?.Invoke(hero.Id);
                 return;
             }
         }
-        //New hero added to collection
         Heroes.Add(new OwnedHero(item.Name, "Hero", 1));
         OnHeroAdded?.Invoke();
     }
@@ -173,6 +182,11 @@ public class UserData
             if (item.Id == itemName) return item.Amount;
         }
         return 0;
+    }
+
+    public List<string> GetSelectedItems()
+    {
+        return SelectedItems;
     }
 
     #endregion
