@@ -1,0 +1,74 @@
+{
+	"Levels": [
+		{
+			"Level": 1,
+			"Enemy": "RedDragon",
+			"GemsReward": {
+				"Name": "Gems",
+				"Type": "Resources",
+				"Amount": 10
+			},
+			"GoldReward": {
+				"Name": "Gold",
+				"Type": "Resources",
+				"Amount": 100
+			}
+		},
+		{
+			"Level": 2,
+			"Enemy": "BlueDragon",
+			"GemsReward": {
+				"Name": "Gems",
+				"Type": "Resources",
+				"Amount": 20
+			},
+			"GoldReward": {
+				"Name": "Gold",
+				"Type": "Resources",
+				"Amount": 125
+			}
+		},
+		{
+			"Level": 3,
+			"Enemy": "GreenDragon",
+			"GemsReward": {
+				"Name": "Gems",
+				"Type": "Resources",
+				"Amount": 30
+			},
+			"GoldReward": {
+				"Name": "Gold",
+				"Type": "Resources",
+				"Amount": 150
+			}
+		},
+		{
+			"Level": 4,
+			"Enemy": "YellowDragon",
+			"GemsReward": {
+				"Name": "Gems",
+				"Type": "Resources",
+				"Amount": 40
+			},
+			"GoldReward": {
+				"Name": "Gold",
+				"Type": "Resources",
+				"Amount": 175
+			}
+		},
+		{
+			"Level": 5,
+			"Enemy": "PurpleDragon",
+			"GemsReward": {
+				"Name": "Gems",
+				"Type": "Resources",
+				"Amount": 50
+			},
+			"GoldReward": {
+				"Name": "Gold",
+				"Type": "Resources",
+				"Amount": 200
+			}
+		}
+	]
+}

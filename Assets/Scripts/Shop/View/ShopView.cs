@@ -18,7 +18,6 @@ namespace Shop.View
         {
             _controller = controller;
 
-            //Ensure there are no previous items
             while (_itemsParent.childCount > 0)
             {
                 Transform child = _itemsParent.GetChild(0);
@@ -26,7 +25,6 @@ namespace Shop.View
                 Destroy(child.gameObject);
             }
 
-            //Instantiate the items in the store
             foreach (ShopItemModel shopItemModel in _controller.Model.Items)
             {
                 Instantiate(_shopItemPrefab, _itemsParent).SetData(shopItemModel, userData, OnPurchaseItem);
@@ -44,6 +42,9 @@ namespace Shop.View
             {
                 case "Hero":
                 _controller.PurchaseHero(model);
+                    break;
+                case "BattleItem":
+                    _controller.PurchaseBattleItem(model);
                     break;
                 default:
                 _controller.PurchaseItem(model);

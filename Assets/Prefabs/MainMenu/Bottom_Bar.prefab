@@ -277,7 +277,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: EQUIP
+  m_text: TEAM
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1246,7 +1246,7 @@ GameObject:
   - component: {fileID: 5178986822536425228}
   - component: {fileID: 5178986822536425229}
   m_Layer: 5
-  m_Name: Equip_Button
+  m_Name: Team_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1355,7 +1355,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Equip
+          m_StringArgument: Team
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &5178986822536425229
@@ -1605,6 +1605,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shopTab: {fileID: 0}
+  heroesTab: {fileID: 0}
+  teamTab: {fileID: 0}
 --- !u!1 &5178986822844388806
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@
 [System.Serializable]
 public class HeroItemModel
 {
-    public int Id;
+    public string Id;
     public string Name;
     public string AvatarImage;
     public int Color;

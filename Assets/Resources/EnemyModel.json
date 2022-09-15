@@ -1,0 +1,69 @@
+{
+	"Enemies": [
+		{
+			"Id": "RedDragon",
+			"Name": "Red Dragon",
+			"AvatarImage": "RedDragon",
+			"Color": 1,
+			"ColorImage": "Conqueror",
+			"Stats": {
+				"ATK": 10,
+				"DEF": 10,
+				"HP": 1000,
+				"Progression": 10
+			}
+		},
+		{
+			"Id": "BlueDragon",
+			"Name": "Blue Dragon",
+			"AvatarImage": "BlueDragon",
+			"Color": 2,
+			"ColorImage": "Pirate",
+			"Stats": {
+				"ATK": 10,
+				"DEF": 10,
+				"HP": 1000,
+				"Progression": 10
+			}
+		},
+		{
+			"Id": "GreenDragon",
+			"Name": "Green Dragon",
+			"AvatarImage": "GreenDragon",
+			"Color": 0,
+			"ColorImage": "Artist",
+			"Stats": {
+				"ATK": 10,
+				"DEF": 10,
+				"HP": 1000,
+				"Progression": 10
+			}
+		},
+		{
+			"Id": "PurpleDragon",
+			"Name": "Purple Dragon",
+			"AvatarImage": "RedDragon",
+			"Color": 4,
+			"ColorImage": "Wizard",
+			"Stats": {
+				"ATK": 10,
+				"DEF": 10,
+				"HP": 1000,
+				"Progression": 10
+			}
+		},
+		{
+			"Id": "YellowDragon",
+			"Name": "Yellow Dragon",
+			"AvatarImage": "YellowDragon",
+			"Color": 3,
+			"ColorImage": "Scientist",
+			"Stats": {
+				"ATK": 10,
+				"DEF": 10,
+				"HP": 1000,
+				"Progression": 10
+			}
+		},
+	]
+}

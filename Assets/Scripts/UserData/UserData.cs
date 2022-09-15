@@ -1,21 +1,30 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using UnityEngine;
 
 public class UserData
 {
-    //Stores Gold, Gems, potions and hero tokens (qty)
+    //Stores Gold, Gems, and potions (qty)
     [SerializeField] private List<ResourceItem> Items = new();
 
     //Stores Owned Heroes
     [SerializeField] private List<OwnedHero> Heroes = new();
 
-    private string path = Application.persistentDataPath + "/userData.data";
+    [SerializeField] private List<OwnedBattleItem> BattleItems = new();
+
+    [SerializeField] private string SelectedHero = null;
+
+    [SerializeField] private List<string> SelectedItems = new();
+
+    private string path = Application.persistentDataPath + "/userData.json";
     public event Action<string> OnResourceModified = resource => { };
     public event Action<string> OnHeroModified = hero => { };
     public event Action OnHeroAdded;
+    public event Action OnBattleItemModified;
+    public event Action OnBattleItemAdded;
+    public event Action OnBattleItemSelected;
+    public event Action OnBattleItemDeSelected;
 
     #region RESOURCES
 
@@ -79,27 +88,105 @@ public class UserData
 
     #region HEROES
 
+    public void SelectHero(string newHero)
+    {
+        SelectedHero = newHero;
+    }
+
+    public void SelectItem(string newItem)
+    {
+        if (SelectedItems.Count < 2) 
+        { 
+            SelectedItems.Add(newItem);
+            OnBattleItemSelected?.Invoke();
+        }
+    }
+
+    public void DeselectItem(string item)
+    {
+        SelectedItems.Remove(item);
+        OnBattleItemDeSelected?.Invoke();
+    }
+
     public void AddHero(ResourceItem item)
     {
         foreach (OwnedHero hero in Heroes)
         {
-            if (hero.Name == item.Name)
+            if (hero.Id == item.Name)
             {
-                //Hero is found and modified
                 hero.Level++;
-                OnHeroModified?.Invoke(hero.Name);
+                OnHeroModified?.Invoke(hero.Id);
                 return;
             }
         }
-        //New hero added to collection
-        Heroes.Add(new OwnedHero(item.Name, 1));
+        Heroes.Add(new OwnedHero(item.Name, "Hero", 1));
         OnHeroAdded?.Invoke();
     }
 
-
-    public List<OwnedHero> GetOwnedHeroList()
+    public List<OwnedHero> GetOwnedHeroes()
     {
         return Heroes;
+    }
+
+    public string GetSelectedHero()
+    {
+        return SelectedHero;
+    }
+
+    #endregion
+
+    #region BATTLEITEMS
+
+    public void AddBattleItem(ResourceItem item)
+    {
+        foreach (OwnedBattleItem battleItem in BattleItems)
+        {
+            if (battleItem.Id == item.Name)
+            {
+                battleItem.Amount++;
+                OnBattleItemModified?.Invoke();
+                return;
+            }
+        }
+        BattleItems.Add(new OwnedBattleItem(item.Name, "BattleItem", 1));
+        OnBattleItemAdded?.Invoke();
+    }
+
+    public void RemoveBattleItem(string itemName)
+    {
+        foreach (OwnedBattleItem battleItem in BattleItems)
+        {
+            if (battleItem.Id == itemName)
+            {
+                if (battleItem.Amount - 1 > 0)
+                {
+                    battleItem.Amount--;
+                    OnBattleItemModified?.Invoke();
+                    return;
+                }
+                BattleItems.Remove(battleItem);
+                OnBattleItemAdded?.Invoke();
+            }
+        }
+    }
+
+    public List<OwnedBattleItem> GetOwnedBattleItems()
+    {
+        return BattleItems;
+    }
+
+    public int GetBattleItemAmount(string itemName)
+    {
+        foreach(OwnedBattleItem item in BattleItems)
+        {
+            if (item.Id == itemName) return item.Amount;
+        }
+        return 0;
+    }
+
+    public List<string> GetSelectedItems()
+    {
+        return SelectedItems;
     }
 
     #endregion
@@ -108,16 +195,14 @@ public class UserData
     public void Save()
     {
         string jsonObject = JsonUtility.ToJson(this);
-
-        FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
-        fs.Write(Encoding.UTF8.GetBytes(jsonObject), 0, Encoding.UTF8.GetByteCount(jsonObject));
-        fs.Close();
+        
+        File.WriteAllText(path, jsonObject);
     }
 
     public void Load()
     {
         string readFile = File.Exists(path) ? File.ReadAllText(path) : "{}";
-        
+
         JsonUtility.FromJsonOverwrite(readFile, this);
     }
     #endregion
