@@ -37,17 +37,23 @@ public class LevelItemView : MonoBehaviour
         SetVisuals();
     }
 
-    public void OnClickedButton(int level)
+    public void OnClickedButton()
     {
-        _onClickedEvent?.Invoke(level);
+        _onClickedEvent?.Invoke(_levelItemModel.Level);
     }
 
     private void SetVisuals()
     {
+        GetComponent<Button>().interactable = IsInteractable();
         _dragonImage.sprite = _dragonSprites.Find(sprite => sprite.name == _levelItemModel.Enemy);
         _enemyName.text = _levelItemModel.Enemy;
         _levelNumber.text = "LEVEL " + _levelItemModel.Level.ToString();
         _gemsRewardAmount.text = _levelItemModel.GemsReward.Amount.ToString();
         _goldRewardAmount.text = _levelItemModel.GoldReward.Amount.ToString();
+    }
+
+    private bool IsInteractable()
+    {
+        return _userData.GetLevelsPassed() + 1 >= _levelItemModel.Level;
     }
 }

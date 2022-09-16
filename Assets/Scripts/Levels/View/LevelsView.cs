@@ -31,6 +31,6 @@ public class LevelsView : MonoBehaviour
 
     public void OnLevelSelected(int level)
     {
-
+        _levelsController.ChangeScene(level);
     }
 }
