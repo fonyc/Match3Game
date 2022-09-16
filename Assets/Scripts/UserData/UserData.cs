@@ -5,10 +5,8 @@ using UnityEngine;
 
 public class UserData
 {
-    //Stores Gold, Gems, and potions (qty)
     [SerializeField] private List<ResourceItem> Items = new();
 
-    //Stores Owned Heroes
     [SerializeField] private List<OwnedHero> Heroes = new();
 
     [SerializeField] private List<OwnedBattleItem> BattleItems = new();
@@ -17,7 +15,11 @@ public class UserData
 
     [SerializeField] private List<string> SelectedItems = new();
 
+    [SerializeField] private int levelsPassed;
+
     private string path = Application.persistentDataPath + "/userData.json";
+
+    #region EVENTS
     public event Action<string> OnResourceModified = resource => { };
     public event Action<string> OnHeroModified = hero => { };
     public event Action OnHeroAdded;
@@ -25,6 +27,7 @@ public class UserData
     public event Action OnBattleItemAdded;
     public event Action OnBattleItemSelected;
     public event Action OnBattleItemDeSelected;
+    #endregion
 
     #region RESOURCES
 
@@ -187,6 +190,15 @@ public class UserData
     public List<string> GetSelectedItems()
     {
         return SelectedItems;
+    }
+
+    #endregion
+
+    #region LEVELS
+
+    public int GetLevelsPassed()
+    {
+        return levelsPassed;
     }
 
     #endregion

@@ -1,7 +1,3 @@
-using Shop.Model;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelsController 
@@ -18,6 +14,11 @@ public class LevelsController
     public void Initialize()
     {
         Load();
+    }
+
+    public void ChangeScene(int level)
+    {
+        Debug.Log("Changing scene to level " + level);
     }
 
     public void Load()
