@@ -12,9 +12,9 @@ namespace Board.View
        
         [Header("--- BOARD SETTINGS ---")]
         [Space(5)]
-        [SerializeField] private Vector2Int _boardSize = new Vector2Int(6, 6);
         [SerializeField] private Camera _camera;
         [SerializeField] private GameObject[] emblemPrefabs;
+        private Vector2Int _boardSize;
         public int visualPieceFallPosition => _boardSize.y;
 
         //Input
@@ -32,18 +32,17 @@ namespace Board.View
         
         #endregion
 
-        private void Awake()
+        public void Initiliaze(BoardController boardController, Vector2Int boardSize)
         {
+            _boardSize = boardSize;
+            _camera = Camera.main;
             _boardPlane = new Plane(Vector3.forward, Vector3.zero);
-            _controller = new BoardController(_boardSize.x, _boardSize.y);
+            _controller = boardController;
 
             _controller.OnEmblemMoved += OnEmblemMoved;
             _controller.OnEmblemDestroyed += OnEmblemDestroyed;
             _controller.OnEmblemCreated += OnEmblemCreated;
-        }
 
-        private void Start()
-        {
             GenerateBoard();
         }
 
@@ -68,7 +67,7 @@ namespace Board.View
                 _controller.CheckInput(touch);
             }
 
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 _controller.RefillBoard();
             }

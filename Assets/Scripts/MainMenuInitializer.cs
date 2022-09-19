@@ -23,6 +23,9 @@ public class MainMenuInitializer : MonoBehaviour
 
     [SerializeField]
     private BottomBarController _bottomBarPrefab = null;
+
+    [SerializeField]
+    private SceneLoader _sceneLoaderPrefab = null;
     #endregion
 
     #region INJECTIONS
@@ -35,11 +38,13 @@ public class MainMenuInitializer : MonoBehaviour
 
     private void Start()
     {
+        SceneLoader sceneLoader = Instantiate(_sceneLoaderPrefab);
+
         _userData = new UserData();
         _shopController = new ShopController(_userData);
         _heroesController = new HeroesController(_userData);
         _teamController = new TeamController(_userData);
-        _levelController = new LevelsController(_userData);
+        _levelController = new LevelsController(_userData, sceneLoader);
 
         //Create bottom main menu
         BottomBarController bottomBar = Instantiate(_bottomBarPrefab, transform);

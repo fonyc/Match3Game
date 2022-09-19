@@ -5,10 +5,12 @@ public class LevelsController
     public LevelModel LevelModel;
     public EnemyModel EnemyModel;
     private UserData _userData;
+    private SceneLoader _sceneLoader;
 
-    public LevelsController(UserData userData)
+    public LevelsController(UserData userData, SceneLoader sceneLoader)
     {
         _userData = userData;
+        _sceneLoader = sceneLoader;
     }
 
     public void Initialize()
@@ -16,9 +18,12 @@ public class LevelsController
         Load();
     }
 
-    public void ChangeScene(int level)
+    public void ChangeGameplayScene(int level)
     {
-        Debug.Log("Changing scene to level " + level);
+        _userData.SetCurrentSelectedLevel(level);
+        _userData.Save();
+
+        _sceneLoader.ChangeScene(2);
     }
 
     public void Load()

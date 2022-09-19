@@ -31,11 +31,6 @@ namespace Shop.View
             }
         }
 
-        public void AddGold()
-        {
-            _controller.FreeResource();
-        }
-
         private void OnPurchaseItem(ShopItemModel model)
         {
             switch (model.Reward.Type)

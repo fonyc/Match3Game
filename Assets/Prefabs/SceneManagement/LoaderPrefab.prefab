@@ -71,8 +71,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -882982645
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 88374d6d2e29ba648af6969e47940cbf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -113,7 +113,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &248303921688121350
 Transform:
   m_ObjectHideFlags: 0
@@ -154,6 +154,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 248303921688121350}
     m_Modifications:
+    - target: {fileID: 7524522322725807830, guid: 118ffcc478118594fbb8b128b78efc77, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7524522322725807831, guid: 118ffcc478118594fbb8b128b78efc77, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -241,6 +245,10 @@ PrefabInstance:
     - target: {fileID: 7524522322725807835, guid: 118ffcc478118594fbb8b128b78efc77, type: 3}
       propertyPath: m_Name
       value: LoadingBar_Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7524522323419634931, guid: 118ffcc478118594fbb8b128b78efc77, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 118ffcc478118594fbb8b128b78efc77, type: 3}

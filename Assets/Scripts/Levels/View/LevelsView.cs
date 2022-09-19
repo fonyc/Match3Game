@@ -29,8 +29,8 @@ public class LevelsView : MonoBehaviour
         }
     }
 
-    public void OnLevelSelected(int level)
+    public void OnLevelSelected(int levelSelected)
     {
-        _levelsController.ChangeScene(level);
+        _levelsController.ChangeGameplayScene(levelSelected);
     }
 }

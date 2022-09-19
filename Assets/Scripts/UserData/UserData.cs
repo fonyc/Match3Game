@@ -17,6 +17,8 @@ public class UserData
 
     [SerializeField] private int levelsPassed;
 
+    [SerializeField] private int currentSelectedLevel;
+
     private string path = Application.persistentDataPath + "/userData.json";
 
     #region EVENTS
@@ -30,21 +32,6 @@ public class UserData
     #endregion
 
     #region RESOURCES
-
-    public void AddPrimaryResources(string resource)
-    {
-        foreach (ResourceItem resourceItem in Items)
-        {
-            if (resourceItem.Name == resource)
-            {
-                resourceItem.Amount += 100;
-                OnResourceModified(resource);
-                return;
-            }
-        }
-        Items.Add(new ResourceItem { Name = resource, Type = "Resources", Amount = 100 });
-        OnResourceModified(resource);
-    }
 
     public void AddResource(ResourceItem item)
     {
@@ -199,6 +186,16 @@ public class UserData
     public int GetLevelsPassed()
     {
         return levelsPassed;
+    }
+
+    public int GetCurrentSelectedLevel()
+    {
+        return currentSelectedLevel;
+    }
+
+    public void SetCurrentSelectedLevel(int nextLevel)
+    {
+        currentSelectedLevel = nextLevel;
     }
 
     #endregion
