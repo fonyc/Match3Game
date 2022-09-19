@@ -57,10 +57,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoaderPrefab
       objectReference: {fileID: 0}
-    - target: {fileID: 248303921688121345, guid: f71d91817470c3a4e9cfcb4336d8965a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 248303921688121350, guid: f71d91817470c3a4e9cfcb4336d8965a, type: 3}
       propertyPath: m_RootOrder
       value: 0

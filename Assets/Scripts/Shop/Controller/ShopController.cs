@@ -45,13 +45,6 @@ namespace Shop.Controller
             UserData.Save();
         }
 
-        public void FreeResource()
-        {
-            UserData.AddPrimaryResources("Gold");
-            UserData.AddPrimaryResources("Gems");
-            UserData.Save();
-        }
-
         private void Load()
         {
             Model = JsonUtility.FromJson<ShopModel>(Resources.Load<TextAsset>("ShopModel").text);

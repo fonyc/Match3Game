@@ -119,6 +119,36 @@
 				"Type": "Hero",
 				"Amount": 1
 			}
+		},
+		{
+			"Id": "Gems",
+			"Title": "Free Gems",
+			"Image": "Gems",
+			"Cost": {
+				"Name":"Gems",
+				"Type": "Resources",
+				"Amount": 0
+			},
+			"Reward": {
+				"Name": "Gems",
+				"Type": "Resources",
+				"Amount": 100
+			}
+		},
+		{
+			"Id": "Gold",
+			"Title": "Free Gold",
+			"Image": "Gold",
+			"Cost": {
+				"Name":"Gold",
+				"Type": "Resources",
+				"Amount": 0
+			},
+			"Reward": {
+				"Name": "Gold",
+				"Type": "Resources",
+				"Amount": 100
+			}
 		}
 	]
 }

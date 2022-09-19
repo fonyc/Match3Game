@@ -14,6 +14,11 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
+    public void ChangeScene(int index)
+    {
+        StartCoroutine(LoadSceneAsync(index));
+    }
+
     private IEnumerator LoadSceneAsync(int buildIndex)
     {
         float progress = 0f;
