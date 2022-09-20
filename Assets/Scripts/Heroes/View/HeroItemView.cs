@@ -59,7 +59,6 @@ public class HeroItemView : MonoBehaviour
     private void UpdateVisuals()
     {
         if (_model == null) return;
-
         _heroAvatar.sprite = _avatarSprites.Find(sprite => sprite.name == _model.AvatarImage);
         _color.sprite = _colorSprites.Find(sprite => sprite.name == _model.ColorImage);
         _heroName.text = _model.Name;

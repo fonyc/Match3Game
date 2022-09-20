@@ -50,5 +50,4 @@ namespace Shop.Controller
             Model = JsonUtility.FromJson<ShopModel>(Resources.Load<TextAsset>("ShopModel").text);
         }
     }
-
 }

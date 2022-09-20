@@ -22,7 +22,6 @@ public class GameplayInitializer : MonoBehaviour
         _boardController = new BoardController(_boardSize.x, _boardSize.y);
         
         Instantiate(_boardViewPrefab).Initiliaze(_boardController, _boardSize);
-
     }
 
 }
