@@ -48,7 +48,7 @@
 		{
 			"Id": "MorganLefay",
 			"Title": "Morgan le Fay",
-			"Image": "MorganLefay",
+			"Image": "MorganLeFay",
 			"Cost": {
 				"Name":"Gems",
 				"Type": "Resources",
