@@ -32,7 +32,7 @@ namespace Board.View
         
         #endregion
 
-        public void Initiliaze(BoardController boardController, Vector2Int boardSize)
+        public void Initialize(BoardController boardController, Vector2Int boardSize)
         {
             _boardSize = boardSize;
             _camera = Camera.main;

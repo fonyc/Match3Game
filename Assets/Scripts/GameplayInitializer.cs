@@ -11,17 +11,34 @@ public class GameplayInitializer : MonoBehaviour
     [Header("--- PREFABS ---")]
     [Space(5)]
     [SerializeField] private BoardView _boardViewPrefab = null;
+    [SerializeField] private PlayerView _playerViewPrefab = null;
+    [SerializeField] private SceneLoader _sceneLoaderPrefab = null;
+    [SerializeField] private EnemyView _enemyViewPrefab = null;
+    [SerializeField] private Gameplay_TopBar _topBar = null;
+
 
     private BoardController _boardController;
+    private PlayerController _playerController;
 
     private UserData _userData;
 
     void Start()
     {
+        //Controllers creation
         _userData = new UserData();
         _boardController = new BoardController(_boardSize.x, _boardSize.y);
+        _playerController = new PlayerController(_userData);
         
-        Instantiate(_boardViewPrefab).Initiliaze(_boardController, _boardSize);
+        //Init. controllers
+        _playerController.Initialize();
+        
+        Instantiate(_boardViewPrefab).Initialize(_boardController, _boardSize);
+
+        Instantiate(_playerViewPrefab, transform).Initialize(_playerController, _userData);
+
+        Instantiate(_enemyViewPrefab, transform);
+
+        Instantiate(_topBar, transform);
     }
 
 }

@@ -129,29 +129,28 @@ namespace Board.Controller
 
         private void HorizontalCollapse()
         {
-            int nullCounter = 0;
-            if (BoardIsSeparated())
-            {
-                nullCounter = 0;
-                for (int x = 0; x < Model.Width; x++)
-                {
-                    if (Model.GetEmblem(x, 0).IsEmpty())
-                    {
-                        nullCounter++;
-                        continue;
-                    }
-                    else if (nullCounter > 0)
-                    {
-                        for (int y = 0; y < Model.Height; y++)
-                        {
-                            //Switch emblems in model 
-                            EmblemItem aux = Model.GetEmblem(x - nullCounter, y).Item;
-                            Model.GetEmblem(x - nullCounter, y).Item = Model.GetEmblem(x, y).Item;
-                            Model.GetEmblem(x, y).Item = aux;
+            if (!BoardIsSeparated()) return;
 
-                            //Send view to new position
-                            OnEmblemMoved(Model.GetEmblem(x, y).Position, Model.GetEmblem(x - nullCounter, y).Position);
-                        }
+            int nullCounter = 0;
+
+            for (int x = 0; x < Model.Width; x++)
+            {
+                if (Model.GetEmblem(x, 0).IsEmpty())
+                {
+                    nullCounter++;
+                    continue;
+                }
+                else if (nullCounter > 0)
+                {
+                    for (int y = 0; y < Model.Height; y++)
+                    {
+                        //Switch emblems in model 
+                        EmblemItem aux = Model.GetEmblem(x - nullCounter, y).Item;
+                        Model.GetEmblem(x - nullCounter, y).Item = Model.GetEmblem(x, y).Item;
+                        Model.GetEmblem(x, y).Item = aux;
+
+                        //Send view to new position
+                        OnEmblemMoved(Model.GetEmblem(x, y).Position, Model.GetEmblem(x - nullCounter, y).Position);
                     }
                 }
             }
