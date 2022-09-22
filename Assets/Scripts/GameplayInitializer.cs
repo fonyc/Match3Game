@@ -26,6 +26,7 @@ public class GameplayInitializer : MonoBehaviour
     {
         //Controllers creation
         _userData = new UserData();
+        _userData.Load();
         _boardController = new BoardController(_boardSize.x, _boardSize.y);
         _playerController = new PlayerController(_userData);
         
@@ -33,12 +34,10 @@ public class GameplayInitializer : MonoBehaviour
         _playerController.Initialize();
         
         Instantiate(_boardViewPrefab).Initialize(_boardController, _boardSize);
-
         Instantiate(_playerViewPrefab, transform).Initialize(_playerController, _userData);
-
         Instantiate(_enemyViewPrefab, transform);
-
         Instantiate(_topBar, transform);
+        Instantiate(_sceneLoaderPrefab);
     }
 
 }

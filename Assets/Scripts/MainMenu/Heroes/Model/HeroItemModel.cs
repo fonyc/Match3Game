@@ -9,4 +9,5 @@ public class HeroItemModel
     public string ColorImage;
     public HeroStats Stats;
     public string Skill;
+    public int MaxItems;
 }

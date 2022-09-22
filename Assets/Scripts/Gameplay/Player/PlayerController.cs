@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class PlayerController
@@ -10,8 +11,21 @@ public class PlayerController
 
     public PlayerController(UserData userData)
     {
-        _playerModel = new PlayerModel();
         _userData = userData;
+        _playerModel = new PlayerModel();
+        Initialize();
+    }
+
+    #region HEROES
+
+    public HeroItemModel GetHero()
+    {
+        return _playerModel.hero;
+    }
+
+    public HeroStats GetCurrentStats()
+    {
+        return _playerModel.currentHeroStats;
     }
 
     private HeroItemModel GetHeroData(HeroModel allHeroesModel)
@@ -22,7 +36,9 @@ public class PlayerController
         }
         return null;
     }
+    #endregion
 
+    #region ITEMS
     private List<BattleItemModel> GetBattleItemData(BattleItemsModel allItemsModel)
     {
         List<BattleItemModel> result = new();
@@ -39,6 +55,13 @@ public class PlayerController
         return result;
     }
 
+    public BattleItemModel GetItem(int number)
+    {
+        return _playerModel.itemStats[number];
+    }
+    #endregion
+
+
     public void Initialize()
     {
         LoadSelectedHero();
@@ -48,12 +71,14 @@ public class PlayerController
     private void LoadSelectedHero()
     {
         HeroModel allHeroesModel = JsonUtility.FromJson<HeroModel>(Resources.Load<TextAsset>("HeroModel").text);
-       _playerModel.hero = GetHeroData(allHeroesModel);
+        _playerModel.hero = GetHeroData(allHeroesModel);
+        _playerModel.currentHeroStats = _playerModel.hero.Stats;
     }
 
     private void LoadSelectedItems()
     {
         BattleItemsModel allItemsModel = JsonUtility.FromJson<BattleItemsModel>(Resources.Load<TextAsset>("BattleItemModel").text);
-        _playerModel.items = GetBattleItemData(allItemsModel);
+        _playerModel.itemStats = GetBattleItemData(allItemsModel);
+        //_playerModel.slot1Potions = Mathf.Max(GetHero().MaxItems, _playerModel.items[0].Qa);
     }
 }
