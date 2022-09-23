@@ -14,12 +14,6 @@ public class PlayerView : MonoBehaviour
     [Space(5)]
     [SerializeField] List<Sprite> HeroSpriteList = new();
 
-    //[Header(" --- SKILL ---")]
-    //[Space(5)]
-    //[SerializeField] private Image skill;
-    //[SerializeField] private Image _manaFill;
-    //[SerializeField] private TMP_Text _manaText = null;
-
     private UserData _userData;
     private PlayerController _controller;
 

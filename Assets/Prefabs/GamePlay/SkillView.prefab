@@ -86,7 +86,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6616835823176385313}
   - component: {fileID: 8509631553904507543}
-  - component: {fileID: 3258586524676100683}
+  - component: {fileID: 1083620256754672662}
   m_Layer: 5
   m_Name: SkillView
   m_TagString: Untagged
@@ -123,7 +123,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1245809023026371860}
   m_CullTransparentMesh: 1
---- !u!114 &3258586524676100683
+--- !u!114 &1083620256754672662
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,33 +132,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1245809023026371860}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1c26b7285e99394689c8fa9a31de348, type: 3}
+  m_Script: {fileID: 11500000, guid: b3433b401fa50f34182881f68ae6c2b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _heroImage: {fileID: 0}
-  _hpText: {fileID: 0}
-  _hpFill: {fileID: 0}
-  _item1: {fileID: 0}
-  _item2: {fileID: 0}
-  _item1Qty: {fileID: 0}
-  _item2Qty: {fileID: 0}
-  skill: {fileID: 3130989144522912821}
+  _skillIcon: {fileID: 0}
   _manaFill: {fileID: 3870659178531560371}
-  _manaText: {fileID: 0}
-  ItemSpriteList:
-  - {fileID: 21300000, guid: bb94a5a193dc1427fadc70a9be71b3ef, type: 3}
-  - {fileID: 21300000, guid: 7650a4718db954652a436242cbde2366, type: 3}
-  - {fileID: 21300000, guid: dde8316242f0e459c8995ffea0a43f04, type: 3}
+  _manaText: {fileID: 5940724084907931127}
   SkillSpriteList:
   - {fileID: 21300000, guid: f300a3f346ed3e24cac0e36af6c08d27, type: 3}
-  - {fileID: 21300000, guid: c08db3a3ac0eec646845acd1f45c2478, type: 3}
   - {fileID: 21300000, guid: 195c1018c18d44a4c8c8ef1f59cf3de3, type: 3}
-  HeroSpriteList:
-  - {fileID: 21300000, guid: 0591df3b8576ec748ab4ce6969a2008a, type: 3}
-  - {fileID: 21300000, guid: 7fa5c0662a7c3f344a2dab1abb9a0e2c, type: 3}
-  - {fileID: 21300000, guid: 7b5cc8309b38d3c43a2a8068ab68b0d0, type: 3}
-  - {fileID: 21300000, guid: 34512b7d25f742c4c80a0f4cad314890, type: 3}
-  - {fileID: 21300000, guid: 05c81a8862b350447a08ec03170af4f1, type: 3}
+  - {fileID: 21300000, guid: c08db3a3ac0eec646845acd1f45c2478, type: 3}
+  - {fileID: 21300000, guid: 18f6983f58c478b4b8d5a64221494b5a, type: 3}
+  - {fileID: 21300000, guid: 74dceb98fbfa2ce4db827e6bdd9b6082, type: 3}
 --- !u!1 &3802738284331051194
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,7 +495,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4450309634915245348}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1083620256754672662}
+        m_TargetAssemblyTypeName: SkillView, Assembly-CSharp
+        m_MethodName: OnClickButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5143152302270710513
 GameObject:
   m_ObjectHideFlags: 0

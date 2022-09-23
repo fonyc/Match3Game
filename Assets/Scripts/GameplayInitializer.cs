@@ -13,7 +13,7 @@ public class GameplayInitializer : MonoBehaviour
     [SerializeField] private BoardView _boardViewPrefab = null;
     [SerializeField] private PlayerView _playerViewPrefab = null;
     [SerializeField] private ItemView _itemViewPrefab = null;
-    [SerializeField] private PlayerView _skillViewPrefab = null;
+    [SerializeField] private SkillView _skillViewPrefab = null;
     [SerializeField] private SceneLoader _sceneLoaderPrefab = null;
     [SerializeField] private EnemyView _enemyViewPrefab = null;
     [SerializeField] private Gameplay_TopBar _topBar = null;
@@ -43,7 +43,7 @@ public class GameplayInitializer : MonoBehaviour
         Instantiate(_boardViewPrefab).Initialize(_boardController, _boardSize);
         Instantiate(_playerViewPrefab, transform).Initialize(_playerController, _userData);
         Instantiate(_itemViewPrefab, transform).Initialize(_itemController, _userData);
-        //Instantiate(_skillViewPrefab, transform).Initialize(_playerController, _userData);
+        Instantiate(_skillViewPrefab, transform);//.Initialize(_userData);
         Instantiate(_enemyViewPrefab, transform);
         Instantiate(_topBar, transform);
         Instantiate(_sceneLoaderPrefab);
