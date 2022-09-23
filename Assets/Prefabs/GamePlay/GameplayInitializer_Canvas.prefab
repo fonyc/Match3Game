@@ -115,7 +115,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _boardSize: {x: 8, y: 8}
   _boardViewPrefab: {fileID: 8549605473733241774, guid: 84af662907fba1849b52d00b261055f3, type: 3}
-  _playerViewPrefab: {fileID: 3258586524676100683, guid: b36dc37624eec8143833664f9f3ae1e6, type: 3}
+  _playerViewPrefab: {fileID: 3258586524676100683, guid: 9e1b0d6dabbe1294abaed985717e351d, type: 3}
+  _itemViewPrefab: {fileID: 3393063761741067698, guid: 4359c275c4e1c4a43b740f0c6075f138, type: 3}
+  _skillViewPrefab: {fileID: 3258586524676100683, guid: 9e1b0d6dabbe1294abaed985717e351d, type: 3}
   _sceneLoaderPrefab: {fileID: 5535685385067764930, guid: 60acf9d558e196b44bfde1419899cce2, type: 3}
   _enemyViewPrefab: {fileID: 6574717012463004108, guid: 9337632f8fbcde34b9941779175fe031, type: 3}
   _topBar: {fileID: -7541296112535048531, guid: d97d81d20015d9343afab501f4526f71, type: 3}

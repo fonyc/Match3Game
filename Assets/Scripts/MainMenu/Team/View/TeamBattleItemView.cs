@@ -25,6 +25,7 @@ public class TeamBattleItemView : MonoBehaviour
 
     private event Action<string> _onClickedEvent;
     private UserData _userData;
+    private int qty => _userData.GetBattleItemAmount(_battleItemModel.Id);
 
     public void SetData(BattleItemModel itemModel, UserData userData, Action<string> onClickedEvent)
     {
@@ -33,7 +34,7 @@ public class TeamBattleItemView : MonoBehaviour
         _onClickedEvent = onClickedEvent;
         _itemImage.sprite = spriteItems.Find(sprite => sprite.name == _battleItemModel.AvatarImage);
         _itemName.text = itemModel.Name;
-        _amount.text = "x " + _userData.GetBattleItemAmount(_battleItemModel.Id).ToString();
+        _amount.text = "x " + qty.ToString();
     }
 
     public string GetId()

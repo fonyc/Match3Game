@@ -84,7 +84,6 @@ public class TeamView : MonoBehaviour
                 if (battleItem.GetId() == item) battleItem.SetTick(true);
             }
         }
-
     }
 
     private void CreateHeroCollection()
