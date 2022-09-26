@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3433b401fa50f34182881f68ae6c2b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skillIcon: {fileID: 0}
+  _skillIcon: {fileID: 3130989144522912821}
   _manaFill: {fileID: 3870659178531560371}
   _manaText: {fileID: 5940724084907931127}
   SkillSpriteList:

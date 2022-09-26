@@ -156,6 +156,7 @@ public class UserData
                     return;
                 }
                 BattleItems.Remove(battleItem);
+                SelectedItems.Remove(battleItem.Id);
                 OnBattleItemAdded?.Invoke();
             }
         }

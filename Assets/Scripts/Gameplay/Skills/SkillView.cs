@@ -12,20 +12,22 @@ public class SkillView : MonoBehaviour
     [SerializeField] private Image _manaFill;
     [SerializeField] private TMP_Text _manaText = null;
     [SerializeField] private List<Sprite> SkillSpriteList = new();
-    SkillModel _model;
+  
     UserData _userData;
+    SkillController _controller;
 
-    public void Initialize(UserData userData)
+    public void Initialize(SkillController skillController, UserData userData)
     {
+        _controller = skillController;
         _userData = userData;
         UpdateVisuals();
     }
 
     public void UpdateVisuals()
     {
-        //_skillIcon.sprite = SkillSpriteList.Find(sprite => sprite.name == );
-        //_hpFill.fillAmount = _controller.GetCurrentStats().HP * 100 / _controller.GetHero().Stats.HP;
-        //_hpText.text = _controller.GetCurrentStats().HP.ToString() + " / " + _controller.GetHero().Stats.HP;
+        _skillIcon.sprite = SkillSpriteList.Find(sprite => sprite.name == _controller.GetSkill().Id);
+        _manaFill.fillAmount = _controller.GetCurrentPlayerMana() * 100 / _controller.GetSkill().Mana;
+        _manaText.text = _controller.GetCurrentPlayerMana().ToString() + " / " + _controller.GetSkill().Mana;
     }
 
     public void OnClickButton()

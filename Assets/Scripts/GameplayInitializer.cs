@@ -21,6 +21,7 @@ public class GameplayInitializer : MonoBehaviour
     private BoardController _boardController;
     private PlayerController _playerController;
     private ItemController _itemController;
+    private SkillController _skillController;
 
     private UserData _userData;
 
@@ -34,15 +35,17 @@ public class GameplayInitializer : MonoBehaviour
         _boardController = new BoardController(_boardSize.x, _boardSize.y);
         _itemController = new ItemController(_userData);
         _playerController = new PlayerController(_userData, _itemController);
+        _skillController = new SkillController(_userData);
 
         //Init. controllers
         _playerController.Initialize();
         _itemController.Initialize();
+        _skillController.Initialize();
 
         Instantiate(_boardViewPrefab).Initialize(_boardController, _boardSize);
         Instantiate(_playerViewPrefab, transform).Initialize(_playerController, _userData);
         Instantiate(_itemViewPrefab, transform).Initialize(_itemController, _userData);
-        Instantiate(_skillViewPrefab, transform);//.Initialize(_userData);
+        Instantiate(_skillViewPrefab, transform).Initialize(_skillController,_userData);
         Instantiate(_enemyViewPrefab, transform);
         Instantiate(_topBar, transform);
         Instantiate(_sceneLoaderPrefab);
