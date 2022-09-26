@@ -16,14 +16,15 @@ public class ItemViewSlot : MonoBehaviour
     BattleItemModel _model;
     int _amount;
     private event Action<BattleItemModel> _onClickedEvent;
-    
+
     public void SetData(BattleItemModel model, int ownedQty, int maxQty, Action<BattleItemModel> onClickedEvent)
     {
         _model = model;
         _amount =  ownedQty >= maxQty? maxQty : ownedQty;
         _onClickedEvent = onClickedEvent;
+
         UpdateItemSprite();
-        UpdateItemQty(_amount);
+        UpdateItemQty();
     }
 
     public void UpdateItemSprite()
@@ -31,7 +32,7 @@ public class ItemViewSlot : MonoBehaviour
         _itemIcon.sprite = ItemSpriteList.Find(sprite => sprite.name == _model.AvatarImage);
     }
 
-    public void UpdateItemQty(int qty)
+    public void UpdateItemQty()
     {
         _itemQty.text = _amount.ToString();
     }
@@ -43,6 +44,9 @@ public class ItemViewSlot : MonoBehaviour
         if (_model == null) return;
 
         if (!CanUse()) return;
+
+        _amount = _amount - 1 == 0 ? 0 : _amount - 1;
+        UpdateItemQty();
 
         _onClickedEvent?.Invoke(_model);
     }

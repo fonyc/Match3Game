@@ -46,6 +46,21 @@
 			}
 		},
 		{
+			"Id": "DefensePotion",
+			"Title": "Defense Potion",
+			"Image": "DefensePotion",
+			"Cost": {
+				"Name":"Gold",
+				"Type": "Resources",
+				"Amount": 40
+			},
+			"Reward": {
+				"Name":"DefensePotion",
+				"Type": "BattleItem",
+				"Amount": 1
+			}
+		},
+		{
 			"Id": "MorganLefay",
 			"Title": "Morgan le Fay",
 			"Image": "MorganLeFay",

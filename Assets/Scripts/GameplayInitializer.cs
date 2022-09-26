@@ -18,7 +18,6 @@ public class GameplayInitializer : MonoBehaviour
     [SerializeField] private EnemyView _enemyViewPrefab = null;
     [SerializeField] private Gameplay_TopBar _topBar = null;
 
-
     private BoardController _boardController;
     private PlayerController _playerController;
     private ItemController _itemController;
@@ -33,8 +32,8 @@ public class GameplayInitializer : MonoBehaviour
 
         //Controllers creation
         _boardController = new BoardController(_boardSize.x, _boardSize.y);
-        _playerController = new PlayerController(_userData);
         _itemController = new ItemController(_userData);
+        _playerController = new PlayerController(_userData, _itemController);
 
         //Init. controllers
         _playerController.Initialize();

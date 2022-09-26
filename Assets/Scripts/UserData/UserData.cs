@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class UserData
@@ -144,7 +145,7 @@ public class UserData
 
     public void RemoveBattleItem(string itemName)
     {
-        foreach (OwnedBattleItem battleItem in BattleItems)
+        foreach (OwnedBattleItem battleItem in BattleItems.ToList())
         {
             if (battleItem.Id == itemName)
             {

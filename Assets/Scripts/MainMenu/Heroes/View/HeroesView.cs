@@ -16,7 +16,7 @@ public class HeroesView : MonoBehaviour
     {
         _userData = userData;
         _controller = controller;
-        userData.OnHeroAdded += CreateHeroCollection;
+        _userData.OnHeroAdded += CreateHeroCollection;
 
         CreateHeroCollection();
     }
@@ -38,5 +38,10 @@ public class HeroesView : MonoBehaviour
                 Instantiate(_heroItemPrefab, _itemsParent).SetData(heroModel, _userData);
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        _userData.OnHeroAdded -= CreateHeroCollection;
     }
 }

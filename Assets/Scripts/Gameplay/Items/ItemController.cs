@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,6 +6,11 @@ using UnityEngine;
 
 public class ItemController 
 {
+    public event Action<int> OnManaChanged = delegate (int amount) { };
+    public event Action<int> OnHPChanged = delegate (int amount) { };
+    public event Action<int> OnATKChanged = delegate (int amount) { };
+    public event Action<int> OnDEFChanged = delegate (int amount) { };
+
     private UserData _userData;
     public ItemModel Model;
 
@@ -12,6 +18,31 @@ public class ItemController
     {
         _userData = userData;
         Model = new ItemModel();
+    }
+
+    public void RemovePotionFromPlayer(string itemName)
+    {
+        _userData.RemoveBattleItem(itemName);
+        _userData.Save();
+    }
+
+    public void OnPlayerStatChanged(string stat, int amount)
+    {
+        switch (stat)
+        {
+            case "ATK":
+                OnATKChanged?.Invoke(amount);
+                break;
+            case "DEF":
+                OnDEFChanged?.Invoke(amount);
+                break;
+            case "HP":
+                OnHPChanged?.Invoke(amount);
+                break;
+            default:
+                OnManaChanged.Invoke(amount);
+                break;
+        }
     }
 
     public void Initialize()

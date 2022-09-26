@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager2 : MonoBehaviour
 {
     [SerializeField] private NoArgument_Event _OnBossDied;
     [SerializeField] private NoArgument_Event _OnPlayerDied;

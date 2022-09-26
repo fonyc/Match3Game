@@ -302,7 +302,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 26.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -384,7 +384,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8339193179576087083
 CanvasRenderer:
@@ -409,8 +409,8 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: 50
   m_MinHeight: 50
-  m_PreferredWidth: 150
-  m_PreferredHeight: 150
+  m_PreferredWidth: 120
+  m_PreferredHeight: 120
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
@@ -432,3 +432,4 @@ MonoBehaviour:
   - {fileID: 21300000, guid: bb94a5a193dc1427fadc70a9be71b3ef, type: 3}
   - {fileID: 21300000, guid: 7650a4718db954652a436242cbde2366, type: 3}
   - {fileID: 21300000, guid: dde8316242f0e459c8995ffea0a43f04, type: 3}
+  - {fileID: 21300000, guid: 9a99d085bb9cc4e72972e075606cf4b9, type: 3}

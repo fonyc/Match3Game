@@ -1,18 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class SkillModel : MonoBehaviour
+[System.Serializable]
+public class SkillModel
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    List<SkillItemModel> SkillList = new();
 }
