@@ -1,10 +1,13 @@
+using Board.Controller;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillController 
+public class SkillController
 {
+    public event Action OnDestroyActivated = delegate () { };
+
     private UserData _userData;
 
     private SkillPlayerModel skillPlayerModel;
@@ -15,6 +18,25 @@ public class SkillController
         skillPlayerModel = new SkillPlayerModel();
     }
 
+    public void PerformSkill()
+    {
+        if (skillPlayerModel.playerCurrentMana < skillPlayerModel.Skill.Mana) return;
+        switch (skillPlayerModel.Skill.Id)
+        {
+            case "Destroy":
+                OnDestroyActivated?.Invoke();
+                break;
+            case "Decolorate":
+                break;
+            case "Swap":
+                break;
+            case "Create":
+                break;
+            case "Shuffle":
+                break;
+        }
+        OnDestroyActivated?.Invoke();
+    }
 
     public void Initialize()
     {
@@ -51,7 +73,7 @@ public class SkillController
 
     private SkillItemModel GetSkill(string skillName, SkillModel allSkills)
     {
-        foreach(SkillItemModel skill in allSkills.Skills)
+        foreach (SkillItemModel skill in allSkills.Skills)
         {
             if (skill.Id == skillName) return skill;
         }

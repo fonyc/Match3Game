@@ -7,26 +7,78 @@ using System.Linq;
 
 namespace Board.Controller
 {
-    public class BoardController
+    public class BoardController : IDisposable
     {
         private BoardModel Model;
+        private SkillController _skillController;
 
-        //Events 
+        //PlayerView Events 
         public event Action<Vector2Int, Vector2Int> OnEmblemMoved = delegate (Vector2Int origin, Vector2Int destination) { };
         public event Action<Vector2Int> OnEmblemDestroyed = delegate (Vector2Int emblemDestroyed) { };
         public event Action<Vector2Int, EmblemItem> OnEmblemCreated = delegate (Vector2Int emblemPosition, EmblemItem item) { };
 
-        public BoardController(int width, int height, EmblemItem[,] initValues = null)
+        public BoardController(int width, int height, SkillController skillController, EmblemItem[,] initValues = null)
         {
+            _skillController = skillController;
             Model = new BoardModel(width, height, initValues);
         }
+
+        public void Initialize()
+        {
+            _skillController.OnDestroyActivated += DestroySkill;
+        }
+
+        public void Dispose()
+        {
+            _skillController.OnDestroyActivated -= DestroySkill;
+        }
+
+        #region SKILLS
+
+        public void TryUseSkill(Vector2Int touchPosition)
+        {
+            if (TouchIsWithinLimits(touchPosition))
+            {
+                UseSkill(touchPosition);
+            }
+        }
+
+        public void UseSkill(Vector2Int touchPosition)
+        {
+            
+        }
+
+        public void DestroySkill()
+        {
+            EmblemModel touchedEmblem = Model.GetEmblem(0,0);
+            List<EmblemModel> list = new();
+            list.Add(touchedEmblem);
+            DestroyAndCollapse(list);
+        }
+
+        public void CreateSkill()
+        {
+
+            //Model.GetEmblem(x, y).Item = new EmblemItem()
+            //{
+            //    EmblemColor = (EmblemColor)Random.Range(0, 5)
+            //};
+
+            //OnEmblemCreated(Model.GetEmblem(x, y).Position, Model.GetEmblem(x, y).Item);
+        }
+
+        public void DecolorateEmblem()
+        {
+
+        }
+        #endregion
 
         public int GetEmblemColor(int x, int y)
         {
             return (int)Model.GetEmblem(x, y).Item.EmblemColor;
         }
 
-        public void CheckInput(Vector2Int touchPosition)
+        public void TryProcessMatch(Vector2Int touchPosition)
         {
             if (TouchIsWithinLimits(touchPosition))
             {
@@ -241,6 +293,8 @@ namespace Board.Controller
                 touchPosition.y < Model.Height &&
                 touchPosition.x < Model.Width);
         }
+
+
         #endregion
     }
 }

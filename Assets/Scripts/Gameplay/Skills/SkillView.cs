@@ -32,6 +32,6 @@ public class SkillView : MonoBehaviour
 
     public void OnClickButton()
     {
-        Debug.Log("Skill was pressed");
+        _controller.PerformSkill();
     }
 }

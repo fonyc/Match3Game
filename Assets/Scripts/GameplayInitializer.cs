@@ -32,15 +32,16 @@ public class GameplayInitializer : MonoBehaviour
         _userData.Load();
 
         //Controllers creation
-        _boardController = new BoardController(_boardSize.x, _boardSize.y);
+        _skillController = new SkillController(_userData);
+        _boardController = new BoardController(_boardSize.x, _boardSize.y, _skillController);
         _itemController = new ItemController(_userData);
         _playerController = new PlayerController(_userData, _itemController);
-        _skillController = new SkillController(_userData);
 
         //Init. controllers
         _playerController.Initialize();
         _itemController.Initialize();
         _skillController.Initialize();
+        _boardController.Initialize();
 
         Instantiate(_boardViewPrefab).Initialize(_boardController, _boardSize);
         Instantiate(_playerViewPrefab, transform).Initialize(_playerController, _userData);

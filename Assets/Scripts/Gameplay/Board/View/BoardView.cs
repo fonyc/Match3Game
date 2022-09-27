@@ -14,9 +14,11 @@ namespace Board.View
         [Space(5)]
         [SerializeField] private Camera _camera;
         [SerializeField] private GameObject[] emblemPrefabs;
+        [SerializeField]List<Skill> skillList = new();
+        private Skill skillSelected;
+
         private Vector2Int _boardSize;
         public int visualPieceFallPosition => _boardSize.y;
-
         //Input
         private Plane _boardPlane;
         private Vector2Int touch;
@@ -44,6 +46,9 @@ namespace Board.View
             _controller.OnEmblemCreated += OnEmblemCreated;
 
             GenerateBoard();
+
+            skillSelected = skillList.Find(skill => skill.Id == "Destroy");
+            
         }
 
         private void GenerateBoard()
@@ -64,12 +69,8 @@ namespace Board.View
             if (Input.GetMouseButtonDown(0))
             {
                 touch = GetEmblemFromTouch(_boardPlane);
-                _controller.CheckInput(touch);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                _controller.RefillBoard();
+                _controller.TryProcessMatch(touch);
+                skillSelected.PerformSkill(_controller);
             }
         }
 
