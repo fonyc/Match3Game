@@ -7,16 +7,16 @@ public class PlayerController: IDisposable
     private PlayerModel _playerModel;
     private ItemController _itemController;
 
-    public event Action<int> OnHPChanged = delegate (int amount) { };
-    public event Action<int> OnATKChanged = delegate (int amount) { };
-    public event Action<int> OnDEFChanged = delegate (int amount) { };
+    public event Action<int, int> OnHPChanged = delegate (int amount, int max) { };
+    public event Action OnATKChanged = delegate () { };
+    public event Action OnDEFChanged = delegate () { };
 
     public PlayerController(UserData userData, ItemController itemController)
     {
         _itemController = itemController;
-        _itemController.OnHPChanged += ChangeHP;
-        _itemController.OnATKChanged += ChangeATK;
-        _itemController.OnDEFChanged += ChangeDEF;
+        _itemController._onHPItemConsumed += ChangeHP;
+        _itemController._onATKItemConsumed += ChangeATK;
+        _itemController._onDEFItemConsumed += ChangeDEF;
 
         _userData = userData;
         _playerModel = new PlayerModel();
@@ -59,20 +59,20 @@ public class PlayerController: IDisposable
         int maxHP = _playerModel.hero.Stats.HP;
         int currentHeroHP = _playerModel.currentHeroStats.HP;
         _playerModel.currentHeroStats.HP = Mathf.Clamp(currentHeroHP + amount, 0, maxHP);
-        OnHPChanged.Invoke(_playerModel.currentHeroStats.HP);
+        OnHPChanged.Invoke(_playerModel.currentHeroStats.HP, _playerModel.hero.Stats.HP);
         //if(CheckPlayerDeath())
     }
 
     public void ChangeATK(int amount)
     {
         _playerModel.currentHeroStats.ATK += amount;
-        OnATKChanged.Invoke(_playerModel.currentHeroStats.ATK);
+        OnATKChanged.Invoke();
     }
 
     public void ChangeDEF(int amount)
     {
         _playerModel.currentHeroStats.DEF += amount;
-        OnDEFChanged.Invoke(_playerModel.currentHeroStats.DEF);
+        OnDEFChanged.Invoke();
     }
     #endregion
 
@@ -83,8 +83,8 @@ public class PlayerController: IDisposable
 
     public void Dispose()
     {
-        _itemController.OnHPChanged -= ChangeHP;
-        _itemController.OnATKChanged -= ChangeATK;
-        _itemController.OnDEFChanged -= ChangeDEF;
+        _itemController._onHPItemConsumed -= ChangeHP;
+        _itemController._onATKItemConsumed -= ChangeATK;
+        _itemController._onDEFItemConsumed -= ChangeDEF;
     }
 }

@@ -40,18 +40,18 @@ public class PlayerView : MonoBehaviour
         _hpText.text = _controller.GetCurrentStats().HP.ToString() + " / " + _controller.GetHero().Stats.HP;
     }
 
-    private void ChangeHP(int amount)
+    private void ChangeHP(int amount, int max)
     {
         _hpFill.fillAmount = amount;
-        _hpText.text = amount + " / " + _controller.GetHero().Stats.HP;
+        _hpText.text = amount + " / " + max;
     }
 
-    private void AddATKBuff(int amount)
+    private void AddATKBuff()
     {
         ATKbuffPrefab.SetActive(true);
     }
     
-    private void AddDEFBuff(int amount)
+    private void AddDEFBuff()
     {
         DEFbuffPrefab.SetActive(true);
     }

@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class ItemController 
 {
-    public event Action<int> OnManaChanged = delegate (int amount) { };
-    public event Action<int> OnHPChanged = delegate (int amount) { };
-    public event Action<int> OnATKChanged = delegate (int amount) { };
-    public event Action<int> OnDEFChanged = delegate (int amount) { };
+    public event Action<int> _onManaItemConsumed = delegate (int amount) { };
+    public event Action<int> _onHPItemConsumed = delegate (int amount) { };
+    public event Action<int> _onATKItemConsumed = delegate (int amount) { };
+    public event Action<int> _onDEFItemConsumed = delegate (int amount) { };
 
     private UserData _userData;
     public ItemModel Model;
@@ -31,16 +31,16 @@ public class ItemController
         switch (stat)
         {
             case "ATK":
-                OnATKChanged?.Invoke(amount);
+                _onATKItemConsumed?.Invoke(amount);
                 break;
             case "DEF":
-                OnDEFChanged?.Invoke(amount);
+                _onDEFItemConsumed?.Invoke(amount);
                 break;
             case "HP":
-                OnHPChanged?.Invoke(amount);
+                _onHPItemConsumed?.Invoke(amount);
                 break;
             default:
-                OnManaChanged.Invoke(amount);
+                _onManaItemConsumed.Invoke(amount);
                 break;
         }
     }
