@@ -1,56 +1,49 @@
-using Board.Controller;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SkillController
 {
-    public event Action OnDestroyActivated = delegate () { };
+    public event Action<string> OnSkillActivated = delegate (string input) { };
 
     private UserData _userData;
 
-    private SkillPlayerModel skillPlayerModel;
+    private SkillPlayerModel _skillPlayerModel;
+    private List<Skill> _skillBehaviours;
+    public Skill SkillSelected;
 
-    public SkillController(UserData userData)
+    public SkillController(UserData userData, List<Skill> skillList)
     {
+        _skillBehaviours = skillList;
         _userData = userData;
-        skillPlayerModel = new SkillPlayerModel();
+        _skillPlayerModel = new SkillPlayerModel();
     }
 
     public void PerformSkill()
     {
-        if (skillPlayerModel.playerCurrentMana < skillPlayerModel.Skill.Mana) return;
-        switch (skillPlayerModel.Skill.Id)
-        {
-            case "Destroy":
-                OnDestroyActivated?.Invoke();
-                break;
-            case "Decolorate":
-                break;
-            case "Swap":
-                break;
-            case "Create":
-                break;
-            case "Shuffle":
-                break;
-        }
-        OnDestroyActivated?.Invoke();
+        //if (_skillPlayerModel.playerCurrentMana < _skillPlayerModel.Skill.Mana) return;
+        OnSkillActivated.Invoke("SkillInput");
+    }
+
+    private Skill GetSkill(string skillId)
+    {
+        return _skillBehaviours.Find(skill => skill.Id == skillId);
     }
 
     public void Initialize()
     {
         LoadSkill();
+        SkillSelected = GetSkill(_skillPlayerModel.Skill.Id);
     }
 
-    public SkillItemModel GetSkill()
+    public SkillItemModel GetSkillItemModel()
     {
-        return skillPlayerModel.Skill;
+        return _skillPlayerModel.Skill;
     }
 
     public int GetCurrentPlayerMana()
     {
-        return skillPlayerModel.playerCurrentMana;
+        return _skillPlayerModel.playerCurrentMana;
     }
 
     private void LoadSkill()
@@ -58,8 +51,8 @@ public class SkillController
         SkillModel allSkills = JsonUtility.FromJson<SkillModel>(Resources.Load<TextAsset>("SkillModel").text);
         HeroModel allheroes = JsonUtility.FromJson<HeroModel>(Resources.Load<TextAsset>("HeroModel").text);
         HeroItemModel heroSelected = GetHeroModelFromHeroName(_userData.GetSelectedHero(), allheroes);
-        skillPlayerModel.Skill = GetSkill(heroSelected.Skill, allSkills);
-        skillPlayerModel.playerCurrentMana = 0;
+        _skillPlayerModel.Skill = GetSkill(heroSelected.Skill, allSkills);
+        _skillPlayerModel.playerCurrentMana = 0;
     }
 
     private HeroItemModel GetHeroModelFromHeroName(string heroName, HeroModel allHeroes)

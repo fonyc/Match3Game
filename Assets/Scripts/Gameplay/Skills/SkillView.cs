@@ -25,9 +25,9 @@ public class SkillView : MonoBehaviour
 
     public void UpdateVisuals()
     {
-        _skillIcon.sprite = SkillSpriteList.Find(sprite => sprite.name == _controller.GetSkill().Id);
-        _manaFill.fillAmount = _controller.GetCurrentPlayerMana() * 100 / _controller.GetSkill().Mana;
-        _manaText.text = _controller.GetCurrentPlayerMana().ToString() + " / " + _controller.GetSkill().Mana;
+        _skillIcon.sprite = SkillSpriteList.Find(sprite => sprite.name == _controller.GetSkillItemModel().Id);
+        _manaFill.fillAmount = _controller.GetCurrentPlayerMana() * 100 / _controller.GetSkillItemModel().Mana;
+        _manaText.text = _controller.GetCurrentPlayerMana().ToString() + " / " + _controller.GetSkillItemModel().Mana;
     }
 
     public void OnClickButton()

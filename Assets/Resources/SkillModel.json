@@ -19,15 +19,15 @@
 			"Mana": 40
 		},
 		{
-			"Id": "Swap",
-			"Name": "Swap",
-			"SpriteName": "Swap",
-			"Mana": 70
-		},
-		{
 			"Id": "Shuffle",
 			"Name": "Shuffle",
 			"SpriteName": "Shuffle",
+			"Mana": 70
+		},
+		{
+			"Id": "Transmute",
+			"Name": "Transmute",
+			"SpriteName": "Transmute",
 			"Mana": 50
 		}
 	]

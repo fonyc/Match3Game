@@ -7,13 +7,13 @@ namespace Board.Model
     public class BoardModel
     {
         private EmblemModel[,] _boardStatus;
-
+        public HeroItemModel hero;
         public int Width { get; }
         public int Height { get; }
 
         #region CONSTRUCTORS
 
-        public BoardModel(int width, int height, EmblemItem[,] initialValues = null)
+        public BoardModel(int width, int height)
         {
             Width = width;
             Height = height;

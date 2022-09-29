@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Input/NormalInput")]
-public class NormalInput : BoardInput
+[CreateAssetMenu(menuName = "Input/SkillInput")]
+public class SkillInput : BoardInput
 {
-    public override string Id { get { return "NormalInput"; } }
+    public override string Id { get { return "SkillInput"; } }
 
     public override void ProcessInput(BoardController controller, Vector2Int position)
     {
-        controller.TryProcessMatch(position);
+        controller.TryUseSkill(position);
     }
 }

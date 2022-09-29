@@ -27,7 +27,7 @@
 				"HP": 100,
 				"Progression": 10
 			},
-			"Skill": "Swap",
+			"Skill": "Shuffle",
 			"MaxItems": 2
 		},
 		{
@@ -72,7 +72,7 @@
 				"HP": 100,
 				"Progression": 10
 			},
-			"Skill": "Shuffle",
+			"Skill": "Transmute",
 			"MaxItems": 2
 		}
 	]

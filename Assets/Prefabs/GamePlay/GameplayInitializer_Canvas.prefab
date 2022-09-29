@@ -121,3 +121,12 @@ MonoBehaviour:
   _sceneLoaderPrefab: {fileID: 5535685385067764930, guid: 60acf9d558e196b44bfde1419899cce2, type: 3}
   _enemyViewPrefab: {fileID: 6574717012463004108, guid: 9337632f8fbcde34b9941779175fe031, type: 3}
   _topBar: {fileID: -7541296112535048531, guid: d97d81d20015d9343afab501f4526f71, type: 3}
+  inputs:
+  - {fileID: 11400000, guid: 25e6f689d1d3f6148adbea7c58692389, type: 2}
+  - {fileID: 11400000, guid: c6dec106f9fd92545b71acadd95b8b2e, type: 2}
+  SkillList:
+  - {fileID: 11400000, guid: d61aaf0ee6bc1e844a515585ef15dd12, type: 2}
+  - {fileID: 11400000, guid: 48007698f996c7c48ada217eb53a2b4e, type: 2}
+  - {fileID: 11400000, guid: 53b830b7ef36af84791d63aff28aee58, type: 2}
+  - {fileID: 11400000, guid: d4c8ce7da515745429a22456e0717099, type: 2}
+  - {fileID: 11400000, guid: f30301e6e3eedf146aea04439822c0d9, type: 2}

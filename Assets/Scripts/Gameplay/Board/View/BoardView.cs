@@ -14,8 +14,6 @@ namespace Board.View
         [Space(5)]
         [SerializeField] private Camera _camera;
         [SerializeField] private GameObject[] emblemPrefabs;
-        [SerializeField]List<Skill> skillList = new();
-        private Skill skillSelected;
 
         private Vector2Int _boardSize;
         public int visualPieceFallPosition => _boardSize.y;
@@ -44,11 +42,9 @@ namespace Board.View
             _controller.OnEmblemMoved += OnEmblemMoved;
             _controller.OnEmblemDestroyed += OnEmblemDestroyed;
             _controller.OnEmblemCreated += OnEmblemCreated;
+            _controller.OnColorChanged += OnColorChanged;
 
-            GenerateBoard();
-
-            skillSelected = skillList.Find(skill => skill.Id == "Destroy");
-            
+            GenerateBoard();   
         }
 
         private void GenerateBoard()
@@ -69,8 +65,7 @@ namespace Board.View
             if (Input.GetMouseButtonDown(0))
             {
                 touch = GetEmblemFromTouch(_boardPlane);
-                _controller.TryProcessMatch(touch);
-                skillSelected.PerformSkill(_controller);
+                _controller.InputSelected.ProcessInput(_controller, touch);
             }
         }
 
@@ -101,6 +96,16 @@ namespace Board.View
             {
                 StartCoroutine(ProcessAnimations());
             }
+        }
+
+        private void OnColorChanged(Vector2Int emblemPosition)
+        {
+            EmblemView emblemView = GetEmblemViewAtPosition(emblemPosition);
+            _emblemViewList.Remove(emblemView);
+            Destroy(emblemView.gameObject);
+            GameObject emblem = Instantiate(EmblemPrefabs[_controller.GetEmblemColor(emblemPosition.x, emblemPosition.y)], new Vector3(emblemPosition.x, emblemPosition.y, 0), Quaternion.identity, transform);
+            emblem.GetComponent<EmblemView>().Position = new Vector2Int(emblemPosition.x, emblemPosition.y);
+            _emblemViewList.Add(emblem.GetComponent<EmblemView>());
         }
 
         private IEnumerator ProcessAnimations()

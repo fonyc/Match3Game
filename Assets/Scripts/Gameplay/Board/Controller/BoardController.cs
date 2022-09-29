@@ -9,28 +9,54 @@ namespace Board.Controller
 {
     public class BoardController : IDisposable
     {
-        private BoardModel Model;
+        public BoardModel Model;
         private SkillController _skillController;
+        private List<BoardInput> _inputs = new();
+        private Skill _skillSelected;
+        public BoardInput InputSelected;
+        private UserData _userData;
 
         //PlayerView Events 
         public event Action<Vector2Int, Vector2Int> OnEmblemMoved = delegate (Vector2Int origin, Vector2Int destination) { };
         public event Action<Vector2Int> OnEmblemDestroyed = delegate (Vector2Int emblemDestroyed) { };
         public event Action<Vector2Int, EmblemItem> OnEmblemCreated = delegate (Vector2Int emblemPosition, EmblemItem item) { };
+        public event Action<Vector2Int> OnColorChanged = delegate (Vector2Int emblemPosition) { };
 
-        public BoardController(int width, int height, SkillController skillController, EmblemItem[,] initValues = null)
+        public BoardController(int width, int height, SkillController skillController, List<BoardInput> inputList, UserData userData)
         {
+            _inputs = inputList;
+            _userData = userData;
             _skillController = skillController;
-            Model = new BoardModel(width, height, initValues);
+
+            Model = new BoardModel(width, height);
         }
 
         public void Initialize()
         {
-            _skillController.OnDestroyActivated += DestroySkill;
+            ChangeInput("NormalInput");
+            _skillSelected = _skillController.SkillSelected;
+            _skillController.OnSkillActivated += ChangeInput;
+            LoadHero();
+        }
+
+        private void LoadHero()
+        {
+            HeroModel allHeroesModel = JsonUtility.FromJson<HeroModel>(Resources.Load<TextAsset>("HeroModel").text);
+            Model.hero = GetHeroData(allHeroesModel);
+        }
+
+        private HeroItemModel GetHeroData(HeroModel allHeroesModel)
+        {
+            foreach (HeroItemModel hero in allHeroesModel.Heroes)
+            {
+                if (hero.Id == _userData.GetSelectedHero()) return hero;
+            }
+            return null;
         }
 
         public void Dispose()
         {
-            _skillController.OnDestroyActivated -= DestroySkill;
+            _skillController.OnSkillActivated -= ChangeInput;
         }
 
         #region SKILLS
@@ -39,38 +65,16 @@ namespace Board.Controller
         {
             if (TouchIsWithinLimits(touchPosition))
             {
-                UseSkill(touchPosition);
+                _skillSelected.PerformSkill(this, touchPosition, Model.hero.Color);
             }
+            ChangeInput("NormalInput");
         }
 
-        public void UseSkill(Vector2Int touchPosition)
+        public void ChangeInput(string inputId)
         {
-            
+            InputSelected = _inputs.Find(input => input.Id == inputId);
         }
 
-        public void DestroySkill()
-        {
-            EmblemModel touchedEmblem = Model.GetEmblem(0,0);
-            List<EmblemModel> list = new();
-            list.Add(touchedEmblem);
-            DestroyAndCollapse(list);
-        }
-
-        public void CreateSkill()
-        {
-
-            //Model.GetEmblem(x, y).Item = new EmblemItem()
-            //{
-            //    EmblemColor = (EmblemColor)Random.Range(0, 5)
-            //};
-
-            //OnEmblemCreated(Model.GetEmblem(x, y).Position, Model.GetEmblem(x, y).Item);
-        }
-
-        public void DecolorateEmblem()
-        {
-
-        }
         #endregion
 
         public int GetEmblemColor(int x, int y)
@@ -80,10 +84,7 @@ namespace Board.Controller
 
         public void TryProcessMatch(Vector2Int touchPosition)
         {
-            if (TouchIsWithinLimits(touchPosition))
-            {
-                ProcessMatch(touchPosition);
-            }
+            if (TouchIsWithinLimits(touchPosition)) ProcessMatch(touchPosition);
         }
 
         private void ProcessMatch(Vector2Int touchPosition)
@@ -100,7 +101,7 @@ namespace Board.Controller
             }
         }
 
-        private void DestroyAndCollapse(List<EmblemModel> comboMatches)
+        public void DestroyAndCollapse(List<EmblemModel> comboMatches)
         {
             foreach (EmblemModel emblem in comboMatches)
             {
@@ -229,6 +230,31 @@ namespace Board.Controller
             }
         }
 
+        public void CreateEmblemAtPosition(Vector2Int position, int color)
+        {
+            for (int y = 0; y < Model.Height; y++)
+            {
+                if (!Model.GetEmblem(position.x, y).IsEmpty()) continue;
+
+                Model.GetEmblem(position.x, y).Item = new EmblemItem()
+                {
+                    EmblemColor = (EmblemColor)color
+                };
+
+                OnEmblemCreated(Model.GetEmblem(position.x, y).Position, Model.GetEmblem(position.x, y).Item);
+                break;
+            }
+        }
+
+        public void ChangeEmblemColorAtPosition(Vector2Int position, int heroColor)
+        {
+            int emblemColor = (int)Model.GetEmblem(position.x, position.y).Item.EmblemColor;
+            if (Model.GetEmblem(position.x, position.y).IsEmpty() || emblemColor == heroColor) return;
+
+            emblemColor = heroColor;
+            OnColorChanged(position);
+        }
+
         private bool BoardIsSeparated()
         {
             for (int x = 0; x < Model.Width; x++)
@@ -278,6 +304,42 @@ namespace Board.Controller
             return neighbourList;
         }
 
+        public void ShuffleBoard()
+        {
+            List<EmblemModel> emblems = new();
+            List<EmblemModel> randomEmblems = new();
+            for (int x = 0; x < Model.Width; x++)
+            {
+                for (int y = 0; y < Model.Height; y++)
+                {
+                    if (Model.GetEmblem(x, y).IsEmpty()) continue;
+                    emblems.Add(Model.GetEmblem(x, y));
+                    randomEmblems.Add(Model.GetEmblem(x, y));
+                }
+            }
+
+            for (int x = 0; x < emblems.Count; x++)
+            {
+                if (emblems.Count > 1)
+                {
+                    EmblemItem aux = Model.GetEmblem(emblems[x].Position).Item;
+                    randomEmblems.RemoveAt(x);
+                    int randomInt = Random.Range(0, randomEmblems.Count -1);
+
+                    Model.GetEmblem(emblems[x].Position).Item = Model.GetEmblem(randomEmblems[randomInt].Position).Item;
+                    Model.GetEmblem(emblems[randomInt].Position).Item = aux;
+
+                    OnEmblemMoved(Model.GetEmblem(emblems[x].Position).Position, Model.GetEmblem(randomEmblems[randomInt].Position).Position);
+                    OnEmblemMoved(Model.GetEmblem(randomEmblems[randomInt].Position).Position, Model.GetEmblem(emblems[x].Position).Position);
+
+                    emblems.RemoveAt(x);
+                    randomEmblems.RemoveAt(randomInt);
+                }
+            }
+
+
+        }
+
         #region UTILITY METHODS
 
         private bool HasSameColor(EmblemModel emblem1, EmblemModel emblem2)
@@ -294,7 +356,10 @@ namespace Board.Controller
                 touchPosition.x < Model.Width);
         }
 
-
+        public EmblemModel GetEmblem(Vector2Int position)
+        {
+            return Model.GetEmblem(position);
+        }
         #endregion
     }
 }
