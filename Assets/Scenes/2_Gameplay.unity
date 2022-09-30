@@ -1506,11 +1506,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 630242980060108571, guid: dbc052c617650af4ebd0dd1417c5746f, type: 3}
       propertyPath: _boardSize.x
-      value: 3
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 630242980060108571, guid: dbc052c617650af4ebd0dd1417c5746f, type: 3}
       propertyPath: _boardSize.y
-      value: 3
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbc052c617650af4ebd0dd1417c5746f, type: 3}

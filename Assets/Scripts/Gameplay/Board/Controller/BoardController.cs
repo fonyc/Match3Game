@@ -251,7 +251,7 @@ namespace Board.Controller
             int emblemColor = (int)Model.GetEmblem(position.x, position.y).Item.EmblemColor;
             if (Model.GetEmblem(position.x, position.y).IsEmpty() || emblemColor == heroColor) return;
 
-            emblemColor = heroColor;
+            Model.GetEmblem(position.x, position.y).Item.EmblemColor = (EmblemColor)heroColor;
             OnColorChanged(position);
         }
 
@@ -318,8 +318,9 @@ namespace Board.Controller
                 }
             }
 
-            for (int x = 0; x < emblems.Count; x++)
+            foreach (EmblemModel emblem in emblems)
             {
+                int x = 0;
                 if (emblems.Count > 1)
                 {
                     EmblemItem aux = Model.GetEmblem(emblems[x].Position).Item;
@@ -334,6 +335,7 @@ namespace Board.Controller
 
                     emblems.RemoveAt(x);
                     randomEmblems.RemoveAt(randomInt);
+                    x ++;
                 }
             }
 
