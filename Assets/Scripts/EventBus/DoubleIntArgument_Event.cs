@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName ="Match3/Events/DoubleInt")]
+[CreateAssetMenu(menuName ="Events/DoubleInt")]
 public class DoubleIntArgument_Event : ScriptableObject
 {
     private List<Action<int, int>> _listeners = new();

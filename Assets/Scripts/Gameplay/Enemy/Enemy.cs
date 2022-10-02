@@ -1,6 +1,5 @@
-
 [System.Serializable]
-public class HeroItemModel
+public class Enemy
 {
     public string Id;
     public string Name;
@@ -8,6 +7,4 @@ public class HeroItemModel
     public int Color;
     public string ColorImage;
     public Stats Stats;
-    public string Skill;
-    public int MaxItems;
 }

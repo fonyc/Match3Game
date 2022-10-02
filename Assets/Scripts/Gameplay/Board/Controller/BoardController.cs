@@ -16,14 +16,15 @@ namespace Board.Controller
         public BoardInput InputSelected;
         private UserData _userData;
 
-        //PlayerView Events 
         public event Action<Vector2Int, Vector2Int> OnEmblemMoved = delegate (Vector2Int origin, Vector2Int destination) { };
         public event Action<Vector2Int> OnEmblemDestroyed = delegate (Vector2Int emblemDestroyed) { };
         public event Action<Vector2Int, EmblemItem> OnEmblemCreated = delegate (Vector2Int emblemPosition, EmblemItem item) { };
         public event Action<Vector2Int> OnColorChanged = delegate (Vector2Int emblemPosition) { };
+        DoubleIntArgument_Event _onPlayerAttacks;
 
-        public BoardController(int width, int height, SkillController skillController, List<BoardInput> inputList, UserData userData)
+        public BoardController(int width, int height, SkillController skillController, List<BoardInput> inputList, UserData userData, DoubleIntArgument_Event OnPlayerAttacks)
         {
+            _onPlayerAttacks = OnPlayerAttacks;
             _inputs = inputList;
             _userData = userData;
             _skillController = skillController;
@@ -94,9 +95,12 @@ namespace Board.Controller
             if (touchedEmblem.IsEmpty()) return;
 
             List<EmblemModel> swapMatches = RecursiveSearch(touchedEmblem);
-
+            
             if (swapMatches.Count > 1)
             {
+                int colorAttack = GetEmblemColor(swapMatches[0].Position.x, swapMatches[0].Position.y);
+                _onPlayerAttacks.TriggerEvents(swapMatches.Count, colorAttack);
+                
                 DestroyAndCollapse(swapMatches);
             }
         }
@@ -105,10 +109,8 @@ namespace Board.Controller
         {
             foreach (EmblemModel emblem in comboMatches)
             {
-                //Destroy model item
                 Model.GetEmblem(emblem.Position).Item = null;
 
-                //Destroy View
                 OnEmblemDestroyed(emblem.Position);
             }
             VerticalCollapse();
@@ -338,8 +340,6 @@ namespace Board.Controller
                     x ++;
                 }
             }
-
-
         }
 
         #region UTILITY METHODS

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Board.Model
 {
@@ -27,7 +28,6 @@ namespace Board.Model
                     _boardStatus[x, y] = new EmblemModel
                     {
                         Position = new Vector2Int(x, y),
-                        //Item = initialValues?[x, y]
                         Item = new EmblemItem { EmblemColor = (EmblemColor)Random.Range(0, 5) }
                     };
                 }

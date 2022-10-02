@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName ="Match3/Events/NoArgument")]
+[CreateAssetMenu(menuName ="Events/NoArgument")]
 public class NoArgument_Event : ScriptableObject
 {
     private List<Action> _listeners = new();

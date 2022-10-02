@@ -31,6 +31,13 @@ public class GameplayInitializer : MonoBehaviour
     private BoardController _boardController;
     private PlayerController _playerController;
     private ItemController _itemController;
+    private CombatController _combatController;
+    private EnemyController _enemyController;
+
+    [Header("--- EVENT BUS ---")]
+    [Space(5)]
+    [SerializeField] StatIntIntArgument_Event _onPlayerAttacks;
+    [SerializeField] DoubleIntArgument_Event _onEmblemsDestroyed;
 
     private UserData _userData;
 
@@ -41,22 +48,26 @@ public class GameplayInitializer : MonoBehaviour
         _userData.Load();
 
         //Controllers creation
+        _combatController = new CombatController();
+        _enemyController = new EnemyController(_userData, _combatController);
         _skillController = new SkillController(_userData, SkillList);
-        _boardController = new BoardController(_boardSize.x, _boardSize.y, _skillController, inputs, _userData);
+        _boardController = new BoardController(_boardSize.x, _boardSize.y, _skillController, inputs, _userData, _onEmblemsDestroyed);
         _itemController = new ItemController(_userData);
-        _playerController = new PlayerController(_userData, _itemController);
+        _playerController = new PlayerController(_userData, _itemController, _combatController, _onPlayerAttacks);
 
         //Init. controllers
+        _combatController.Initialize();
         _skillController.Initialize();
+        _enemyController.Initialize();
         _playerController.Initialize();
         _itemController.Initialize();
         _boardController.Initialize();
 
-        Instantiate(_skillViewPrefab, transform).Initialize(_skillController,_userData);
+        Instantiate(_skillViewPrefab, transform).Initialize(_skillController);
         Instantiate(_boardViewPrefab).Initialize(_boardController, _boardSize);
-        Instantiate(_playerViewPrefab, transform).Initialize(_playerController, _userData);
-        Instantiate(_itemViewPrefab, transform).Initialize(_itemController, _userData);
-        Instantiate(_enemyViewPrefab, transform);
+        Instantiate(_playerViewPrefab, transform).Initialize(_playerController, _onEmblemsDestroyed);
+        Instantiate(_itemViewPrefab, transform).Initialize(_itemController);
+        Instantiate(_enemyViewPrefab, transform).Initialize(_enemyController, _onPlayerAttacks);
         Instantiate(_topBar, transform);
         Instantiate(_sceneLoaderPrefab);
     }

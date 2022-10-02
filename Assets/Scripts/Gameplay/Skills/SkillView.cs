@@ -13,13 +13,11 @@ public class SkillView : MonoBehaviour
     [SerializeField] private TMP_Text _manaText = null;
     [SerializeField] private List<Sprite> SkillSpriteList = new();
   
-    UserData _userData;
     SkillController _controller;
 
-    public void Initialize(SkillController skillController, UserData userData)
+    public void Initialize(SkillController skillController)
     {
         _controller = skillController;
-        _userData = userData;
         UpdateVisuals();
     }
 

@@ -3,7 +3,7 @@ using UnityEngine;
 public class LevelsController 
 {
     public LevelModel LevelModel;
-    public EnemyModel EnemyModel;
+    public EnemiesModel EnemyModel;
     private UserData _userData;
     private SceneLoader _sceneLoader;
 

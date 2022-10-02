@@ -20,23 +20,30 @@ public class PlayerView : MonoBehaviour
     [Space(5)]
     [SerializeField] List<Sprite> HeroSpriteList = new();
 
-    private UserData _userData;
     private PlayerController _controller;
+    private DoubleIntArgument_Event _onEmblemsDestroyed;
 
-    public void Initialize(PlayerController controller, UserData userData)
+    public void Initialize(PlayerController controller, DoubleIntArgument_Event OnEmblemsDestroyed)
     {
+        _onEmblemsDestroyed = OnEmblemsDestroyed;
         _controller = controller;
+
+        _onEmblemsDestroyed.AddListener(PrepareAttack);
         _controller.OnATKChanged += AddATKBuff;
         _controller.OnDEFChanged += AddDEFBuff;
         _controller.OnHPChanged += ChangeHP;
-        _userData = userData;
         SetInitialStats();
+    }
+
+    private void PrepareAttack(int hits, int colorAttack)
+    {
+        _controller.AttackEnemy(hits, colorAttack);
     }
 
     public void SetInitialStats()
     {
         _heroImage.sprite = HeroSpriteList.Find(sprite => sprite.name == _controller.GetHero().AvatarImage);
-        _hpFill.fillAmount = _controller.GetCurrentStats().HP * 100 / _controller.GetHero().Stats.HP;
+        _hpFill.fillAmount = _controller.GetCurrentStats().HP / _controller.GetHero().Stats.HP;
         _hpText.text = _controller.GetCurrentStats().HP.ToString() + " / " + _controller.GetHero().Stats.HP;
     }
 

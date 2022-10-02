@@ -7,7 +7,7 @@ public class ItemView : MonoBehaviour
     [SerializeField] Transform _itemsParent;
     [SerializeField] ItemViewSlot _itemSlotPrefab;
 
-    public void Initialize(ItemController itemController, UserData userData)
+    public void Initialize(ItemController itemController)
     {
         _itemController = itemController;
 

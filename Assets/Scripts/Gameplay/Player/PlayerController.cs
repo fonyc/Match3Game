@@ -1,20 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Board.Controller;
+using System;
 using UnityEngine;
 
-public class PlayerController: IDisposable
+public class PlayerController : IDisposable
 {
     private UserData _userData;
     private PlayerModel _playerModel;
     private ItemController _itemController;
+    private CombatController _combatController;
 
     public event Action<int, int> OnHPChanged = delegate (int amount, int max) { };
     public event Action OnATKChanged = delegate () { };
     public event Action OnDEFChanged = delegate () { };
+    StatIntIntArgument_Event _onPlayerAttackPerformed;
 
-    public PlayerController(UserData userData, ItemController itemController)
+    public PlayerController(UserData userData, ItemController itemController, CombatController combatController, StatIntIntArgument_Event OnPlayerAttackPerformed)
     {
+        _onPlayerAttackPerformed = OnPlayerAttackPerformed;
+        _combatController = combatController;
         _itemController = itemController;
+
         _itemController._onHPItemConsumed += ChangeHP;
         _itemController._onATKItemConsumed += ChangeATK;
         _itemController._onDEFItemConsumed += ChangeDEF;
@@ -33,7 +38,7 @@ public class PlayerController: IDisposable
         return _playerModel.hero;
     }
 
-    public HeroStats GetCurrentStats()
+    public Stats GetCurrentStats()
     {
         return _playerModel.currentHeroStats;
     }
@@ -55,6 +60,12 @@ public class PlayerController: IDisposable
     }
 
     #region EVENTS
+
+    public void AttackEnemy(int hits, int color)
+    {
+        _onPlayerAttackPerformed.TriggerEvents(_playerModel.hero.Stats, hits, color);
+    }
+
     public void ChangeHP(int amount)
     {
         int maxHP = _playerModel.hero.Stats.HP;

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName ="Match3/Events/Bool")]
+[CreateAssetMenu(menuName ="Events/Bool")]
 public class BoolArgument_Event : ScriptableObject
 {
     private List<Action<bool>> _listeners = new();

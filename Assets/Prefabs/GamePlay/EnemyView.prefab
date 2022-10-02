@@ -93,7 +93,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35.15
+  m_fontSize: 38.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -168,10 +168,10 @@ RectTransform:
   m_Father: {fileID: 5846184284060649357}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.061520692, y: 0.35659736}
-  m_AnchorMax: {x: 0.93652105, y: 0.68600005}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -0.00000074505806}
+  m_AnchorMin: {x: 0.051000003, y: 0.37089604}
+  m_AnchorMax: {x: 0.9480001, y: 0.66455203}
+  m_AnchoredPosition: {x: -0.0028076172, y: 0.43958282}
+  m_SizeDelta: {x: 0.9264002, y: 0.5344}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5846184283721849392
 CanvasRenderer:
@@ -322,10 +322,10 @@ RectTransform:
   m_Father: {fileID: 5846184284687692418}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.10259261, y: 0.6978608}
-  m_AnchorMax: {x: 0.89825934, y: 0.7581342}
-  m_AnchoredPosition: {x: 0.5, y: 0.8699951}
-  m_SizeDelta: {x: 3, y: -1}
+  m_AnchorMin: {x: 0.055, y: 0.7}
+  m_AnchorMax: {x: 0.95, y: 0.76}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5846184284132049487
 GameObject:
@@ -436,10 +436,10 @@ RectTransform:
   m_Father: {fileID: 5846184284060649357}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.061520692, y: 0.37089604}
-  m_AnchorMax: {x: 0.93652105, y: 0.68600005}
+  m_AnchorMin: {x: 0.051000003, y: 0.37089604}
+  m_AnchorMax: {x: 0.94600004, y: 0.66455203}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0.0000008046627}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &5846184284652983931
 CanvasRenderer:
@@ -474,7 +474,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.75
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -539,3 +539,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e01d4fc3fab58e4aafe905af49b8604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dragonSprites:
+  - {fileID: 21300000, guid: 8a3f9f2b8ae63d849921192c728fba6e, type: 3}
+  - {fileID: 21300000, guid: d30fc0ad15abce24182816baef7da88c, type: 3}
+  - {fileID: 21300000, guid: c3c0e7f42e7cbea4dbedf639e3eac317, type: 3}
+  - {fileID: 21300000, guid: df1eda761f5f4e34f80d47b022555c47, type: 3}
+  - {fileID: 21300000, guid: 063f6979a5288224bbc2eca405fd260a, type: 3}
+  _dragonImage: {fileID: 5846184283870086891}
+  _hpFill: {fileID: 5846184284652983930}
+  _dragonAndHPText: {fileID: 5846184282892733419}

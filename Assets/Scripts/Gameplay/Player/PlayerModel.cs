@@ -3,5 +3,5 @@
 public class PlayerModel
 {
     public HeroItemModel hero;
-    public HeroStats currentHeroStats;
+    public Stats currentHeroStats;
 }
