@@ -1,16 +1,20 @@
 using Shop.Model;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Shop.Controller
 {
-    public class ShopController 
+    public class ShopController
     {
         public ShopModel Model { get; private set; }
 
         public UserData UserData { get; private set; }
 
-        public ShopController(UserData userData)
+        private AnalyticsGameService _analytics;
+
+        public ShopController(UserData userData, AnalyticsGameService analytics)
         {
+            _analytics = analytics;
             UserData = userData;
         }
 
@@ -26,6 +30,8 @@ namespace Shop.Controller
             UserData.RemoveResource(model.Cost);
             UserData.AddResource(model.Reward);
             UserData.Save();
+
+            _analytics.SendEvent("purchasedItem", new Dictionary<string, object> { ["itemId"] = model.Id });
         }
 
         public void PurchaseHero(ShopItemModel model)
@@ -35,6 +41,8 @@ namespace Shop.Controller
             UserData.RemoveResource(model.Cost);
             UserData.AddHero(model.Reward);
             UserData.Save();
+
+            _analytics.SendEvent("purchasedItem", new Dictionary<string, object> { ["itemId"] = model.Id });
         }
 
         public void PurchaseBattleItem(ShopItemModel model)
@@ -43,6 +51,8 @@ namespace Shop.Controller
             UserData.RemoveResource(model.Cost);
             UserData.AddBattleItem(model.Reward);
             UserData.Save();
+
+            _analytics.SendEvent("purchasedItem", new Dictionary<string, object> { ["itemId"] = model.Id });
         }
 
         private void Load()

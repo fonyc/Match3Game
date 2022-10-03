@@ -39,13 +39,11 @@ public class GameplayInitializer : MonoBehaviour
     [SerializeField] StatIntIntArgument_Event _onPlayerAttacks;
     [SerializeField] DoubleIntArgument_Event _onEmblemsDestroyed;
 
-    //SERVICES
-    private AnalyticsGameService _analytics = null;
+
     private UserData _userData;
 
     private void Awake()
     {
-        _analytics = ServiceLocator.GetService<AnalyticsGameService>();
         //Init user data
         _userData = new UserData();
         _userData.Load();
@@ -68,9 +66,6 @@ public class GameplayInitializer : MonoBehaviour
         _playerController.Initialize();
         _itemController.Initialize();
         _boardController.Initialize();
-
-        _analytics.SendEvent("purchasedHero",
-              new Dictionary<string, object> { ["HeroId"] = "TestHero" });
 
         Instantiate(_skillViewPrefab, transform).Initialize(_skillController);
         Instantiate(_boardViewPrefab).Initialize(_boardController, _boardSize);
