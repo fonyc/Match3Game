@@ -19,7 +19,6 @@ public class HeroesController
 
     private void Load()
     {
-        //Model = JsonUtility.FromJson<HeroModel>(Resources.Load<TextAsset>("HeroModel").text);
         Model = new HeroModel();
         Model.Heroes = ServiceLocator.GetService<GameConfigService>().HeroModel;
     }

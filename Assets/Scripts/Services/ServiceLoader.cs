@@ -35,13 +35,13 @@ public class ServiceLoader : MonoBehaviour
 
         ServicesInitializer servicesInitializer = new ServicesInitializer(environmentId);
 
-        //create services
+        //Create services
         GameConfigService gameConfig = new GameConfigService();
         //GameProgressionService gameProgression = new GameProgressionService();
 
         RemoteConfigGameService remoteConfig = new RemoteConfigGameService();
         LoginGameService loginService = new LoginGameService();
-        //AnalyticsGameService analyticsService = new AnalyticsGameService();
+        AnalyticsGameService analyticsService = new AnalyticsGameService();
         //AdsGameService adsService = new AdsGameService("4920717", "Rewarded_Android");
         //UnityIAPGameService iapService = new UnityIAPGameService();
         //IGameProgressionProvider gameProgressionProvider = new GameProgressionProvider();
@@ -53,7 +53,7 @@ public class ServiceLoader : MonoBehaviour
         ServiceLocator.RegisterService(remoteConfig);
         ServiceLocator.RegisterService(loginService);
         //ServiceLocator.RegisterService(adsService);
-        //ServiceLocator.RegisterService(analyticsService);
+        ServiceLocator.RegisterService(analyticsService);
         //ServiceLocator.RegisterService<IIAPGameService>(iapService);
         //ServiceLocator.RegisterService(localizationService);
 
@@ -61,7 +61,7 @@ public class ServiceLoader : MonoBehaviour
         await servicesInitializer.Initialize();
         await loginService.Initialize();
         await remoteConfig.Initialize();
-        //await analyticsService.Initialize();
+        await analyticsService.Initialize();
         //await iapService.Initialize(new Dictionary<string, string>
         //{
         //    ["test1"] = "es.jacksparrot.match3.test1"
