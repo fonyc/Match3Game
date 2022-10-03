@@ -26,6 +26,15 @@
 				"Stat": "ATK",
 				"Amount": 100
 			}
+		},
+		{
+			"Id": "DefensePotion",
+			"Name": "Defense Potion",
+			"AvatarImage": "DefensePotion",
+			"ItemEffect": {
+				"Stat": "DEF",
+				"Amount": 100
+			}
 		}
 	]
 }

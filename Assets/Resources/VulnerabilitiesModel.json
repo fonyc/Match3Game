@@ -1,0 +1,64 @@
+{
+	"Vulnerabilities": [
+		{
+			"Color": 0,
+			"Weakness": {
+				"Color": 1,
+				"Modificator": 2
+			},
+			"Strength": {
+				"Color": 2,
+				"Modificator": 0.5
+			},
+			"DefaultModificator": 1
+		},
+		{
+			"Color": 1,
+			"Weakness": {
+				"Color": 2,
+				"Modificator": 2
+			},
+			"Strength": {
+				"Color": 2,
+				"Modificator": 0.5
+			},
+			"DefaultModificator": 1
+		},
+		{
+			"Color": 2,
+			"Weakness": {
+				"Color": 0,
+				"Modificator": 2
+			},
+			"Strength": {
+				"Color": 1,
+				"Modificator": 2
+			},
+			"DefaultModificator": 1
+		},
+		{
+			"Color": 3,
+			"Weakness": {
+				"Color": 4,
+				"Modificator": 2
+			},
+			"Strength": {
+				"Color": 4,
+				"Modificator": 0.5
+			},
+			"DefaultModificator": 1
+		},
+		{
+			"Color": 4,
+			"Weakness": {
+				"Color": 3,
+				"Modificator": 2
+			},
+			"Strength": {
+				"Color": 3,
+				"Modificator": 0.5
+			},
+			"DefaultModificator": 1
+		}
+	]
+}

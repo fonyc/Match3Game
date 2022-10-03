@@ -12,12 +12,13 @@
 				"HP": 100,
 				"Progression": 10
 			},
-			"Skill": "Create"
+			"Skill": "Create",
+			"MaxItems": 2
 		},
 		{
-			"Id": "MorganLefay",
+			"Id": "MorganLeFay",
 			"Name": "Morgan le Fay",
-			"AvatarImage": "MorganLefay",
+			"AvatarImage": "MorganLeFay",
 			"Color": 4,
 			"ColorImage": "Wizard",
 			"Stats": {
@@ -26,7 +27,8 @@
 				"HP": 100,
 				"Progression": 10
 			},
-			"Skill": "Swap"
+			"Skill": "Shuffle",
+			"MaxItems": 2
 		},
 		{
 			"Id": "FranciscoPizarro",
@@ -40,7 +42,8 @@
 				"HP": 100,
 				"Progression": 10
 			},
-			"Skill": "Destroy"
+			"Skill": "Destroy",
+			"MaxItems": 2
 		},
 		{
 			"Id": "Redbeard",
@@ -54,7 +57,8 @@
 				"HP": 100,
 				"Progression": 10
 			},
-			"Skill": "Decolorate"
+			"Skill": "Decolorate",
+			"MaxItems": 2
 		},
 		{
 			"Id": "NicolaTesla",
@@ -68,7 +72,8 @@
 				"HP": 100,
 				"Progression": 10
 			},
-			"Skill": "Shuffle"
+			"Skill": "Transmute",
+			"MaxItems": 2
 		}
 	]
 }

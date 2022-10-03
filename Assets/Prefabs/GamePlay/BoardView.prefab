@@ -228,7 +228,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cbfe447b137ac640bbeecd824f7cc53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _boardSize: {x: 8, y: 8}
   _camera: {fileID: 0}
   emblemPrefabs:
   - {fileID: 625621532345807228, guid: f4bed4ec3e3ef984c979add8ae17dd7d, type: 3}
@@ -236,3 +235,8 @@ MonoBehaviour:
   - {fileID: 625621532345807228, guid: 17e361a6094316b4dbfb04273dee6705, type: 3}
   - {fileID: 625621532345807228, guid: f822c654c47bcaf429d83319b215d0c3, type: 3}
   - {fileID: 625621532345807228, guid: 34471c2725831464b889555e3bc95b74, type: 3}
+  skillList:
+  - {fileID: 11400000, guid: d61aaf0ee6bc1e844a515585ef15dd12, type: 2}
+  inputs:
+  - {fileID: 11400000, guid: 25e6f689d1d3f6148adbea7c58692389, type: 2}
+  - {fileID: 11400000, guid: c6dec106f9fd92545b71acadd95b8b2e, type: 2}

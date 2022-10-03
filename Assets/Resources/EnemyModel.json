@@ -7,8 +7,8 @@
 			"Color": 1,
 			"ColorImage": "Conqueror",
 			"Stats": {
-				"ATK": 10,
-				"DEF": 10,
+				"ATK": 100,
+				"DEF": 100,
 				"HP": 1000,
 				"Progression": 10
 			}
@@ -20,9 +20,9 @@
 			"Color": 2,
 			"ColorImage": "Pirate",
 			"Stats": {
-				"ATK": 10,
-				"DEF": 10,
-				"HP": 1000,
+				"ATK": 100,
+				"DEF": 100,
+				"HP": 1200,
 				"Progression": 10
 			}
 		},
@@ -33,9 +33,9 @@
 			"Color": 0,
 			"ColorImage": "Artist",
 			"Stats": {
-				"ATK": 10,
-				"DEF": 10,
-				"HP": 1000,
+				"ATK": 100,
+				"DEF": 100,
+				"HP": 1400,
 				"Progression": 10
 			}
 		},
@@ -46,9 +46,9 @@
 			"Color": 4,
 			"ColorImage": "Wizard",
 			"Stats": {
-				"ATK": 10,
-				"DEF": 10,
-				"HP": 1000,
+				"ATK": 100,
+				"DEF": 100,
+				"HP": 1600,
 				"Progression": 10
 			}
 		},
@@ -59,11 +59,11 @@
 			"Color": 3,
 			"ColorImage": "Scientist",
 			"Stats": {
-				"ATK": 10,
-				"DEF": 10,
-				"HP": 1000,
+				"ATK": 100,
+				"DEF": 100,
+				"HP": 2000,
 				"Progression": 10
 			}
-		},
+		}
 	]
 }

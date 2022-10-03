@@ -203,7 +203,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 41f18770ca6a24345ae9f7fdf677ea74, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -443,6 +443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _imageSprites:
+  - {fileID: 21300000, guid: 9a99d085bb9cc4e72972e075606cf4b9, type: 3}
   - {fileID: 21300000, guid: dde8316242f0e459c8995ffea0a43f04, type: 3}
   - {fileID: 21300000, guid: bb94a5a193dc1427fadc70a9be71b3ef, type: 3}
   - {fileID: 21300000, guid: 7650a4718db954652a436242cbde2366, type: 3}

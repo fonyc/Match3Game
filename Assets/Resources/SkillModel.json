@@ -1,0 +1,34 @@
+{
+	"Skills": [
+		{
+			"Id": "Destroy",
+			"Name": "Destroy",
+			"SpriteName": "Destroy",
+			"Mana": 80
+		},
+		{
+			"Id": "Decolorate",
+			"Name": "Decolorate",
+			"SpriteName": "Decolorate",
+			"Mana": 60
+		},
+		{
+			"Id": "Create",
+			"Name": "Create",
+			"SpriteName": "Create",
+			"Mana": 40
+		},
+		{
+			"Id": "Shuffle",
+			"Name": "Shuffle",
+			"SpriteName": "Shuffle",
+			"Mana": 70
+		},
+		{
+			"Id": "Transmute",
+			"Name": "Transmute",
+			"SpriteName": "Transmute",
+			"Mana": 50
+		}
+	]
+}

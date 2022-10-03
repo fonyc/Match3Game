@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class UserData
@@ -85,8 +86,8 @@ public class UserData
 
     public void SelectItem(string newItem)
     {
-        if (SelectedItems.Count < 2) 
-        { 
+        if (SelectedItems.Count < 2)
+        {
             SelectedItems.Add(newItem);
             OnBattleItemSelected?.Invoke();
         }
@@ -144,7 +145,7 @@ public class UserData
 
     public void RemoveBattleItem(string itemName)
     {
-        foreach (OwnedBattleItem battleItem in BattleItems)
+        foreach (OwnedBattleItem battleItem in BattleItems.ToList())
         {
             if (battleItem.Id == itemName)
             {
@@ -155,6 +156,7 @@ public class UserData
                     return;
                 }
                 BattleItems.Remove(battleItem);
+                SelectedItems.Remove(battleItem.Id);
                 OnBattleItemAdded?.Invoke();
             }
         }
@@ -167,7 +169,7 @@ public class UserData
 
     public int GetBattleItemAmount(string itemName)
     {
-        foreach(OwnedBattleItem item in BattleItems)
+        foreach (OwnedBattleItem item in BattleItems)
         {
             if (item.Id == itemName) return item.Amount;
         }
@@ -177,6 +179,19 @@ public class UserData
     public List<string> GetSelectedItems()
     {
         return SelectedItems;
+    }
+
+    public List<OwnedBattleItem> GetSelectedItems2()
+    {
+        List<OwnedBattleItem> list = new();
+        foreach (string selectedItem in SelectedItems)
+        {
+            foreach (OwnedBattleItem item in BattleItems)
+            {
+                if (selectedItem == item.Id) list.Add(item);
+            }
+        }
+        return list;
     }
 
     #endregion
@@ -204,7 +219,7 @@ public class UserData
     public void Save()
     {
         string jsonObject = JsonUtility.ToJson(this);
-        
+
         File.WriteAllText(path, jsonObject);
     }
 
