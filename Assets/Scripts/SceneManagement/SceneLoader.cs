@@ -6,11 +6,8 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     [SerializeField] GameObject loadingScreen;
-    private GameConfigService asd;
     public void ChangeScene(int index)
     {
-        asd = ServiceLocator.GetService<GameConfigService>();
-        Debug.Log(asd.InitialGold);
         StartCoroutine(LoadSceneAsync(index));
     }
 

@@ -3,27 +3,23 @@ using System.Collections.Generic;
 
 public class GameConfigService : IService
 {
-    public int InitialGold { get; private set; }
     public List<ShopItemModel> ShopOffers { get; private set; }
-    //public int InitialGems { get; private set; }
-    //public int GoldPerWin { get; private set; }
-    //public int GoldPerBooster { get; private set; }
-    //public int GoldPackCostInGems { get; private set; }
-    //public int GoldInGoldPack { get; private set; }
-    //public int GemsPerAd { get; private set; }
-    //public int GemsPerIAP { get; private set; }
+    public List<HeroItemModel> HeroModel { get; private set; }
+    public List<Enemy> EnemyModel { get; private set; }
+    public List<LevelModelItem> LevelsModel { get; private set; }
+    public List<BattleItemModel> BattleItemsModel { get; private set; }
+    public List<EmblemInteraction> VulnerabilitiesModel { get; private set; }
+    public List<SkillItemModel> SkillModel { get; private set; }
 
     public void Initialize(RemoteConfigGameService dataProvider)
     {
-        InitialGold = dataProvider.Get("test", 1);
         ShopOffers = dataProvider.Get("ShopModel", new List<ShopItemModel>());
-        //InitialGems = dataProvider.Get("InitialGems", 10);
-        //GoldPerWin = dataProvider.Get("GoldPerWin", 10);
-        //GoldPerBooster = dataProvider.Get("GoldPerBooster", 10);
-        //GoldPackCostInGems = dataProvider.Get("GoldPackCostInGems", 10);
-        //GoldInGoldPack = dataProvider.Get("GoldInGoldPack", 10);
-        //GemsPerAd = dataProvider.Get("GemsPerAd", 10);
-        //GemsPerIAP = dataProvider.Get("GemsPerIAP", 10);
+        HeroModel = dataProvider.Get("HeroModel", new List<HeroItemModel>());
+        LevelsModel = dataProvider.Get("LevelsModel", new List<LevelModelItem>()); 
+        EnemyModel = dataProvider.Get("EnemyModel", new List<Enemy>());
+        BattleItemsModel = dataProvider.Get("BattleItemsModel", new List<BattleItemModel>());
+        SkillModel = dataProvider.Get("SkillModel", new List<SkillItemModel>());
+        VulnerabilitiesModel = dataProvider.Get("VulnerabilitiesModel", new List<EmblemInteraction>());
     }
 
     public void Clear()

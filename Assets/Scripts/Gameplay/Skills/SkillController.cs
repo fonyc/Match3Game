@@ -33,6 +33,7 @@ public class SkillController
     public void Initialize()
     {
         LoadSkill();
+        Debug.Log(_skillPlayerModel);
         SkillSelected = GetSkill(_skillPlayerModel.Skill.Id);
     }
 
@@ -48,25 +49,30 @@ public class SkillController
 
     private void LoadSkill()
     {
-        SkillModel allSkills = JsonUtility.FromJson<SkillModel>(Resources.Load<TextAsset>("SkillModel").text);
-        HeroModel allheroes = JsonUtility.FromJson<HeroModel>(Resources.Load<TextAsset>("HeroModel").text);
-        HeroItemModel heroSelected = GetHeroModelFromHeroName(_userData.GetSelectedHero(), allheroes);
+        _skillPlayerModel = new SkillPlayerModel();
+
+        List<SkillItemModel> allSkills = ServiceLocator.GetService<GameConfigService>().SkillModel;
+
+        List<HeroItemModel> allHeroes = ServiceLocator.GetService<GameConfigService>().HeroModel;
+
+        HeroItemModel heroSelected = GetHeroModelFromHeroName(_userData.GetSelectedHero(), allHeroes);
+
         _skillPlayerModel.Skill = GetSkill(heroSelected.Skill, allSkills);
         _skillPlayerModel.playerCurrentMana = 0;
     }
 
-    private HeroItemModel GetHeroModelFromHeroName(string heroName, HeroModel allHeroes)
+    private HeroItemModel GetHeroModelFromHeroName(string heroName, List<HeroItemModel> allHeroes)
     {
-        foreach (HeroItemModel hero in allHeroes.Heroes)
+        foreach (HeroItemModel hero in allHeroes)
         {
             if (hero.Id == heroName) return hero;
         }
         return null;
     }
 
-    private SkillItemModel GetSkill(string skillName, SkillModel allSkills)
+    private SkillItemModel GetSkill(string skillName, List<SkillItemModel> allSkills)
     {
-        foreach (SkillItemModel skill in allSkills.Skills)
+        foreach (SkillItemModel skill in allSkills)
         {
             if (skill.Id == skillName) return skill;
         }

@@ -47,7 +47,12 @@ public class TeamController
 
     private void Load()
     {
-        heroModel = JsonUtility.FromJson<HeroModel>(Resources.Load<TextAsset>("HeroModel").text);
-        battleItemModel = JsonUtility.FromJson<BattleItemsModel>(Resources.Load<TextAsset>("BattleItemModel").text);
+        heroModel = new HeroModel();
+        battleItemModel = new BattleItemsModel();
+
+        heroModel.Heroes = ServiceLocator.GetService<GameConfigService>().HeroModel;
+        battleItemModel.BattleItems = ServiceLocator.GetService<GameConfigService>().BattleItemsModel;
+        //heroModel = JsonUtility.FromJson<HeroModel>(Resources.Load<TextAsset>("HeroModel").text);
+        //battleItemModel = JsonUtility.FromJson<BattleItemsModel>(Resources.Load<TextAsset>("BattleItemModel").text);
     }
 }
