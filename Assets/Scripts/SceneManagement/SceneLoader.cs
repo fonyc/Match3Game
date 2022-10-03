@@ -1,21 +1,16 @@
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
     [SerializeField] GameObject loadingScreen;
-
-    private void Start()
-    {
-        if(SceneManager.GetActiveScene().buildIndex == 0)
-        {
-            StartCoroutine(LoadSceneAsync(1));
-        }
-    }
-
+    private GameConfigService asd;
     public void ChangeScene(int index)
     {
+        asd = ServiceLocator.GetService<GameConfigService>();
+        Debug.Log(asd.InitialGold);
         StartCoroutine(LoadSceneAsync(index));
     }
 
@@ -41,7 +36,7 @@ public class SceneLoader : MonoBehaviour
 
         while (!asyncLoad.isDone && progress >= 1f)
         {
-            asyncLoad.allowSceneActivation = true; 
+            asyncLoad.allowSceneActivation = true;
             yield return null;
         }
     }

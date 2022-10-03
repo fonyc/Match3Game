@@ -61,4 +61,9 @@ public class EnemyView : MonoBehaviour
         if (qty <= 0f) return 0f;
         else return qty;
     }
+
+    private void OnDestroy()
+    {
+        _onPlayerAttacked.RemoveListener(TranslateAttackToDamage);
+    }
 }

@@ -47,7 +47,9 @@ namespace Shop.Controller
 
         private void Load()
         {
-            Model = JsonUtility.FromJson<ShopModel>(Resources.Load<TextAsset>("ShopModel").text);
+            //Model = JsonUtility.FromJson<ShopModel>(Resources.Load<TextAsset>("ShopModel").text);
+            Model = new ShopModel();
+            Model.Items = ServiceLocator.GetService<GameConfigService>().ShopOffers;
         }
     }
 }

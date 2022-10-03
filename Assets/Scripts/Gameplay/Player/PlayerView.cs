@@ -65,6 +65,7 @@ public class PlayerView : MonoBehaviour
 
     private void OnDestroy()
     {
+        _onEmblemsDestroyed.RemoveListener(PrepareAttack);
         _controller.OnATKChanged -= AddATKBuff;
     }
 }
