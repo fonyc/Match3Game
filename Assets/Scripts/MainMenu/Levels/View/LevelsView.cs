@@ -10,8 +10,6 @@ public class LevelsView : MonoBehaviour
 
     LevelsController _levelsController = null;
 
-    private UserData _userData;
-
     public void Initialize(LevelsController levelsController, UserData userData)
     {
         _levelsController = levelsController;
@@ -25,7 +23,9 @@ public class LevelsView : MonoBehaviour
 
         foreach (LevelModelItem levelModelItem in _levelsController.LevelModel.Levels)
         {
-            Instantiate(_levelItemPrefab, _itemsParent).SetData(levelModelItem, userData, OnLevelSelected);
+            LevelItemView item = Instantiate(_levelItemPrefab, _itemsParent);
+            item.SetData(levelModelItem, userData, OnLevelSelected);
+            item.Initialize();
         }
     }
 

@@ -3,72 +3,82 @@
 		{
 			"Level": 1,
 			"Enemy": "RedDragon",
-			"GemsReward": {
-				"Name": "Gems",
-				"Type": "Resources",
-				"Amount": 10
-			},
-			"GoldReward": {
-				"Name": "Gold",
-				"Type": "Resources",
-				"Amount": 100
-			}
+			"Rewards": [
+				{
+					"Name": "Gems",
+					"Type": "Resources",
+					"Amount": 10
+				},
+				{
+					"Name": "Gold",
+					"Type": "Resources",
+					"Amount": 100
+				}
+			]
 		},
 		{
 			"Level": 2,
 			"Enemy": "BlueDragon",
-			"GemsReward": {
-				"Name": "Gems",
-				"Type": "Resources",
-				"Amount": 20
-			},
-			"GoldReward": {
-				"Name": "Gold",
-				"Type": "Resources",
-				"Amount": 125
-			}
+			"Rewards": [
+				{
+					"Name": "Gems",
+					"Type": "Resources",
+					"Amount": 20
+				},
+				{
+					"Name": "Gold",
+					"Type": "Resources",
+					"Amount": 200
+				}
+			]
 		},
 		{
 			"Level": 3,
 			"Enemy": "GreenDragon",
-			"GemsReward": {
-				"Name": "Gems",
-				"Type": "Resources",
-				"Amount": 30
-			},
-			"GoldReward": {
-				"Name": "Gold",
-				"Type": "Resources",
-				"Amount": 150
-			}
+			"Rewards": [
+				{
+					"Name": "Gems",
+					"Type": "Resources",
+					"Amount": 30
+				},
+				{
+					"Name": "Gold",
+					"Type": "Resources",
+					"Amount": 300
+				}
+			]
 		},
 		{
 			"Level": 4,
 			"Enemy": "YellowDragon",
-			"GemsReward": {
-				"Name": "Gems",
-				"Type": "Resources",
-				"Amount": 40
-			},
-			"GoldReward": {
-				"Name": "Gold",
-				"Type": "Resources",
-				"Amount": 175
-			}
+			"Rewards": [
+				{
+					"Name": "Gems",
+					"Type": "Resources",
+					"Amount": 40
+				},
+				{
+					"Name": "Gold",
+					"Type": "Resources",
+					"Amount": 400
+				}
+			]
 		},
 		{
 			"Level": 5,
 			"Enemy": "PurpleDragon",
-			"GemsReward": {
-				"Name": "Gems",
-				"Type": "Resources",
-				"Amount": 50
-			},
-			"GoldReward": {
-				"Name": "Gold",
-				"Type": "Resources",
-				"Amount": 200
-			}
+			"Rewards": [
+				{
+					"Name": "Gems",
+					"Type": "Resources",
+					"Amount": 50
+				},
+				{
+					"Name": "Gold",
+					"Type": "Resources",
+					"Amount": 500
+				}
+			]
 		}
 	]
 }

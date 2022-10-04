@@ -39,7 +39,6 @@ public class GameplayInitializer : MonoBehaviour
     [SerializeField] StatIntIntArgument_Event _onPlayerAttacks;
     [SerializeField] DoubleIntArgument_Event _onEmblemsDestroyed;
 
-
     private UserData _userData;
 
     private void Awake()
@@ -75,5 +74,4 @@ public class GameplayInitializer : MonoBehaviour
         Instantiate(_topBar, transform);
         Instantiate(_sceneLoaderPrefab);
     }
-
 }

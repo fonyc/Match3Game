@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f43bebaa59ae8f041ae77c473d4d6d06
+guid: f6f9cf0dd2159410b872e490ba7f21cc
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -62,7 +62,7 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 0
+  applyGammaDecoding: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform

@@ -30,6 +30,7 @@ public class LevelsController
     public void Load()
     {
         LevelModel = new LevelModel();
+
         //LevelModel = JsonUtility.FromJson<LevelModel>(Resources.Load<TextAsset>("LevelsModel").text);
         LevelModel.Levels = ServiceLocator.GetService<GameConfigService>().LevelsModel;
     }
