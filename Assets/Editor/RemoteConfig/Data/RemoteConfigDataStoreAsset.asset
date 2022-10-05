@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"7052569f-703a-4ab4-b080-9ee0c11140bf\"\r\n   
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"ac4bfab9-f20c-46e9-9750-81a08e1fd2af\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"ShopModel\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Id\": \"HealthPotion\",\r\n            \"Title\": \"Health
@@ -77,7 +77,7 @@ MonoBehaviour:
     \"Reward\": {\r\n              \"Name\": \"Gold\",\r\n              \"Type\":
     \"Resources\",\r\n              \"Amount\": 100\r\n            }\r\n         
     }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
-    \"entityId\": \"66cad40a-147a-488b-8dc6-c5b91ecb8351\"\r\n    },\r\n    \"rs\":
+    \"entityId\": \"90015bd6-76d3-4e7d-b885-1669d4bf668c\"\r\n    },\r\n    \"rs\":
     {\r\n      \"key\": \"HeroModel\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
     null,\r\n      \"value\": {\r\n        \"data\": [\r\n          {\r\n           
     \"Id\": \"LeonardoDaVinci\",\r\n            \"Name\": \"Leonardo da Vinci\",\r\n           
@@ -109,38 +109,10 @@ MonoBehaviour:
     \"HP\": 100,\r\n              \"Progression\": 10\r\n            },\r\n           
     \"Skill\": \"Transmute\",\r\n            \"MaxItems\": 2\r\n          }\r\n       
     ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"014aa25b-37c0-4758-a3cc-124f9f04ed78\"\r\n    },\r\n    \"rs\": {\r\n     
-    \"key\": \"LevelsModel\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
+    \"e46e16f9-d193-4602-9471-3334d96e6769\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"EnemyModel\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
     null,\r\n      \"value\": {\r\n        \"data\": [\r\n          {\r\n           
-    \"Level\": 1,\r\n            \"Enemy\": \"RedDragon\",\r\n            \"GemsReward\":
-    {\r\n              \"Name\": \"Gems\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 10\r\n            },\r\n            \"GoldReward\": {\r\n             
-    \"Name\": \"Gold\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 100\r\n            }\r\n          },\r\n          {\r\n           
-    \"Level\": 2,\r\n            \"Enemy\": \"BlueDragon\",\r\n            \"GemsReward\":
-    {\r\n              \"Name\": \"Gems\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 20\r\n            },\r\n            \"GoldReward\": {\r\n             
-    \"Name\": \"Gold\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 125\r\n            }\r\n          },\r\n          {\r\n           
-    \"Level\": 3,\r\n            \"Enemy\": \"GreenDragon\",\r\n            \"GemsReward\":
-    {\r\n              \"Name\": \"Gems\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 30\r\n            },\r\n            \"GoldReward\": {\r\n             
-    \"Name\": \"Gold\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 150\r\n            }\r\n          },\r\n          {\r\n           
-    \"Level\": 4,\r\n            \"Enemy\": \"YellowDragon\",\r\n            \"GemsReward\":
-    {\r\n              \"Name\": \"Gems\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 40\r\n            },\r\n            \"GoldReward\": {\r\n             
-    \"Name\": \"Gold\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 175\r\n            }\r\n          },\r\n          {\r\n           
-    \"Level\": 5,\r\n            \"Enemy\": \"PurpleDragon\",\r\n            \"GemsReward\":
-    {\r\n              \"Name\": \"Gems\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 50\r\n            },\r\n            \"GoldReward\": {\r\n             
-    \"Name\": \"Gold\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 200\r\n            }\r\n          }\r\n        ]\r\n      }\r\n   
-    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"3d9b6a10-85e6-412f-a9a2-c676a083c502\"\r\n   
-    },\r\n    \"rs\": {\r\n      \"key\": \"EnemyModel\",\r\n      \"type\": \"json\",\r\n     
-    \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
-    {\r\n            \"Id\": \"RedDragon\",\r\n            \"Name\": \"Red Dragon\",\r\n           
+    \"Id\": \"RedDragon\",\r\n            \"Name\": \"Red Dragon\",\r\n           
     \"AvatarImage\": \"RedDragon\",\r\n            \"Color\": 1,\r\n            \"ColorImage\":
     \"Conqueror\",\r\n            \"Stats\": {\r\n              \"ATK\": 100,\r\n             
     \"DEF\": 100,\r\n              \"HP\": 1000,\r\n              \"Progression\":
@@ -165,7 +137,7 @@ MonoBehaviour:
     {\r\n              \"ATK\": 100,\r\n              \"DEF\": 100,\r\n             
     \"HP\": 2000,\r\n              \"Progression\": 10\r\n            }\r\n         
     }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
-    \"entityId\": \"54a8339a-690f-4b90-8c22-bde71891cb1a\"\r\n    },\r\n    \"rs\":
+    \"entityId\": \"e6f49503-14b6-4400-96b3-95a53b02b806\"\r\n    },\r\n    \"rs\":
     {\r\n      \"key\": \"BattleItemsModel\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Id\": \"ManaPotion\",\r\n            \"Name\": \"Mana Potion\",\r\n           
@@ -181,7 +153,7 @@ MonoBehaviour:
     \"Name\": \"Defense Potion\",\r\n            \"AvatarImage\": \"DefensePotion\",\r\n           
     \"ItemEffect\": {\r\n              \"Stat\": \"DEF\",\r\n              \"Amount\":
     100\r\n            }\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n 
-    {\r\n    \"metadata\": {\r\n      \"entityId\": \"9d0ec7b6-8afc-4be4-a384-74e0e2322138\"\r\n   
+    {\r\n    \"metadata\": {\r\n      \"entityId\": \"469e85af-e54d-4bc6-a178-01b4dc729869\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"SkillModel\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Id\": \"Destroy\",\r\n            \"Name\": \"Destroy\",\r\n           
@@ -195,7 +167,7 @@ MonoBehaviour:
     {\r\n            \"Id\": \"Transmute\",\r\n            \"Name\": \"Transmute\",\r\n           
     \"SpriteName\": \"Transmute\",\r\n            \"Mana\": 50\r\n          }\r\n       
     ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"df48fb73-6e60-47fb-99b6-3b3e01527477\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"7512b586-38c4-4231-89d1-bcba3672ae22\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"VulnerabilitiesModel\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
     null,\r\n      \"value\": {\r\n        \"data\": [\r\n          {\r\n           
     \"Color\": 0,\r\n            \"Weakness\": {\r\n              \"Color\": 1,\r\n             
@@ -218,8 +190,36 @@ MonoBehaviour:
     \"Modificator\": 2\r\n            },\r\n            \"Strength\": {\r\n             
     \"Color\": 3,\r\n              \"Modificator\": 0.5\r\n            },\r\n           
     \"DefaultModificator\": 1\r\n          }\r\n        ]\r\n      }\r\n    }\r\n 
-    }\r\n]"
-  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"7052569f-703a-4ab4-b080-9ee0c11140bf\"\r\n   
+    },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"3720a131-b8a5-4b4b-8923-9bba52b6ddeb\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"LevelsModel\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
+    {\r\n            \"Level\": 1,\r\n            \"Enemy\": \"RedDragon\",\r\n           
+    \"Rewards\": [\r\n              {\r\n                \"Name\": \"Gems\",\r\n               
+    \"Type\": \"Resources\",\r\n                \"Amount\": 10\r\n              },\r\n             
+    {\r\n                \"Name\": \"Gold\",\r\n                \"Type\": \"Resources\",\r\n               
+    \"Amount\": 100\r\n              }\r\n            ]\r\n          },\r\n         
+    {\r\n            \"Level\": 2,\r\n            \"Enemy\": \"BlueDragon\",\r\n           
+    \"Rewards\": [\r\n              {\r\n                \"Name\": \"Gems\",\r\n               
+    \"Type\": \"Resources\",\r\n                \"Amount\": 20\r\n              },\r\n             
+    {\r\n                \"Name\": \"Gold\",\r\n                \"Type\": \"Resources\",\r\n               
+    \"Amount\": 200\r\n              }\r\n            ]\r\n          },\r\n         
+    {\r\n            \"Level\": 3,\r\n            \"Enemy\": \"GreenDragon\",\r\n           
+    \"Rewards\": [\r\n              {\r\n                \"Name\": \"Gems\",\r\n               
+    \"Type\": \"Resources\",\r\n                \"Amount\": 30\r\n              },\r\n             
+    {\r\n                \"Name\": \"Gold\",\r\n                \"Type\": \"Resources\",\r\n               
+    \"Amount\": 300\r\n              }\r\n            ]\r\n          },\r\n         
+    {\r\n            \"Level\": 4,\r\n            \"Enemy\": \"YellowDragon\",\r\n           
+    \"Rewards\": [\r\n              {\r\n                \"Name\": \"Gems\",\r\n               
+    \"Type\": \"Resources\",\r\n                \"Amount\": 40\r\n              },\r\n             
+    {\r\n                \"Name\": \"Gold\",\r\n                \"Type\": \"Resources\",\r\n               
+    \"Amount\": 400\r\n              }\r\n            ]\r\n          },\r\n         
+    {\r\n            \"Level\": 5,\r\n            \"Enemy\": \"PurpleDragon\",\r\n           
+    \"Rewards\": [\r\n              {\r\n                \"Name\": \"Gems\",\r\n               
+    \"Type\": \"Resources\",\r\n                \"Amount\": 50\r\n              },\r\n             
+    {\r\n                \"Name\": \"Gold\",\r\n                \"Type\": \"Resources\",\r\n               
+    \"Amount\": 500\r\n              }\r\n            ]\r\n          }\r\n       
+    ]\r\n      }\r\n    }\r\n  }\r\n]"
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"ac4bfab9-f20c-46e9-9750-81a08e1fd2af\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"ShopModel\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Id\": \"HealthPotion\",\r\n            \"Title\": \"Health
@@ -284,7 +284,7 @@ MonoBehaviour:
     \"Reward\": {\r\n              \"Name\": \"Gold\",\r\n              \"Type\":
     \"Resources\",\r\n              \"Amount\": 100\r\n            }\r\n         
     }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
-    \"entityId\": \"66cad40a-147a-488b-8dc6-c5b91ecb8351\"\r\n    },\r\n    \"rs\":
+    \"entityId\": \"90015bd6-76d3-4e7d-b885-1669d4bf668c\"\r\n    },\r\n    \"rs\":
     {\r\n      \"key\": \"HeroModel\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
     null,\r\n      \"value\": {\r\n        \"data\": [\r\n          {\r\n           
     \"Id\": \"LeonardoDaVinci\",\r\n            \"Name\": \"Leonardo da Vinci\",\r\n           
@@ -316,38 +316,10 @@ MonoBehaviour:
     \"HP\": 100,\r\n              \"Progression\": 10\r\n            },\r\n           
     \"Skill\": \"Transmute\",\r\n            \"MaxItems\": 2\r\n          }\r\n       
     ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"014aa25b-37c0-4758-a3cc-124f9f04ed78\"\r\n    },\r\n    \"rs\": {\r\n     
-    \"key\": \"LevelsModel\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
+    \"e46e16f9-d193-4602-9471-3334d96e6769\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"EnemyModel\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
     null,\r\n      \"value\": {\r\n        \"data\": [\r\n          {\r\n           
-    \"Level\": 1,\r\n            \"Enemy\": \"RedDragon\",\r\n            \"GemsReward\":
-    {\r\n              \"Name\": \"Gems\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 10\r\n            },\r\n            \"GoldReward\": {\r\n             
-    \"Name\": \"Gold\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 100\r\n            }\r\n          },\r\n          {\r\n           
-    \"Level\": 2,\r\n            \"Enemy\": \"BlueDragon\",\r\n            \"GemsReward\":
-    {\r\n              \"Name\": \"Gems\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 20\r\n            },\r\n            \"GoldReward\": {\r\n             
-    \"Name\": \"Gold\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 125\r\n            }\r\n          },\r\n          {\r\n           
-    \"Level\": 3,\r\n            \"Enemy\": \"GreenDragon\",\r\n            \"GemsReward\":
-    {\r\n              \"Name\": \"Gems\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 30\r\n            },\r\n            \"GoldReward\": {\r\n             
-    \"Name\": \"Gold\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 150\r\n            }\r\n          },\r\n          {\r\n           
-    \"Level\": 4,\r\n            \"Enemy\": \"YellowDragon\",\r\n            \"GemsReward\":
-    {\r\n              \"Name\": \"Gems\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 40\r\n            },\r\n            \"GoldReward\": {\r\n             
-    \"Name\": \"Gold\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 175\r\n            }\r\n          },\r\n          {\r\n           
-    \"Level\": 5,\r\n            \"Enemy\": \"PurpleDragon\",\r\n            \"GemsReward\":
-    {\r\n              \"Name\": \"Gems\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 50\r\n            },\r\n            \"GoldReward\": {\r\n             
-    \"Name\": \"Gold\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 200\r\n            }\r\n          }\r\n        ]\r\n      }\r\n   
-    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"3d9b6a10-85e6-412f-a9a2-c676a083c502\"\r\n   
-    },\r\n    \"rs\": {\r\n      \"key\": \"EnemyModel\",\r\n      \"type\": \"json\",\r\n     
-    \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
-    {\r\n            \"Id\": \"RedDragon\",\r\n            \"Name\": \"Red Dragon\",\r\n           
+    \"Id\": \"RedDragon\",\r\n            \"Name\": \"Red Dragon\",\r\n           
     \"AvatarImage\": \"RedDragon\",\r\n            \"Color\": 1,\r\n            \"ColorImage\":
     \"Conqueror\",\r\n            \"Stats\": {\r\n              \"ATK\": 100,\r\n             
     \"DEF\": 100,\r\n              \"HP\": 1000,\r\n              \"Progression\":
@@ -372,7 +344,7 @@ MonoBehaviour:
     {\r\n              \"ATK\": 100,\r\n              \"DEF\": 100,\r\n             
     \"HP\": 2000,\r\n              \"Progression\": 10\r\n            }\r\n         
     }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
-    \"entityId\": \"54a8339a-690f-4b90-8c22-bde71891cb1a\"\r\n    },\r\n    \"rs\":
+    \"entityId\": \"e6f49503-14b6-4400-96b3-95a53b02b806\"\r\n    },\r\n    \"rs\":
     {\r\n      \"key\": \"BattleItemsModel\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Id\": \"ManaPotion\",\r\n            \"Name\": \"Mana Potion\",\r\n           
@@ -388,7 +360,7 @@ MonoBehaviour:
     \"Name\": \"Defense Potion\",\r\n            \"AvatarImage\": \"DefensePotion\",\r\n           
     \"ItemEffect\": {\r\n              \"Stat\": \"DEF\",\r\n              \"Amount\":
     100\r\n            }\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n 
-    {\r\n    \"metadata\": {\r\n      \"entityId\": \"9d0ec7b6-8afc-4be4-a384-74e0e2322138\"\r\n   
+    {\r\n    \"metadata\": {\r\n      \"entityId\": \"469e85af-e54d-4bc6-a178-01b4dc729869\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"SkillModel\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Id\": \"Destroy\",\r\n            \"Name\": \"Destroy\",\r\n           
@@ -402,7 +374,7 @@ MonoBehaviour:
     {\r\n            \"Id\": \"Transmute\",\r\n            \"Name\": \"Transmute\",\r\n           
     \"SpriteName\": \"Transmute\",\r\n            \"Mana\": 50\r\n          }\r\n       
     ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"df48fb73-6e60-47fb-99b6-3b3e01527477\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"7512b586-38c4-4231-89d1-bcba3672ae22\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"VulnerabilitiesModel\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
     null,\r\n      \"value\": {\r\n        \"data\": [\r\n          {\r\n           
     \"Color\": 0,\r\n            \"Weakness\": {\r\n              \"Color\": 1,\r\n             
@@ -425,7 +397,35 @@ MonoBehaviour:
     \"Modificator\": 2\r\n            },\r\n            \"Strength\": {\r\n             
     \"Color\": 3,\r\n              \"Modificator\": 0.5\r\n            },\r\n           
     \"DefaultModificator\": 1\r\n          }\r\n        ]\r\n      }\r\n    }\r\n 
-    }\r\n]"
+    },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"3720a131-b8a5-4b4b-8923-9bba52b6ddeb\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"LevelsModel\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
+    {\r\n            \"Level\": 1,\r\n            \"Enemy\": \"RedDragon\",\r\n           
+    \"Rewards\": [\r\n              {\r\n                \"Name\": \"Gems\",\r\n               
+    \"Type\": \"Resources\",\r\n                \"Amount\": 10\r\n              },\r\n             
+    {\r\n                \"Name\": \"Gold\",\r\n                \"Type\": \"Resources\",\r\n               
+    \"Amount\": 100\r\n              }\r\n            ]\r\n          },\r\n         
+    {\r\n            \"Level\": 2,\r\n            \"Enemy\": \"BlueDragon\",\r\n           
+    \"Rewards\": [\r\n              {\r\n                \"Name\": \"Gems\",\r\n               
+    \"Type\": \"Resources\",\r\n                \"Amount\": 20\r\n              },\r\n             
+    {\r\n                \"Name\": \"Gold\",\r\n                \"Type\": \"Resources\",\r\n               
+    \"Amount\": 200\r\n              }\r\n            ]\r\n          },\r\n         
+    {\r\n            \"Level\": 3,\r\n            \"Enemy\": \"GreenDragon\",\r\n           
+    \"Rewards\": [\r\n              {\r\n                \"Name\": \"Gems\",\r\n               
+    \"Type\": \"Resources\",\r\n                \"Amount\": 30\r\n              },\r\n             
+    {\r\n                \"Name\": \"Gold\",\r\n                \"Type\": \"Resources\",\r\n               
+    \"Amount\": 300\r\n              }\r\n            ]\r\n          },\r\n         
+    {\r\n            \"Level\": 4,\r\n            \"Enemy\": \"YellowDragon\",\r\n           
+    \"Rewards\": [\r\n              {\r\n                \"Name\": \"Gems\",\r\n               
+    \"Type\": \"Resources\",\r\n                \"Amount\": 40\r\n              },\r\n             
+    {\r\n                \"Name\": \"Gold\",\r\n                \"Type\": \"Resources\",\r\n               
+    \"Amount\": 400\r\n              }\r\n            ]\r\n          },\r\n         
+    {\r\n            \"Level\": 5,\r\n            \"Enemy\": \"PurpleDragon\",\r\n           
+    \"Rewards\": [\r\n              {\r\n                \"Name\": \"Gems\",\r\n               
+    \"Type\": \"Resources\",\r\n                \"Amount\": 50\r\n              },\r\n             
+    {\r\n                \"Name\": \"Gold\",\r\n                \"Type\": \"Resources\",\r\n               
+    \"Amount\": 500\r\n              }\r\n            ]\r\n          }\r\n       
+    ]\r\n      }\r\n    }\r\n  }\r\n]"
   _environments: "[\r\n  {\r\n    \"projectId\": \"1b509d16-ab63-4800-8146-d6548c007c92\",\r\n   
     \"name\": \"development\",\r\n    \"id\": \"e8ef398e-2701-4246-8787-4a1fc7235a6c\",\r\n   
     \"isDefault\": false,\r\n    \"createdAt\": \"2022-09-07T17:52:42Z\",\r\n   

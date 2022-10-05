@@ -33,7 +33,6 @@ public class SkillController
     public void Initialize()
     {
         LoadSkill();
-        Debug.Log(_skillPlayerModel);
         SkillSelected = GetSkill(_skillPlayerModel.Skill.Id);
     }
 

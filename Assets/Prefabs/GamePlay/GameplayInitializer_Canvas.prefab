@@ -120,7 +120,9 @@ MonoBehaviour:
   _skillViewPrefab: {fileID: 1083620256754672662, guid: 8d318d379d31b664099dd70893d57ced, type: 3}
   _sceneLoaderPrefab: {fileID: 5535685385067764930, guid: 60acf9d558e196b44bfde1419899cce2, type: 3}
   _enemyViewPrefab: {fileID: 6574717012463004108, guid: 9337632f8fbcde34b9941779175fe031, type: 3}
-  _topBar: {fileID: -7541296112535048531, guid: d97d81d20015d9343afab501f4526f71, type: 3}
+  _menuPausePrefab: {fileID: -7541296112535048531, guid: d97d81d20015d9343afab501f4526f71, type: 3}
+  _roundViewPrefab: {fileID: 1412178212041316592, guid: 7bb612e8337a9484d8ed13cdd54d0810, type: 3}
+  _matchViewPrefab: {fileID: 4229454597249559156, guid: 2ad52e75c9591a046b002286e109e8cc, type: 3}
   inputs:
   - {fileID: 11400000, guid: 25e6f689d1d3f6148adbea7c58692389, type: 2}
   - {fileID: 11400000, guid: c6dec106f9fd92545b71acadd95b8b2e, type: 2}
@@ -132,3 +134,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f30301e6e3eedf146aea04439822c0d9, type: 2}
   _onPlayerAttacks: {fileID: 11400000, guid: 90756e5792c071045be7d9d0b928bf58, type: 2}
   _onEmblemsDestroyed: {fileID: 11400000, guid: 56fc849d4aa6c7b46bd18e05f63441e9, type: 2}
+  _onMovesAvailableChanged: {fileID: 11400000, guid: b878a42ddc5b27d4b964b1b0ab34819c, type: 2}
+  _onPlayerDied: {fileID: 11400000, guid: 0caf39db5ed491744991509e13487cce, type: 2}
+  _onPlayerWin: {fileID: 11400000, guid: 6e9b95a40066e094792ff335d236f2e4, type: 2}

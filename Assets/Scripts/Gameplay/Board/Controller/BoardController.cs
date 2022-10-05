@@ -20,10 +20,14 @@ namespace Board.Controller
         public event Action<Vector2Int> OnEmblemDestroyed = delegate (Vector2Int emblemDestroyed) { };
         public event Action<Vector2Int, EmblemItem> OnEmblemCreated = delegate (Vector2Int emblemPosition, EmblemItem item) { };
         public event Action<Vector2Int> OnColorChanged = delegate (Vector2Int emblemPosition) { };
-        DoubleIntArgument_Event _onPlayerAttacks;
+        private DoubleIntArgument_Event _onPlayerAttacks;
+        public IntArgument_Event OnAvailableMovesChanged;
 
-        public BoardController(int width, int height, SkillController skillController, List<BoardInput> inputList, UserData userData, DoubleIntArgument_Event OnPlayerAttacks)
+        public BoardController(int width, int height, SkillController skillController, 
+            List<BoardInput> inputList, UserData userData, DoubleIntArgument_Event OnPlayerAttacks, 
+            IntArgument_Event OnAvailableMovesChanged)
         {
+            this.OnAvailableMovesChanged = OnAvailableMovesChanged;
             _onPlayerAttacks = OnPlayerAttacks;
             _inputs = inputList;
             _userData = userData;
@@ -38,6 +42,8 @@ namespace Board.Controller
             _skillSelected = _skillController.SkillSelected;
             _skillController.OnSkillActivated += ChangeInput;
             LoadHero();
+
+            OnAvailableMovesChanged.TriggerEvents(CalculateEmblemsWithMatch().Count);
         }
 
         private void LoadHero()
@@ -117,16 +123,13 @@ namespace Board.Controller
             HorizontalCollapse();
 
             List<EmblemModel> matchesLeft = CalculateEmblemsWithMatch();
-            Debug.Log($"Matches left: {matchesLeft.Count}");
+
             if (matchesLeft.Count == 0)
             {
-                Debug.Log("Match is over");
                 RefillBoard();
             }
-            else
-            {
-                Debug.Log("Keep playing");
-            }
+
+            OnAvailableMovesChanged.TriggerEvents(matchesLeft.Count);
         }
 
         private List<EmblemModel> CalculateEmblemsWithMatch()

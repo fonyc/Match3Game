@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f78e80e261233ca4391d014b29677635, type: 3}
-  m_Name: OnEnemyTurnsChanged
+  m_Script: {fileID: 11500000, guid: ff1a778029d04e0408dce9aa89ccc5bc, type: 3}
+  m_Name: OnPlayerWins
   m_EditorClassIdentifier: 

@@ -17,7 +17,9 @@ public class GameplayInitializer : MonoBehaviour
     [SerializeField] private SkillView _skillViewPrefab = null;
     [SerializeField] private SceneLoader _sceneLoaderPrefab = null;
     [SerializeField] private EnemyView _enemyViewPrefab = null;
-    [SerializeField] private Gameplay_TopBar _topBar = null;
+    [SerializeField] private MenuPauseView _menuPausePrefab = null;
+    [SerializeField] private RoundView _roundViewPrefab = null;
+    [SerializeField] private MatchView _matchViewPrefab = null;
 
     [Header("--- INPUTS ---")]
     [Space(5)]
@@ -33,17 +35,23 @@ public class GameplayInitializer : MonoBehaviour
     private ItemController _itemController;
     private CombatController _combatController;
     private EnemyController _enemyController;
+    private MatchController _matchController;
 
     [Header("--- EVENT BUS ---")]
     [Space(5)]
-    [SerializeField] StatIntIntArgument_Event _onPlayerAttacks;
-    [SerializeField] DoubleIntArgument_Event _onEmblemsDestroyed;
+    [SerializeField] private StatIntIntArgument_Event _onPlayerAttacks;
+    [SerializeField] private DoubleIntArgument_Event _onEmblemsDestroyed;
+    [SerializeField] private IntArgument_Event _onMovesAvailableChanged;
+    [SerializeField] private NoArgument_Event _onPlayerDied;
+    [SerializeField] private NoArgument_Event _onPlayerWin;
 
+    private GameConfigService _gameConfigService;
     private UserData _userData;
 
     private void Awake()
     {
         //Init user data
+        _gameConfigService = ServiceLocator.GetService<GameConfigService>();
         _userData = new UserData();
         _userData.Load();
 
@@ -51,13 +59,17 @@ public class GameplayInitializer : MonoBehaviour
         _combatController = new CombatController();
         _enemyController = new EnemyController(_userData, _combatController);
         _skillController = new SkillController(_userData, SkillList);
-        _boardController = new BoardController(_boardSize.x, _boardSize.y, _skillController, inputs, _userData, _onEmblemsDestroyed);
+        _boardController = new BoardController(_boardSize.x, _boardSize.y, _skillController, inputs, _userData, _onEmblemsDestroyed, _onMovesAvailableChanged);
         _itemController = new ItemController(_userData);
         _playerController = new PlayerController(_userData, _itemController, _combatController, _onPlayerAttacks);
+        _matchController = new MatchController(_gameConfigService, _userData);
     }
 
     void Start()
     {
+        //Instantiate dependencies with no controller
+        Instantiate(_roundViewPrefab, transform).Initialize(_onMovesAvailableChanged, _gameConfigService);
+
         //Init. controllers
         _combatController.Initialize();
         _skillController.Initialize();
@@ -65,13 +77,15 @@ public class GameplayInitializer : MonoBehaviour
         _playerController.Initialize();
         _itemController.Initialize();
         _boardController.Initialize();
+        _matchController.Initialize();
 
+        Instantiate(_matchViewPrefab).Initialize(_matchController, _onMovesAvailableChanged, _onPlayerDied, _onPlayerWin);
         Instantiate(_skillViewPrefab, transform).Initialize(_skillController);
         Instantiate(_boardViewPrefab).Initialize(_boardController, _boardSize);
         Instantiate(_playerViewPrefab, transform).Initialize(_playerController, _onEmblemsDestroyed);
         Instantiate(_itemViewPrefab, transform).Initialize(_itemController);
         Instantiate(_enemyViewPrefab, transform).Initialize(_enemyController, _onPlayerAttacks);
-        Instantiate(_topBar, transform);
+        Instantiate(_menuPausePrefab, transform);
         Instantiate(_sceneLoaderPrefab);
     }
 }
