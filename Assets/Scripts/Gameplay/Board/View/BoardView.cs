@@ -62,7 +62,7 @@ namespace Board.View
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && !IsAnimating)
             {
                 touch = GetEmblemFromTouch(_boardPlane);
                 _controller.InputSelected.ProcessInput(_controller, touch);

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Rendering;
 
 public class MatchController 
 {
@@ -7,9 +8,11 @@ public class MatchController
 
     private UserData _userData;
     private GameConfigService _gameConfigService;
+    private SceneLoader _sceneLoader;
 
-    public MatchController(GameConfigService gameConfigService, UserData userData)
+    public MatchController(GameConfigService gameConfigService, UserData userData, SceneLoader sceneLoader)
     {
+        _sceneLoader = sceneLoader;
         _userData = userData;
         _gameConfigService = gameConfigService;
     }
@@ -21,10 +24,25 @@ public class MatchController
 
     public void GrantRewards()
     {
+        //Resource Rewards
         foreach(ResourceItem reward in levelModel.Rewards)
         {
             _userData.AddResource(reward);
         }
+
+        //Level Reward
+        int currentUnlockedLevel = _userData.GetLevelsPassed();
+        int levelPlayed = _userData.GetCurrentSelectedLevel();
+        int levels = _gameConfigService.LevelsModel.Count;
+        if(levelPlayed == currentUnlockedLevel && currentUnlockedLevel < levels)
+        {
+            _userData.AddLevelUnlocked();
+        } 
+    }
+
+    public void GoToMainMenu()
+    {
+        _sceneLoader.ChangeScene(1);
     }
 
     private void Load()

@@ -36,6 +36,7 @@ public class GameplayInitializer : MonoBehaviour
     private CombatController _combatController;
     private EnemyController _enemyController;
     private MatchController _matchController;
+    private SceneLoader _sceneLoader;
 
     [Header("--- EVENT BUS ---")]
     [Space(5)]
@@ -54,6 +55,7 @@ public class GameplayInitializer : MonoBehaviour
         _gameConfigService = ServiceLocator.GetService<GameConfigService>();
         _userData = new UserData();
         _userData.Load();
+        _sceneLoader = Instantiate(_sceneLoaderPrefab);
 
         //Controllers creation
         _combatController = new CombatController();
@@ -62,7 +64,8 @@ public class GameplayInitializer : MonoBehaviour
         _boardController = new BoardController(_boardSize.x, _boardSize.y, _skillController, inputs, _userData, _onEmblemsDestroyed, _onMovesAvailableChanged);
         _itemController = new ItemController(_userData);
         _playerController = new PlayerController(_userData, _itemController, _combatController, _onPlayerAttacks);
-        _matchController = new MatchController(_gameConfigService, _userData);
+        _matchController = new MatchController(_gameConfigService, _userData, _sceneLoader);
+        Instantiate(_sceneLoaderPrefab);
     }
 
     void Start()
@@ -79,13 +82,12 @@ public class GameplayInitializer : MonoBehaviour
         _boardController.Initialize();
         _matchController.Initialize();
 
-        Instantiate(_matchViewPrefab).Initialize(_matchController, _onMovesAvailableChanged, _onPlayerDied, _onPlayerWin);
+        Instantiate(_matchViewPrefab, transform).Initialize(_matchController, _onMovesAvailableChanged, _onPlayerDied, _onPlayerWin);
         Instantiate(_skillViewPrefab, transform).Initialize(_skillController);
         Instantiate(_boardViewPrefab).Initialize(_boardController, _boardSize);
         Instantiate(_playerViewPrefab, transform).Initialize(_playerController, _onEmblemsDestroyed);
         Instantiate(_itemViewPrefab, transform).Initialize(_itemController);
         Instantiate(_enemyViewPrefab, transform).Initialize(_enemyController, _onPlayerAttacks);
         Instantiate(_menuPausePrefab, transform);
-        Instantiate(_sceneLoaderPrefab);
     }
 }

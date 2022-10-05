@@ -1,6 +1,3 @@
-using Shop.Model;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +10,7 @@ public class MatchView : MonoBehaviour
 
     [SerializeField] private GameObject _winPanelPrefab;
     [SerializeField] private GameObject _losePanelPrefab;
-    [SerializeField] private RoundReport _roundPanelPrefab; 
+    [SerializeField] private GameObject _roundPanelPrefab; 
 
     IntArgument_Event _onMovesAvailableChanged;
 
@@ -42,24 +39,35 @@ public class MatchView : MonoBehaviour
     {
         if(moves == 0)
         {
+            _roundPanelPrefab.SetActive(true);
             //Dragon perform attack
             //Open round resume
             Debug.Log("Match is over!");
         }
     }
 
+    public void CloseroundPanel()
+    {
+        _roundPanelPrefab.SetActive(false);
+    }
+
     private void OnPlayerWins()
     {
-        //Instantiate(_winPanelPrefab);
+        _winPanelPrefab.SetActive(true);
         _matchController.GrantRewards();
     }
 
     private void OnPlayerLose()
     {
-        //Instantiate(_losePanelPrefab);
+        _losePanelPrefab.SetActive(true);
     }
 
-    public void GrantRewards(List<ResourceItem> rewards)
+    public void GoBackToMainMenu()
+    {
+        _matchController.GoToMainMenu();
+    }
+
+    public void GrantRewards()
     {
 
     }
