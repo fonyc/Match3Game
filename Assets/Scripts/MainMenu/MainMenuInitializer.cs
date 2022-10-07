@@ -72,28 +72,28 @@ public class MainMenuInitializer : MonoBehaviour
 
         #region INIT TABS
 
-        //SHOP TAB
-        ShopView shop = Instantiate(_shopViewPrefab, transform); 
-        shop.Initialize(_shopController, _userData);
-        bottomBar.AddTab(shop);
-        shop.gameObject.SetActive(false);
-
         //HEROE COLLECTION TAB
         HeroesView heroesView = Instantiate(_heroesViewPrefab, transform);
         heroesView.Initialize(_heroesController, _userData);
-        bottomBar.AddTab(heroesView);
+        bottomBar.AddTab(heroesView.gameObject);
         heroesView.gameObject.SetActive(false);
+
+        //SHOP TAB
+        ShopView shop = Instantiate(_shopViewPrefab, transform); 
+        shop.Initialize(_shopController, _userData);
+        bottomBar.AddTab(shop.gameObject);
+        shop.gameObject.SetActive(false);
 
         //TEAM TAB
         TeamView teamView = Instantiate(_teamViewPrefab, transform);
         teamView.Initialize(_teamController,_userData);
-        bottomBar.AddTab(teamView);
+        bottomBar.AddTab(teamView.gameObject);
         teamView.gameObject.SetActive(false);
 
         //LEVELS TAB
         LevelsView levelsView = Instantiate(_levelsViewPrefab, transform);
         levelsView.Initialize(_levelController, _userData);
-        bottomBar.AddTab(levelsView);
+        bottomBar.AddTab(levelsView.gameObject);
         levelsView.gameObject.SetActive(false);
 
         #endregion

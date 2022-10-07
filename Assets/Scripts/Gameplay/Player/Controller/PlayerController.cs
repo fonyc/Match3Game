@@ -87,7 +87,11 @@ public class PlayerController : IDisposable
         int currentHeroHP = _playerModel.currentHeroStats.HP;
         _playerModel.currentHeroStats.HP = Mathf.Clamp(currentHeroHP + amount, 0, maxHP);
         OnHPChanged.Invoke(_playerModel.currentHeroStats.HP, _playerModel.hero.Stats.HP);
-        //if(CheckPlayerDeath())
+
+        if(CheckPlayerDeath())
+        {
+            Debug.Log("players dead");
+        }
     }
 
     public void ChangeATK(int amount)

@@ -1,7 +1,11 @@
+using DG.Tweening;
+using Shop.Controller;
+using Shop.Model;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TeamView : MonoBehaviour
+public class TeamView : MonoBehaviour, IMainMenuAnimation
 {
     #region Variables
     [Header("--- HERO SELECTION ---")]
@@ -28,6 +32,30 @@ public class TeamView : MonoBehaviour
     private List<TeamBattleItemView> itemsToSelect = new();
 
     #endregion
+
+    public string Id { get => "Team"; set { } }
+
+    public void AppearAnimation(RectTransform rect, float delay)
+    {
+        gameObject.SetActive(true);
+        StartCoroutine(AppearAnimation_Coro(rect, delay));
+    }
+
+    public IEnumerator AppearAnimation_Coro(RectTransform rect, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        rect.DOAnchorPos(Vector2.zero, 0.3f).SetEase(Ease.OutBack);
+    }
+
+    public void HideAnimation(RectTransform rect)
+    {
+        rect.DOAnchorPos(new Vector2(0, -2500f), 0.25f).SetEase(Ease.InBack).OnComplete(Hide);
+    }
+
+    private void Hide()
+    {
+        gameObject.SetActive(false);
+    }
 
     public void Initialize(TeamController teamController, UserData userData)
     {
