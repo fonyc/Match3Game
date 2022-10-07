@@ -119,6 +119,7 @@ namespace Board.View
 
         #endregion
 
+        #region UTILITY METHODS
         private Vector2Int GetEmblemFromTouch(Plane plane)
         {
             var ray = _camera.ScreenPointToRay(Input.mousePosition);
@@ -144,5 +145,6 @@ namespace Board.View
         {
             _emblemViewList.Remove(emblem);
         }
+        #endregion
     }
 }

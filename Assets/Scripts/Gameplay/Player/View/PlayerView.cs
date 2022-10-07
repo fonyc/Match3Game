@@ -22,12 +22,16 @@ public class PlayerView : MonoBehaviour
 
     private PlayerController _controller;
     private DoubleIntArgument_Event _onEmblemsDestroyed;
+    private StatIntIntArgument_Event _onEnemyAttacks;
 
-    public void Initialize(PlayerController controller, DoubleIntArgument_Event OnEmblemsDestroyed)
+    public void Initialize(PlayerController controller, DoubleIntArgument_Event OnEmblemsDestroyed, 
+        StatIntIntArgument_Event OnEnemyAttacks)
     {
+        _onEnemyAttacks = OnEnemyAttacks;
         _onEmblemsDestroyed = OnEmblemsDestroyed;
         _controller = controller;
 
+        _onEnemyAttacks.AddListener(RecieveAttack);
         _onEmblemsDestroyed.AddListener(PrepareAttack);
         _controller.OnATKChanged += AddATKBuff;
         _controller.OnDEFChanged += AddDEFBuff;
@@ -40,6 +44,11 @@ public class PlayerView : MonoBehaviour
         _controller.AttackEnemy(hits, colorAttack);
     }
 
+    private void RecieveAttack(Stats enemyStats, int hits, int color)
+    {
+        _controller.RecieveAttack(enemyStats, hits, color);
+    }
+
     public void SetInitialStats()
     {
         _heroImage.sprite = HeroSpriteList.Find(sprite => sprite.name == _controller.GetHero().AvatarImage);
@@ -49,7 +58,7 @@ public class PlayerView : MonoBehaviour
 
     private void ChangeHP(int amount, int max)
     {
-        _hpFill.fillAmount = amount;
+        _hpFill.fillAmount = SetFillAmount(amount, max);
         _hpText.text = amount + " / " + max;
     }
 
@@ -61,6 +70,13 @@ public class PlayerView : MonoBehaviour
     private void AddDEFBuff()
     {
         DEFbuffPrefab.SetActive(true);
+    }
+
+    private float SetFillAmount(int hp, int max)
+    {
+        float qty = (float)hp / (float)max;
+        if (qty <= 0f) return 0f;
+        else return qty;
     }
 
     private void OnDestroy()

@@ -22,7 +22,6 @@ namespace Board.View
         {
             Position = newPosition;
             transform.DOMove(new Vector3(newPosition.x, newPosition.y), 0.15f).SetEase(Ease.InOutQuad);
-            //yield return new WaitForSeconds(0.15f);
             yield return new WaitForSeconds(0.15f);
         }
 

@@ -1,5 +1,6 @@
 ﻿using Board.Controller;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : IDisposable
@@ -14,8 +15,10 @@ public class PlayerController : IDisposable
     public event Action OnDEFChanged = delegate () { };
     StatIntIntArgument_Event _onPlayerAttackPerformed;
 
-    public PlayerController(UserData userData, ItemController itemController, CombatController combatController, StatIntIntArgument_Event OnPlayerAttackPerformed)
+    public PlayerController(UserData userData, ItemController itemController, CombatController combatController,
+        StatIntIntArgument_Event OnPlayerAttackPerformed)
     {
+
         _onPlayerAttackPerformed = OnPlayerAttackPerformed;
         _combatController = combatController;
         _itemController = itemController;
@@ -45,18 +48,30 @@ public class PlayerController : IDisposable
 
     private void LoadSelectedHero()
     {
-        HeroModel allHeroesModel = JsonUtility.FromJson<HeroModel>(Resources.Load<TextAsset>("HeroModel").text);
+        List<HeroItemModel> allHeroesModel = ServiceLocator.GetService<GameConfigService>().HeroModel;
         _playerModel.hero = GetHeroData(allHeroesModel);
-        _playerModel.currentHeroStats = _playerModel.hero.Stats;
+       
+        Stats stats = _playerModel.hero.Stats;
+        _playerModel.currentHeroStats = new Stats(stats.ATK, stats.DEF, stats.HP, stats.Progression);
     }
 
-    private HeroItemModel GetHeroData(HeroModel allHeroesModel)
+    private HeroItemModel GetHeroData(List<HeroItemModel> allHeroesModel)
     {
-        foreach (HeroItemModel hero in allHeroesModel.Heroes)
+        foreach (HeroItemModel hero in allHeroesModel)
         {
             if (hero.Id == _userData.GetSelectedHero()) return hero;
         }
         return null;
+    }
+
+    public void RecieveAttack(Stats enemyStats, int hits, int color)
+    {
+        int dmg = _combatController.RecieveAttack(enemyStats.ATK, _playerModel.currentHeroStats.DEF, 1, color, _playerModel.hero.Color);
+
+        int currentHP = _playerModel.currentHeroStats.HP;
+        _playerModel.currentHeroStats.HP = currentHP - dmg <= 0 ? 0 : currentHP - dmg;
+
+        OnHPChanged?.Invoke(_playerModel.currentHeroStats.HP, _playerModel.hero.Stats.HP);
     }
 
     #region EVENTS

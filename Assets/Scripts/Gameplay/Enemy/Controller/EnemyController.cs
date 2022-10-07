@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class EnemyController
 {
@@ -10,13 +9,20 @@ public class EnemyController
     private UserData _userData;
     private CombatController _combatController;
 
-    public event Action<int> OnHPChanged = delegate (int hp) { };
+    StatIntIntArgument_Event _onEnemyAttacks;
+    public event Action<int, int> OnHPChanged = delegate (int hp, int max) { };
 
-    public EnemyController(UserData userData, CombatController combatController)
+    public EnemyController(UserData userData, CombatController combatController, StatIntIntArgument_Event OnEnemyAttacks)
     {
         Model = new EnemyModel();
         _combatController = combatController;
         _userData = userData;
+        _onEnemyAttacks = OnEnemyAttacks;
+    }
+
+    public void AttackPlayer()
+    {
+        _onEnemyAttacks.TriggerEvents(Model.CurrentEnemyStats, 1, Model.Enemy.Color);
     }
 
     public void Initialize()
@@ -30,7 +36,7 @@ public class EnemyController
 
         Model.CurrentEnemyStats.HP = Model.CurrentEnemyStats.HP - dmg <= 0 ? 0 : Model.CurrentEnemyStats.HP - dmg;
 
-        OnHPChanged?.Invoke(Model.CurrentEnemyStats.HP);
+        OnHPChanged?.Invoke(Model.CurrentEnemyStats.HP, Model.Enemy.Stats.HP);
     }
 
     private void Load()

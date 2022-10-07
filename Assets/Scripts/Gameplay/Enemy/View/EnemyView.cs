@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -19,14 +19,22 @@ public class EnemyView : MonoBehaviour
     [SerializeField]
     private TMP_Text _dragonAndHPText = null;
     private string _dragonName = "";
+
+    [SerializeField]
+    private EnemyViewItem _enemyAnimations;
     #endregion
 
     EnemyController _controller;
 
     StatIntIntArgument_Event _onPlayerAttacked;
+    IntArgument_Event _onMovesAvailableChanged;
 
-    public void Initialize(EnemyController enemyController, StatIntIntArgument_Event OnPlayerAttacked)
+    public void Initialize(EnemyController enemyController, StatIntIntArgument_Event OnPlayerAttacked, IntArgument_Event OnMovesAvailableChanged)
     {
+        _enemyAnimations.Initialize(OnAttackAnimationFinished);
+
+        _onMovesAvailableChanged = OnMovesAvailableChanged;
+        _onMovesAvailableChanged.AddListener(OnMovesAreOver);
         enemyController.OnHPChanged += ChangeHP;
         _onPlayerAttacked = OnPlayerAttacked;
         _onPlayerAttacked.AddListener(TranslateAttackToDamage);
@@ -36,10 +44,20 @@ public class EnemyView : MonoBehaviour
         SetStartingVisuals();
     }
 
-    private void ChangeHP(int hp)
+    private void OnMovesAreOver(int moves)
+    {
+        if (moves == 0) _enemyAnimations.StartAttackAnimation();
+    }
+
+    private void OnAttackAnimationFinished()
+    {
+        _controller.AttackPlayer();
+    }
+
+    private void ChangeHP(int hp, int max)
     {
         _hpFill.fillAmount = SetFillAmount();
-        _dragonAndHPText.text = _dragonName.ToUpper() + " " + "(" + hp + " / " + _controller.GetEnemyStats().HP + ")";
+        _dragonAndHPText.text = _dragonName.ToUpper() + " " + "(" + hp + " / " + max + ")";
     }
 
     private void TranslateAttackToDamage(Stats heroStats, int hits, int heroColor)
@@ -52,7 +70,7 @@ public class EnemyView : MonoBehaviour
         _dragonName = _controller.Model.Enemy.Name;
         _dragonImage.sprite = _dragonSprites.Find(sprite => sprite.name == _controller.Model.Enemy.Id);
         _hpFill.fillAmount = _controller.Model.CurrentEnemyStats.HP / _controller.GetEnemyStats().HP;
-        _dragonAndHPText.text = _dragonName.ToUpper() + " " + "(" + _controller.Model.CurrentEnemyStats.HP +" / " + _controller.GetEnemyStats().HP +")";
+        _dragonAndHPText.text = _dragonName.ToUpper() + " " + "(" + _controller.Model.CurrentEnemyStats.HP + " / " + _controller.GetEnemyStats().HP + ")";
     }
 
     private float SetFillAmount()
@@ -65,5 +83,6 @@ public class EnemyView : MonoBehaviour
     private void OnDestroy()
     {
         _onPlayerAttacked.RemoveListener(TranslateAttackToDamage);
+        _onMovesAvailableChanged.RemoveListener(OnMovesAreOver);
     }
 }

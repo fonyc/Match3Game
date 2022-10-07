@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d32f2d41b1d717242b851f41392db88e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _boardSize: {x: 8, y: 8}
+  _boardSize: {x: 4, y: 4}
   _boardViewPrefab: {fileID: 8549605473733241774, guid: 84af662907fba1849b52d00b261055f3, type: 3}
   _playerViewPrefab: {fileID: 3258586524676100683, guid: 9e1b0d6dabbe1294abaed985717e351d, type: 3}
   _itemViewPrefab: {fileID: 3393063761741067698, guid: 4359c275c4e1c4a43b740f0c6075f138, type: 3}
@@ -133,6 +133,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d4c8ce7da515745429a22456e0717099, type: 2}
   - {fileID: 11400000, guid: f30301e6e3eedf146aea04439822c0d9, type: 2}
   _onPlayerAttacks: {fileID: 11400000, guid: 90756e5792c071045be7d9d0b928bf58, type: 2}
+  _onEnemyAttacks: {fileID: 11400000, guid: 1e338d3900b39fe4fa4a12437c1041dc, type: 2}
   _onEmblemsDestroyed: {fileID: 11400000, guid: 56fc849d4aa6c7b46bd18e05f63441e9, type: 2}
   _onMovesAvailableChanged: {fileID: 11400000, guid: b878a42ddc5b27d4b964b1b0ab34819c, type: 2}
   _onPlayerDied: {fileID: 11400000, guid: 0caf39db5ed491744991509e13487cce, type: 2}

@@ -10,21 +10,18 @@ public class MatchView : MonoBehaviour
 
     [SerializeField] private GameObject _winPanelPrefab;
     [SerializeField] private GameObject _losePanelPrefab;
-    [SerializeField] private GameObject _roundPanelPrefab; 
+    [SerializeField] private GameObject _roundPanelPrefab;
 
-    IntArgument_Event _onMovesAvailableChanged;
-
-    public void Initialize(MatchController matchController, 
-        IntArgument_Event OnMovesAvailableChanged, NoArgument_Event OnPlayerDeath, 
+    public void Initialize(MatchController matchController,
+        NoArgument_Event OnPlayerDeath,
         NoArgument_Event OnEnemyDeath)
     {
         _matchController = matchController;
 
-        _onMovesAvailableChanged = OnMovesAvailableChanged;
         _onPlayerDeath = OnPlayerDeath;
         _onEnemyDeath = OnEnemyDeath;
 
-        _onMovesAvailableChanged.AddListener(OnRoundOver);
+        //_onRoundIsOver.AddListener(OnRoundOver);
         _onPlayerDeath.AddListener(OnPlayerLose);
         _onEnemyDeath.AddListener(OnPlayerWins);
     }
@@ -33,17 +30,14 @@ public class MatchView : MonoBehaviour
     {
         _onPlayerDeath.RemoveListener(OnPlayerLose);
         _onEnemyDeath.RemoveListener(OnPlayerWins);
+        //_onRoundIsOver.RemoveListener(OnRoundOver);
     }
 
-    private void OnRoundOver(int moves)
+    private void OnRoundOver()
     {
-        if(moves == 0)
-        {
-            _roundPanelPrefab.SetActive(true);
-            //Dragon perform attack
-            //Open round resume
-            Debug.Log("Match is over!");
-        }
+        _roundPanelPrefab.SetActive(true);
+        //Dragon perform attack
+        Debug.Log("Match is over!");
     }
 
     public void CloseroundPanel()
@@ -66,10 +60,4 @@ public class MatchView : MonoBehaviour
     {
         _matchController.GoToMainMenu();
     }
-
-    public void GrantRewards()
-    {
-
-    }
-
 }
