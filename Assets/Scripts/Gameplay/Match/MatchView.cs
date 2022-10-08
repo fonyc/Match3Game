@@ -36,8 +36,6 @@ public class MatchView : MonoBehaviour
     private void OnRoundOver()
     {
         _roundPanelPrefab.SetActive(true);
-        //Dragon perform attack
-        Debug.Log("Match is over!");
     }
 
     public void CloseroundPanel()
@@ -47,6 +45,7 @@ public class MatchView : MonoBehaviour
 
     private void OnPlayerWins()
     {
+        _roundPanelPrefab.SetActive(true);
         _winPanelPrefab.SetActive(true);
         _matchController.GrantRewards();
     }

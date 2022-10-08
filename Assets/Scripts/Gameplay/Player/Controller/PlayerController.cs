@@ -14,11 +14,12 @@ public class PlayerController : IDisposable
     public event Action OnATKChanged = delegate () { };
     public event Action OnDEFChanged = delegate () { };
     StatIntIntArgument_Event _onPlayerAttackPerformed;
+    NoArgument_Event _onPlayerDied;
 
     public PlayerController(UserData userData, ItemController itemController, CombatController combatController,
-        StatIntIntArgument_Event OnPlayerAttackPerformed)
+        StatIntIntArgument_Event OnPlayerAttackPerformed, NoArgument_Event OnPlayerDied)
     {
-
+        _onPlayerDied = OnPlayerDied;
         _onPlayerAttackPerformed = OnPlayerAttackPerformed;
         _combatController = combatController;
         _itemController = itemController;
@@ -50,7 +51,7 @@ public class PlayerController : IDisposable
     {
         List<HeroItemModel> allHeroesModel = ServiceLocator.GetService<GameConfigService>().HeroModel;
         _playerModel.hero = GetHeroData(allHeroesModel);
-       
+
         Stats stats = _playerModel.hero.Stats;
         _playerModel.currentHeroStats = new Stats(stats.ATK, stats.DEF, stats.HP, stats.Progression);
     }
@@ -68,10 +69,12 @@ public class PlayerController : IDisposable
     {
         int dmg = _combatController.RecieveAttack(enemyStats.ATK, _playerModel.currentHeroStats.DEF, 1, color, _playerModel.hero.Color);
 
-        int currentHP = _playerModel.currentHeroStats.HP;
-        _playerModel.currentHeroStats.HP = currentHP - dmg <= 0 ? 0 : currentHP - dmg;
+        ChangeHP(-dmg);
 
-        OnHPChanged?.Invoke(_playerModel.currentHeroStats.HP, _playerModel.hero.Stats.HP);
+        if (CheckPlayerDeath())
+        {
+            _onPlayerDied.TriggerEvents();
+        }
     }
 
     #region EVENTS
@@ -84,14 +87,9 @@ public class PlayerController : IDisposable
     public void ChangeHP(int amount)
     {
         int maxHP = _playerModel.hero.Stats.HP;
-        int currentHeroHP = _playerModel.currentHeroStats.HP;
-        _playerModel.currentHeroStats.HP = Mathf.Clamp(currentHeroHP + amount, 0, maxHP);
-        OnHPChanged.Invoke(_playerModel.currentHeroStats.HP, _playerModel.hero.Stats.HP);
 
-        if(CheckPlayerDeath())
-        {
-            Debug.Log("players dead");
-        }
+        _playerModel.currentHeroStats.HP = Mathf.Clamp(_playerModel.currentHeroStats.HP + amount, 0, maxHP);
+        OnHPChanged?.Invoke(_playerModel.currentHeroStats.HP, maxHP);
     }
 
     public void ChangeATK(int amount)

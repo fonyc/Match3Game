@@ -60,13 +60,12 @@ public class GameplayInitializer : MonoBehaviour
 
         //Controllers creation
         _combatController = new CombatController();
-        _enemyController = new EnemyController(_userData, _combatController, _onEnemyAttacks);
+        _enemyController = new EnemyController(_userData, _combatController, _onEnemyAttacks, _onPlayerWin);
         _skillController = new SkillController(_userData, SkillList);
         _boardController = new BoardController(_boardSize.x, _boardSize.y, _skillController, inputs, _userData, _onEmblemsDestroyed, _onMovesAvailableChanged);
         _itemController = new ItemController(_userData);
-        _playerController = new PlayerController(_userData, _itemController, _combatController, _onPlayerAttacks);
+        _playerController = new PlayerController(_userData, _itemController, _combatController, _onPlayerAttacks, _onPlayerDied);
         _matchController = new MatchController(_gameConfigService, _userData, _sceneLoader);
-        Instantiate(_sceneLoaderPrefab);
     }
 
     void Start()
@@ -83,12 +82,14 @@ public class GameplayInitializer : MonoBehaviour
         _boardController.Initialize();
         _matchController.Initialize();
 
-        Instantiate(_matchViewPrefab, transform).Initialize(_matchController, _onPlayerDied, _onPlayerWin);
         Instantiate(_skillViewPrefab, transform).Initialize(_skillController);
         Instantiate(_boardViewPrefab).Initialize(_boardController, _boardSize);
         Instantiate(_playerViewPrefab, transform).Initialize(_playerController, _onEmblemsDestroyed, _onEnemyAttacks);
         Instantiate(_itemViewPrefab, transform).Initialize(_itemController);
         Instantiate(_enemyViewPrefab, transform).Initialize(_enemyController, _onPlayerAttacks, _onMovesAvailableChanged);
         Instantiate(_menuPausePrefab, transform);
+        MatchView matchView = Instantiate(_matchViewPrefab, transform);
+        matchView.Initialize(_matchController, _onPlayerDied, _onPlayerWin);
+        matchView.transform.SetAsLastSibling();
     }
 }

@@ -9,11 +9,14 @@ public class EnemyController
     private UserData _userData;
     private CombatController _combatController;
 
+    NoArgument_Event _onEnemyDied;
     StatIntIntArgument_Event _onEnemyAttacks;
     public event Action<int, int> OnHPChanged = delegate (int hp, int max) { };
 
-    public EnemyController(UserData userData, CombatController combatController, StatIntIntArgument_Event OnEnemyAttacks)
+    public EnemyController(UserData userData, CombatController combatController, StatIntIntArgument_Event OnEnemyAttacks,
+        NoArgument_Event OnEnemyDied)
     {
+        _onEnemyDied = OnEnemyDied;
         Model = new EnemyModel();
         _combatController = combatController;
         _userData = userData;
@@ -37,6 +40,16 @@ public class EnemyController
         Model.CurrentEnemyStats.HP = Model.CurrentEnemyStats.HP - dmg <= 0 ? 0 : Model.CurrentEnemyStats.HP - dmg;
 
         OnHPChanged?.Invoke(Model.CurrentEnemyStats.HP, Model.Enemy.Stats.HP);
+
+        if (CheckDeath(Model.CurrentEnemyStats.HP))
+        {
+
+        }
+    }
+
+    private bool CheckDeath(int hp)
+    {
+        return hp <= 0;
     }
 
     private void Load()
@@ -53,6 +66,7 @@ public class EnemyController
         Model.Enemy = GetEnemy(enemyId, allEnemies);
         //Model.CurrentEnemyStats = Model.Enemy.Stats;
         Model.CurrentEnemyStats = new Stats(Model.Enemy.Stats.ATK, Model.Enemy.Stats.DEF, Model.Enemy.Stats.HP, Model.Enemy.Stats.Progression);
+        Model.CurrentEnemyStats.HP = 10;
     }
 
     private Enemy GetEnemy(string Id, List<Enemy> enemyModel)
