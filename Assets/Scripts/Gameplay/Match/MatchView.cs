@@ -1,3 +1,5 @@
+using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,14 +14,18 @@ public class MatchView : MonoBehaviour
     [SerializeField] private GameObject _losePanelPrefab;
     [SerializeField] private GameObject _roundPanelPrefab;
 
-    public void Initialize(MatchController matchController, NoArgument_Event OnPlayerDeath, NoArgument_Event OnEnemyDeath)
+    private NoArgument_Event _onPlayerRecievedDamage;
+
+    public void Initialize(MatchController matchController, NoArgument_Event OnPlayerDeath,
+        NoArgument_Event OnEnemyDeath, NoArgument_Event OnPlayerRecievedDamage)
     {
+        _onPlayerRecievedDamage = OnPlayerRecievedDamage;
+        _onPlayerRecievedDamage.AddListener(OnRoundOver);
         _matchController = matchController;
 
         _onPlayerDeath = OnPlayerDeath;
         _onEnemyDeath = OnEnemyDeath;
 
-        //_onRoundIsOver.AddListener(OnRoundOver);
         _onPlayerDeath.AddListener(OnPlayerLose);
         _onEnemyDeath.AddListener(OnPlayerWins);
     }
@@ -28,18 +34,39 @@ public class MatchView : MonoBehaviour
     {
         _onPlayerDeath.RemoveListener(OnPlayerLose);
         _onEnemyDeath.RemoveListener(OnPlayerWins);
-        //_onRoundIsOver.RemoveListener(OnRoundOver);
+        _onPlayerRecievedDamage.RemoveListener(OnRoundOver);
     }
 
     private void OnRoundOver()
     {
-        _roundPanelPrefab.SetActive(true);
+        StartCoroutine(AnimateInRoundPanel_Coro(_roundPanelPrefab.GetComponent<RectTransform>(), 0.75f));
     }
 
-    public void CloseroundPanel()
+    #region ANIMATIONS
+
+    public IEnumerator AnimateInRoundPanel_Coro(RectTransform rect, float delay)
+    {
+        _roundPanelPrefab.SetActive(true);
+        yield return new WaitForSeconds(delay);
+        rect.DOAnchorPos(Vector2.zero, 0.3f).SetEase(Ease.OutBack);
+    }
+
+    public void AnimateOutRoundPanel(RectTransform rect)
+    {
+        rect.DOAnchorPos(new Vector2(-2500f, 0), 0.25f).SetEase(Ease.InBack).OnComplete(HideRoundPanel);
+    }
+
+    private void HideRoundPanel()
     {
         _roundPanelPrefab.SetActive(false);
     }
+
+    public void CloseRoundPanel()
+    {
+        AnimateOutRoundPanel(_roundPanelPrefab.GetComponent<RectTransform>());
+    }
+
+    #endregion
 
     private void OnPlayerWins()
     {

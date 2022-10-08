@@ -12,10 +12,11 @@ public class TeamController
     private List<string> itemsSelected = new();
 
     private UserData _userData;
+    private GameConfigService _gameConfig;
 
-
-    public TeamController(UserData userData)
+    public TeamController(UserData userData, GameConfigService gameConfigService)
     {
+        _gameConfig = gameConfigService;
         _userData = userData;
     }
 
@@ -50,9 +51,7 @@ public class TeamController
         heroModel = new HeroModel();
         battleItemModel = new BattleItemsModel();
 
-        heroModel.Heroes = ServiceLocator.GetService<GameConfigService>().HeroModel;
-        battleItemModel.BattleItems = ServiceLocator.GetService<GameConfigService>().BattleItemsModel;
-        //heroModel = JsonUtility.FromJson<HeroModel>(Resources.Load<TextAsset>("HeroModel").text);
-        //battleItemModel = JsonUtility.FromJson<BattleItemsModel>(Resources.Load<TextAsset>("BattleItemModel").text);
+        heroModel.Heroes = _gameConfig.HeroModel;
+        battleItemModel.BattleItems = _gameConfig.BattleItemsModel;
     }
 }

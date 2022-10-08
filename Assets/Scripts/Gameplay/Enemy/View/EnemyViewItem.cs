@@ -2,6 +2,7 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyViewItem : MonoBehaviour
 {
@@ -33,5 +34,15 @@ public class EnemyViewItem : MonoBehaviour
     private void AnimationFinished()
     {
         _onAnimationFinished?.Invoke();
+    }
+
+    public void DamageAnimation(Image imageColor)
+    {
+        imageColor.DOFade(1f, .25f).OnComplete(() => Restore(imageColor));
+    }
+
+    private void Restore(Image imageColor)
+    {
+        imageColor.DOFade(0f, .25f);
     }
 }

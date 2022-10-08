@@ -32,6 +32,7 @@ public class MainMenuInitializer : MonoBehaviour
 
     //SERVICES
     private AnalyticsGameService _analytics = null;
+    private GameConfigService _gameConfigService = null;
 
     #region INJECTIONS
     private UserData _userData = null;
@@ -44,13 +45,14 @@ public class MainMenuInitializer : MonoBehaviour
     private void Awake()
     {
         _analytics = ServiceLocator.GetService<AnalyticsGameService>();
+        _gameConfigService = ServiceLocator.GetService<GameConfigService>();
 
         SceneLoader sceneLoader = Instantiate(_sceneLoaderPrefab);
         _userData = new UserData();
-        _shopController = new ShopController(_userData, _analytics);
-        _heroesController = new HeroesController(_userData);
-        _teamController = new TeamController(_userData);
-        _levelController = new LevelsController(_userData, sceneLoader);
+        _shopController = new ShopController(_userData, _analytics, _gameConfigService);
+        _heroesController = new HeroesController(_userData, _gameConfigService);
+        _teamController = new TeamController(_userData, _gameConfigService);
+        _levelController = new LevelsController(_userData, sceneLoader, _gameConfigService);
     }
 
     private void Start()

@@ -11,12 +11,19 @@ public class SkillController
     private SkillPlayerModel _skillPlayerModel;
     private List<Skill> _skillBehaviours;
     public Skill SkillSelected;
+    private GameConfigService _gameConfigService;
 
-    public SkillController(UserData userData, List<Skill> skillList)
+    public SkillController(UserData userData, List<Skill> skillList, GameConfigService gameConfigService)
     {
+        _gameConfigService = gameConfigService;
         _skillBehaviours = skillList;
         _userData = userData;
         _skillPlayerModel = new SkillPlayerModel();
+    }
+
+    public void AddMana(int hits)
+    {
+
     }
 
     public void PerformSkill()
@@ -50,9 +57,9 @@ public class SkillController
     {
         _skillPlayerModel = new SkillPlayerModel();
 
-        List<SkillItemModel> allSkills = ServiceLocator.GetService<GameConfigService>().SkillModel;
+        List<SkillItemModel> allSkills = _gameConfigService.SkillModel;
 
-        List<HeroItemModel> allHeroes = ServiceLocator.GetService<GameConfigService>().HeroModel;
+        List<HeroItemModel> allHeroes = _gameConfigService.HeroModel;
 
         HeroItemModel heroSelected = GetHeroModelFromHeroName(_userData.GetSelectedHero(), allHeroes);
 

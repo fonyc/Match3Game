@@ -7,9 +7,11 @@ public class LevelsController
     public EnemiesModel EnemyModel;
     private UserData _userData;
     private SceneLoader _sceneLoader;
+    private GameConfigService _gameConfig;
 
-    public LevelsController(UserData userData, SceneLoader sceneLoader)
+    public LevelsController(UserData userData, SceneLoader sceneLoader, GameConfigService gameConfig)
     {
+        _gameConfig = gameConfig;
         _userData = userData;
         _sceneLoader = sceneLoader;
     }
@@ -32,6 +34,6 @@ public class LevelsController
         LevelModel = new LevelModel();
 
         //LevelModel = JsonUtility.FromJson<LevelModel>(Resources.Load<TextAsset>("LevelsModel").text);
-        LevelModel.Levels = ServiceLocator.GetService<GameConfigService>().LevelsModel;
+        LevelModel.Levels = _gameConfig.LevelsModel;
     }
 }

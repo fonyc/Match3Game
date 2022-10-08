@@ -138,3 +138,4 @@ MonoBehaviour:
   _onMovesAvailableChanged: {fileID: 11400000, guid: b878a42ddc5b27d4b964b1b0ab34819c, type: 2}
   _onPlayerDied: {fileID: 11400000, guid: 0caf39db5ed491744991509e13487cce, type: 2}
   _onPlayerWin: {fileID: 11400000, guid: 6e9b95a40066e094792ff335d236f2e4, type: 2}
+  _onPlayerRecievedDamage: {fileID: 11400000, guid: bc70140a11b03db4dbf05acdcf000af2, type: 2}

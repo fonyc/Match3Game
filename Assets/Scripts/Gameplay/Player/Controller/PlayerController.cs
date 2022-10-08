@@ -1,5 +1,6 @@
 ﻿using Board.Controller;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,12 +14,17 @@ public class PlayerController : IDisposable
     public event Action<int, int> OnHPChanged = delegate (int amount, int max) { };
     public event Action OnATKChanged = delegate () { };
     public event Action OnDEFChanged = delegate () { };
-    StatIntIntArgument_Event _onPlayerAttackPerformed;
-    NoArgument_Event _onPlayerDied;
+    private StatIntIntArgument_Event _onPlayerAttackPerformed;
+    private NoArgument_Event _onPlayerDied;
+    private NoArgument_Event _onPlayerRecievedDamage;
+    private GameConfigService _gameConfigService;
 
-    public PlayerController(UserData userData, ItemController itemController, CombatController combatController,
-        StatIntIntArgument_Event OnPlayerAttackPerformed, NoArgument_Event OnPlayerDied)
+    public PlayerController(UserData userData, ItemController itemController, GameConfigService gameConfigService,
+        CombatController combatController, StatIntIntArgument_Event OnPlayerAttackPerformed, NoArgument_Event OnPlayerDied,
+        NoArgument_Event OnPlayerRecievedDamage)
     {
+        _gameConfigService = gameConfigService;
+        _onPlayerRecievedDamage = OnPlayerRecievedDamage;
         _onPlayerDied = OnPlayerDied;
         _onPlayerAttackPerformed = OnPlayerAttackPerformed;
         _combatController = combatController;
@@ -49,7 +55,7 @@ public class PlayerController : IDisposable
 
     private void LoadSelectedHero()
     {
-        List<HeroItemModel> allHeroesModel = ServiceLocator.GetService<GameConfigService>().HeroModel;
+        List<HeroItemModel> allHeroesModel = _gameConfigService.HeroModel;
         _playerModel.hero = GetHeroData(allHeroesModel);
 
         Stats stats = _playerModel.hero.Stats;
@@ -71,10 +77,8 @@ public class PlayerController : IDisposable
 
         ChangeHP(-dmg);
 
-        if (CheckPlayerDeath())
-        {
-            _onPlayerDied.TriggerEvents();
-        }
+        if (CheckPlayerDeath()) _onPlayerDied.TriggerEvents();
+        else _onPlayerRecievedDamage.TriggerEvents();
     }
 
     #region EVENTS

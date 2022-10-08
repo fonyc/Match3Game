@@ -1,4 +1,6 @@
+using DG.Tweening;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -11,6 +13,8 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private Image _heroImage;
     [SerializeField] private TMP_Text _hpText = null;
     [SerializeField] private Image _hpFill;
+    [SerializeField] private Image _damageColor;
+
     [Header(" --- BUFFS ---")]
     [Space(5)]
     [SerializeField] private GameObject ATKbuffPrefab;
@@ -19,6 +23,8 @@ public class PlayerView : MonoBehaviour
     [Header(" --- SPRITES ---")]
     [Space(5)]
     [SerializeField] List<Sprite> HeroSpriteList = new();
+
+    private PlayerAnimations _playerAnimations;
 
     private PlayerController _controller;
     private DoubleIntArgument_Event _onEmblemsDestroyed;
@@ -36,6 +42,7 @@ public class PlayerView : MonoBehaviour
         _controller.OnATKChanged += AddATKBuff;
         _controller.OnDEFChanged += AddDEFBuff;
         _controller.OnHPChanged += ChangeHP;
+        _playerAnimations = new PlayerAnimations();
         SetInitialStats();
     }
 
@@ -47,6 +54,7 @@ public class PlayerView : MonoBehaviour
     private void RecieveAttack(Stats enemyStats, int hits, int color)
     {
         _controller.RecieveAttack(enemyStats, hits, color);
+        _playerAnimations.DamageAnimation(_damageColor);
     }
 
     public void SetInitialStats()
@@ -58,7 +66,7 @@ public class PlayerView : MonoBehaviour
 
     private void ChangeHP(int amount, int max)
     {
-        _hpFill.fillAmount = SetFillAmount(amount, max);
+        _hpFill.DOFillAmount(SetFillAmount(amount, max), 0.5f);
         _hpText.text = amount + " / " + max;
     }
 
@@ -83,5 +91,7 @@ public class PlayerView : MonoBehaviour
     {
         _onEmblemsDestroyed.RemoveListener(PrepareAttack);
         _controller.OnATKChanged -= AddATKBuff;
+        _controller.OnDEFChanged -= AddDEFBuff;
+        _controller.OnHPChanged -= ChangeHP;
     }
 }

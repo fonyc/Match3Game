@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -15,6 +16,9 @@ public class EnemyView : MonoBehaviour
 
     [SerializeField]
     private Image _hpFill = null;
+    
+    [SerializeField]
+    private Image _damageColor = null;
 
     [SerializeField]
     private TMP_Text _dragonAndHPText = null;
@@ -29,17 +33,18 @@ public class EnemyView : MonoBehaviour
     StatIntIntArgument_Event _onPlayerAttacked;
     IntArgument_Event _onMovesAvailableChanged;
 
-    public void Initialize(EnemyController enemyController, StatIntIntArgument_Event OnPlayerAttacked, IntArgument_Event OnMovesAvailableChanged)
+    public void Initialize(EnemyController enemyController, StatIntIntArgument_Event OnPlayerAttacked, 
+        IntArgument_Event OnMovesAvailableChanged)
     {
+        _controller = enemyController;
+
         _enemyAnimations.Initialize(OnAttackAnimationFinished);
 
         _onMovesAvailableChanged = OnMovesAvailableChanged;
         _onMovesAvailableChanged.AddListener(OnMovesAreOver);
-        enemyController.OnHPChanged += ChangeHP;
+        _controller.OnHPChanged += ChangeHP;
         _onPlayerAttacked = OnPlayerAttacked;
         _onPlayerAttacked.AddListener(TranslateAttackToDamage);
-
-        _controller = enemyController;
 
         SetStartingVisuals();
     }
@@ -56,13 +61,14 @@ public class EnemyView : MonoBehaviour
 
     private void ChangeHP(int hp, int max)
     {
-        _hpFill.fillAmount = SetFillAmount();
+        _hpFill.DOFillAmount(SetFillAmount(), 0.25f);
         _dragonAndHPText.text = _dragonName.ToUpper() + " " + "(" + hp + " / " + max + ")";
     }
 
     private void TranslateAttackToDamage(Stats heroStats, int hits, int heroColor)
     {
         _controller.RecieveDamageFromPlayer(heroStats, hits, heroColor);
+        _enemyAnimations.DamageAnimation(_damageColor);
     }
 
     private void SetStartingVisuals()
@@ -84,5 +90,6 @@ public class EnemyView : MonoBehaviour
     {
         _onPlayerAttacked.RemoveListener(TranslateAttackToDamage);
         _onMovesAvailableChanged.RemoveListener(OnMovesAreOver);
+        _controller.OnHPChanged -= ChangeHP;
     }
 }

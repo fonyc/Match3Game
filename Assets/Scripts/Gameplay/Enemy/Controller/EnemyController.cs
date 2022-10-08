@@ -12,10 +12,12 @@ public class EnemyController
     NoArgument_Event _onEnemyDied;
     StatIntIntArgument_Event _onEnemyAttacks;
     public event Action<int, int> OnHPChanged = delegate (int hp, int max) { };
+    private GameConfigService _gameConfig;
 
     public EnemyController(UserData userData, CombatController combatController, StatIntIntArgument_Event OnEnemyAttacks,
-        NoArgument_Event OnEnemyDied)
+        NoArgument_Event OnEnemyDied, GameConfigService gameConfigService)
     {
+        _gameConfig = gameConfigService;
         _onEnemyDied = OnEnemyDied;
         Model = new EnemyModel();
         _combatController = combatController;
@@ -57,16 +59,14 @@ public class EnemyController
         Model = new EnemyModel();
 
         int currentLevel = _userData.GetCurrentSelectedLevel();
-        //LevelModel allLevels = JsonUtility.FromJson<LevelModel>(Resources.Load<TextAsset>("LevelsModel").text);
-        List<LevelModelItem> allLevels = ServiceLocator.GetService<GameConfigService>().LevelsModel;
+        List<LevelModelItem> allLevels = _gameConfig.LevelsModel;
         string enemyId = GetEnemyIdFromCurrentLevel(currentLevel, allLevels);
 
-        //EnemiesModel allEnemies = JsonUtility.FromJson<EnemiesModel>(Resources.Load<TextAsset>("EnemyModel").text);
-        List<Enemy> allEnemies = ServiceLocator.GetService<GameConfigService>().EnemyModel;
+        List<Enemy> allEnemies = _gameConfig.EnemyModel;
         Model.Enemy = GetEnemy(enemyId, allEnemies);
-        //Model.CurrentEnemyStats = Model.Enemy.Stats;
+
         Model.CurrentEnemyStats = new Stats(Model.Enemy.Stats.ATK, Model.Enemy.Stats.DEF, Model.Enemy.Stats.HP, Model.Enemy.Stats.Progression);
-        Model.CurrentEnemyStats.HP = 10;
+
     }
 
     private Enemy GetEnemy(string Id, List<Enemy> enemyModel)

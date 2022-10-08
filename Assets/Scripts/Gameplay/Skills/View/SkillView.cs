@@ -13,10 +13,14 @@ public class SkillView : MonoBehaviour
     [SerializeField] private TMP_Text _manaText = null;
     [SerializeField] private List<Sprite> SkillSpriteList = new();
   
-    SkillController _controller;
+    private SkillController _controller;
+    private StatIntIntArgument_Event _onPlayerAttacks;
 
-    public void Initialize(SkillController skillController)
+    public void Initialize(SkillController skillController, StatIntIntArgument_Event OnPlayerAttacks)
     {
+        _onPlayerAttacks = OnPlayerAttacks;
+        _onPlayerAttacks.AddListener(GenerateMana);
+
         _controller = skillController;
         UpdateVisuals();
     }
@@ -28,8 +32,18 @@ public class SkillView : MonoBehaviour
         _manaText.text = _controller.GetCurrentPlayerMana().ToString() + " / " + _controller.GetSkillItemModel().Mana;
     }
 
+    private void GenerateMana(Stats stats, int hits, int color)
+    {
+        _controller.AddMana(hits);
+    }
+
     public void OnClickButton()
     {
         _controller.PerformSkill();
+    }
+
+    private void OnDestroy()
+    {
+        _onPlayerAttacks.RemoveListener(GenerateMana);
     }
 }

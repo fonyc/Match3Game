@@ -7,8 +7,11 @@ public class HeroesController
 
     public UserData UserData { get; private set; }
 
-    public HeroesController(UserData userData)
+    private GameConfigService _gameConfigService;
+
+    public HeroesController(UserData userData, GameConfigService GameConfigService)
     {
+        _gameConfigService = GameConfigService;
         UserData = userData;
     }
 
@@ -20,6 +23,6 @@ public class HeroesController
     private void Load()
     {
         Model = new HeroModel();
-        Model.Heroes = ServiceLocator.GetService<GameConfigService>().HeroModel;
+        Model.Heroes = _gameConfigService.HeroModel;
     }
 }
