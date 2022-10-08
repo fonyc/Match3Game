@@ -43,7 +43,7 @@ public class EnemyController
 
         if (CheckDeath(Model.CurrentEnemyStats.HP))
         {
-
+            _onEnemyDied.TriggerEvents();
         }
     }
 

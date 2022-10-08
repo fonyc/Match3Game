@@ -12,9 +12,7 @@ public class MatchView : MonoBehaviour
     [SerializeField] private GameObject _losePanelPrefab;
     [SerializeField] private GameObject _roundPanelPrefab;
 
-    public void Initialize(MatchController matchController,
-        NoArgument_Event OnPlayerDeath,
-        NoArgument_Event OnEnemyDeath)
+    public void Initialize(MatchController matchController, NoArgument_Event OnPlayerDeath, NoArgument_Event OnEnemyDeath)
     {
         _matchController = matchController;
 
@@ -45,7 +43,6 @@ public class MatchView : MonoBehaviour
 
     private void OnPlayerWins()
     {
-        _roundPanelPrefab.SetActive(true);
         _winPanelPrefab.SetActive(true);
         _matchController.GrantRewards();
     }

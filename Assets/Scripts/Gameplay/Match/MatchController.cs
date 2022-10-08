@@ -28,6 +28,7 @@ public class MatchController
         foreach(ResourceItem reward in levelModel.Rewards)
         {
             _userData.AddResource(reward);
+            _userData.Save();
         }
 
         //Level Reward
@@ -37,6 +38,7 @@ public class MatchController
         if(levelPlayed == currentUnlockedLevel && currentUnlockedLevel < levels)
         {
             _userData.AddLevelUnlocked();
+            _userData.Save();
         } 
     }
 

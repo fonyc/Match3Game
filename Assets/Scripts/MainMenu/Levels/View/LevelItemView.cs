@@ -63,11 +63,11 @@ public class LevelItemView : MonoBehaviour
         GetComponent<Button>().interactable = IsInteractable();
         _dragonImage.sprite = _dragonSprites.Find(sprite => sprite.name == _levelItemModel.Enemy);
         _enemyName.text = _levelItemModel.Enemy;
-        _levelNumber.text = "LEVEL " + _levelItemModel.Level.ToString();
+        _levelNumber.text = "LEVEL " + (_levelItemModel.Level + 1).ToString();
     }
 
     private bool IsInteractable()
     {
-        return _userData.GetLevelsPassed() + 1 >= _levelItemModel.Level;
+        return _userData.GetLevelsPassed() >= _levelItemModel.Level;
     }
 }
