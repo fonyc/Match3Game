@@ -45,7 +45,6 @@ public class ServiceLoader : MonoBehaviour
         AdsGameService adsService = new AdsGameService("4928657", "Rewarded_Android");
         //UnityIAPGameService iapService = new UnityIAPGameService();
         //IGameProgressionProvider gameProgressionProvider = new GameProgressionProvider();
-        //LocalizationService localizationService = new LocalizationService();
 
         //Register services
         ServiceLocator.RegisterService(gameConfig);
@@ -55,7 +54,6 @@ public class ServiceLoader : MonoBehaviour
         ServiceLocator.RegisterService(adsService);
         ServiceLocator.RegisterService(analyticsService);
         //ServiceLocator.RegisterService<IIAPGameService>(iapService);
-        //ServiceLocator.RegisterService(localizationService);
 
         //Initialize services
         await servicesInitializer.Initialize();
@@ -64,11 +62,10 @@ public class ServiceLoader : MonoBehaviour
         await analyticsService.Initialize();
         //await iapService.Initialize(new Dictionary<string, string>
         //{
-        //    ["test1"] = "es.jacksparrot.match3.test1"
+        //    ["test1"] = "es.fony.match3.test1"
         //});
         await adsService.Initialize(Application.isEditor);
         //await gameProgressionProvider.Initialize();
-        //localizationService.Initialize("Spanish", true);
 
         gameConfig.Initialize(remoteConfig);
         //gameProgression.Initialize(gameConfig, gameProgressionProvider);
