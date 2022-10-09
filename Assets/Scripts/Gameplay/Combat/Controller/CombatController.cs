@@ -44,18 +44,6 @@ public class CombatController
         if (interactionSelected.Strength.Color == colorDefense) return interactionSelected.Strength.Modificator;
         if (interactionSelected.Weakness.Color == colorDefense) return interactionSelected.Weakness.Modificator;
 
-        //foreach (int strength in interactionSelected.Strength.Colors.ColorWrapper)
-        //{
-        //    if (strength == colorDefense)
-        //        return interactionSelected.Strength.Modificator;
-        //}
-
-        //foreach (int weak in interactionSelected.Weakness.Colors.ColorWrapper)
-        //{
-        //    if (weak == colorDefense)
-        //        return interactionSelected.Strength.Modificator;
-        //}
-
         return interactionSelected.DefaultModificator;
     }
 

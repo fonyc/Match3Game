@@ -1,70 +1,44 @@
 using Shop.View;
 using UnityEngine;
+using DG.Tweening;
+using Board.View;
+using System.Collections.Generic;
 
 public class BottomBarController : MonoBehaviour
 {
     GameObject currentOpenedTab = null;
 
-    [SerializeField] ShopView shopTab;
-    [SerializeField] HeroesView heroesTab;
-    [SerializeField] TeamView teamTab;
-    [SerializeField] LevelsView levelsTab;
+    List<GameObject> tabs = new();
 
-    public void AddTab(object tab)
+    public void AddTab(GameObject tab)
     {
-        switch (tab)
-        {
-            case ShopView shop:
-                shopTab = (ShopView)tab;
-                break;
-            case HeroesView heroes:
-                heroesTab = (HeroesView)tab;
-                break;
-            case TeamView team:
-                teamTab = (TeamView)tab;
-                break;
-            case LevelsView level:
-                levelsTab = (LevelsView)tab;
-                break;
-        }
+        tabs.Add(tab);
     }
 
-    private GameObject GetTabByName(string tabName)
+    private GameObject GetTabById(string tabName)
     {
-        switch (tabName)
-        {
-            case "Shop":
-                return shopTab.gameObject;
-            case "Heroes":
-                return  heroesTab.gameObject; 
-            case "Team":
-                return teamTab.gameObject;
-            case "Levels":
-                return levelsTab.gameObject;
-            default:
-                return null;
-        }
+        return tabs.Find(tab => tab.GetComponent<IMainMenuAnimation>().Id == tabName);
     }
 
     public void OpenTab(string tabName)
     {
-        GameObject newTab = GetTabByName(tabName);
+        GameObject newTab = GetTabById(tabName);
         if (newTab == null) return;
 
         if (currentOpenedTab == null)
         {
-            newTab.SetActive(true);
+            newTab.GetComponent<IMainMenuAnimation>().AppearAnimation(newTab.GetComponent<RectTransform>(), 0f);
             currentOpenedTab = newTab;
         }
         else if (newTab == currentOpenedTab)
         {
-            newTab.SetActive(false);
             currentOpenedTab = null;
+            newTab.GetComponent<IMainMenuAnimation>().HideAnimation(newTab.GetComponent<RectTransform>());
         }
         else
         {
-            newTab.SetActive(true);
-            currentOpenedTab.SetActive(false);
+            currentOpenedTab.GetComponent<IMainMenuAnimation>().HideAnimation(currentOpenedTab.GetComponent<RectTransform>());
+            newTab.GetComponent<IMainMenuAnimation>().AppearAnimation(newTab.GetComponent<RectTransform>(), 0.25f);
             currentOpenedTab = newTab;
         }
     }

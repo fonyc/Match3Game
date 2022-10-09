@@ -7,7 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Skill/DestroySkill")]
 public class DestroySkill : Skill
 {
-    public override string Id { get { return "Destroy"; } }
+    public override string Id => "Destroy";
 
     public override void PerformSkill(BoardController controller, Vector2Int position, int color)
     {

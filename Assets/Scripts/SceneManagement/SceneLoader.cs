@@ -1,11 +1,11 @@
 using System.Collections;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
     [SerializeField] GameObject loadingScreen;
+
     public void ChangeScene(int index)
     {
         StartCoroutine(LoadSceneAsync(index));

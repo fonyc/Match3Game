@@ -7,6 +7,12 @@ using UnityEngine.UI;
 public class LevelItemView : MonoBehaviour
 {
     [SerializeField]
+    private Transform parent;
+
+    [SerializeField]
+    private LevelRewardView _levelRewardPrefab;
+
+    [SerializeField]
     private List<Sprite> _dragonSprites = new List<Sprite>();
 
     [SerializeField]
@@ -18,23 +24,33 @@ public class LevelItemView : MonoBehaviour
     [SerializeField]
     private TMP_Text _levelNumber = null;
 
-    [SerializeField]
-    private TMP_Text _gemsRewardAmount = null;
-
-    [SerializeField]
-    private TMP_Text _goldRewardAmount = null;
-
     LevelModelItem _levelItemModel;
-    UserData _userData;
+
+    private UserData _userData;
 
     event Action<int> _onClickedEvent;
 
     public void SetData(LevelModelItem levelItemModel, UserData userData, Action<int> onClickedEvent)
     {
-        _levelItemModel = levelItemModel;
         _userData = userData;
+        _levelItemModel = levelItemModel;
         _onClickedEvent = onClickedEvent;
         SetVisuals();
+    }
+
+    public void Initialize()
+    {
+        while (parent.childCount > 0)
+        {
+            Transform child = parent.GetChild(0);
+            child.SetParent(null);
+            Destroy(child.gameObject);
+        }
+
+        foreach (ResourceItem levelModelItem in _levelItemModel.Rewards)
+        {
+            Instantiate(_levelRewardPrefab, parent).SetData(levelModelItem);
+        }
     }
 
     public void OnClickedButton()
@@ -47,13 +63,11 @@ public class LevelItemView : MonoBehaviour
         GetComponent<Button>().interactable = IsInteractable();
         _dragonImage.sprite = _dragonSprites.Find(sprite => sprite.name == _levelItemModel.Enemy);
         _enemyName.text = _levelItemModel.Enemy;
-        _levelNumber.text = "LEVEL " + _levelItemModel.Level.ToString();
-        _gemsRewardAmount.text = _levelItemModel.GemsReward.Amount.ToString();
-        _goldRewardAmount.text = _levelItemModel.GoldReward.Amount.ToString();
+        _levelNumber.text = "LEVEL " + (_levelItemModel.Level + 1).ToString();
     }
 
     private bool IsInteractable()
     {
-        return _userData.GetLevelsPassed() + 1 >= _levelItemModel.Level;
+        return _userData.GetLevelsPassed() >= _levelItemModel.Level;
     }
 }

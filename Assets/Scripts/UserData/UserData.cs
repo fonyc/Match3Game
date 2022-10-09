@@ -213,6 +213,11 @@ public class UserData
         currentSelectedLevel = nextLevel;
     }
 
+    public void AddLevelUnlocked()
+    {
+        levelsPassed++;
+    }
+
     #endregion
 
     #region SAVE/LOAD

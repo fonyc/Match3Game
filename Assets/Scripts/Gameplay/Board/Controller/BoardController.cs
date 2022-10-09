@@ -15,15 +15,22 @@ namespace Board.Controller
         private Skill _skillSelected;
         public BoardInput InputSelected;
         private UserData _userData;
+        private GameConfigService _gameConfigService;
 
         public event Action<Vector2Int, Vector2Int> OnEmblemMoved = delegate (Vector2Int origin, Vector2Int destination) { };
         public event Action<Vector2Int> OnEmblemDestroyed = delegate (Vector2Int emblemDestroyed) { };
         public event Action<Vector2Int, EmblemItem> OnEmblemCreated = delegate (Vector2Int emblemPosition, EmblemItem item) { };
         public event Action<Vector2Int> OnColorChanged = delegate (Vector2Int emblemPosition) { };
-        DoubleIntArgument_Event _onPlayerAttacks;
 
-        public BoardController(int width, int height, SkillController skillController, List<BoardInput> inputList, UserData userData, DoubleIntArgument_Event OnPlayerAttacks)
+        private DoubleIntArgument_Event _onPlayerAttacks;
+        public IntArgument_Event OnAvailableMovesChanged;
+
+        public BoardController(int width, int height, SkillController skillController, 
+            List<BoardInput> inputList, UserData userData, DoubleIntArgument_Event OnPlayerAttacks, 
+            IntArgument_Event OnAvailableMovesChanged, GameConfigService gameConfigService)
         {
+            _gameConfigService = gameConfigService;
+            this.OnAvailableMovesChanged = OnAvailableMovesChanged;
             _onPlayerAttacks = OnPlayerAttacks;
             _inputs = inputList;
             _userData = userData;
@@ -38,17 +45,19 @@ namespace Board.Controller
             _skillSelected = _skillController.SkillSelected;
             _skillController.OnSkillActivated += ChangeInput;
             LoadHero();
+
+            OnAvailableMovesChanged.TriggerEvents(CalculateEmblemsWithMatch().Count);
         }
 
         private void LoadHero()
         {
-            HeroModel allHeroesModel = JsonUtility.FromJson<HeroModel>(Resources.Load<TextAsset>("HeroModel").text);
+            List<HeroItemModel> allHeroesModel = _gameConfigService.HeroModel;
             Model.hero = GetHeroData(allHeroesModel);
         }
 
-        private HeroItemModel GetHeroData(HeroModel allHeroesModel)
+        private HeroItemModel GetHeroData(List<HeroItemModel> allHeroesModel)
         {
-            foreach (HeroItemModel hero in allHeroesModel.Heroes)
+            foreach (HeroItemModel hero in allHeroesModel)
             {
                 if (hero.Id == _userData.GetSelectedHero()) return hero;
             }
@@ -117,16 +126,13 @@ namespace Board.Controller
             HorizontalCollapse();
 
             List<EmblemModel> matchesLeft = CalculateEmblemsWithMatch();
-            Debug.Log($"Matches left: {matchesLeft.Count}");
+
             if (matchesLeft.Count == 0)
             {
-                Debug.Log("Match is over");
                 RefillBoard();
             }
-            else
-            {
-                Debug.Log("Keep playing");
-            }
+
+            OnAvailableMovesChanged.TriggerEvents(matchesLeft.Count);
         }
 
         private List<EmblemModel> CalculateEmblemsWithMatch()

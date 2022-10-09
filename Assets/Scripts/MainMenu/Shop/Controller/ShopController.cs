@@ -11,9 +11,11 @@ namespace Shop.Controller
         public UserData UserData { get; private set; }
 
         private AnalyticsGameService _analytics;
+        private GameConfigService _gameConfig;
 
-        public ShopController(UserData userData, AnalyticsGameService analytics)
+        public ShopController(UserData userData, AnalyticsGameService analytics, GameConfigService gameConfig)
         {
+            _gameConfig = gameConfig;
             _analytics = analytics;
             UserData = userData;
         }
@@ -59,7 +61,7 @@ namespace Shop.Controller
         {
             //Model = JsonUtility.FromJson<ShopModel>(Resources.Load<TextAsset>("ShopModel").text);
             Model = new ShopModel();
-            Model.Items = ServiceLocator.GetService<GameConfigService>().ShopOffers;
+            Model.Items = _gameConfig.ShopOffers;
         }
     }
 }
