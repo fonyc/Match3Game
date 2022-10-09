@@ -1,7 +1,7 @@
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MatchView : MonoBehaviour
 {
@@ -13,19 +13,22 @@ public class MatchView : MonoBehaviour
     [SerializeField] private GameObject _winPanelPrefab;
     [SerializeField] private GameObject _losePanelPrefab;
     [SerializeField] private GameObject _roundPanelPrefab;
+    [SerializeField] private Button _addButton;
 
     private NoArgument_Event _onPlayerRecievedDamage;
 
     public void Initialize(MatchController matchController, NoArgument_Event OnPlayerDeath,
         NoArgument_Event OnEnemyDeath, NoArgument_Event OnPlayerRecievedDamage)
     {
+        _matchController = matchController;
+
         _onPlayerRecievedDamage = OnPlayerRecievedDamage;
         _onPlayerRecievedDamage.AddListener(OnRoundOver);
-        _matchController = matchController;
 
         _onPlayerDeath = OnPlayerDeath;
         _onEnemyDeath = OnEnemyDeath;
 
+        _matchController.OnAddWatched += DisableAddButton;
         _onPlayerDeath.AddListener(OnPlayerLose);
         _onEnemyDeath.AddListener(OnPlayerWins);
     }
@@ -35,6 +38,7 @@ public class MatchView : MonoBehaviour
         _onPlayerDeath.RemoveListener(OnPlayerLose);
         _onEnemyDeath.RemoveListener(OnPlayerWins);
         _onPlayerRecievedDamage.RemoveListener(OnRoundOver);
+        _matchController.OnAddWatched -= DisableAddButton;
     }
 
     private void OnRoundOver()
@@ -72,6 +76,16 @@ public class MatchView : MonoBehaviour
     {
         _winPanelPrefab.SetActive(true);
         _matchController.GrantRewards();
+    }
+
+    public void ShowAd()
+    {
+        _matchController.GrantAddReward();
+    }
+
+    private void DisableAddButton()
+    {
+        _addButton.interactable = false;
     }
 
     private void OnPlayerLose()

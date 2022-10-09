@@ -49,12 +49,14 @@ public class GameplayInitializer : MonoBehaviour
     [SerializeField] private NoArgument_Event _onPlayerRecievedDamage;
 
     private GameConfigService _gameConfigService;
+    private AdsGameService _adsService;
     private UserData _userData;
 
     private void Awake()
     {
         //Init user data
         _gameConfigService = ServiceLocator.GetService<GameConfigService>();
+        _adsService = ServiceLocator.GetService<AdsGameService>();
         _userData = new UserData();
         _userData.Load();
         _sceneLoader = Instantiate(_sceneLoaderPrefab);
@@ -75,7 +77,7 @@ public class GameplayInitializer : MonoBehaviour
         _playerController = new PlayerController(_userData, _itemController, _gameConfigService,
             _combatController, _onPlayerAttacks, _onPlayerDied, _onPlayerRecievedDamage);
 
-        _matchController = new MatchController(_gameConfigService, _userData, _sceneLoader);
+        _matchController = new MatchController(_gameConfigService, _userData, _sceneLoader, _adsService);
     }
 
     void Start()

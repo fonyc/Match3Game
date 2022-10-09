@@ -1,17 +1,21 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEngine.Rendering;
 
-public class MatchController 
+public class MatchController
 {
     public LevelModelItem levelModel;
+
+    public event Action OnAddWatched = delegate () { };
 
     private UserData _userData;
     private GameConfigService _gameConfigService;
     private SceneLoader _sceneLoader;
+    private AdsGameService _adsGameService;
 
-    public MatchController(GameConfigService gameConfigService, UserData userData, SceneLoader sceneLoader)
+    public MatchController(GameConfigService gameConfigService, UserData userData, SceneLoader sceneLoader,
+        AdsGameService AdsGameService)
     {
+        _adsGameService = AdsGameService;
         _sceneLoader = sceneLoader;
         _userData = userData;
         _gameConfigService = gameConfigService;
@@ -25,7 +29,7 @@ public class MatchController
     public void GrantRewards()
     {
         //Resource Rewards
-        foreach(ResourceItem reward in levelModel.Rewards)
+        foreach (ResourceItem reward in levelModel.Rewards)
         {
             _userData.AddResource(reward);
             _userData.Save();
@@ -35,11 +39,21 @@ public class MatchController
         int currentUnlockedLevel = _userData.GetLevelsPassed();
         int levelPlayed = _userData.GetCurrentSelectedLevel();
         int levels = _gameConfigService.LevelsModel.Count;
-        if(levelPlayed == currentUnlockedLevel && currentUnlockedLevel < levels)
+
+        if (levelPlayed == currentUnlockedLevel && currentUnlockedLevel < levels)
         {
             _userData.AddLevelUnlocked();
             _userData.Save();
-        } 
+        }
+    }
+
+    public async void GrantAddReward()
+    {
+        if (await _adsGameService.ShowAd())
+        {
+            GrantRewards();
+            OnAddWatched?.Invoke();
+        }
     }
 
     public void GoToMainMenu()

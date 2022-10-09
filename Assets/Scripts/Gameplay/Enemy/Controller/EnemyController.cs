@@ -66,7 +66,7 @@ public class EnemyController
         Model.Enemy = GetEnemy(enemyId, allEnemies);
 
         Model.CurrentEnemyStats = new Stats(Model.Enemy.Stats.ATK, Model.Enemy.Stats.DEF, Model.Enemy.Stats.HP, Model.Enemy.Stats.Progression);
-
+        Model.CurrentEnemyStats.HP = 1;
     }
 
     private Enemy GetEnemy(string Id, List<Enemy> enemyModel)

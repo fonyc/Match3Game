@@ -42,7 +42,7 @@ public class ServiceLoader : MonoBehaviour
         RemoteConfigGameService remoteConfig = new RemoteConfigGameService();
         LoginGameService loginService = new LoginGameService();
         AnalyticsGameService analyticsService = new AnalyticsGameService();
-        //AdsGameService adsService = new AdsGameService("4920717", "Rewarded_Android");
+        AdsGameService adsService = new AdsGameService("4928657", "Rewarded_Android");
         //UnityIAPGameService iapService = new UnityIAPGameService();
         //IGameProgressionProvider gameProgressionProvider = new GameProgressionProvider();
         //LocalizationService localizationService = new LocalizationService();
@@ -52,7 +52,7 @@ public class ServiceLoader : MonoBehaviour
         //ServiceLocator.RegisterService(gameProgression);
         ServiceLocator.RegisterService(remoteConfig);
         ServiceLocator.RegisterService(loginService);
-        //ServiceLocator.RegisterService(adsService);
+        ServiceLocator.RegisterService(adsService);
         ServiceLocator.RegisterService(analyticsService);
         //ServiceLocator.RegisterService<IIAPGameService>(iapService);
         //ServiceLocator.RegisterService(localizationService);
@@ -66,7 +66,7 @@ public class ServiceLoader : MonoBehaviour
         //{
         //    ["test1"] = "es.jacksparrot.match3.test1"
         //});
-        //await adsService.Initialize(Application.isEditor);
+        await adsService.Initialize(Application.isEditor);
         //await gameProgressionProvider.Initialize();
         //localizationService.Initialize("Spanish", true);
 
