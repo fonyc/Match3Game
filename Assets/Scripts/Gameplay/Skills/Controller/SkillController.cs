@@ -13,6 +13,10 @@ public class SkillController
     public Skill SkillSelected;
     private GameConfigService _gameConfigService;
 
+    public event Action<int, int> OnManaChanged = delegate (int mana, int maxMana) { };
+
+    //public event Action<int> OnManaChanged = delegate (int mana) { };
+
     public SkillController(UserData userData, List<Skill> skillList, GameConfigService gameConfigService)
     {
         _gameConfigService = gameConfigService;
@@ -21,14 +25,22 @@ public class SkillController
         _skillPlayerModel = new SkillPlayerModel();
     }
 
-    public void AddMana(int hits)
+    public void AddMana(int hits, int manaPerHit)
     {
+        int mana = hits * manaPerHit;
+        int maxMana = _skillPlayerModel.Skill.Mana;
+        int currentMana = _skillPlayerModel.playerCurrentMana;
+        if (currentMana == maxMana) return;
 
+        _skillPlayerModel.playerCurrentMana = currentMana + mana >= maxMana ? maxMana : currentMana + mana;
+        OnManaChanged.Invoke(_skillPlayerModel.playerCurrentMana, _skillPlayerModel.Skill.Mana);
     }
 
     public void PerformSkill()
     {
-        //if (_skillPlayerModel.playerCurrentMana < _skillPlayerModel.Skill.Mana) return;
+        if (_skillPlayerModel.playerCurrentMana < _skillPlayerModel.Skill.Mana) return;
+        _skillPlayerModel.playerCurrentMana = 0;
+        OnManaChanged(_skillPlayerModel.playerCurrentMana, _skillPlayerModel.Skill.Mana);
         OnSkillActivated.Invoke("SkillInput");
     }
 

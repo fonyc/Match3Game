@@ -17,6 +17,7 @@ public class ServiceLoader : MonoBehaviour
         LoadServicesCancellable().ContinueWith(task =>
                 Debug.LogException(task.Exception),
             TaskContinuationOptions.OnlyOnFaulted);
+        DontDestroyOnLoad(gameObject);
     }
 
     private void OnDestroy()
@@ -64,7 +65,7 @@ public class ServiceLoader : MonoBehaviour
         //{
         //    ["test1"] = "es.fony.match3.test1"
         //});
-        await adsService.Initialize(Application.isEditor);
+        //await adsService.Initialize(Application.isEditor);
         //await gameProgressionProvider.Initialize();
 
         gameConfig.Initialize(remoteConfig);

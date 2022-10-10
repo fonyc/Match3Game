@@ -124,18 +124,16 @@ namespace Board.Controller
             }
             VerticalCollapse();
             HorizontalCollapse();
-
-            List<EmblemModel> matchesLeft = CalculateEmblemsWithMatch();
-
-            if (matchesLeft.Count == 0)
-            {
-                RefillBoard();
-            }
-
-            OnAvailableMovesChanged.TriggerEvents(matchesLeft.Count);
         }
 
-        private List<EmblemModel> CalculateEmblemsWithMatch()
+        public void UpdateMoves()
+        {
+            int moves = CalculateEmblemsWithMatch().Count;
+            OnAvailableMovesChanged.TriggerEvents(moves);
+            if (moves == 0) RefillBoard();
+        }
+
+        public List<EmblemModel> CalculateEmblemsWithMatch()
         {
             List<EmblemModel> moves = new();
 

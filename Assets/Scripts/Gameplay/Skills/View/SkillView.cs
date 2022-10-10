@@ -1,3 +1,5 @@
+using DG.Tweening;
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,16 +14,17 @@ public class SkillView : MonoBehaviour
     [SerializeField] private Image _manaFill;
     [SerializeField] private TMP_Text _manaText = null;
     [SerializeField] private List<Sprite> SkillSpriteList = new();
-  
+
     private SkillController _controller;
     private StatIntIntArgument_Event _onPlayerAttacks;
 
     public void Initialize(SkillController skillController, StatIntIntArgument_Event OnPlayerAttacks)
     {
+        _controller = skillController;
         _onPlayerAttacks = OnPlayerAttacks;
         _onPlayerAttacks.AddListener(GenerateMana);
+        _controller.OnManaChanged += UpdateMana;
 
-        _controller = skillController;
         UpdateVisuals();
     }
 
@@ -34,12 +37,25 @@ public class SkillView : MonoBehaviour
 
     private void GenerateMana(Stats stats, int hits, int color)
     {
-        _controller.AddMana(hits);
+        _controller.AddMana(hits, stats.ManaPerHit);
+    }
+
+    private void UpdateMana(int mana, int maxMana)
+    {
+        _manaFill.DOFillAmount(SetFillAmount(mana, maxMana), 0.5f);
+        _manaText.text = mana.ToString() + " / " + maxMana.ToString();
     }
 
     public void OnClickButton()
     {
         _controller.PerformSkill();
+    }
+
+    private float SetFillAmount(int amount, int max)
+    {
+        float qty = (float)amount / (float)max;
+        if (qty <= 0f) return 0f;
+        else return qty;
     }
 
     private void OnDestroy()

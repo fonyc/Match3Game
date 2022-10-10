@@ -2,8 +2,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-public class AdsGameService : IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener,
-        IService
+public class AdsGameService : IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener, IService
 {
     private string _adsGameId;
     private string _adUnitId;

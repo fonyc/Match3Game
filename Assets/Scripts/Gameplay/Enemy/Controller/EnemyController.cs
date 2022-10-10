@@ -65,7 +65,8 @@ public class EnemyController
         List<Enemy> allEnemies = _gameConfig.EnemyModel;
         Model.Enemy = GetEnemy(enemyId, allEnemies);
 
-        Model.CurrentEnemyStats = new Stats(Model.Enemy.Stats.ATK, Model.Enemy.Stats.DEF, Model.Enemy.Stats.HP, Model.Enemy.Stats.Progression);
+        Model.CurrentEnemyStats = new Stats(Model.Enemy.Stats.ATK, Model.Enemy.Stats.DEF, 
+            Model.Enemy.Stats.HP, Model.Enemy.Stats.ManaPerHit, Model.Enemy.Stats.Progression);
     }
 
     private Enemy GetEnemy(string Id, List<Enemy> enemyModel)

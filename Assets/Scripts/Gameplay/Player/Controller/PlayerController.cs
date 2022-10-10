@@ -1,6 +1,4 @@
-﻿using Board.Controller;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +8,7 @@ public class PlayerController : IDisposable
     private PlayerModel _playerModel;
     private ItemController _itemController;
     private CombatController _combatController;
+    private GameConfigService _gameConfigService;
 
     public event Action<int, int> OnHPChanged = delegate (int amount, int max) { };
     public event Action OnATKChanged = delegate () { };
@@ -17,7 +16,7 @@ public class PlayerController : IDisposable
     private StatIntIntArgument_Event _onPlayerAttackPerformed;
     private NoArgument_Event _onPlayerDied;
     private NoArgument_Event _onPlayerRecievedDamage;
-    private GameConfigService _gameConfigService;
+
 
     public PlayerController(UserData userData, ItemController itemController, GameConfigService gameConfigService,
         CombatController combatController, StatIntIntArgument_Event OnPlayerAttackPerformed, NoArgument_Event OnPlayerDied,
@@ -59,7 +58,7 @@ public class PlayerController : IDisposable
         _playerModel.hero = GetHeroData(allHeroesModel);
 
         Stats stats = _playerModel.hero.Stats;
-        _playerModel.currentHeroStats = new Stats(stats.ATK, stats.DEF, stats.HP, stats.Progression);
+        _playerModel.currentHeroStats = new Stats(stats.ATK, stats.DEF, stats.HP, stats.ManaPerHit, stats.Progression);
     }
 
     private HeroItemModel GetHeroData(List<HeroItemModel> allHeroesModel)

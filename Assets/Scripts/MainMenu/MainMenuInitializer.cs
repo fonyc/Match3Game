@@ -98,6 +98,8 @@ public class MainMenuInitializer : MonoBehaviour
         bottomBar.AddTab(levelsView.gameObject);
         levelsView.gameObject.SetActive(false);
 
+        bottomBar.transform.SetAsLastSibling();
+
         #endregion
     }
 }
