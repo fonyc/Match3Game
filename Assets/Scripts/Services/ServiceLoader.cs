@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class ServiceLoader : MonoBehaviour
     [SerializeField]
     private SceneLoader sceneLoader;
 
-    private TaskCompletionSource<bool> _cancellationTaskSource;
+    private CancellationTokenSource _cancellationTaskSource;
 
     void Awake()
     {
@@ -22,18 +23,19 @@ public class ServiceLoader : MonoBehaviour
 
     private void OnDestroy()
     {
-        _cancellationTaskSource.SetResult(true);
+        _cancellationTaskSource.Cancel();
     }
 
     private async Task LoadServicesCancellable()
     {
-        await Task.WhenAny(LoadServices(), _cancellationTaskSource.Task);
+        await LoadServices();
     }
 
     private async Task LoadServices()
     {
-        string environmentId = IsDevBuild ? "development" : "production";
+        ServiceLocator.UnregisterAll();
 
+        string environmentId = IsDevBuild ? "development" : "production";
         ServicesInitializer servicesInitializer = new ServicesInitializer(environmentId);
 
         //Create services
@@ -57,15 +59,26 @@ public class ServiceLoader : MonoBehaviour
         //ServiceLocator.RegisterService<IIAPGameService>(iapService);
 
         //Initialize services
-        await servicesInitializer.Initialize();
+        await servicesInitializer.Initialize(_cancellationTaskSource);
+        if (_cancellationTaskSource.IsCancellationRequested) return;
+
         await loginService.Initialize();
+        if (_cancellationTaskSource.IsCancellationRequested) return;
+
         await remoteConfig.Initialize();
+        if (_cancellationTaskSource.IsCancellationRequested) return;
+
         await analyticsService.Initialize();
+        if (_cancellationTaskSource.IsCancellationRequested) return;
+
         //await iapService.Initialize(new Dictionary<string, string>
         //{
         //    ["test1"] = "es.fony.match3.test1"
         //});
-        //await adsService.Initialize(Application.isEditor);
+
+        adsService.Initialize(Application.isEditor);
+        if (_cancellationTaskSource.IsCancellationRequested) return;
+
         //await gameProgressionProvider.Initialize();
 
         gameConfig.Initialize(remoteConfig);

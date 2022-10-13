@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine.Analytics;
 
 public class MatchController
 {
@@ -11,10 +12,12 @@ public class MatchController
     private GameConfigService _gameConfigService;
     private SceneLoader _sceneLoader;
     private AdsGameService _adsGameService;
+    private AnalyticsGameService _analytics;
 
     public MatchController(GameConfigService gameConfigService, UserData userData, SceneLoader sceneLoader,
-        AdsGameService AdsGameService)
+        AdsGameService AdsGameService, AnalyticsGameService Analytics)
     {
+        _analytics = Analytics;
         _adsGameService = AdsGameService;
         _sceneLoader = sceneLoader;
         _userData = userData;
@@ -24,10 +27,13 @@ public class MatchController
     public void Initialize()
     {
         Load();
+        _analytics.SendEvent("levelStarted", new Dictionary<string, object> { ["LevelNumber"] = levelModel.Level });
     }
 
     public void GrantRewards()
     {
+        _analytics.SendEvent("levelEnded", new Dictionary<string, object> { ["LevelNumber"] = levelModel.Level });
+
         //Resource Rewards
         foreach (ResourceItem reward in levelModel.Rewards)
         {

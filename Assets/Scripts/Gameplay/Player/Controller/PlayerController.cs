@@ -90,8 +90,9 @@ public class PlayerController : IDisposable
     public void ChangeHP(int amount)
     {
         int maxHP = _playerModel.hero.Stats.HP;
+        int currentHP = _playerModel.currentHeroStats.HP;
 
-        _playerModel.currentHeroStats.HP = Mathf.Clamp(_playerModel.currentHeroStats.HP + amount, 0, maxHP);
+        _playerModel.currentHeroStats.HP = currentHP + amount <= 0 ? 0 : currentHP + amount;
         OnHPChanged?.Invoke(_playerModel.currentHeroStats.HP, maxHP);
     }
 
@@ -106,6 +107,7 @@ public class PlayerController : IDisposable
         _playerModel.currentHeroStats.DEF += amount;
         OnDEFChanged.Invoke();
     }
+
     #endregion
 
     private bool CheckPlayerDeath()

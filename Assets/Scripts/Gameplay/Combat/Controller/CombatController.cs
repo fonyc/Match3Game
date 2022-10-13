@@ -1,11 +1,15 @@
-using Shop.Model;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CombatController
 {
     public CombatModel Model;
+
+    private GameConfigService _gameConfigService;
+
+    public CombatController(GameConfigService gameConfigService)
+    {
+        _gameConfigService = gameConfigService;
+    }
 
     public void Initialize()
     {
@@ -14,7 +18,9 @@ public class CombatController
 
     public void Load()
     {
-        Model = JsonUtility.FromJson<CombatModel>(Resources.Load<TextAsset>("VulnerabilitiesModel").text);
+        Model = new CombatModel();
+        Model.Vulnerabilities = _gameConfigService.VulnerabilitiesModel;
+        //Model = JsonUtility.FromJson<CombatModel>(Resources.Load<TextAsset>("VulnerabilitiesModel").text);
     }
 
     public int RecieveAttack(int ATK, int DEF, int hits, int colorAttack, int colorDefense)

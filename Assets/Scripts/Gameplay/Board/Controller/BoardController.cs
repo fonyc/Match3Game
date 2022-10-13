@@ -25,8 +25,8 @@ namespace Board.Controller
         private DoubleIntArgument_Event _onPlayerAttacks;
         public IntArgument_Event OnAvailableMovesChanged;
 
-        public BoardController(int width, int height, SkillController skillController, 
-            List<BoardInput> inputList, UserData userData, DoubleIntArgument_Event OnPlayerAttacks, 
+        public BoardController(int width, int height, SkillController skillController,
+            List<BoardInput> inputList, UserData userData, DoubleIntArgument_Event OnPlayerAttacks,
             IntArgument_Event OnAvailableMovesChanged, GameConfigService gameConfigService)
         {
             _gameConfigService = gameConfigService;
@@ -104,14 +104,8 @@ namespace Board.Controller
             if (touchedEmblem.IsEmpty()) return;
 
             List<EmblemModel> swapMatches = RecursiveSearch(touchedEmblem);
-            
-            if (swapMatches.Count > 1)
-            {
-                int colorAttack = GetEmblemColor(swapMatches[0].Position.x, swapMatches[0].Position.y);
-                _onPlayerAttacks.TriggerEvents(swapMatches.Count, colorAttack);
-                
-                DestroyAndCollapse(swapMatches);
-            }
+
+            if (swapMatches.Count > 1) DestroyAndCollapse(swapMatches);
         }
 
         public void DestroyAndCollapse(List<EmblemModel> comboMatches)
@@ -124,6 +118,9 @@ namespace Board.Controller
             }
             VerticalCollapse();
             HorizontalCollapse();
+
+            int colorAttack = GetEmblemColor(comboMatches[0].Position.x, comboMatches[0].Position.y);
+            _onPlayerAttacks.TriggerEvents(comboMatches.Count, colorAttack);
         }
 
         public void UpdateMoves()
@@ -203,12 +200,10 @@ namespace Board.Controller
                 {
                     for (int y = 0; y < Model.Height; y++)
                     {
-                        //Switch emblems in model 
                         EmblemItem aux = Model.GetEmblem(x - nullCounter, y).Item;
                         Model.GetEmblem(x - nullCounter, y).Item = Model.GetEmblem(x, y).Item;
                         Model.GetEmblem(x, y).Item = aux;
 
-                        //Send view to new position
                         OnEmblemMoved(Model.GetEmblem(x, y).Position, Model.GetEmblem(x - nullCounter, y).Position);
                     }
                 }
@@ -263,9 +258,12 @@ namespace Board.Controller
 
         private bool BoardIsSeparated()
         {
-            for (int x = 0; x < Model.Width; x++)
+            for (int x = 0; x < Model.Width - 1; x++)
             {
-                if (Model.GetEmblem(x, 0).IsEmpty()) return true;
+                if (Model.GetEmblem(x, 0).IsEmpty() && Model.GetEmblem(x + 1, 0).IsEmpty())
+                {
+                    return true;
+                }
             }
             return false;
         }
@@ -331,7 +329,7 @@ namespace Board.Controller
                 {
                     EmblemItem aux = Model.GetEmblem(emblems[x].Position).Item;
                     randomEmblems.RemoveAt(x);
-                    int randomInt = Random.Range(0, randomEmblems.Count -1);
+                    int randomInt = Random.Range(0, randomEmblems.Count - 1);
 
                     Model.GetEmblem(emblems[x].Position).Item = Model.GetEmblem(randomEmblems[randomInt].Position).Item;
                     Model.GetEmblem(emblems[randomInt].Position).Item = aux;
@@ -341,7 +339,7 @@ namespace Board.Controller
 
                     emblems.RemoveAt(x);
                     randomEmblems.RemoveAt(randomInt);
-                    x ++;
+                    x++;
                 }
             }
         }

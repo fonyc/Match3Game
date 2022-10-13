@@ -43,7 +43,10 @@ public class MatchView : MonoBehaviour
 
     private void OnRoundOver()
     {
+        //Ask for data to the controller
+        //Fill the data in the panel
         StartCoroutine(AnimateInRoundPanel_Coro(_roundPanelPrefab.GetComponent<RectTransform>(), 0.75f));
+        //Reset model
     }
 
     #region ANIMATIONS

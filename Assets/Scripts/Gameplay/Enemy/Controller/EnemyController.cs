@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class EnemyController
 {
@@ -61,7 +62,6 @@ public class EnemyController
         int currentLevel = _userData.GetCurrentSelectedLevel();
         List<LevelModelItem> allLevels = _gameConfig.LevelsModel;
         string enemyId = GetEnemyIdFromCurrentLevel(currentLevel, allLevels);
-
         List<Enemy> allEnemies = _gameConfig.EnemyModel;
         Model.Enemy = GetEnemy(enemyId, allEnemies);
 

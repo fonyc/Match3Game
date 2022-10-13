@@ -1,8 +1,6 @@
 using Shop.Controller;
 using Shop.View;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Analytics;
 
 public class MainMenuInitializer : MonoBehaviour
 {
@@ -63,7 +61,8 @@ public class MainMenuInitializer : MonoBehaviour
         _userData.Load();
 
         //Initialize resources top bar
-        Instantiate(_topBarResourcesPrefab, transform).Initialize(_userData);
+        ResourcesView resourcesView = Instantiate(_topBarResourcesPrefab, transform);
+        resourcesView.Initialize(_userData);
 
         #region INIT CONTROLLERS
         _shopController.Initialize();
@@ -78,28 +77,24 @@ public class MainMenuInitializer : MonoBehaviour
         HeroesView heroesView = Instantiate(_heroesViewPrefab, transform);
         heroesView.Initialize(_heroesController, _userData);
         bottomBar.AddTab(heroesView.gameObject);
-        heroesView.gameObject.SetActive(false);
 
         //SHOP TAB
         ShopView shop = Instantiate(_shopViewPrefab, transform); 
         shop.Initialize(_shopController, _userData);
         bottomBar.AddTab(shop.gameObject);
-        shop.gameObject.SetActive(false);
 
         //TEAM TAB
         TeamView teamView = Instantiate(_teamViewPrefab, transform);
         teamView.Initialize(_teamController,_userData);
         bottomBar.AddTab(teamView.gameObject);
-        teamView.gameObject.SetActive(false);
 
         //LEVELS TAB
         LevelsView levelsView = Instantiate(_levelsViewPrefab, transform);
         levelsView.Initialize(_levelController, _userData);
         bottomBar.AddTab(levelsView.gameObject);
-        levelsView.gameObject.SetActive(false);
 
         bottomBar.transform.SetAsLastSibling();
-
+        resourcesView.transform.SetAsLastSibling();
         #endregion
     }
 }

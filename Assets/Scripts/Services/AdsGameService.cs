@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Advertisements;
@@ -20,14 +21,14 @@ public class AdsGameService : IUnityAdsInitializationListener, IUnityAdsLoadList
         _adUnitId = adUnitId;
     }
 
-    public async Task<bool> Initialize(bool testMode = false)
+    public bool Initialize(bool testMode = false)
     {
         _initializationTaskStatus = TaskStatus.Running;
         Advertisement.Initialize(_adsGameId, testMode, this);
-        while (_initializationTaskStatus == TaskStatus.Running)
-        {
-            await Task.Delay(500);
-        }
+        //while (_initializationTaskStatus == TaskStatus.Running)
+        //{
+        //    await Task.Delay(500, cancellationToken.Token);
+        //}
 
         return IsInitialized;
     }

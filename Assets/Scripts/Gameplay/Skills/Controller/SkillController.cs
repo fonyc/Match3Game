@@ -15,8 +15,6 @@ public class SkillController
 
     public event Action<int, int> OnManaChanged = delegate (int mana, int maxMana) { };
 
-    //public event Action<int> OnManaChanged = delegate (int mana) { };
-
     public SkillController(UserData userData, List<Skill> skillList, GameConfigService gameConfigService)
     {
         _gameConfigService = gameConfigService;

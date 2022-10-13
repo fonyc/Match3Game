@@ -50,11 +50,13 @@ public class GameplayInitializer : MonoBehaviour
 
     private GameConfigService _gameConfigService;
     private AdsGameService _adsService;
+    private AnalyticsGameService _analytics;
     private UserData _userData;
 
     private void Awake()
     {
         //Init user data
+        _analytics = ServiceLocator.GetService<AnalyticsGameService>();
         _gameConfigService = ServiceLocator.GetService<GameConfigService>();
         _adsService = ServiceLocator.GetService<AdsGameService>();
         _userData = new UserData();
@@ -62,7 +64,7 @@ public class GameplayInitializer : MonoBehaviour
         _sceneLoader = Instantiate(_sceneLoaderPrefab);
 
         //Controllers creation
-        _combatController = new CombatController();
+        _combatController = new CombatController(_gameConfigService);
 
         _enemyController = new EnemyController(_userData, _combatController, _onEnemyAttacks, 
             _onPlayerWin, _gameConfigService);
@@ -77,7 +79,7 @@ public class GameplayInitializer : MonoBehaviour
         _playerController = new PlayerController(_userData, _itemController, _gameConfigService,
             _combatController, _onPlayerAttacks, _onPlayerDied, _onPlayerRecievedDamage);
 
-        _matchController = new MatchController(_gameConfigService, _userData, _sceneLoader, _adsService);
+        _matchController = new MatchController(_gameConfigService, _userData, _sceneLoader, _adsService, _analytics);
     }
 
     void Start()
