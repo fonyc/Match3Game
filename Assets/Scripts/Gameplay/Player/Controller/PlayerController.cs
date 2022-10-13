@@ -13,15 +13,16 @@ public class PlayerController : IDisposable
     public event Action<int, int> OnHPChanged = delegate (int amount, int max) { };
     public event Action OnATKChanged = delegate () { };
     public event Action OnDEFChanged = delegate () { };
-    private StatIntIntArgument_Event _onPlayerAttackPerformed;
+    private StatTripleIntArgument_Event _onPlayerAttackPerformed;
     private NoArgument_Event _onPlayerDied;
     private NoArgument_Event _onPlayerRecievedDamage;
-
+    private MatchReport _matchReport;
 
     public PlayerController(UserData userData, ItemController itemController, GameConfigService gameConfigService,
-        CombatController combatController, StatIntIntArgument_Event OnPlayerAttackPerformed, NoArgument_Event OnPlayerDied,
-        NoArgument_Event OnPlayerRecievedDamage)
+        CombatController combatController, StatTripleIntArgument_Event OnPlayerAttackPerformed, NoArgument_Event OnPlayerDied,
+        NoArgument_Event OnPlayerRecievedDamage, MatchReport matchReport)
     {
+        _matchReport = matchReport;
         _gameConfigService = gameConfigService;
         _onPlayerRecievedDamage = OnPlayerRecievedDamage;
         _onPlayerDied = OnPlayerDied;
@@ -73,7 +74,7 @@ public class PlayerController : IDisposable
     public void RecieveAttack(Stats enemyStats, int hits, int color)
     {
         int dmg = _combatController.RecieveAttack(enemyStats.ATK, _playerModel.currentHeroStats.DEF, 1, color, _playerModel.hero.Color);
-
+        _matchReport.damageRecieved = dmg;
         ChangeHP(-dmg);
 
         if (CheckPlayerDeath()) _onPlayerDied.TriggerEvents();
@@ -82,9 +83,9 @@ public class PlayerController : IDisposable
 
     #region EVENTS
 
-    public void AttackEnemy(int hits, int color)
+    public void AttackEnemy(int hits, int color, int columns)
     {
-        _onPlayerAttackPerformed.TriggerEvents(_playerModel.hero.Stats, hits, color);
+        _onPlayerAttackPerformed.TriggerEvents(_playerModel.hero.Stats, hits, color, columns);
     }
 
     public void ChangeHP(int amount)

@@ -16,9 +16,9 @@ public class SkillView : MonoBehaviour
     [SerializeField] private List<Sprite> SkillSpriteList = new();
 
     private SkillController _controller;
-    private StatIntIntArgument_Event _onPlayerAttacks;
+    private StatTripleIntArgument_Event _onPlayerAttacks;
 
-    public void Initialize(SkillController skillController, StatIntIntArgument_Event OnPlayerAttacks)
+    public void Initialize(SkillController skillController, StatTripleIntArgument_Event OnPlayerAttacks)
     {
         _controller = skillController;
         _onPlayerAttacks = OnPlayerAttacks;
@@ -35,9 +35,9 @@ public class SkillView : MonoBehaviour
         _manaText.text = _controller.GetCurrentPlayerMana().ToString() + " / " + _controller.GetSkillItemModel().Mana;
     }
 
-    private void GenerateMana(Stats stats, int hits, int color)
+    private void GenerateMana(Stats stats, int hits, int color, int columns)
     {
-        _controller.AddMana(hits, stats.ManaPerHit);
+        _controller.AddMana(hits + columns, stats.ManaPerHit);
     }
 
     private void UpdateMana(int mana, int maxMana)

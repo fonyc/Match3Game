@@ -29,6 +29,10 @@ public class GameplayInitializer : MonoBehaviour
     [Space(5)]
     [SerializeField] private List<Skill> SkillList = new();
 
+    [Header("--- SKILLS ---")]
+    [Space(5)]
+    [SerializeField] private MatchReport _matchReport;
+
     private SkillController _skillController;
     private BoardController _boardController;
     private PlayerController _playerController;
@@ -40,9 +44,9 @@ public class GameplayInitializer : MonoBehaviour
 
     [Header("--- EVENT BUS ---")]
     [Space(5)]
-    [SerializeField] private StatIntIntArgument_Event _onPlayerAttacks;
+    [SerializeField] private StatTripleIntArgument_Event _onPlayerAttacks;
     [SerializeField] private StatIntIntArgument_Event _onEnemyAttacks;
-    [SerializeField] private DoubleIntArgument_Event _onEmblemsDestroyed;
+    [SerializeField] private TripleIntArgument_Event _onEmblemsDestroyed;
     [SerializeField] private IntArgument_Event _onMovesAvailableChanged;
     [SerializeField] private NoArgument_Event _onPlayerDied;
     [SerializeField] private NoArgument_Event _onPlayerWin;
@@ -67,17 +71,17 @@ public class GameplayInitializer : MonoBehaviour
         _combatController = new CombatController(_gameConfigService);
 
         _enemyController = new EnemyController(_userData, _combatController, _onEnemyAttacks, 
-            _onPlayerWin, _gameConfigService);
+            _onPlayerWin, _gameConfigService, _matchReport);
 
         _skillController = new SkillController(_userData, SkillList, _gameConfigService);
 
         _boardController = new BoardController(_boardSize.x, _boardSize.y, _skillController, inputs, 
-            _userData, _onEmblemsDestroyed, _onMovesAvailableChanged, _gameConfigService);
+            _userData, _onEmblemsDestroyed, _onMovesAvailableChanged, _gameConfigService, _matchReport);
 
         _itemController = new ItemController(_userData);
 
         _playerController = new PlayerController(_userData, _itemController, _gameConfigService,
-            _combatController, _onPlayerAttacks, _onPlayerDied, _onPlayerRecievedDamage);
+            _combatController, _onPlayerAttacks, _onPlayerDied, _onPlayerRecievedDamage, _matchReport);
 
         _matchController = new MatchController(_gameConfigService, _userData, _sceneLoader, _adsService, _analytics);
     }
@@ -109,7 +113,7 @@ public class GameplayInitializer : MonoBehaviour
 
         Instantiate(_menuPausePrefab, transform);
         MatchView matchView = Instantiate(_matchViewPrefab, transform);
-        matchView.Initialize(_matchController, _onPlayerDied, _onPlayerWin, _onPlayerRecievedDamage);
+        matchView.Initialize(_matchController, _onPlayerDied, _onPlayerWin, _onPlayerRecievedDamage, _matchReport);
         matchView.transform.SetAsLastSibling();
     }
 }

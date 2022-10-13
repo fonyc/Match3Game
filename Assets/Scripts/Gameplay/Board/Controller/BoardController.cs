@@ -16,19 +16,21 @@ namespace Board.Controller
         public BoardInput InputSelected;
         private UserData _userData;
         private GameConfigService _gameConfigService;
+        private MatchReport _matchReport;
 
         public event Action<Vector2Int, Vector2Int> OnEmblemMoved = delegate (Vector2Int origin, Vector2Int destination) { };
         public event Action<Vector2Int> OnEmblemDestroyed = delegate (Vector2Int emblemDestroyed) { };
         public event Action<Vector2Int, EmblemItem> OnEmblemCreated = delegate (Vector2Int emblemPosition, EmblemItem item) { };
         public event Action<Vector2Int> OnColorChanged = delegate (Vector2Int emblemPosition) { };
 
-        private DoubleIntArgument_Event _onPlayerAttacks;
+        private TripleIntArgument_Event _onPlayerAttacks;
         public IntArgument_Event OnAvailableMovesChanged;
 
         public BoardController(int width, int height, SkillController skillController,
-            List<BoardInput> inputList, UserData userData, DoubleIntArgument_Event OnPlayerAttacks,
-            IntArgument_Event OnAvailableMovesChanged, GameConfigService gameConfigService)
+            List<BoardInput> inputList, UserData userData, TripleIntArgument_Event OnPlayerAttacks,
+            IntArgument_Event OnAvailableMovesChanged, GameConfigService gameConfigService, MatchReport matchReport)
         {
+            _matchReport = matchReport;
             _gameConfigService = gameConfigService;
             this.OnAvailableMovesChanged = OnAvailableMovesChanged;
             _onPlayerAttacks = OnPlayerAttacks;
@@ -110,6 +112,8 @@ namespace Board.Controller
 
         public void DestroyAndCollapse(List<EmblemModel> comboMatches)
         {
+            int colorAttack = GetEmblemColor(comboMatches[0].Position.x, comboMatches[0].Position.y);
+            
             foreach (EmblemModel emblem in comboMatches)
             {
                 Model.GetEmblem(emblem.Position).Item = null;
@@ -117,10 +121,10 @@ namespace Board.Controller
                 OnEmblemDestroyed(emblem.Position);
             }
             VerticalCollapse();
+            _onPlayerAttacks.TriggerEvents(comboMatches.Count, colorAttack, _matchReport.GetDestroyedColumns(this));
+            _matchReport.AddMatchedEmblems(comboMatches.Count);
+            _matchReport.AddMaxCombo(comboMatches.Count);
             HorizontalCollapse();
-
-            int colorAttack = GetEmblemColor(comboMatches[0].Position.x, comboMatches[0].Position.y);
-            _onPlayerAttacks.TriggerEvents(comboMatches.Count, colorAttack);
         }
 
         public void UpdateMoves()
@@ -260,7 +264,7 @@ namespace Board.Controller
         {
             for (int x = 0; x < Model.Width - 1; x++)
             {
-                if (Model.GetEmblem(x, 0).IsEmpty() && Model.GetEmblem(x + 1, 0).IsEmpty())
+                if (Model.GetEmblem(x, 0).IsEmpty())
                 {
                     return true;
                 }

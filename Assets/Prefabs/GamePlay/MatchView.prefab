@@ -1078,13 +1078,14 @@ GameObject:
   - component: {fileID: 5968997475856559690}
   - component: {fileID: 6932919925165296460}
   - component: {fileID: 8078842201026158618}
+  - component: {fileID: 3747196143192883704}
   m_Layer: 5
   m_Name: RoundPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5968997475856559690
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1144,6 +1145,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3747196143192883704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2405091751324701665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1442811e9ca9dc54db255eee129439e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _matchedEmblems: {fileID: 1872661945738942649}
+  _bonusColumn: {fileID: 3218710965666323765}
+  _maxCombo: {fileID: 6871647416089761477}
+  _damageRecieved: {fileID: 645773223664506773}
+  _totalDamage: {fileID: 2618304582203468226}
 --- !u!1 &2463242307493835098
 GameObject:
   m_ObjectHideFlags: 0
@@ -1427,7 +1445,7 @@ GameObject:
   - component: {fileID: 1872661945738942649}
   - component: {fileID: 126555149736930099}
   m_Layer: 5
-  m_Name: Text (TMP) (2)
+  m_Name: MatchedEmblems
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1448,10 +1466,10 @@ RectTransform:
   m_Father: {fileID: 4781545742542156704}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 374.39996, y: -132.45914}
-  m_SizeDelta: {x: 748.7999, y: 64.91827}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4948661065134085865
 CanvasRenderer:
@@ -1514,7 +1532,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 50
-  m_fontStyle: 1
+  m_fontStyle: 17
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1815,7 +1833,7 @@ GameObject:
   - component: {fileID: 2618304582203468226}
   - component: {fileID: 7552547082871662399}
   m_Layer: 5
-  m_Name: Text (TMP) (3)
+  m_Name: TotalDamage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1836,10 +1854,10 @@ RectTransform:
   m_Father: {fileID: 4781545742542156704}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 374.39996, y: -525.2208}
-  m_SizeDelta: {x: 748.7999, y: 64.91827}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6170677208591748621
 CanvasRenderer:
@@ -1902,7 +1920,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 50
-  m_fontStyle: 1
+  m_fontStyle: 17
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -2204,7 +2222,7 @@ GameObject:
   - component: {fileID: 6871647416089761477}
   - component: {fileID: 3339103110517930662}
   m_Layer: 5
-  m_Name: Text (TMP) (4)
+  m_Name: Maxcombo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2225,10 +2243,10 @@ RectTransform:
   m_Father: {fileID: 4781545742542156704}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 374.39996, y: -302.2957}
-  m_SizeDelta: {x: 748.7999, y: 64.91827}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4672175263673974765
 CanvasRenderer:
@@ -2291,7 +2309,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 50
-  m_fontStyle: 1
+  m_fontStyle: 17
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -2782,7 +2800,7 @@ GameObject:
   - component: {fileID: 645773223664506773}
   - component: {fileID: 7362031393162592745}
   m_Layer: 5
-  m_Name: Text (TMP) (5)
+  m_Name: DamageRecieved
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2803,10 +2821,10 @@ RectTransform:
   m_Father: {fileID: 4781545742542156704}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 374.39996, y: -387.21396}
-  m_SizeDelta: {x: 748.7999, y: 64.91827}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2410220384961267122
 CanvasRenderer:
@@ -2836,7 +2854,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'MAX. COMBO: 7'
+  m_text: 'DAMAGE RECIEVED: 78'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2869,7 +2887,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 50
-  m_fontStyle: 1
+  m_fontStyle: 17
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -2958,10 +2976,10 @@ RectTransform:
   m_Father: {fileID: 4781545742542156704}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 374.39996, y: -456.2174}
-  m_SizeDelta: {x: 748.7999, y: 33.088623}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &896690900819527671
 CanvasRenderer:
@@ -2991,9 +3009,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dc11d60cbdbad4e0a9e10e7adc64a230, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 21300000, guid: e095230cb38830b4984239d3fa15048b, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -3014,7 +3032,7 @@ GameObject:
   - component: {fileID: 3218710965666323765}
   - component: {fileID: 2359159689300994536}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: Bonuscolumns
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3035,10 +3053,10 @@ RectTransform:
   m_Father: {fileID: 4781545742542156704}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 374.39996, y: -217.37741}
-  m_SizeDelta: {x: 748.7999, y: 64.91827}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2853889572967556749
 CanvasRenderer:
@@ -3101,7 +3119,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 50
-  m_fontStyle: 1
+  m_fontStyle: 17
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -3352,7 +3370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _winPanelPrefab: {fileID: 1375560886418853639}
   _losePanelPrefab: {fileID: 855364911726819571}
-  _roundPanelPrefab: {fileID: 2405091751324701665}
+  _roundPanelPrefab: {fileID: 3747196143192883704}
   _addButton: {fileID: 2379241316055056035}
 --- !u!1 &8994553514572431041
 GameObject:

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName ="Events/DoubleInt")]
+[CreateAssetMenu(menuName ="Events/TripleInt")]
 public class TripleIntArgument_Event : ScriptableObject
 {
     private List<Action<int, int, int>> _listeners = new();

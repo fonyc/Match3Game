@@ -132,9 +132,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 53b830b7ef36af84791d63aff28aee58, type: 2}
   - {fileID: 11400000, guid: d4c8ce7da515745429a22456e0717099, type: 2}
   - {fileID: 11400000, guid: f30301e6e3eedf146aea04439822c0d9, type: 2}
-  _onPlayerAttacks: {fileID: 11400000, guid: 90756e5792c071045be7d9d0b928bf58, type: 2}
+  _matchReport: {fileID: 11400000, guid: 6e4c864596ccd474e808ebb57349eda5, type: 2}
+  _onPlayerAttacks: {fileID: 11400000, guid: 6711f75f1cec3b04f8146c462f8f292f, type: 2}
   _onEnemyAttacks: {fileID: 11400000, guid: 1e338d3900b39fe4fa4a12437c1041dc, type: 2}
-  _onEmblemsDestroyed: {fileID: 11400000, guid: 56fc849d4aa6c7b46bd18e05f63441e9, type: 2}
+  _onEmblemsDestroyed: {fileID: 11400000, guid: f2227e62a9e13bd47910c2e9b08dc94e, type: 2}
   _onMovesAvailableChanged: {fileID: 11400000, guid: b878a42ddc5b27d4b964b1b0ab34819c, type: 2}
   _onPlayerDied: {fileID: 11400000, guid: 0caf39db5ed491744991509e13487cce, type: 2}
   _onPlayerWin: {fileID: 11400000, guid: 6e9b95a40066e094792ff335d236f2e4, type: 2}

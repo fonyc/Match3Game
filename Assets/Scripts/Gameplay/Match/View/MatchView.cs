@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,14 +13,16 @@ public class MatchView : MonoBehaviour
 
     [SerializeField] private GameObject _winPanelPrefab;
     [SerializeField] private GameObject _losePanelPrefab;
-    [SerializeField] private GameObject _roundPanelPrefab;
+    [SerializeField] private RoundReportView _roundPanelPrefab;
     [SerializeField] private Button _addButton;
 
     private NoArgument_Event _onPlayerRecievedDamage;
+    private MatchReport _matchReport;
 
     public void Initialize(MatchController matchController, NoArgument_Event OnPlayerDeath,
-        NoArgument_Event OnEnemyDeath, NoArgument_Event OnPlayerRecievedDamage)
+        NoArgument_Event OnEnemyDeath, NoArgument_Event OnPlayerRecievedDamage, MatchReport matchReport)
     {
+        _matchReport = matchReport;
         _matchController = matchController;
 
         _onPlayerRecievedDamage = OnPlayerRecievedDamage;
@@ -31,6 +34,8 @@ public class MatchView : MonoBehaviour
         _matchController.OnAddWatched += DisableAddButton;
         _onPlayerDeath.AddListener(OnPlayerLose);
         _onEnemyDeath.AddListener(OnPlayerWins);
+
+        _roundPanelPrefab.SetData(_matchReport);
     }
 
     private void OnDestroy()
@@ -44,7 +49,7 @@ public class MatchView : MonoBehaviour
     private void OnRoundOver()
     {
         //Ask for data to the controller
-        //Fill the data in the panel
+        _roundPanelPrefab.UpdateVisuals();
         StartCoroutine(AnimateInRoundPanel_Coro(_roundPanelPrefab.GetComponent<RectTransform>(), 0.75f));
         //Reset model
     }
@@ -53,7 +58,6 @@ public class MatchView : MonoBehaviour
 
     public IEnumerator AnimateInRoundPanel_Coro(RectTransform rect, float delay)
     {
-        _roundPanelPrefab.SetActive(true);
         yield return new WaitForSeconds(delay);
         rect.DOAnchorPos(Vector2.zero, 0.3f).SetEase(Ease.OutBack);
     }
@@ -65,7 +69,7 @@ public class MatchView : MonoBehaviour
 
     private void HideRoundPanel()
     {
-        _roundPanelPrefab.SetActive(false);
+        _matchReport.ClearReport();
     }
 
     public void CloseRoundPanel()

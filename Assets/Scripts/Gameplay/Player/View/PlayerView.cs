@@ -27,10 +27,10 @@ public class PlayerView : MonoBehaviour
     private PlayerAnimations _playerAnimations;
 
     private PlayerController _controller;
-    private DoubleIntArgument_Event _onEmblemsDestroyed;
+    private TripleIntArgument_Event _onEmblemsDestroyed;
     private StatIntIntArgument_Event _onEnemyAttacks;
 
-    public void Initialize(PlayerController controller, DoubleIntArgument_Event OnEmblemsDestroyed, 
+    public void Initialize(PlayerController controller, TripleIntArgument_Event OnEmblemsDestroyed, 
         StatIntIntArgument_Event OnEnemyAttacks)
     {
         _onEnemyAttacks = OnEnemyAttacks;
@@ -46,9 +46,9 @@ public class PlayerView : MonoBehaviour
         SetInitialStats();
     }
 
-    private void PrepareAttack(int hits, int colorAttack)
+    private void PrepareAttack(int hits, int colorAttack, int columns)
     {
-        _controller.AttackEnemy(hits, colorAttack);
+        _controller.AttackEnemy(hits, colorAttack, columns);
     }
 
     private void RecieveAttack(Stats enemyStats, int hits, int color)
