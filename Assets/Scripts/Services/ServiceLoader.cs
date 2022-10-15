@@ -46,7 +46,7 @@ public class ServiceLoader : MonoBehaviour
         LoginGameService loginService = new LoginGameService();
         AnalyticsGameService analyticsService = new AnalyticsGameService();
         AdsGameService adsService = new AdsGameService("4928657", "Rewarded_Android");
-        //UnityIAPGameService iapService = new UnityIAPGameService();
+        UnityIAPGameService iapService = new UnityIAPGameService();
         //IGameProgressionProvider gameProgressionProvider = new GameProgressionProvider();
 
         //Register services
@@ -56,7 +56,7 @@ public class ServiceLoader : MonoBehaviour
         ServiceLocator.RegisterService(loginService);
         ServiceLocator.RegisterService(adsService);
         ServiceLocator.RegisterService(analyticsService);
-        //ServiceLocator.RegisterService<IIAPGameService>(iapService);
+        ServiceLocator.RegisterService<IIAPGameService>(iapService);
 
         //Initialize services
         await servicesInitializer.Initialize(_cancellationTaskSource);
@@ -76,7 +76,7 @@ public class ServiceLoader : MonoBehaviour
         //    ["test1"] = "es.fony.match3.test1"
         //});
 
-        adsService.Initialize(Application.isEditor);
+        await adsService.Initialize(Application.isEditor);
         if (_cancellationTaskSource.IsCancellationRequested) return;
 
         //await gameProgressionProvider.Initialize();

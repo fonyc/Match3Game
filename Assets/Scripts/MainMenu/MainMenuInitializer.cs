@@ -26,6 +26,9 @@ public class MainMenuInitializer : MonoBehaviour
 
     [SerializeField]
     private SceneLoader _sceneLoaderPrefab = null;
+
+    [SerializeField] 
+    private TermsAndConditions _termsPrefab = null; 
     #endregion
 
     //SERVICES
@@ -55,6 +58,10 @@ public class MainMenuInitializer : MonoBehaviour
 
     private void Start()
     {
+        //Terms and Conditions
+        TermsAndConditions terms = Instantiate(_termsPrefab, transform);
+        terms.Initialize(_gameConfigService);
+
         //Create bottom main menu
         BottomBarController bottomBar = Instantiate(_bottomBarPrefab, transform);
 
@@ -95,6 +102,7 @@ public class MainMenuInitializer : MonoBehaviour
 
         bottomBar.transform.SetAsLastSibling();
         resourcesView.transform.SetAsLastSibling();
+        terms.transform.SetAsLastSibling();
         #endregion
     }
 }

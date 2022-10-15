@@ -21,15 +21,17 @@ public class AdsGameService : IUnityAdsInitializationListener, IUnityAdsLoadList
         _adUnitId = adUnitId;
     }
 
-    public bool Initialize(bool testMode = false)
+    public async Task<bool> Initialize(bool testMode = false)
     {
         _initializationTaskStatus = TaskStatus.Running;
         Advertisement.Initialize(_adsGameId, testMode, this);
-        //while (_initializationTaskStatus == TaskStatus.Running)
-        //{
-        //    await Task.Delay(500, cancellationToken.Token);
-        //}
 
+        int count = 0;
+        while (_initializationTaskStatus == TaskStatus.Running && count < 3000)
+        {
+            await Task.Delay(500);
+            count += 500;
+        }
         return IsInitialized;
     }
 

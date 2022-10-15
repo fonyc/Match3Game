@@ -13,6 +13,8 @@ public class PlayerController : IDisposable
     public event Action<int, int> OnHPChanged = delegate (int amount, int max) { };
     public event Action OnATKChanged = delegate () { };
     public event Action OnDEFChanged = delegate () { };
+    public event Action OnStatsCleaned = delegate () { };
+
     private StatTripleIntArgument_Event _onPlayerAttackPerformed;
     private NoArgument_Event _onPlayerDied;
     private NoArgument_Event _onPlayerRecievedDamage;
@@ -82,6 +84,13 @@ public class PlayerController : IDisposable
     }
 
     #region EVENTS
+
+    public void CleanStats()
+    {
+        _playerModel.currentHeroStats.ATK = _playerModel.hero.Stats.ATK;
+        _playerModel.currentHeroStats.DEF = _playerModel.hero.Stats.DEF;
+        OnStatsCleaned?.Invoke();
+    }
 
     public void AttackEnemy(int hits, int color, int columns)
     {

@@ -8,6 +8,7 @@ public class MatchView : MonoBehaviour
 {
     private NoArgument_Event _onPlayerDeath;
     private NoArgument_Event _onEnemyDeath;
+    private NoArgument_Event _onBuffReset;
 
     private MatchController _matchController;
 
@@ -20,8 +21,11 @@ public class MatchView : MonoBehaviour
     private MatchReport _matchReport;
 
     public void Initialize(MatchController matchController, NoArgument_Event OnPlayerDeath,
-        NoArgument_Event OnEnemyDeath, NoArgument_Event OnPlayerRecievedDamage, MatchReport matchReport)
+        NoArgument_Event OnEnemyDeath, NoArgument_Event OnPlayerRecievedDamage, MatchReport matchReport,
+        NoArgument_Event OnBuffsReset
+        )
     {
+        _onBuffReset = OnBuffsReset;
         _matchReport = matchReport;
         _matchController = matchController;
 
@@ -64,17 +68,14 @@ public class MatchView : MonoBehaviour
 
     public void AnimateOutRoundPanel(RectTransform rect)
     {
-        rect.DOAnchorPos(new Vector2(-2500f, 0), 0.25f).SetEase(Ease.InBack).OnComplete(HideRoundPanel);
-    }
-
-    private void HideRoundPanel()
-    {
-        _matchReport.ClearReport();
+        rect.DOAnchorPos(new Vector2(-2500f, 0), 0.25f).SetEase(Ease.InBack);
     }
 
     public void CloseRoundPanel()
     {
         AnimateOutRoundPanel(_roundPanelPrefab.GetComponent<RectTransform>());
+        _matchReport.ClearReport();
+        _onBuffReset.TriggerEvents();
     }
 
     #endregion

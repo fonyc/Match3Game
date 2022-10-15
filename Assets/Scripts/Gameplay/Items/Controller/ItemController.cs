@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class ItemController 
@@ -13,9 +14,11 @@ public class ItemController
 
     private UserData _userData;
     public ItemModel Model;
+    private GameConfigService _gameConfigService;
 
-    public ItemController(UserData userData)
+    public ItemController(UserData userData, GameConfigService gameConfigService)
     {
+        _gameConfigService = gameConfigService;
         _userData = userData;
         Model = new ItemModel();
     }
@@ -52,11 +55,12 @@ public class ItemController
 
     private void LoadModel()
     {
-        BattleItemsModel allItemsModel = JsonUtility.FromJson<BattleItemsModel>(Resources.Load<TextAsset>("BattleItemModel").text);
+        Model = new ItemModel();
+        List<BattleItemModel> allItemsModel = _gameConfigService.BattleItemsModel;
         Model.itemStats = GetBattleItemData(allItemsModel);
         Model.selectedItems = GetSelectedBattleItems(_userData);
 
-        HeroModel allHeroesModel = JsonUtility.FromJson<HeroModel>(Resources.Load<TextAsset>("HeroModel").text);
+        List<HeroItemModel> allHeroesModel = _gameConfigService.HeroModel;
         Model.MaxItemQty = GetMaxItems(_userData.GetSelectedHero(), allHeroesModel);
     }
 
@@ -73,13 +77,13 @@ public class ItemController
         return result;
     }
 
-    private List<BattleItemModel> GetBattleItemData(BattleItemsModel allItemsModel)
+    private List<BattleItemModel> GetBattleItemData(List<BattleItemModel> allItemsModel)
     {
         List<BattleItemModel> result = new();
 
         foreach (string selectedItem in _userData.GetSelectedItems())
         {
-            foreach (BattleItemModel item in allItemsModel.BattleItems)
+            foreach (BattleItemModel item in allItemsModel)
             {
                 if (result.Count >= 2) return result;
                 if (item.Id == selectedItem) result.Add(item);
@@ -89,9 +93,9 @@ public class ItemController
         return result;
     }
 
-    private int GetMaxItems(string heroName, HeroModel heroList)
+    private int GetMaxItems(string heroName, List<HeroItemModel> heroList)
     {
-        foreach(HeroItemModel hero in heroList.Heroes)
+        foreach(HeroItemModel hero in heroList)
         {
             if (hero.Id == heroName) return hero.MaxItems;
         }

@@ -51,6 +51,7 @@ public class GameplayInitializer : MonoBehaviour
     [SerializeField] private NoArgument_Event _onPlayerDied;
     [SerializeField] private NoArgument_Event _onPlayerWin;
     [SerializeField] private NoArgument_Event _onPlayerRecievedDamage;
+    [SerializeField] private NoArgument_Event _onBuffsReset;
 
     private GameConfigService _gameConfigService;
     private AdsGameService _adsService;
@@ -78,7 +79,7 @@ public class GameplayInitializer : MonoBehaviour
         _boardController = new BoardController(_boardSize.x, _boardSize.y, _skillController, inputs, 
             _userData, _onEmblemsDestroyed, _onMovesAvailableChanged, _gameConfigService, _matchReport);
 
-        _itemController = new ItemController(_userData);
+        _itemController = new ItemController(_userData, _gameConfigService);
 
         _playerController = new PlayerController(_userData, _itemController, _gameConfigService,
             _combatController, _onPlayerAttacks, _onPlayerDied, _onPlayerRecievedDamage, _matchReport);
@@ -104,7 +105,7 @@ public class GameplayInitializer : MonoBehaviour
         Instantiate(_boardViewPrefab).Initialize(_boardController, _boardSize);
 
         Instantiate(_playerViewPrefab, transform).Initialize(_playerController, _onEmblemsDestroyed, 
-            _onEnemyAttacks);
+            _onEnemyAttacks, _onBuffsReset);
 
         Instantiate(_itemViewPrefab, transform).Initialize(_itemController);
 
@@ -112,8 +113,9 @@ public class GameplayInitializer : MonoBehaviour
             _onMovesAvailableChanged);
 
         Instantiate(_menuPausePrefab, transform);
+
         MatchView matchView = Instantiate(_matchViewPrefab, transform);
-        matchView.Initialize(_matchController, _onPlayerDied, _onPlayerWin, _onPlayerRecievedDamage, _matchReport);
+        matchView.Initialize(_matchController, _onPlayerDied, _onPlayerWin, _onPlayerRecievedDamage, _matchReport, _onBuffsReset);
         matchView.transform.SetAsLastSibling();
     }
 }

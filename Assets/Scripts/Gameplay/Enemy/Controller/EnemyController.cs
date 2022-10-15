@@ -40,7 +40,9 @@ public class EnemyController
 
     public void RecieveDamageFromPlayer(Stats heroStats, int hits, int colorAttack, int columns)
     {
-        int dmg = _combatController.RecieveAttack(heroStats.ATK, Model.CurrentEnemyStats.DEF, hits, colorAttack, Model.Enemy.Color) + columns * 100;
+        int dmg = _combatController.RecieveAttack(heroStats.ATK, Model.CurrentEnemyStats.DEF, hits,
+            colorAttack, Model.Enemy.Color) + columns * _gameConfig.columnBonus;
+
         _matchReport.damageDealt += dmg;
 
         Model.CurrentEnemyStats.HP = Model.CurrentEnemyStats.HP - dmg <= 0 ? 0 : Model.CurrentEnemyStats.HP - dmg;
@@ -68,7 +70,7 @@ public class EnemyController
         List<Enemy> allEnemies = _gameConfig.EnemyModel;
         Model.Enemy = GetEnemy(enemyId, allEnemies);
 
-        Model.CurrentEnemyStats = new Stats(Model.Enemy.Stats.ATK, Model.Enemy.Stats.DEF, 
+        Model.CurrentEnemyStats = new Stats(Model.Enemy.Stats.ATK, Model.Enemy.Stats.DEF,
             Model.Enemy.Stats.HP, Model.Enemy.Stats.ManaPerHit, Model.Enemy.Stats.Progression);
     }
 
