@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -71,10 +72,11 @@ public class ServiceLoader : MonoBehaviour
         await analyticsService.Initialize();
         if (_cancellationTaskSource.IsCancellationRequested) return;
 
-        //await iapService.Initialize(new Dictionary<string, string>
-        //{
-        //    ["test1"] = "es.fony.match3.test1"
-        //});
+        await iapService.Initialize(new Dictionary<string, string>
+        {
+            ["100gems"] = "com.fonangames.timelessheroes.100gems",
+            ["500gems"] = "com.fonangames.timelessheroes.500gems"
+        });
 
         await adsService.Initialize(Application.isEditor);
         if (_cancellationTaskSource.IsCancellationRequested) return;

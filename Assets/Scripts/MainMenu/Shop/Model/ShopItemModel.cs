@@ -8,5 +8,6 @@ namespace Shop.Model
         public string Image;
         public ResourceItem Cost;
         public ResourceItem Reward;
+        public string IAPId;
     }
 }

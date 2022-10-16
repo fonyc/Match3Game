@@ -8,16 +8,18 @@ namespace Shop.Controller
     {
         public ShopModel Model { get; private set; }
 
-        public UserData UserData { get; private set; }
+        public UserData _userData { get; private set; }
 
         private AnalyticsGameService _analytics;
         private GameConfigService _gameConfig;
+        private IIAPGameService _iapService;
 
-        public ShopController(UserData userData, AnalyticsGameService analytics, GameConfigService gameConfig)
+        public ShopController(UserData userData, AnalyticsGameService analytics, GameConfigService gameConfig, IIAPGameService iapService)
         {
+            _iapService = iapService;
             _gameConfig = gameConfig;
             _analytics = analytics;
-            UserData = userData;
+            _userData = userData;
         }
 
         public void Initialize()
@@ -25,43 +27,56 @@ namespace Shop.Controller
             Load();
         }
 
+        public async void PurchaseIAPGems(ShopItemModel item)
+        {
+            if (await _iapService.StartPurchase(item.IAPId))
+            {
+                _userData.AddResource(item.Reward);
+                _userData.Save();
+            }
+            else
+            {
+                Debug.LogError("Purchase failed");
+            }
+        }
+
         public void PurchaseItem(ShopItemModel model)
         {
-            if (UserData.GetResourceAmount(model.Cost.Name) < model.Cost.Amount) return;
+            if (_userData.GetResourceAmount(model.Cost.Name) < model.Cost.Amount) return;
 
-            UserData.RemoveResource(model.Cost);
-            UserData.AddResource(model.Reward);
-            UserData.Save();
+            _userData.RemoveResource(model.Cost);
+            _userData.AddResource(model.Reward);
+            _userData.Save();
 
             _analytics.SendEvent("purchasedItem", new Dictionary<string, object> { ["itemId"] = model.Id });
         }
 
         public void PurchaseHero(ShopItemModel model)
         {
-            if (UserData.GetResourceAmount(model.Cost.Name) < model.Cost.Amount) return;
+            if (_userData.GetResourceAmount(model.Cost.Name) < model.Cost.Amount) return;
 
-            UserData.RemoveResource(model.Cost);
-            UserData.AddHero(model.Reward);
-            UserData.Save();
+            _userData.RemoveResource(model.Cost);
+            _userData.AddHero(model.Reward);
+            _userData.Save();
 
             _analytics.SendEvent("purchasedItem", new Dictionary<string, object> { ["itemId"] = model.Id });
         }
 
         public void PurchaseBattleItem(ShopItemModel model)
         {
-            if (UserData.GetResourceAmount(model.Cost.Name) < model.Cost.Amount) return;
-            UserData.RemoveResource(model.Cost);
-            UserData.AddBattleItem(model.Reward);
-            UserData.Save();
+            if (_userData.GetResourceAmount(model.Cost.Name) < model.Cost.Amount) return;
+            _userData.RemoveResource(model.Cost);
+            _userData.AddBattleItem(model.Reward);
+            _userData.Save();
 
             _analytics.SendEvent("purchasedItem", new Dictionary<string, object> { ["itemId"] = model.Id });
         }
 
         private void Load()
         {
-            //Model = JsonUtility.FromJson<ShopModel>(Resources.Load<TextAsset>("ShopModel").text);
             Model = new ShopModel();
             Model.Items = _gameConfig.ShopOffers;
+            Model.IAPs = _gameConfig.IAPOffers;
         }
     }
 }

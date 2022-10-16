@@ -34,6 +34,7 @@ public class MainMenuInitializer : MonoBehaviour
     //SERVICES
     private AnalyticsGameService _analytics = null;
     private GameConfigService _gameConfigService = null;
+    private IIAPGameService _iapService = null;
 
     #region INJECTIONS
     private UserData _userData = null;
@@ -47,10 +48,11 @@ public class MainMenuInitializer : MonoBehaviour
     {
         _analytics = ServiceLocator.GetService<AnalyticsGameService>();
         _gameConfigService = ServiceLocator.GetService<GameConfigService>();
+        _iapService = ServiceLocator.GetService<IIAPGameService>();
 
         SceneLoader sceneLoader = Instantiate(_sceneLoaderPrefab);
         _userData = new UserData();
-        _shopController = new ShopController(_userData, _analytics, _gameConfigService);
+        _shopController = new ShopController(_userData, _analytics, _gameConfigService, _iapService);
         _heroesController = new HeroesController(_userData, _gameConfigService);
         _teamController = new TeamController(_userData, _gameConfigService);
         _levelController = new LevelsController(_userData, sceneLoader, _gameConfigService);
@@ -87,7 +89,7 @@ public class MainMenuInitializer : MonoBehaviour
 
         //SHOP TAB
         ShopView shop = Instantiate(_shopViewPrefab, transform); 
-        shop.Initialize(_shopController, _userData);
+        shop.Initialize(_shopController, _userData, _iapService);
         bottomBar.AddTab(shop.gameObject);
 
         //TEAM TAB

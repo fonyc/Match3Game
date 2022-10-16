@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class GameConfigService : IService
 {
     public List<ShopItemModel> ShopOffers { get; private set; }
+    public List<ShopItemModel> IAPOffers { get; private set; }
     public List<HeroItemModel> HeroModel { get; private set; }
     public List<Enemy> EnemyModel { get; private set; }
     public List<LevelModelItem> LevelsModel { get; private set; }
@@ -17,6 +18,7 @@ public class GameConfigService : IService
     public void Initialize(RemoteConfigGameService dataProvider)
     {
         ShopOffers = dataProvider.Get("ShopModel", new List<ShopItemModel>());
+        IAPOffers = dataProvider.Get("IAPShopModel", new List<ShopItemModel>());
         HeroModel = dataProvider.Get("HeroModel", new List<HeroItemModel>());
         LevelsModel = dataProvider.Get("LevelsModel", new List<LevelModelItem>());
         EnemyModel = dataProvider.Get("EnemyModel", new List<Enemy>());

@@ -75,5 +75,4 @@ namespace Shop.View
             _onClickedEvent?.Invoke(_model);
         }
     }
-
 }
