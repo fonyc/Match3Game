@@ -1,7 +1,5 @@
 using Shop.View;
 using UnityEngine;
-using DG.Tweening;
-using Board.View;
 using System.Collections.Generic;
 
 public class BottomBarController : MonoBehaviour
@@ -13,6 +11,7 @@ public class BottomBarController : MonoBehaviour
     public void AddTab(GameObject tab)
     {
         tabs.Add(tab);
+        tab.SetActive(false);
     }
 
     private GameObject GetTabById(string tabName)

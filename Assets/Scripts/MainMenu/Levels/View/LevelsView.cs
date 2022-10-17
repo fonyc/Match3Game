@@ -12,6 +12,7 @@ public class LevelsView : MonoBehaviour, IMainMenuAnimation
 
     LevelsController _levelsController = null;
 
+    #region MAIN MENU ANIMATIONS
     public string Id { get => "Levels"; set { } }
 
     public void AppearAnimation(RectTransform rect, float delay)
@@ -35,8 +36,9 @@ public class LevelsView : MonoBehaviour, IMainMenuAnimation
     {
         gameObject.SetActive(false);
     }
+    #endregion
 
-    public void Initialize(LevelsController levelsController, UserData userData)
+    public void Initialize(LevelsController levelsController, GameProgressionService gameProgression)
     {
         _levelsController = levelsController;
 
@@ -50,7 +52,7 @@ public class LevelsView : MonoBehaviour, IMainMenuAnimation
         foreach (LevelModelItem levelModelItem in _levelsController.LevelModel.Levels)
         {
             LevelItemView item = Instantiate(_levelItemPrefab, _itemsParent);
-            item.SetData(levelModelItem, userData, OnLevelSelected);
+            item.SetData(levelModelItem, gameProgression, OnLevelSelected);
             item.Initialize();
         }
     }

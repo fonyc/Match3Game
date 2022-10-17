@@ -24,12 +24,12 @@ public class TeamBattleItemView : MonoBehaviour
     BattleItemModel _battleItemModel;
 
     private event Action<string> _onClickedEvent;
-    private UserData _userData;
-    private int qty => _userData.GetBattleItemAmount(_battleItemModel.Id);
+    private GameProgressionService _gameProgression;
+    private int qty => _gameProgression.GetBattleItemAmount(_battleItemModel.Id);
 
-    public void SetData(BattleItemModel itemModel, UserData userData, Action<string> onClickedEvent)
+    public void SetData(BattleItemModel itemModel, GameProgressionService gameProgression, Action<string> onClickedEvent)
     {
-        _userData = userData;
+        _gameProgression = gameProgression;
         _battleItemModel = itemModel;
         _onClickedEvent = onClickedEvent;
         _itemImage.sprite = spriteItems.Find(sprite => sprite.name == _battleItemModel.AvatarImage);

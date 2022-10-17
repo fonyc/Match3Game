@@ -6,29 +6,39 @@ public class SkillController
 {
     public event Action<string> OnSkillActivated = delegate (string input) { };
 
-    private UserData _userData;
+    private GameProgressionService _gameProgressionService;
 
     private SkillPlayerModel _skillPlayerModel;
     private List<Skill> _skillBehaviours;
     public Skill SkillSelected;
     private GameConfigService _gameConfigService;
 
-    public SkillController(UserData userData, List<Skill> skillList, GameConfigService gameConfigService)
+    public event Action<int, int> OnManaChanged = delegate (int mana, int maxMana) { };
+
+    public SkillController(GameProgressionService GameProgressionService, List<Skill> skillList, GameConfigService gameConfigService)
     {
         _gameConfigService = gameConfigService;
         _skillBehaviours = skillList;
-        _userData = userData;
+        _gameProgressionService = GameProgressionService;
         _skillPlayerModel = new SkillPlayerModel();
     }
 
-    public void AddMana(int hits)
+    public void AddMana(int hits, int manaPerHit)
     {
+        int mana = hits * manaPerHit;
+        int maxMana = _skillPlayerModel.Skill.Mana;
+        int currentMana = _skillPlayerModel.playerCurrentMana;
+        if (currentMana == maxMana) return;
 
+        _skillPlayerModel.playerCurrentMana = currentMana + mana >= maxMana ? maxMana : currentMana + mana;
+        OnManaChanged.Invoke(_skillPlayerModel.playerCurrentMana, _skillPlayerModel.Skill.Mana);
     }
 
     public void PerformSkill()
     {
-        //if (_skillPlayerModel.playerCurrentMana < _skillPlayerModel.Skill.Mana) return;
+        if (_skillPlayerModel.playerCurrentMana < _skillPlayerModel.Skill.Mana) return;
+        _skillPlayerModel.playerCurrentMana = 0;
+        OnManaChanged(_skillPlayerModel.playerCurrentMana, _skillPlayerModel.Skill.Mana);
         OnSkillActivated.Invoke("SkillInput");
     }
 
@@ -61,7 +71,7 @@ public class SkillController
 
         List<HeroItemModel> allHeroes = _gameConfigService.HeroModel;
 
-        HeroItemModel heroSelected = GetHeroModelFromHeroName(_userData.GetSelectedHero(), allHeroes);
+        HeroItemModel heroSelected = GetHeroModelFromHeroName(_gameProgressionService.GetSelectedHero(), allHeroes);
 
         _skillPlayerModel.Skill = GetSkill(heroSelected.Skill, allSkills);
         _skillPlayerModel.playerCurrentMana = 0;

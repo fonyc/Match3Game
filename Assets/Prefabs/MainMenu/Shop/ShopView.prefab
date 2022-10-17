@@ -394,6 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shopItemPrefab: {fileID: 6171680694208093658, guid: 75347524c3a848d4ab96759111f08cfc, type: 3}
+  _shopIAPPrefab: {fileID: 1865136592595914863, guid: 2e7cb558d1460d44b8db0f3bffeaf690, type: 3}
   _itemsParent: {fileID: 1302801085247620533}
 --- !u!1 &1302801085016719909
 GameObject:

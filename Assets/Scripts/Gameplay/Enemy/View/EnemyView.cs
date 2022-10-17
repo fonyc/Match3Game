@@ -30,10 +30,10 @@ public class EnemyView : MonoBehaviour
 
     EnemyController _controller;
 
-    StatIntIntArgument_Event _onPlayerAttacked;
+    StatTripleIntArgument_Event _onPlayerAttacked;
     IntArgument_Event _onMovesAvailableChanged;
 
-    public void Initialize(EnemyController enemyController, StatIntIntArgument_Event OnPlayerAttacked, 
+    public void Initialize(EnemyController enemyController, StatTripleIntArgument_Event OnPlayerAttacked, 
         IntArgument_Event OnMovesAvailableChanged)
     {
         _controller = enemyController;
@@ -65,9 +65,9 @@ public class EnemyView : MonoBehaviour
         _dragonAndHPText.text = _dragonName.ToUpper() + " " + "(" + hp + " / " + max + ")";
     }
 
-    private void TranslateAttackToDamage(Stats heroStats, int hits, int heroColor)
+    private void TranslateAttackToDamage(Stats heroStats, int hits, int heroColor, int columns)
     {
-        _controller.RecieveDamageFromPlayer(heroStats, hits, heroColor);
+        _controller.RecieveDamageFromPlayer(heroStats, hits, heroColor, columns);
         _enemyAnimations.DamageAnimation(_damageColor);
     }
 

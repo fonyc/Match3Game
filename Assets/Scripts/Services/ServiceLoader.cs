@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -9,7 +11,7 @@ public class ServiceLoader : MonoBehaviour
     [SerializeField]
     private SceneLoader sceneLoader;
 
-    private TaskCompletionSource<bool> _cancellationTaskSource;
+    private CancellationTokenSource _cancellationTaskSource;
 
     void Awake()
     {
@@ -17,58 +19,72 @@ public class ServiceLoader : MonoBehaviour
         LoadServicesCancellable().ContinueWith(task =>
                 Debug.LogException(task.Exception),
             TaskContinuationOptions.OnlyOnFaulted);
+        DontDestroyOnLoad(gameObject);
     }
 
     private void OnDestroy()
     {
-        _cancellationTaskSource.SetResult(true);
+        _cancellationTaskSource.Cancel();
     }
 
     private async Task LoadServicesCancellable()
     {
-        await Task.WhenAny(LoadServices(), _cancellationTaskSource.Task);
+        await LoadServices();
     }
 
     private async Task LoadServices()
     {
-        string environmentId = IsDevBuild ? "development" : "production";
+        ServiceLocator.UnregisterAll();
 
+        string environmentId = IsDevBuild ? "development" : "production";
         ServicesInitializer servicesInitializer = new ServicesInitializer(environmentId);
 
         //Create services
         GameConfigService gameConfig = new GameConfigService();
-        //GameProgressionService gameProgression = new GameProgressionService();
+        GameProgressionService gameProgression = new GameProgressionService();
 
         RemoteConfigGameService remoteConfig = new RemoteConfigGameService();
         LoginGameService loginService = new LoginGameService();
         AnalyticsGameService analyticsService = new AnalyticsGameService();
         AdsGameService adsService = new AdsGameService("4928657", "Rewarded_Android");
-        //UnityIAPGameService iapService = new UnityIAPGameService();
-        //IGameProgressionProvider gameProgressionProvider = new GameProgressionProvider();
+        UnityIAPGameService iapService = new UnityIAPGameService();
+        IGameProgressionProvider gameProgressionProvider = new GameProgressionProvider();
 
         //Register services
         ServiceLocator.RegisterService(gameConfig);
-        //ServiceLocator.RegisterService(gameProgression);
+        ServiceLocator.RegisterService(gameProgression);
         ServiceLocator.RegisterService(remoteConfig);
         ServiceLocator.RegisterService(loginService);
         ServiceLocator.RegisterService(adsService);
         ServiceLocator.RegisterService(analyticsService);
-        //ServiceLocator.RegisterService<IIAPGameService>(iapService);
+        ServiceLocator.RegisterService<IIAPGameService>(iapService);
 
         //Initialize services
-        await servicesInitializer.Initialize();
+        await servicesInitializer.Initialize(_cancellationTaskSource);
+        if (_cancellationTaskSource.IsCancellationRequested) return;
+
         await loginService.Initialize();
+        if (_cancellationTaskSource.IsCancellationRequested) return;
+
         await remoteConfig.Initialize();
+        if (_cancellationTaskSource.IsCancellationRequested) return;
+
         await analyticsService.Initialize();
-        //await iapService.Initialize(new Dictionary<string, string>
-        //{
-        //    ["test1"] = "es.fony.match3.test1"
-        //});
-        await adsService.Initialize(Application.isEditor);
-        //await gameProgressionProvider.Initialize();
+        if (_cancellationTaskSource.IsCancellationRequested) return;
+
+        await iapService.Initialize(new Dictionary<string, string>
+        {
+            ["100gems"] = "com.fonangames.timelessheroes.100gems",
+            ["500gems"] = "com.fonangames.timelessheroes.500gems"
+        });
+
+        adsService.Initialize(Application.isEditor);
+        if (_cancellationTaskSource.IsCancellationRequested) return;
+
+        await gameProgressionProvider.Initialize();
 
         gameConfig.Initialize(remoteConfig);
-        //gameProgression.Initialize(gameConfig, gameProgressionProvider);
+        gameProgression.Initialize(gameConfig, gameProgressionProvider);
 
         sceneLoader.ChangeScene(1);
     }

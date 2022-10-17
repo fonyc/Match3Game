@@ -1,28 +1,30 @@
-﻿using Board.Controller;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : IDisposable
 {
-    private UserData _userData;
+    private GameProgressionService _gameProgression;
     private PlayerModel _playerModel;
     private ItemController _itemController;
     private CombatController _combatController;
+    private GameConfigService _gameConfigService;
 
     public event Action<int, int> OnHPChanged = delegate (int amount, int max) { };
     public event Action OnATKChanged = delegate () { };
     public event Action OnDEFChanged = delegate () { };
-    private StatIntIntArgument_Event _onPlayerAttackPerformed;
+    public event Action OnStatsCleaned = delegate () { };
+
+    private StatTripleIntArgument_Event _onPlayerAttackPerformed;
     private NoArgument_Event _onPlayerDied;
     private NoArgument_Event _onPlayerRecievedDamage;
-    private GameConfigService _gameConfigService;
+    private MatchReport _matchReport;
 
-    public PlayerController(UserData userData, ItemController itemController, GameConfigService gameConfigService,
-        CombatController combatController, StatIntIntArgument_Event OnPlayerAttackPerformed, NoArgument_Event OnPlayerDied,
-        NoArgument_Event OnPlayerRecievedDamage)
+    public PlayerController(GameProgressionService gameProgression, ItemController itemController, GameConfigService gameConfigService,
+        CombatController combatController, StatTripleIntArgument_Event OnPlayerAttackPerformed, NoArgument_Event OnPlayerDied,
+        NoArgument_Event OnPlayerRecievedDamage, MatchReport matchReport)
     {
+        _matchReport = matchReport;
         _gameConfigService = gameConfigService;
         _onPlayerRecievedDamage = OnPlayerRecievedDamage;
         _onPlayerDied = OnPlayerDied;
@@ -34,7 +36,7 @@ public class PlayerController : IDisposable
         _itemController._onATKItemConsumed += ChangeATK;
         _itemController._onDEFItemConsumed += ChangeDEF;
 
-        _userData = userData;
+        _gameProgression = gameProgression;
         _playerModel = new PlayerModel();
     }
 
@@ -59,14 +61,14 @@ public class PlayerController : IDisposable
         _playerModel.hero = GetHeroData(allHeroesModel);
 
         Stats stats = _playerModel.hero.Stats;
-        _playerModel.currentHeroStats = new Stats(stats.ATK, stats.DEF, stats.HP, stats.Progression);
+        _playerModel.currentHeroStats = new Stats(stats.ATK, stats.DEF, stats.HP, stats.ManaPerHit, stats.Progression);
     }
 
     private HeroItemModel GetHeroData(List<HeroItemModel> allHeroesModel)
     {
         foreach (HeroItemModel hero in allHeroesModel)
         {
-            if (hero.Id == _userData.GetSelectedHero()) return hero;
+            if (hero.Id == _gameProgression.GetSelectedHero()) return hero;
         }
         return null;
     }
@@ -74,7 +76,7 @@ public class PlayerController : IDisposable
     public void RecieveAttack(Stats enemyStats, int hits, int color)
     {
         int dmg = _combatController.RecieveAttack(enemyStats.ATK, _playerModel.currentHeroStats.DEF, 1, color, _playerModel.hero.Color);
-
+        _matchReport.damageRecieved = dmg;
         ChangeHP(-dmg);
 
         if (CheckPlayerDeath()) _onPlayerDied.TriggerEvents();
@@ -83,16 +85,24 @@ public class PlayerController : IDisposable
 
     #region EVENTS
 
-    public void AttackEnemy(int hits, int color)
+    public void CleanStats()
     {
-        _onPlayerAttackPerformed.TriggerEvents(_playerModel.hero.Stats, hits, color);
+        _playerModel.currentHeroStats.ATK = _playerModel.hero.Stats.ATK;
+        _playerModel.currentHeroStats.DEF = _playerModel.hero.Stats.DEF;
+        OnStatsCleaned?.Invoke();
+    }
+
+    public void AttackEnemy(int hits, int color, int columns)
+    {
+        _onPlayerAttackPerformed.TriggerEvents(_playerModel.hero.Stats, hits, color, columns);
     }
 
     public void ChangeHP(int amount)
     {
         int maxHP = _playerModel.hero.Stats.HP;
+        int currentHP = _playerModel.currentHeroStats.HP;
 
-        _playerModel.currentHeroStats.HP = Mathf.Clamp(_playerModel.currentHeroStats.HP + amount, 0, maxHP);
+        _playerModel.currentHeroStats.HP = currentHP + amount <= 0 ? 0 : currentHP + amount;
         OnHPChanged?.Invoke(_playerModel.currentHeroStats.HP, maxHP);
     }
 
@@ -107,6 +117,7 @@ public class PlayerController : IDisposable
         _playerModel.currentHeroStats.DEF += amount;
         OnDEFChanged.Invoke();
     }
+
     #endregion
 
     private bool CheckPlayerDeath()

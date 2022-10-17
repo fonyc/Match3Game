@@ -11,34 +11,31 @@ public class TeamController
 
     private List<string> itemsSelected = new();
 
-    private UserData _userData;
+    private GameProgressionService _gameProgression;
     private GameConfigService _gameConfig;
 
-    public TeamController(UserData userData, GameConfigService gameConfigService)
+    public TeamController(GameProgressionService userData, GameConfigService gameConfigService)
     {
         _gameConfig = gameConfigService;
-        _userData = userData;
+        _gameProgression = userData;
     }
 
     public void SelectHero(string heroName)
     {
-        _userData.SelectHero(heroName);
-        _userData.Save();
+        _gameProgression.SelectHero(heroName);
     }
 
     public void SelectItem(string itemName)
     {
-        List<string> selectedItems = _userData.GetSelectedItems();
+        List<string> selectedItems = _gameProgression.GetSelectedItems();
 
-        if (selectedItems.Contains(itemName)) _userData.DeselectItem(itemName);
-        else if (selectedItems.Count < 2) _userData.SelectItem(itemName);
+        if (selectedItems.Contains(itemName)) _gameProgression.DeselectItem(itemName);
+        else if (selectedItems.Count < 2) _gameProgression.SelectItem(itemName);
         else 
         {
-            _userData.DeselectItem(selectedItems.Last());
-            _userData.SelectItem(itemName);
+            _gameProgression.DeselectItem(selectedItems.Last());
+            _gameProgression.SelectItem(itemName);
         }
-
-        _userData.Save();
     }
 
     public void Initialize()

@@ -11,12 +11,12 @@ public class ResourcesView : MonoBehaviour
     [SerializeField]
     private TMP_Text _gemsText;
 
-    private UserData _userData;
+    private GameProgressionService _gameProgression;
 
-    public void Initialize(UserData userData)
+    public void Initialize(GameProgressionService userData)
     {
-        _userData = userData;
-        _userData.OnResourceModified += UpdateResourceView;
+        _gameProgression = userData;
+        _gameProgression.OnResourceModified += UpdateResourceView;
         UpdateViewData();
     }
 
@@ -31,10 +31,10 @@ public class ResourcesView : MonoBehaviour
         switch (resource)
         {
             case "Gold":
-                _goldText.text = _userData.GetResourceAmount("Gold").ToString();
+                _goldText.text = _gameProgression.GetResourceAmount("Gold").ToString();
                 break;
             case "Gems":
-                _gemsText.text = _userData.GetResourceAmount("Gems").ToString();
+                _gemsText.text = _gameProgression.GetResourceAmount("Gems").ToString();
                 break;
         }
     }

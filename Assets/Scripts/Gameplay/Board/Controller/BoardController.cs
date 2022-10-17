@@ -14,26 +14,28 @@ namespace Board.Controller
         private List<BoardInput> _inputs = new();
         private Skill _skillSelected;
         public BoardInput InputSelected;
-        private UserData _userData;
+        private GameProgressionService _gameProgression;
         private GameConfigService _gameConfigService;
+        private MatchReport _matchReport;
 
         public event Action<Vector2Int, Vector2Int> OnEmblemMoved = delegate (Vector2Int origin, Vector2Int destination) { };
         public event Action<Vector2Int> OnEmblemDestroyed = delegate (Vector2Int emblemDestroyed) { };
         public event Action<Vector2Int, EmblemItem> OnEmblemCreated = delegate (Vector2Int emblemPosition, EmblemItem item) { };
         public event Action<Vector2Int> OnColorChanged = delegate (Vector2Int emblemPosition) { };
 
-        private DoubleIntArgument_Event _onPlayerAttacks;
+        private TripleIntArgument_Event _onPlayerAttacks;
         public IntArgument_Event OnAvailableMovesChanged;
 
-        public BoardController(int width, int height, SkillController skillController, 
-            List<BoardInput> inputList, UserData userData, DoubleIntArgument_Event OnPlayerAttacks, 
-            IntArgument_Event OnAvailableMovesChanged, GameConfigService gameConfigService)
+        public BoardController(int width, int height, SkillController skillController,
+            List<BoardInput> inputList, GameProgressionService gameProgression, TripleIntArgument_Event OnPlayerAttacks,
+            IntArgument_Event OnAvailableMovesChanged, GameConfigService gameConfigService, MatchReport matchReport)
         {
+            _matchReport = matchReport;
             _gameConfigService = gameConfigService;
             this.OnAvailableMovesChanged = OnAvailableMovesChanged;
             _onPlayerAttacks = OnPlayerAttacks;
             _inputs = inputList;
-            _userData = userData;
+            _gameProgression = gameProgression;
             _skillController = skillController;
 
             Model = new BoardModel(width, height);
@@ -59,7 +61,7 @@ namespace Board.Controller
         {
             foreach (HeroItemModel hero in allHeroesModel)
             {
-                if (hero.Id == _userData.GetSelectedHero()) return hero;
+                if (hero.Id == _gameProgression.GetSelectedHero()) return hero;
             }
             return null;
         }
@@ -104,18 +106,14 @@ namespace Board.Controller
             if (touchedEmblem.IsEmpty()) return;
 
             List<EmblemModel> swapMatches = RecursiveSearch(touchedEmblem);
-            
-            if (swapMatches.Count > 1)
-            {
-                int colorAttack = GetEmblemColor(swapMatches[0].Position.x, swapMatches[0].Position.y);
-                _onPlayerAttacks.TriggerEvents(swapMatches.Count, colorAttack);
-                
-                DestroyAndCollapse(swapMatches);
-            }
+
+            if (swapMatches.Count > 1) DestroyAndCollapse(swapMatches);
         }
 
         public void DestroyAndCollapse(List<EmblemModel> comboMatches)
         {
+            int colorAttack = GetEmblemColor(comboMatches[0].Position.x, comboMatches[0].Position.y);
+            
             foreach (EmblemModel emblem in comboMatches)
             {
                 Model.GetEmblem(emblem.Position).Item = null;
@@ -123,19 +121,20 @@ namespace Board.Controller
                 OnEmblemDestroyed(emblem.Position);
             }
             VerticalCollapse();
+            _onPlayerAttacks.TriggerEvents(comboMatches.Count, colorAttack, _matchReport.GetDestroyedColumns(this));
+            _matchReport.AddMatchedEmblems(comboMatches.Count);
+            _matchReport.AddMaxCombo(comboMatches.Count);
             HorizontalCollapse();
-
-            List<EmblemModel> matchesLeft = CalculateEmblemsWithMatch();
-
-            if (matchesLeft.Count == 0)
-            {
-                RefillBoard();
-            }
-
-            OnAvailableMovesChanged.TriggerEvents(matchesLeft.Count);
         }
 
-        private List<EmblemModel> CalculateEmblemsWithMatch()
+        public void UpdateMoves()
+        {
+            int moves = CalculateEmblemsWithMatch().Count;
+            OnAvailableMovesChanged.TriggerEvents(moves);
+            if (moves == 0) RefillBoard();
+        }
+
+        public List<EmblemModel> CalculateEmblemsWithMatch()
         {
             List<EmblemModel> moves = new();
 
@@ -205,12 +204,10 @@ namespace Board.Controller
                 {
                     for (int y = 0; y < Model.Height; y++)
                     {
-                        //Switch emblems in model 
                         EmblemItem aux = Model.GetEmblem(x - nullCounter, y).Item;
                         Model.GetEmblem(x - nullCounter, y).Item = Model.GetEmblem(x, y).Item;
                         Model.GetEmblem(x, y).Item = aux;
 
-                        //Send view to new position
                         OnEmblemMoved(Model.GetEmblem(x, y).Position, Model.GetEmblem(x - nullCounter, y).Position);
                     }
                 }
@@ -265,9 +262,12 @@ namespace Board.Controller
 
         private bool BoardIsSeparated()
         {
-            for (int x = 0; x < Model.Width; x++)
+            for (int x = 0; x < Model.Width - 1; x++)
             {
-                if (Model.GetEmblem(x, 0).IsEmpty()) return true;
+                if (Model.GetEmblem(x, 0).IsEmpty())
+                {
+                    return true;
+                }
             }
             return false;
         }
@@ -333,7 +333,7 @@ namespace Board.Controller
                 {
                     EmblemItem aux = Model.GetEmblem(emblems[x].Position).Item;
                     randomEmblems.RemoveAt(x);
-                    int randomInt = Random.Range(0, randomEmblems.Count -1);
+                    int randomInt = Random.Range(0, randomEmblems.Count - 1);
 
                     Model.GetEmblem(emblems[x].Position).Item = Model.GetEmblem(randomEmblems[randomInt].Position).Item;
                     Model.GetEmblem(emblems[randomInt].Position).Item = aux;
@@ -343,7 +343,7 @@ namespace Board.Controller
 
                     emblems.RemoveAt(x);
                     randomEmblems.RemoveAt(randomInt);
-                    x ++;
+                    x++;
                 }
             }
         }

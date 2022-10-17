@@ -1,8 +1,6 @@
 using Shop.Controller;
 using Shop.View;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Analytics;
 
 public class MainMenuInitializer : MonoBehaviour
 {
@@ -28,14 +26,18 @@ public class MainMenuInitializer : MonoBehaviour
 
     [SerializeField]
     private SceneLoader _sceneLoaderPrefab = null;
+
+    [SerializeField] 
+    private TermsAndConditions _termsPrefab = null; 
     #endregion
 
     //SERVICES
     private AnalyticsGameService _analytics = null;
     private GameConfigService _gameConfigService = null;
+    private IIAPGameService _iapService = null;
 
     #region INJECTIONS
-    private UserData _userData = null;
+    private GameProgressionService _gameProgressionService = null;
     private ShopController _shopController = null;
     private HeroesController _heroesController = null;
     private TeamController _teamController = null;
@@ -44,26 +46,31 @@ public class MainMenuInitializer : MonoBehaviour
 
     private void Awake()
     {
+
         _analytics = ServiceLocator.GetService<AnalyticsGameService>();
         _gameConfigService = ServiceLocator.GetService<GameConfigService>();
+        _iapService = ServiceLocator.GetService<IIAPGameService>();
+        _gameProgressionService = ServiceLocator.GetService<GameProgressionService>();
 
         SceneLoader sceneLoader = Instantiate(_sceneLoaderPrefab);
-        _userData = new UserData();
-        _shopController = new ShopController(_userData, _analytics, _gameConfigService);
-        _heroesController = new HeroesController(_userData, _gameConfigService);
-        _teamController = new TeamController(_userData, _gameConfigService);
-        _levelController = new LevelsController(_userData, sceneLoader, _gameConfigService);
+        _shopController = new ShopController(_gameProgressionService, _analytics, _gameConfigService, _iapService);
+        _heroesController = new HeroesController(_gameConfigService);
+        _teamController = new TeamController(_gameProgressionService, _gameConfigService);
+        _levelController = new LevelsController(_gameProgressionService, sceneLoader, _gameConfigService);
     }
 
     private void Start()
     {
+        //Terms and Conditions
+        TermsAndConditions terms = Instantiate(_termsPrefab, transform);
+        terms.Initialize(_gameConfigService);
+
         //Create bottom main menu
         BottomBarController bottomBar = Instantiate(_bottomBarPrefab, transform);
 
-        _userData.Load();
-
         //Initialize resources top bar
-        Instantiate(_topBarResourcesPrefab, transform).Initialize(_userData);
+        ResourcesView resourcesView = Instantiate(_topBarResourcesPrefab, transform);
+        resourcesView.Initialize(_gameProgressionService);
 
         #region INIT CONTROLLERS
         _shopController.Initialize();
@@ -76,28 +83,27 @@ public class MainMenuInitializer : MonoBehaviour
 
         //HEROE COLLECTION TAB
         HeroesView heroesView = Instantiate(_heroesViewPrefab, transform);
-        heroesView.Initialize(_heroesController, _userData);
+        heroesView.Initialize(_heroesController, _gameProgressionService);
         bottomBar.AddTab(heroesView.gameObject);
-        heroesView.gameObject.SetActive(false);
 
         //SHOP TAB
         ShopView shop = Instantiate(_shopViewPrefab, transform); 
-        shop.Initialize(_shopController, _userData);
+        shop.Initialize(_shopController, _gameProgressionService, _iapService);
         bottomBar.AddTab(shop.gameObject);
-        shop.gameObject.SetActive(false);
 
         //TEAM TAB
         TeamView teamView = Instantiate(_teamViewPrefab, transform);
-        teamView.Initialize(_teamController,_userData);
+        teamView.Initialize(_teamController,_gameProgressionService);
         bottomBar.AddTab(teamView.gameObject);
-        teamView.gameObject.SetActive(false);
 
         //LEVELS TAB
         LevelsView levelsView = Instantiate(_levelsViewPrefab, transform);
-        levelsView.Initialize(_levelController, _userData);
+        levelsView.Initialize(_levelController, _gameProgressionService);
         bottomBar.AddTab(levelsView.gameObject);
-        levelsView.gameObject.SetActive(false);
 
+        bottomBar.transform.SetAsLastSibling();
+        resourcesView.transform.SetAsLastSibling();
+        terms.transform.SetAsLastSibling();
         #endregion
     }
 }

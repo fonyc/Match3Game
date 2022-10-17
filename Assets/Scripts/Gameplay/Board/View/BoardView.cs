@@ -115,6 +115,7 @@ namespace Board.View
                 yield return _animations[0].PlayAnimation(this);
                 _animations.RemoveAt(0);
             }
+            _controller.UpdateMoves();
         }
 
         #endregion

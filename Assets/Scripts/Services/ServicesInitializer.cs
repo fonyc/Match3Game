@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
@@ -11,7 +12,7 @@ public class ServicesInitializer
         _environmentName = environmentName;
     }
 
-    public async Task Initialize()
+    public async Task Initialize(CancellationTokenSource cancellationToken)
     {
         InitializationOptions options = new InitializationOptions();
         if (!string.IsNullOrEmpty(_environmentName))
@@ -19,6 +20,13 @@ public class ServicesInitializer
             options.SetEnvironmentName(_environmentName);
         }
 
-        await UnityServices.InitializeAsync(options);
+        var task = UnityServices.InitializeAsync(options);
+
+        while(task.Status != TaskStatus.Faulted && task.Status != TaskStatus.RanToCompletion)
+        {
+            await Task.Delay(200, cancellationToken.Token);
+        }
+        UnityEngine.Debug.Log(task.Status);
+        //if(task.Status == TaskStatus.Faulted) 
     }
 }

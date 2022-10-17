@@ -12,13 +12,16 @@ namespace Shop.View
         private ShopItemView _shopItemPrefab = null;
 
         [SerializeField]
+        private ShopIAPView _shopIAPPrefab = null;
+
+        [SerializeField]
         private Transform _itemsParent = null;
 
         private ShopController _controller;
 
         public string Id { get => "Shop"; set { } }
 
-        public void Initialize(ShopController controller, UserData userData)
+        public void Initialize(ShopController controller, GameProgressionService gameProgression, IIAPGameService iapService)
         {
             _controller = controller;
 
@@ -31,9 +34,38 @@ namespace Shop.View
 
             foreach (ShopItemModel shopItemModel in _controller.Model.Items)
             {
-                Instantiate(_shopItemPrefab, _itemsParent).SetData(shopItemModel, userData, OnPurchaseItem);
+                Instantiate(_shopItemPrefab, _itemsParent).SetData(shopItemModel, gameProgression, OnPurchaseItem);
+            }
+
+            foreach (ShopItemModel shopItemModel in _controller.Model.IAPs)
+            {
+                Instantiate(_shopIAPPrefab, _itemsParent).SetData(shopItemModel, gameProgression, iapService, OnPurchaseItem);
             }
         }
+
+        private void OnPurchaseItem(ShopItemModel model)
+        {
+            if (model.Cost.Type == "Money")
+            {
+                _controller.PurchaseIAPGems(model);
+                return;
+            }
+
+            switch (model.Reward.Type)
+            {
+                case "Hero":
+                    _controller.PurchaseHero(model);
+                    break;
+                case "BattleItem":
+                    _controller.PurchaseBattleItem(model);
+                    break;
+                default:
+                    _controller.PurchaseItem(model);
+                    break;
+            }
+        }
+
+        #region MAIN MENU ANIMATIONS
 
         public void AppearAnimation(RectTransform rect, float delay)
         {
@@ -57,20 +89,6 @@ namespace Shop.View
             gameObject.SetActive(false);
         }
 
-        private void OnPurchaseItem(ShopItemModel model)
-        {
-            switch (model.Reward.Type)
-            {
-                case "Hero":
-                _controller.PurchaseHero(model);
-                    break;
-                case "BattleItem":
-                    _controller.PurchaseBattleItem(model);
-                    break;
-                default:
-                _controller.PurchaseItem(model);
-                    break;
-            }
-        }
+        #endregion
     }
 }

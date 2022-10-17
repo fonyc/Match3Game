@@ -120,3 +120,4 @@ MonoBehaviour:
   _levelsViewPrefab: {fileID: 1898875682116912377, guid: 5d69694a435299c42bde4c25fc7442ce, type: 3}
   _bottomBarPrefab: {fileID: 3662893602105721655, guid: 549920a0746be5d4ab51f65e85dfedbd, type: 3}
   _sceneLoaderPrefab: {fileID: 5535685385067764930, guid: 60acf9d558e196b44bfde1419899cce2, type: 3}
+  _termsPrefab: {fileID: 7519163732484489389, guid: c2b90918e9a5fe247981a6ea85be3c3a, type: 3}

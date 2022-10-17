@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public static class ServiceLocator
 {
@@ -68,7 +69,6 @@ public static class ServiceLocator
                 UnityEngine.Debug.LogException(e);
             }
         }
-
         _services.Clear();
     }
 }

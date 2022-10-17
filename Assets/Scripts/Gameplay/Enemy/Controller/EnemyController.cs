@@ -1,27 +1,30 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class EnemyController
 {
     public EnemyModel Model;
     //public Stats CurrentEnemyStats;
 
-    private UserData _userData;
+    private GameProgressionService _gameProgression;
     private CombatController _combatController;
 
     NoArgument_Event _onEnemyDied;
     StatIntIntArgument_Event _onEnemyAttacks;
     public event Action<int, int> OnHPChanged = delegate (int hp, int max) { };
     private GameConfigService _gameConfig;
+    private MatchReport _matchReport;
 
-    public EnemyController(UserData userData, CombatController combatController, StatIntIntArgument_Event OnEnemyAttacks,
-        NoArgument_Event OnEnemyDied, GameConfigService gameConfigService)
+    public EnemyController(GameProgressionService gameProgression, CombatController combatController, StatIntIntArgument_Event OnEnemyAttacks,
+        NoArgument_Event OnEnemyDied, GameConfigService gameConfigService, MatchReport matchReport)
     {
+        _matchReport = matchReport;
         _gameConfig = gameConfigService;
         _onEnemyDied = OnEnemyDied;
         Model = new EnemyModel();
         _combatController = combatController;
-        _userData = userData;
+        _gameProgression = gameProgression;
         _onEnemyAttacks = OnEnemyAttacks;
     }
 
@@ -35,9 +38,12 @@ public class EnemyController
         Load();
     }
 
-    public void RecieveDamageFromPlayer(Stats heroStats, int hits, int colorAttack)
+    public void RecieveDamageFromPlayer(Stats heroStats, int hits, int colorAttack, int columns)
     {
-        int dmg = _combatController.RecieveAttack(heroStats.ATK, Model.CurrentEnemyStats.DEF, hits, colorAttack, Model.Enemy.Color);
+        int dmg = _combatController.RecieveAttack(heroStats.ATK, Model.CurrentEnemyStats.DEF, hits,
+            colorAttack, Model.Enemy.Color) + columns * _gameConfig.columnBonus;
+
+        _matchReport.damageDealt += dmg;
 
         Model.CurrentEnemyStats.HP = Model.CurrentEnemyStats.HP - dmg <= 0 ? 0 : Model.CurrentEnemyStats.HP - dmg;
 
@@ -58,14 +64,14 @@ public class EnemyController
     {
         Model = new EnemyModel();
 
-        int currentLevel = _userData.GetCurrentSelectedLevel();
+        int currentLevel = _gameProgression.GetCurrentSelectedLevel();
         List<LevelModelItem> allLevels = _gameConfig.LevelsModel;
         string enemyId = GetEnemyIdFromCurrentLevel(currentLevel, allLevels);
-
         List<Enemy> allEnemies = _gameConfig.EnemyModel;
         Model.Enemy = GetEnemy(enemyId, allEnemies);
 
-        Model.CurrentEnemyStats = new Stats(Model.Enemy.Stats.ATK, Model.Enemy.Stats.DEF, Model.Enemy.Stats.HP, Model.Enemy.Stats.Progression);
+        Model.CurrentEnemyStats = new Stats(Model.Enemy.Stats.ATK, Model.Enemy.Stats.DEF,
+            Model.Enemy.Stats.HP, Model.Enemy.Stats.ManaPerHit, Model.Enemy.Stats.Progression);
     }
 
     private Enemy GetEnemy(string Id, List<Enemy> enemyModel)

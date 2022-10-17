@@ -12,5 +12,6 @@ public class DecolorateSkill : Skill
     public override void PerformSkill(BoardController controller, Vector2Int position, int color)
     {
         controller.ChangeEmblemColorAtPosition(position, color);
+        controller.UpdateMoves();
     }
 }

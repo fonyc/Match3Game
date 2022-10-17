@@ -27,28 +27,33 @@ public class PlayerView : MonoBehaviour
     private PlayerAnimations _playerAnimations;
 
     private PlayerController _controller;
-    private DoubleIntArgument_Event _onEmblemsDestroyed;
+    private TripleIntArgument_Event _onEmblemsDestroyed;
     private StatIntIntArgument_Event _onEnemyAttacks;
+    private NoArgument_Event _onBuffsReset;
 
-    public void Initialize(PlayerController controller, DoubleIntArgument_Event OnEmblemsDestroyed, 
-        StatIntIntArgument_Event OnEnemyAttacks)
+    public void Initialize(PlayerController controller, TripleIntArgument_Event OnEmblemsDestroyed, 
+        StatIntIntArgument_Event OnEnemyAttacks, NoArgument_Event OnBuffsReset)
     {
+        _onBuffsReset = OnBuffsReset;
         _onEnemyAttacks = OnEnemyAttacks;
         _onEmblemsDestroyed = OnEmblemsDestroyed;
         _controller = controller;
 
+        _onBuffsReset.AddListener(ResetStats);
         _onEnemyAttacks.AddListener(RecieveAttack);
         _onEmblemsDestroyed.AddListener(PrepareAttack);
         _controller.OnATKChanged += AddATKBuff;
         _controller.OnDEFChanged += AddDEFBuff;
         _controller.OnHPChanged += ChangeHP;
+        _controller.OnStatsCleaned += ResetBuffVisuals;
+
         _playerAnimations = new PlayerAnimations();
         SetInitialStats();
     }
 
-    private void PrepareAttack(int hits, int colorAttack)
+    private void PrepareAttack(int hits, int colorAttack, int columns)
     {
-        _controller.AttackEnemy(hits, colorAttack);
+        _controller.AttackEnemy(hits, colorAttack, columns);
     }
 
     private void RecieveAttack(Stats enemyStats, int hits, int color)
@@ -78,6 +83,17 @@ public class PlayerView : MonoBehaviour
     private void AddDEFBuff()
     {
         DEFbuffPrefab.SetActive(true);
+    }
+
+    private void ResetStats()
+    {
+        _controller.CleanStats();
+    }
+
+    private void ResetBuffVisuals()
+    {
+        ATKbuffPrefab.SetActive(false);
+        DEFbuffPrefab.SetActive(false);
     }
 
     private float SetFillAmount(int hp, int max)
