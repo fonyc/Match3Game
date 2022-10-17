@@ -36,19 +36,19 @@ public class HeroItemView : MonoBehaviour
     #endregion
 
     private HeroItemModel _model;
-    private UserData _userData;
+    private GameProgressionService _gameProgression;
 
-    public void SetData(HeroItemModel model, UserData userData)
+    public void SetData(HeroItemModel model, GameProgressionService gameProgression)
     {
         _model = model;
-        _userData = userData;
-        _userData.OnHeroModified += HeroUpdated;
+        _gameProgression = gameProgression;
+        _gameProgression.OnHeroModified += HeroUpdated;
         UpdateVisuals();
     }
 
     private void OnDestroy()
     {
-        if (_userData != null) _userData.OnHeroModified -= HeroUpdated;
+        if (_gameProgression != null) _gameProgression.OnHeroModified -= HeroUpdated;
     }
 
     private void HeroUpdated(string resource)

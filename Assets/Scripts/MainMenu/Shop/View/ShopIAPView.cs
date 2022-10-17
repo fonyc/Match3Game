@@ -29,16 +29,17 @@ public class ShopIAPView : MonoBehaviour
     #endregion
 
     private ShopItemModel _model;
-    private UserData _userData;
+    private GameProgressionService _gameProgression;
     private IIAPGameService _iapService;
     private Action<ShopItemModel> _onClickedEvent;
 
-    public void SetData(ShopItemModel model, UserData userData, IIAPGameService iapService, Action<ShopItemModel> OnPurchaseItem)
+    public void SetData(ShopItemModel model, GameProgressionService gameProgression, IIAPGameService iapService, 
+        Action<ShopItemModel> OnPurchaseItem)
     {
         _onClickedEvent = OnPurchaseItem;
         _iapService = iapService;
         _model = model;
-        _userData = userData;
+        _gameProgression = gameProgression;
         UpdateVisuals();
     }
 

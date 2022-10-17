@@ -14,7 +14,7 @@ namespace Board.Controller
         private List<BoardInput> _inputs = new();
         private Skill _skillSelected;
         public BoardInput InputSelected;
-        private UserData _userData;
+        private GameProgressionService _gameProgression;
         private GameConfigService _gameConfigService;
         private MatchReport _matchReport;
 
@@ -27,7 +27,7 @@ namespace Board.Controller
         public IntArgument_Event OnAvailableMovesChanged;
 
         public BoardController(int width, int height, SkillController skillController,
-            List<BoardInput> inputList, UserData userData, TripleIntArgument_Event OnPlayerAttacks,
+            List<BoardInput> inputList, GameProgressionService gameProgression, TripleIntArgument_Event OnPlayerAttacks,
             IntArgument_Event OnAvailableMovesChanged, GameConfigService gameConfigService, MatchReport matchReport)
         {
             _matchReport = matchReport;
@@ -35,7 +35,7 @@ namespace Board.Controller
             this.OnAvailableMovesChanged = OnAvailableMovesChanged;
             _onPlayerAttacks = OnPlayerAttacks;
             _inputs = inputList;
-            _userData = userData;
+            _gameProgression = gameProgression;
             _skillController = skillController;
 
             Model = new BoardModel(width, height);
@@ -61,7 +61,7 @@ namespace Board.Controller
         {
             foreach (HeroItemModel hero in allHeroesModel)
             {
-                if (hero.Id == _userData.GetSelectedHero()) return hero;
+                if (hero.Id == _gameProgression.GetSelectedHero()) return hero;
             }
             return null;
         }

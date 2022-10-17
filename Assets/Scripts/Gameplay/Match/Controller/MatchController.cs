@@ -8,19 +8,19 @@ public class MatchController
 
     public event Action OnAddWatched = delegate () { };
 
-    private UserData _userData;
+    private GameProgressionService _gameProgression;
     private GameConfigService _gameConfigService;
     private SceneLoader _sceneLoader;
     private AdsGameService _adsGameService;
     private AnalyticsGameService _analytics;
 
-    public MatchController(GameConfigService gameConfigService, UserData userData, SceneLoader sceneLoader,
+    public MatchController(GameConfigService gameConfigService, GameProgressionService gameProgression, SceneLoader sceneLoader,
         AdsGameService AdsGameService, AnalyticsGameService Analytics)
     {
         _analytics = Analytics;
         _adsGameService = AdsGameService;
         _sceneLoader = sceneLoader;
-        _userData = userData;
+        _gameProgression = gameProgression;
         _gameConfigService = gameConfigService;
     }
 
@@ -37,19 +37,19 @@ public class MatchController
         //Resource Rewards
         foreach (ResourceItem reward in levelModel.Rewards)
         {
-            _userData.AddResource(reward);
-            _userData.Save();
+            _gameProgression.AddResource(reward);
+            //_gameProgression.Save();
         }
 
         //Level Reward
-        int currentUnlockedLevel = _userData.GetLevelsPassed();
-        int levelPlayed = _userData.GetCurrentSelectedLevel();
+        int currentUnlockedLevel = _gameProgression.GetLevelsPassed();
+        int levelPlayed = _gameProgression.GetCurrentSelectedLevel();
         int levels = _gameConfigService.LevelsModel.Count;
 
         if (levelPlayed == currentUnlockedLevel && currentUnlockedLevel < levels)
         {
-            _userData.AddLevelUnlocked();
-            _userData.Save();
+            _gameProgression.AddLevelUnlocked();
+            //_gameProgression.Save();
         }
     }
 
@@ -71,7 +71,7 @@ public class MatchController
     {
         levelModel = new LevelModelItem();
         List<LevelModelItem> levels = _gameConfigService.LevelsModel;
-        levelModel = GetLevel(_userData.GetCurrentSelectedLevel(), levels);
+        levelModel = GetLevel(_gameProgression.GetCurrentSelectedLevel(), levels);
     }
 
     private LevelModelItem GetLevel(int currentLevel, List<LevelModelItem> levels)

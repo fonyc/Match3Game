@@ -21,7 +21,7 @@ namespace Shop.View
 
         public string Id { get => "Shop"; set { } }
 
-        public void Initialize(ShopController controller, UserData userData, IIAPGameService iapService)
+        public void Initialize(ShopController controller, GameProgressionService gameProgression, IIAPGameService iapService)
         {
             _controller = controller;
 
@@ -34,12 +34,12 @@ namespace Shop.View
 
             foreach (ShopItemModel shopItemModel in _controller.Model.Items)
             {
-                Instantiate(_shopItemPrefab, _itemsParent).SetData(shopItemModel, userData, OnPurchaseItem);
+                Instantiate(_shopItemPrefab, _itemsParent).SetData(shopItemModel, gameProgression, OnPurchaseItem);
             }
 
             foreach (ShopItemModel shopItemModel in _controller.Model.IAPs)
             {
-                Instantiate(_shopIAPPrefab, _itemsParent).SetData(shopItemModel, userData, iapService, OnPurchaseItem);
+                Instantiate(_shopIAPPrefab, _itemsParent).SetData(shopItemModel, gameProgression, iapService, OnPurchaseItem);
             }
         }
 

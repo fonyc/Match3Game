@@ -41,18 +41,18 @@ public class ServiceLoader : MonoBehaviour
 
         //Create services
         GameConfigService gameConfig = new GameConfigService();
-        //GameProgressionService gameProgression = new GameProgressionService();
+        GameProgressionService gameProgression = new GameProgressionService();
 
         RemoteConfigGameService remoteConfig = new RemoteConfigGameService();
         LoginGameService loginService = new LoginGameService();
         AnalyticsGameService analyticsService = new AnalyticsGameService();
         AdsGameService adsService = new AdsGameService("4928657", "Rewarded_Android");
         UnityIAPGameService iapService = new UnityIAPGameService();
-        //IGameProgressionProvider gameProgressionProvider = new GameProgressionProvider();
+        IGameProgressionProvider gameProgressionProvider = new GameProgressionProvider();
 
         //Register services
         ServiceLocator.RegisterService(gameConfig);
-        //ServiceLocator.RegisterService(gameProgression);
+        ServiceLocator.RegisterService(gameProgression);
         ServiceLocator.RegisterService(remoteConfig);
         ServiceLocator.RegisterService(loginService);
         ServiceLocator.RegisterService(adsService);
@@ -78,13 +78,13 @@ public class ServiceLoader : MonoBehaviour
             ["500gems"] = "com.fonangames.timelessheroes.500gems"
         });
 
-        await adsService.Initialize(Application.isEditor);
+        adsService.Initialize(Application.isEditor);
         if (_cancellationTaskSource.IsCancellationRequested) return;
 
-        //await gameProgressionProvider.Initialize();
+        await gameProgressionProvider.Initialize();
 
         gameConfig.Initialize(remoteConfig);
-        //gameProgression.Initialize(gameConfig, gameProgressionProvider);
+        gameProgression.Initialize(gameConfig, gameProgressionProvider);
 
         sceneLoader.ChangeScene(1);
     }

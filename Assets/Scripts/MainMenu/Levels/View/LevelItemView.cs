@@ -26,13 +26,13 @@ public class LevelItemView : MonoBehaviour
 
     LevelModelItem _levelItemModel;
 
-    private UserData _userData;
+    private GameProgressionService _gameProgression;
 
     event Action<int> _onClickedEvent;
 
-    public void SetData(LevelModelItem levelItemModel, UserData userData, Action<int> onClickedEvent)
+    public void SetData(LevelModelItem levelItemModel, GameProgressionService gameProgression, Action<int> onClickedEvent)
     {
-        _userData = userData;
+        _gameProgression = gameProgression;
         _levelItemModel = levelItemModel;
         _onClickedEvent = onClickedEvent;
         SetVisuals();
@@ -68,6 +68,6 @@ public class LevelItemView : MonoBehaviour
 
     private bool IsInteractable()
     {
-        return _userData.GetLevelsPassed() >= _levelItemModel.Level;
+        return _gameProgression.GetLevelsPassed() >= _levelItemModel.Level;
     }
 }

@@ -6,7 +6,7 @@ public class SkillController
 {
     public event Action<string> OnSkillActivated = delegate (string input) { };
 
-    private UserData _userData;
+    private GameProgressionService _gameProgressionService;
 
     private SkillPlayerModel _skillPlayerModel;
     private List<Skill> _skillBehaviours;
@@ -15,11 +15,11 @@ public class SkillController
 
     public event Action<int, int> OnManaChanged = delegate (int mana, int maxMana) { };
 
-    public SkillController(UserData userData, List<Skill> skillList, GameConfigService gameConfigService)
+    public SkillController(GameProgressionService GameProgressionService, List<Skill> skillList, GameConfigService gameConfigService)
     {
         _gameConfigService = gameConfigService;
         _skillBehaviours = skillList;
-        _userData = userData;
+        _gameProgressionService = GameProgressionService;
         _skillPlayerModel = new SkillPlayerModel();
     }
 
@@ -71,7 +71,7 @@ public class SkillController
 
         List<HeroItemModel> allHeroes = _gameConfigService.HeroModel;
 
-        HeroItemModel heroSelected = GetHeroModelFromHeroName(_userData.GetSelectedHero(), allHeroes);
+        HeroItemModel heroSelected = GetHeroModelFromHeroName(_gameProgressionService.GetSelectedHero(), allHeroes);
 
         _skillPlayerModel.Skill = GetSkill(heroSelected.Skill, allSkills);
         _skillPlayerModel.playerCurrentMana = 0;

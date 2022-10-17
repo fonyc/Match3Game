@@ -56,7 +56,7 @@ public class GameplayInitializer : MonoBehaviour
     private GameConfigService _gameConfigService;
     private AdsGameService _adsService;
     private AnalyticsGameService _analytics;
-    private UserData _userData;
+    private GameProgressionService _gameProgression;
 
     private void Awake()
     {
@@ -64,27 +64,26 @@ public class GameplayInitializer : MonoBehaviour
         _analytics = ServiceLocator.GetService<AnalyticsGameService>();
         _gameConfigService = ServiceLocator.GetService<GameConfigService>();
         _adsService = ServiceLocator.GetService<AdsGameService>();
-        _userData = new UserData();
-        _userData.Load();
+
         _sceneLoader = Instantiate(_sceneLoaderPrefab);
 
         //Controllers creation
         _combatController = new CombatController(_gameConfigService);
 
-        _enemyController = new EnemyController(_userData, _combatController, _onEnemyAttacks, 
+        _enemyController = new EnemyController(_gameProgression, _combatController, _onEnemyAttacks, 
             _onPlayerWin, _gameConfigService, _matchReport);
 
-        _skillController = new SkillController(_userData, SkillList, _gameConfigService);
+        _skillController = new SkillController(_gameProgression, SkillList, _gameConfigService);
 
         _boardController = new BoardController(_boardSize.x, _boardSize.y, _skillController, inputs, 
-            _userData, _onEmblemsDestroyed, _onMovesAvailableChanged, _gameConfigService, _matchReport);
+            _gameProgression, _onEmblemsDestroyed, _onMovesAvailableChanged, _gameConfigService, _matchReport);
 
-        _itemController = new ItemController(_userData, _gameConfigService);
+        _itemController = new ItemController(_gameProgression, _gameConfigService);
 
-        _playerController = new PlayerController(_userData, _itemController, _gameConfigService,
+        _playerController = new PlayerController(_gameProgression, _itemController, _gameConfigService,
             _combatController, _onPlayerAttacks, _onPlayerDied, _onPlayerRecievedDamage, _matchReport);
 
-        _matchController = new MatchController(_gameConfigService, _userData, _sceneLoader, _adsService, _analytics);
+        _matchController = new MatchController(_gameConfigService, _gameProgression, _sceneLoader, _adsService, _analytics);
     }
 
     void Start()

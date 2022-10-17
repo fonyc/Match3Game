@@ -12,21 +12,21 @@ public class ItemController
     public event Action<int> _onATKItemConsumed = delegate (int amount) { };
     public event Action<int> _onDEFItemConsumed = delegate (int amount) { };
 
-    private UserData _userData;
     public ItemModel Model;
+    private GameProgressionService _gameProgression;
     private GameConfigService _gameConfigService;
 
-    public ItemController(UserData userData, GameConfigService gameConfigService)
+    public ItemController(GameProgressionService gameProgression, GameConfigService gameConfigService)
     {
         _gameConfigService = gameConfigService;
-        _userData = userData;
+        _gameProgression = gameProgression;
         Model = new ItemModel();
     }
 
     public void RemovePotionFromPlayer(string itemName)
     {
-        _userData.RemoveBattleItem(itemName);
-        _userData.Save();
+        _gameProgression.RemoveBattleItem(itemName);
+        //_gameProgression.Save();
     }
 
     public void OnPlayerStatChanged(string stat, int amount)
@@ -58,18 +58,18 @@ public class ItemController
         Model = new ItemModel();
         List<BattleItemModel> allItemsModel = _gameConfigService.BattleItemsModel;
         Model.itemStats = GetBattleItemData(allItemsModel);
-        Model.selectedItems = GetSelectedBattleItems(_userData);
+        Model.selectedItems = GetSelectedBattleItems(_gameProgression);
 
         List<HeroItemModel> allHeroesModel = _gameConfigService.HeroModel;
-        Model.MaxItemQty = GetMaxItems(_userData.GetSelectedHero(), allHeroesModel);
+        Model.MaxItemQty = GetMaxItems(_gameProgression.GetSelectedHero(), allHeroesModel);
     }
 
-    private List<OwnedBattleItem> GetSelectedBattleItems(UserData userData)
+    private List<OwnedBattleItem> GetSelectedBattleItems(GameProgressionService gameProgression)
     {
         List<OwnedBattleItem> result = new();
-        foreach (OwnedBattleItem ownedItem in userData.GetOwnedBattleItems())
+        foreach (OwnedBattleItem ownedItem in gameProgression.GetOwnedBattleItems())
         {
-            foreach (string selectedItem in userData.GetSelectedItems())
+            foreach (string selectedItem in gameProgression.GetSelectedItems())
             {
                 if (ownedItem.Id == selectedItem) result.Add(ownedItem);
             }
@@ -81,7 +81,7 @@ public class ItemController
     {
         List<BattleItemModel> result = new();
 
-        foreach (string selectedItem in _userData.GetSelectedItems())
+        foreach (string selectedItem in _gameProgression.GetSelectedItems())
         {
             foreach (BattleItemModel item in allItemsModel)
             {

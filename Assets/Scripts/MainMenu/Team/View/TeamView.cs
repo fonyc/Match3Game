@@ -26,7 +26,7 @@ public class TeamView : MonoBehaviour, IMainMenuAnimation
 
     private TeamController _teamController;
 
-    private UserData _userData;
+    private GameProgressionService _gameProgression;
 
     private List<TeamHeroView> heroesToSelect = new();
     private List<TeamBattleItemView> itemsToSelect = new();
@@ -35,6 +35,7 @@ public class TeamView : MonoBehaviour, IMainMenuAnimation
 
     public string Id { get => "Team"; set { } }
 
+    #region MAIN MENU ANIMATIONS
     public void AppearAnimation(RectTransform rect, float delay)
     {
         gameObject.SetActive(true);
@@ -56,17 +57,18 @@ public class TeamView : MonoBehaviour, IMainMenuAnimation
     {
         gameObject.SetActive(false);
     }
+    #endregion
 
-    public void Initialize(TeamController teamController, UserData userData)
+    public void Initialize(TeamController teamController, GameProgressionService gameProgression)
     {
         _teamController = teamController;
-        _userData = userData;
-        _userData.OnHeroAdded += CreateHeroCollection;
-        _userData.OnBattleItemAdded += CreateBattleItemCollection;
-        _userData.OnBattleItemModified += CreateBattleItemCollection;
+        _gameProgression = gameProgression;
+        _gameProgression.OnHeroAdded += CreateHeroCollection;
+        _gameProgression.OnBattleItemAdded += CreateBattleItemCollection;
+        _gameProgression.OnBattleItemModified += CreateBattleItemCollection;
 
         CreateHeroCollection();
-        OnHeroSelected(_userData.GetSelectedHero());
+        OnHeroSelected(_gameProgression.GetSelectedHero());
 
         CreateBattleItemCollection();
         UpdateSelectedItemsOnStart();
@@ -95,7 +97,7 @@ public class TeamView : MonoBehaviour, IMainMenuAnimation
 
         foreach (TeamBattleItemView battleItem in itemsToSelect)
         {
-            foreach (string item in _userData.GetSelectedItems())
+            foreach (string item in _gameProgression.GetSelectedItems())
             {
                 if (battleItem.GetId() == item) battleItem.SetTick(true);
             }
@@ -107,7 +109,7 @@ public class TeamView : MonoBehaviour, IMainMenuAnimation
     {
         foreach (TeamBattleItemView battleItem in itemsToSelect)
         {
-            foreach (string item in _userData.GetSelectedItems())
+            foreach (string item in _gameProgression.GetSelectedItems())
             {
                 if (battleItem.GetId() == item) battleItem.SetTick(true);
             }
@@ -125,7 +127,7 @@ public class TeamView : MonoBehaviour, IMainMenuAnimation
             Destroy(child.gameObject);
         }
 
-        foreach (OwnedHero ownedHero in _userData.GetOwnedHeroes())
+        foreach (OwnedHero ownedHero in _gameProgression.GetOwnedHeroes())
         {
             foreach(HeroItemModel heroModel in _teamController.heroModel.Heroes)
             {
@@ -135,7 +137,7 @@ public class TeamView : MonoBehaviour, IMainMenuAnimation
                 heroesToSelect.Add(item);
             }
         }
-        OnHeroSelected(_userData.GetSelectedHero());
+        OnHeroSelected(_gameProgression.GetSelectedHero());
     }
 
     private void CreateBattleItemCollection()
@@ -148,13 +150,13 @@ public class TeamView : MonoBehaviour, IMainMenuAnimation
             Destroy(child.gameObject);
         }
 
-        foreach (OwnedBattleItem item in _userData.GetOwnedBattleItems())
+        foreach (OwnedBattleItem item in _gameProgression.GetOwnedBattleItems())
         {
             foreach(BattleItemModel battleItemModel in _teamController.battleItemModel.BattleItems)
             {
                 if (battleItemModel.Id != item.Id) continue;
                 TeamBattleItemView createdItem = Instantiate(_battleItemSelectPrefab, _battleItemsParent);
-                createdItem.SetData(battleItemModel, _userData, OnItemSelected);
+                createdItem.SetData(battleItemModel, _gameProgression, OnItemSelected);
                 itemsToSelect.Add(createdItem);
             }
         }

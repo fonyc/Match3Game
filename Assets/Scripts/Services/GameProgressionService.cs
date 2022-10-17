@@ -1,10 +1,10 @@
+﻿using System.Collections.Generic;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using UnityEngine;
+using System.Linq;
 
-public class UserData
+[System.Serializable]
+public class GameProgressionService : IService
 {
     [SerializeField] private List<ResourceItem> Items = new();
 
@@ -20,7 +20,13 @@ public class UserData
 
     [SerializeField] private int currentSelectedLevel;
 
-    private string path = Application.persistentDataPath + "/userData.json";
+    private IGameProgressionProvider _progressionProvider;
+
+    public void Initialize(GameConfigService gameConfig, IGameProgressionProvider progressionProvider)
+    {
+        _progressionProvider = progressionProvider;
+        Load(gameConfig);
+    }
 
     #region EVENTS
     public event Action<string> OnResourceModified = resource => { };
@@ -221,18 +227,28 @@ public class UserData
     #endregion
 
     #region SAVE/LOAD
-    public void Save()
+    private void Load(GameConfigService config)
     {
-        string jsonObject = JsonUtility.ToJson(this);
-
-        File.WriteAllText(path, jsonObject);
+        string data = _progressionProvider.Load();
+        if (string.IsNullOrEmpty(data))
+        {
+            //Gems = config.InitialGems;
+            //_gold = config.InitialGold;
+            Save();
+        }
+        else
+        {
+            JsonUtility.FromJsonOverwrite(data, this);
+        }
     }
 
-    public void Load()
+    private void Save()
     {
-        string readFile = File.Exists(path) ? File.ReadAllText(path) : "{}";
-
-        JsonUtility.FromJsonOverwrite(readFile, this);
+        _progressionProvider.Save(JsonUtility.ToJson(this));
     }
     #endregion
+
+    public void Clear()
+    {
+    }
 }

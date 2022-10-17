@@ -7,7 +7,7 @@ public class EnemyController
     public EnemyModel Model;
     //public Stats CurrentEnemyStats;
 
-    private UserData _userData;
+    private GameProgressionService _gameProgression;
     private CombatController _combatController;
 
     NoArgument_Event _onEnemyDied;
@@ -16,7 +16,7 @@ public class EnemyController
     private GameConfigService _gameConfig;
     private MatchReport _matchReport;
 
-    public EnemyController(UserData userData, CombatController combatController, StatIntIntArgument_Event OnEnemyAttacks,
+    public EnemyController(GameProgressionService gameProgression, CombatController combatController, StatIntIntArgument_Event OnEnemyAttacks,
         NoArgument_Event OnEnemyDied, GameConfigService gameConfigService, MatchReport matchReport)
     {
         _matchReport = matchReport;
@@ -24,7 +24,7 @@ public class EnemyController
         _onEnemyDied = OnEnemyDied;
         Model = new EnemyModel();
         _combatController = combatController;
-        _userData = userData;
+        _gameProgression = gameProgression;
         _onEnemyAttacks = OnEnemyAttacks;
     }
 
@@ -64,7 +64,7 @@ public class EnemyController
     {
         Model = new EnemyModel();
 
-        int currentLevel = _userData.GetCurrentSelectedLevel();
+        int currentLevel = _gameProgression.GetCurrentSelectedLevel();
         List<LevelModelItem> allLevels = _gameConfig.LevelsModel;
         string enemyId = GetEnemyIdFromCurrentLevel(currentLevel, allLevels);
         List<Enemy> allEnemies = _gameConfig.EnemyModel;

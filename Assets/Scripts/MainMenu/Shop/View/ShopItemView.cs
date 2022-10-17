@@ -30,21 +30,21 @@ namespace Shop.View
         #endregion
 
         private ShopItemModel _model;
-        private UserData _userData;
+        private GameProgressionService _gameProgression;
         private Action<ShopItemModel> _onClickedEvent;
 
-        public void SetData(ShopItemModel model, UserData userData, Action<ShopItemModel> onClickedEvent)
+        public void SetData(ShopItemModel model, GameProgressionService gameProgression, Action<ShopItemModel> onClickedEvent)
         {
             _model = model;
             _onClickedEvent = onClickedEvent;
-            _userData = userData;
-            _userData.OnResourceModified += InventoryUpdated;
+            _gameProgression = gameProgression;
+            _gameProgression.OnResourceModified += InventoryUpdated;
             UpdateVisuals();
         }
 
         private void OnDestroy()
         {
-            if (_userData != null) _userData.OnResourceModified -= InventoryUpdated;
+            if (_gameProgression != null) _gameProgression.OnResourceModified -= InventoryUpdated;
         }
 
         private void InventoryUpdated(string resource)
@@ -64,7 +64,7 @@ namespace Shop.View
             _costText.color = CanPay() ? Color.white : Color.red;
         }
 
-        private bool CanPay() => _userData.GetResourceAmount(_model.Cost.Name) >= _model.Cost.Amount;
+        private bool CanPay() => _gameProgression.GetResourceAmount(_model.Cost.Name) >= _model.Cost.Amount;
 
         public void OnClicked()
         {

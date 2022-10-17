@@ -5,14 +5,11 @@ public class HeroesController
 {
     public HeroModel Model { get; private set; }
 
-    public UserData UserData { get; private set; }
+    public GameConfigService _gameConfigService { get; private set; }
 
-    private GameConfigService _gameConfigService;
-
-    public HeroesController(UserData userData, GameConfigService GameConfigService)
+    public HeroesController(GameConfigService GameConfigService)
     {
         _gameConfigService = GameConfigService;
-        UserData = userData;
     }
 
     public void Initialize()

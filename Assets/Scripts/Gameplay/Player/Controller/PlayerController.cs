@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : IDisposable
 {
-    private UserData _userData;
+    private GameProgressionService _gameProgression;
     private PlayerModel _playerModel;
     private ItemController _itemController;
     private CombatController _combatController;
@@ -20,7 +20,7 @@ public class PlayerController : IDisposable
     private NoArgument_Event _onPlayerRecievedDamage;
     private MatchReport _matchReport;
 
-    public PlayerController(UserData userData, ItemController itemController, GameConfigService gameConfigService,
+    public PlayerController(GameProgressionService gameProgression, ItemController itemController, GameConfigService gameConfigService,
         CombatController combatController, StatTripleIntArgument_Event OnPlayerAttackPerformed, NoArgument_Event OnPlayerDied,
         NoArgument_Event OnPlayerRecievedDamage, MatchReport matchReport)
     {
@@ -36,7 +36,7 @@ public class PlayerController : IDisposable
         _itemController._onATKItemConsumed += ChangeATK;
         _itemController._onDEFItemConsumed += ChangeDEF;
 
-        _userData = userData;
+        _gameProgression = gameProgression;
         _playerModel = new PlayerModel();
     }
 
@@ -68,7 +68,7 @@ public class PlayerController : IDisposable
     {
         foreach (HeroItemModel hero in allHeroesModel)
         {
-            if (hero.Id == _userData.GetSelectedHero()) return hero;
+            if (hero.Id == _gameProgression.GetSelectedHero()) return hero;
         }
         return null;
     }

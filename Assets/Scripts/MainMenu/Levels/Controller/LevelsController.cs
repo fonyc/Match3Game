@@ -5,14 +5,14 @@ public class LevelsController
 {
     public LevelModel LevelModel;
     public EnemiesModel EnemyModel;
-    private UserData _userData;
+    private GameProgressionService _gameProgression;
     private SceneLoader _sceneLoader;
     private GameConfigService _gameConfig;
 
-    public LevelsController(UserData userData, SceneLoader sceneLoader, GameConfigService gameConfig)
+    public LevelsController(GameProgressionService userData, SceneLoader sceneLoader, GameConfigService gameConfig)
     {
         _gameConfig = gameConfig;
-        _userData = userData;
+        _gameProgression = userData;
         _sceneLoader = sceneLoader;
     }
 
@@ -23,8 +23,8 @@ public class LevelsController
 
     public void ChangeGameplayScene(int level)
     {
-        _userData.SetCurrentSelectedLevel(level);
-        _userData.Save();
+        _gameProgression.SetCurrentSelectedLevel(level);
+        //_gameProgression.Save();
 
         _sceneLoader.ChangeScene(2);
     }
@@ -33,7 +33,6 @@ public class LevelsController
     {
         LevelModel = new LevelModel();
 
-        //LevelModel = JsonUtility.FromJson<LevelModel>(Resources.Load<TextAsset>("LevelsModel").text);
         LevelModel.Levels = _gameConfig.LevelsModel;
     }
 }

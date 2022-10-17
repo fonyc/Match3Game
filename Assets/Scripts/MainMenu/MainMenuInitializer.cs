@@ -37,7 +37,7 @@ public class MainMenuInitializer : MonoBehaviour
     private IIAPGameService _iapService = null;
 
     #region INJECTIONS
-    private UserData _userData = null;
+    private GameProgressionService _gameProgressionService = null;
     private ShopController _shopController = null;
     private HeroesController _heroesController = null;
     private TeamController _teamController = null;
@@ -46,16 +46,17 @@ public class MainMenuInitializer : MonoBehaviour
 
     private void Awake()
     {
+
         _analytics = ServiceLocator.GetService<AnalyticsGameService>();
         _gameConfigService = ServiceLocator.GetService<GameConfigService>();
         _iapService = ServiceLocator.GetService<IIAPGameService>();
+        _gameProgressionService = ServiceLocator.GetService<GameProgressionService>();
 
         SceneLoader sceneLoader = Instantiate(_sceneLoaderPrefab);
-        _userData = new UserData();
-        _shopController = new ShopController(_userData, _analytics, _gameConfigService, _iapService);
-        _heroesController = new HeroesController(_userData, _gameConfigService);
-        _teamController = new TeamController(_userData, _gameConfigService);
-        _levelController = new LevelsController(_userData, sceneLoader, _gameConfigService);
+        _shopController = new ShopController(_gameProgressionService, _analytics, _gameConfigService, _iapService);
+        _heroesController = new HeroesController(_gameConfigService);
+        _teamController = new TeamController(_gameProgressionService, _gameConfigService);
+        _levelController = new LevelsController(_gameProgressionService, sceneLoader, _gameConfigService);
     }
 
     private void Start()
@@ -67,11 +68,11 @@ public class MainMenuInitializer : MonoBehaviour
         //Create bottom main menu
         BottomBarController bottomBar = Instantiate(_bottomBarPrefab, transform);
 
-        _userData.Load();
+        //_gameProgressionService.Load();
 
         //Initialize resources top bar
         ResourcesView resourcesView = Instantiate(_topBarResourcesPrefab, transform);
-        resourcesView.Initialize(_userData);
+        resourcesView.Initialize(_gameProgressionService);
 
         #region INIT CONTROLLERS
         _shopController.Initialize();
@@ -84,22 +85,22 @@ public class MainMenuInitializer : MonoBehaviour
 
         //HEROE COLLECTION TAB
         HeroesView heroesView = Instantiate(_heroesViewPrefab, transform);
-        heroesView.Initialize(_heroesController, _userData);
+        heroesView.Initialize(_heroesController, _gameProgressionService);
         bottomBar.AddTab(heroesView.gameObject);
 
         //SHOP TAB
         ShopView shop = Instantiate(_shopViewPrefab, transform); 
-        shop.Initialize(_shopController, _userData, _iapService);
+        shop.Initialize(_shopController, _gameProgressionService, _iapService);
         bottomBar.AddTab(shop.gameObject);
 
         //TEAM TAB
         TeamView teamView = Instantiate(_teamViewPrefab, transform);
-        teamView.Initialize(_teamController,_userData);
+        teamView.Initialize(_teamController,_gameProgressionService);
         bottomBar.AddTab(teamView.gameObject);
 
         //LEVELS TAB
         LevelsView levelsView = Instantiate(_levelsViewPrefab, transform);
-        levelsView.Initialize(_levelController, _userData);
+        levelsView.Initialize(_levelController, _gameProgressionService);
         bottomBar.AddTab(levelsView.gameObject);
 
         bottomBar.transform.SetAsLastSibling();

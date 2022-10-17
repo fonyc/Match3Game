@@ -8,18 +8,18 @@ namespace Shop.Controller
     {
         public ShopModel Model { get; private set; }
 
-        public UserData _userData { get; private set; }
+        public GameProgressionService _gameProgressionService { get; private set; }
 
         private AnalyticsGameService _analytics;
         private GameConfigService _gameConfig;
         private IIAPGameService _iapService;
 
-        public ShopController(UserData userData, AnalyticsGameService analytics, GameConfigService gameConfig, IIAPGameService iapService)
+        public ShopController(GameProgressionService gameProgressionService, AnalyticsGameService analytics, GameConfigService gameConfig, IIAPGameService iapService)
         {
             _iapService = iapService;
             _gameConfig = gameConfig;
             _analytics = analytics;
-            _userData = userData;
+            _gameProgressionService = gameProgressionService;
         }
 
         public void Initialize()
@@ -31,8 +31,8 @@ namespace Shop.Controller
         {
             if (await _iapService.StartPurchase(item.IAPId))
             {
-                _userData.AddResource(item.Reward);
-                _userData.Save();
+                _gameProgressionService.AddResource(item.Reward);
+                //_gameProgressionService.Save();
             }
             else
             {
@@ -42,32 +42,32 @@ namespace Shop.Controller
 
         public void PurchaseItem(ShopItemModel model)
         {
-            if (_userData.GetResourceAmount(model.Cost.Name) < model.Cost.Amount) return;
+            if (_gameProgressionService.GetResourceAmount(model.Cost.Name) < model.Cost.Amount) return;
 
-            _userData.RemoveResource(model.Cost);
-            _userData.AddResource(model.Reward);
-            _userData.Save();
+            _gameProgressionService.RemoveResource(model.Cost);
+            _gameProgressionService.AddResource(model.Reward);
+            //_gameProgressionService.Save();
 
             _analytics.SendEvent("purchasedItem", new Dictionary<string, object> { ["itemId"] = model.Id });
         }
 
         public void PurchaseHero(ShopItemModel model)
         {
-            if (_userData.GetResourceAmount(model.Cost.Name) < model.Cost.Amount) return;
+            if (_gameProgressionService.GetResourceAmount(model.Cost.Name) < model.Cost.Amount) return;
 
-            _userData.RemoveResource(model.Cost);
-            _userData.AddHero(model.Reward);
-            _userData.Save();
+            _gameProgressionService.RemoveResource(model.Cost);
+            _gameProgressionService.AddHero(model.Reward);
+            //_gameProgressionService.Save();
 
             _analytics.SendEvent("purchasedItem", new Dictionary<string, object> { ["itemId"] = model.Id });
         }
 
         public void PurchaseBattleItem(ShopItemModel model)
         {
-            if (_userData.GetResourceAmount(model.Cost.Name) < model.Cost.Amount) return;
-            _userData.RemoveResource(model.Cost);
-            _userData.AddBattleItem(model.Reward);
-            _userData.Save();
+            if (_gameProgressionService.GetResourceAmount(model.Cost.Name) < model.Cost.Amount) return;
+            _gameProgressionService.RemoveResource(model.Cost);
+            _gameProgressionService.AddBattleItem(model.Reward);
+            //_gameProgressionService.Save();
 
             _analytics.SendEvent("purchasedItem", new Dictionary<string, object> { ["itemId"] = model.Id });
         }

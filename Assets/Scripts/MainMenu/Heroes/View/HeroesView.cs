@@ -12,9 +12,11 @@ public class HeroesView : MonoBehaviour, IMainMenuAnimation
 
     private HeroesController _controller;
 
-    private UserData _userData;
+    private GameProgressionService _gameProgression;
 
     public string Id { get => "Heroes"; set { } }
+
+    #region MAIN MENU ANIMATIONS
 
     public void AppearAnimation(RectTransform rect, float delay)
     {
@@ -37,12 +39,13 @@ public class HeroesView : MonoBehaviour, IMainMenuAnimation
     {
         gameObject.SetActive(false);
     }
+    #endregion
 
-    public void Initialize(HeroesController controller, UserData userData)
+    public void Initialize(HeroesController controller, GameProgressionService gameProgression)
     {
-        _userData = userData;
+        _gameProgression = gameProgression;
         _controller = controller;
-        _userData.OnHeroAdded += CreateHeroCollection;
+        _gameProgression.OnHeroAdded += CreateHeroCollection;
 
         CreateHeroCollection();
     }
@@ -56,18 +59,18 @@ public class HeroesView : MonoBehaviour, IMainMenuAnimation
             Destroy(child.gameObject);
         }
 
-        foreach (OwnedHero ownedHero in _userData.GetOwnedHeroes())
+        foreach (OwnedHero ownedHero in _gameProgression.GetOwnedHeroes())
         {
             foreach (HeroItemModel heroModel in _controller.Model.Heroes)
             {
                 if (ownedHero.Id != heroModel.AvatarImage) continue;
-                Instantiate(_heroItemPrefab, _itemsParent).SetData(heroModel, _userData);
+                Instantiate(_heroItemPrefab, _itemsParent).SetData(heroModel, _gameProgression);
             }
         }
     }
 
     private void OnDestroy()
     {
-        _userData.OnHeroAdded -= CreateHeroCollection;
+        _gameProgression.OnHeroAdded -= CreateHeroCollection;
     }
 }
