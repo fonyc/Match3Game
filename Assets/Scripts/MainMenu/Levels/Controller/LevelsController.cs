@@ -24,8 +24,6 @@ public class LevelsController
     public void ChangeGameplayScene(int level)
     {
         _gameProgression.SetCurrentSelectedLevel(level);
-        //_gameProgression.Save();
-
         _sceneLoader.ChangeScene(2);
     }
 

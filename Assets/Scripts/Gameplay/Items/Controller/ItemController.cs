@@ -26,7 +26,6 @@ public class ItemController
     public void RemovePotionFromPlayer(string itemName)
     {
         _gameProgression.RemoveBattleItem(itemName);
-        //_gameProgression.Save();
     }
 
     public void OnPlayerStatChanged(string stat, int amount)

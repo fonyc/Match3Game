@@ -68,8 +68,6 @@ public class MainMenuInitializer : MonoBehaviour
         //Create bottom main menu
         BottomBarController bottomBar = Instantiate(_bottomBarPrefab, transform);
 
-        //_gameProgressionService.Load();
-
         //Initialize resources top bar
         ResourcesView resourcesView = Instantiate(_topBarResourcesPrefab, transform);
         resourcesView.Initialize(_gameProgressionService);

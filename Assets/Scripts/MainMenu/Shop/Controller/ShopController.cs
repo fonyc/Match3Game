@@ -32,7 +32,6 @@ namespace Shop.Controller
             if (await _iapService.StartPurchase(item.IAPId))
             {
                 _gameProgressionService.AddResource(item.Reward);
-                //_gameProgressionService.Save();
             }
             else
             {
@@ -46,7 +45,6 @@ namespace Shop.Controller
 
             _gameProgressionService.RemoveResource(model.Cost);
             _gameProgressionService.AddResource(model.Reward);
-            //_gameProgressionService.Save();
 
             _analytics.SendEvent("purchasedItem", new Dictionary<string, object> { ["itemId"] = model.Id });
         }
@@ -57,7 +55,6 @@ namespace Shop.Controller
 
             _gameProgressionService.RemoveResource(model.Cost);
             _gameProgressionService.AddHero(model.Reward);
-            //_gameProgressionService.Save();
 
             _analytics.SendEvent("purchasedItem", new Dictionary<string, object> { ["itemId"] = model.Id });
         }
@@ -67,7 +64,6 @@ namespace Shop.Controller
             if (_gameProgressionService.GetResourceAmount(model.Cost.Name) < model.Cost.Amount) return;
             _gameProgressionService.RemoveResource(model.Cost);
             _gameProgressionService.AddBattleItem(model.Reward);
-            //_gameProgressionService.Save();
 
             _analytics.SendEvent("purchasedItem", new Dictionary<string, object> { ["itemId"] = model.Id });
         }

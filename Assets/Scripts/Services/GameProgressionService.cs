@@ -54,6 +54,7 @@ public class GameProgressionService : IService
 
         Items.Add(new ResourceItem { Name = item.Name, Type = item.Type, Amount = item.Amount });
         OnResourceModified(item.Name);
+        Save();
     }
 
     public void RemoveResource(ResourceItem item)
@@ -67,6 +68,7 @@ public class GameProgressionService : IService
                 return;
             }
         }
+        Save();
     }
 
     public int GetResourceAmount(string resourceType)
@@ -97,12 +99,14 @@ public class GameProgressionService : IService
             SelectedItems.Add(newItem);
             OnBattleItemSelected?.Invoke();
         }
+        Save();
     }
 
     public void DeselectItem(string item)
     {
         SelectedItems.Remove(item);
         OnBattleItemDeSelected?.Invoke();
+        Save();
     }
 
     public void AddHero(ResourceItem item)
@@ -118,6 +122,7 @@ public class GameProgressionService : IService
         }
         Heroes.Add(new OwnedHero(item.Name, "Hero", 1));
         OnHeroAdded?.Invoke();
+        Save();
     }
 
     public List<OwnedHero> GetOwnedHeroes()
@@ -147,6 +152,7 @@ public class GameProgressionService : IService
         }
         BattleItems.Add(new OwnedBattleItem(item.Name, "BattleItem", 1));
         OnBattleItemAdded?.Invoke();
+        Save();
     }
 
     public void RemoveBattleItem(string itemName)
@@ -166,6 +172,7 @@ public class GameProgressionService : IService
                 OnBattleItemAdded?.Invoke();
             }
         }
+        Save();
     }
 
     public List<OwnedBattleItem> GetOwnedBattleItems()
@@ -217,11 +224,13 @@ public class GameProgressionService : IService
     public void SetCurrentSelectedLevel(int nextLevel)
     {
         currentSelectedLevel = nextLevel;
+        Save();
     }
 
     public void AddLevelUnlocked()
     {
         levelsPassed++;
+        Save();
     }
 
     #endregion

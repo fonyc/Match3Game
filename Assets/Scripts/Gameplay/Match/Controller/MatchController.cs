@@ -38,7 +38,6 @@ public class MatchController
         foreach (ResourceItem reward in levelModel.Rewards)
         {
             _gameProgression.AddResource(reward);
-            //_gameProgression.Save();
         }
 
         //Level Reward
@@ -49,7 +48,6 @@ public class MatchController
         if (levelPlayed == currentUnlockedLevel && currentUnlockedLevel < levels)
         {
             _gameProgression.AddLevelUnlocked();
-            //_gameProgression.Save();
         }
     }
 

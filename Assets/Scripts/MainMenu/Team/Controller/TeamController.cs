@@ -23,7 +23,6 @@ public class TeamController
     public void SelectHero(string heroName)
     {
         _gameProgression.SelectHero(heroName);
-        //_gameProgression.Save();
     }
 
     public void SelectItem(string itemName)
@@ -37,8 +36,6 @@ public class TeamController
             _gameProgression.DeselectItem(selectedItems.Last());
             _gameProgression.SelectItem(itemName);
         }
-
-        //_gameProgression.Save();
     }
 
     public void Initialize()
