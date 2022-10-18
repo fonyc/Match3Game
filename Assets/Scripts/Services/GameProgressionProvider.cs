@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using UnityEngine;
 
 public class GameProgressionProvider : IGameProgressionProvider
 {
@@ -32,8 +33,16 @@ public class GameProgressionProvider : IGameProgressionProvider
             return localData;
         }
 
-        //decide which one to keep
+        //Use the most advance game data
+        UserData localSave = new UserData();
+        UserData remoteSave = new UserData();
 
-        return localData;
+        JsonUtility.FromJsonOverwrite(localData, localSave);
+        JsonUtility.FromJsonOverwrite(remoteData, remoteSave);
+
+        int localDataValue = 100 * localSave.GetHeroNumber() + localSave.GetGems();
+        int remoteDataValue = 100 * remoteSave.GetHeroNumber() + remoteSave.GetGems();
+
+        return localDataValue >= remoteDataValue? localData : remoteData;
     }
 }

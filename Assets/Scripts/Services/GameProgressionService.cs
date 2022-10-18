@@ -48,6 +48,7 @@ public class GameProgressionService : IService
             {
                 resourceItem.Amount += item.Amount;
                 OnResourceModified(item.Name);
+                Save();
                 return;
             }
         }
@@ -65,6 +66,7 @@ public class GameProgressionService : IService
             {
                 resourceItem.Amount = Mathf.Max(0, resourceItem.Amount - item.Amount);
                 OnResourceModified(item.Name);
+                Save();
                 return;
             }
         }
@@ -90,22 +92,6 @@ public class GameProgressionService : IService
     public void SelectHero(string newHero)
     {
         SelectedHero = newHero;
-    }
-
-    public void SelectItem(string newItem)
-    {
-        if (SelectedItems.Count < 2)
-        {
-            SelectedItems.Add(newItem);
-            OnBattleItemSelected?.Invoke();
-        }
-        Save();
-    }
-
-    public void DeselectItem(string item)
-    {
-        SelectedItems.Remove(item);
-        OnBattleItemDeSelected?.Invoke();
         Save();
     }
 
@@ -117,6 +103,7 @@ public class GameProgressionService : IService
             {
                 hero.Level++;
                 OnHeroModified?.Invoke(hero.Id);
+                Save();
                 return;
             }
         }
@@ -139,6 +126,23 @@ public class GameProgressionService : IService
 
     #region BATTLEITEMS
 
+    public void SelectItem(string newItem)
+    {
+        if (SelectedItems.Count < 2)
+        {
+            SelectedItems.Add(newItem);
+            OnBattleItemSelected?.Invoke();
+        }
+        Save();
+    }
+
+    public void DeselectItem(string item)
+    {
+        SelectedItems.Remove(item);
+        OnBattleItemDeSelected?.Invoke();
+        Save();
+    }
+
     public void AddBattleItem(ResourceItem item)
     {
         foreach (OwnedBattleItem battleItem in BattleItems)
@@ -147,6 +151,7 @@ public class GameProgressionService : IService
             {
                 battleItem.Amount++;
                 OnBattleItemModified?.Invoke();
+                Save();
                 return;
             }
         }
@@ -165,6 +170,7 @@ public class GameProgressionService : IService
                 {
                     battleItem.Amount--;
                     OnBattleItemModified?.Invoke();
+                    Save();
                     return;
                 }
                 BattleItems.Remove(battleItem);
@@ -192,19 +198,6 @@ public class GameProgressionService : IService
     public List<string> GetSelectedItems()
     {
         return SelectedItems;
-    }
-
-    public List<OwnedBattleItem> GetSelectedItems2()
-    {
-        List<OwnedBattleItem> list = new();
-        foreach (string selectedItem in SelectedItems)
-        {
-            foreach (OwnedBattleItem item in BattleItems)
-            {
-                if (selectedItem == item.Id) list.Add(item);
-            }
-        }
-        return list;
     }
 
     #endregion
@@ -241,8 +234,7 @@ public class GameProgressionService : IService
         string data = _progressionProvider.Load();
         if (string.IsNullOrEmpty(data))
         {
-            //Gems = config.InitialGems;
-            //_gold = config.InitialGold;
+            //Add initial values (Add one hero and 100 gold)
             Save();
         }
         else
@@ -259,5 +251,6 @@ public class GameProgressionService : IService
 
     public void Clear()
     {
+
     }
 }

@@ -64,6 +64,7 @@ public class GameplayInitializer : MonoBehaviour
         _analytics = ServiceLocator.GetService<AnalyticsGameService>();
         _gameConfigService = ServiceLocator.GetService<GameConfigService>();
         _adsService = ServiceLocator.GetService<AdsGameService>();
+        _gameProgression = ServiceLocator.GetService<GameProgressionService>();
 
         _sceneLoader = Instantiate(_sceneLoaderPrefab);
 
