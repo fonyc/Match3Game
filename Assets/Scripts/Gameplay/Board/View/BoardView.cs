@@ -3,6 +3,9 @@ using Board.Model;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.UIElements;
 
 namespace Board.View
 {
@@ -56,6 +59,18 @@ namespace Board.View
                     GameObject emblem = Instantiate(EmblemPrefabs[_controller.GetEmblemColor(x,y)], new Vector3(x, y, 0), Quaternion.identity, transform);
                     emblem.GetComponent<EmblemView>().Position = new Vector2Int(x, y);
                     _emblemViewList.Add(emblem.GetComponent<EmblemView>());
+
+                    //AsyncOperationHandle<GameObject> handler =
+                    //EmblemColor emblem = (EmblemColor)_controller.GetEmblemColor(x,y);
+                    //Addressables.InstantiateAsync(emblem.ToString(),
+                    //new Vector3(x, y, 0f),
+                    //Quaternion.identity,
+                    //transform);
+
+                    //while (!handler.IsDone)
+                    //{
+                    //    yield return null;
+                    //}
                 }
             }
         }

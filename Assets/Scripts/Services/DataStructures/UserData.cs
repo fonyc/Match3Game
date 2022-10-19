@@ -34,4 +34,9 @@ public class UserData
         }
         return 0;
     }
+
+    public string GetSelectedHero()
+    {
+        return SelectedHero;
+    }
 }

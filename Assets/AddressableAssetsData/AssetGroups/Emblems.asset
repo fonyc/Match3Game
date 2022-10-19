@@ -17,24 +17,24 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 11890e77e81e4a2468d44ced780c3b0b
   m_SerializeEntries:
-  - m_GUID: a12588b0d8cd1cf4d9a06bf7b1b1a75c
-    m_Address: Artist
+  - m_GUID: 34471c2725831464b889555e3bc95b74
+    m_Address: Wizard
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: d12ce351b51dcde4b8ef4770c1717fef
-    m_Address: Conqueror
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 16f8af7bc43fa5748b707891f206bb2b
-    m_Address: Pirate
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: b987de59528431445a797f78c56bf36f
+  - m_GUID: f822c654c47bcaf429d83319b215d0c3
     m_Address: Scientist
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 838e15a0c45c2484eb04892d365890b5
-    m_Address: Wizard
+  - m_GUID: 17e361a6094316b4dbfb04273dee6705
+    m_Address: Pirate
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 15f99179db8fe8e4783b97bda60d4376
+    m_Address: Conqueror
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f4bed4ec3e3ef984c979add8ae17dd7d
+    m_Address: Artist
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
