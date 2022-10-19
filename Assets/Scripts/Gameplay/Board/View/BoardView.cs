@@ -15,8 +15,8 @@ namespace Board.View
        
         [Header("--- BOARD SETTINGS ---")]
         [Space(5)]
-        [SerializeField] private Camera _camera;
         [SerializeField] private GameObject[] emblemPrefabs;
+        private Camera _camera;
 
         private Vector2Int _boardSize;
         public int visualPieceFallPosition => _boardSize.y;
@@ -47,30 +47,32 @@ namespace Board.View
             _controller.OnEmblemCreated += OnEmblemCreated;
             _controller.OnColorChanged += OnColorChanged;
 
-            GenerateBoard();   
+            StartCoroutine(GenerateBoard());   
         }
 
-        private void GenerateBoard()
+        private IEnumerator GenerateBoard()
         {
             for (int y = 0; y < _boardSize.y; y++)
             {
                 for (int x = 0; x < _boardSize.x; x++)
                 {
-                    GameObject emblem = Instantiate(EmblemPrefabs[_controller.GetEmblemColor(x,y)], new Vector3(x, y, 0), Quaternion.identity, transform);
-                    emblem.GetComponent<EmblemView>().Position = new Vector2Int(x, y);
-                    _emblemViewList.Add(emblem.GetComponent<EmblemView>());
+                    EmblemColor emblemColor = (EmblemColor)_controller.GetEmblemColor(x, y);
+                    AsyncOperationHandle<GameObject> handler =
+                    Addressables.InstantiateAsync(emblemColor.ToString(),
+                    new Vector3(x, visualPieceFallPosition + y, 0f),
+                    Quaternion.identity,
+                    transform);
 
-                    //AsyncOperationHandle<GameObject> handler =
-                    //EmblemColor emblem = (EmblemColor)_controller.GetEmblemColor(x,y);
-                    //Addressables.InstantiateAsync(emblem.ToString(),
-                    //new Vector3(x, y, 0f),
-                    //Quaternion.identity,
-                    //transform);
+                    while (!handler.IsDone)
+                    {
+                        yield return null;
+                    }
 
-                    //while (!handler.IsDone)
-                    //{
-                    //    yield return null;
-                    //}
+                    EmblemView emblemView = handler.Result.GetComponent<EmblemView>();
+                    _emblemViewList.Add(emblemView);
+                    emblemView.Position = new Vector2Int(x, y);
+
+                    emblemView.MoveTo(emblemView.Position);
                 }
             }
         }

@@ -50,6 +50,6 @@ public class RemoteGameProgressionProvider : IGameProgressionProvider
     {
         _remoteData = text;
 
-        if (!isSending) SaveFilesInCloud();
+        if (!isSending) SaveFilesInCloud().ContinueWith(task => Debug.LogException(task.Exception), TaskContinuationOptions.OnlyOnFaulted);
     }
 }
