@@ -12,11 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
   m_Name: Skills
   m_EditorClassIdentifier: 
-  m_GroupName: Packed Assets
+  m_GroupName: Skills
   m_Data:
     m_SerializedData: []
   m_GUID: dcdeab34aa6267940ab4972e7614c90c
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: c08db3a3ac0eec646845acd1f45c2478
+    m_Address: Create
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 195c1018c18d44a4c8c8ef1f59cf3de3
+    m_Address: Decolorate
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f300a3f346ed3e24cac0e36af6c08d27
+    m_Address: Destroy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 18f6983f58c478b4b8d5a64221494b5a
+    m_Address: Refill
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 74dceb98fbfa2ce4db827e6bdd9b6082
+    m_Address: Transmute
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 17da1fad5f767914b8cadd2bd909dfca, type: 2}
   m_SchemaSet:
