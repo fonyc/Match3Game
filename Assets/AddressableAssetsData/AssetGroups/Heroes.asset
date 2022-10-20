@@ -37,6 +37,10 @@ MonoBehaviour:
     m_Address: Redbeard
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 5a404914602c881459d455466034474a
+    m_Address: Sprite_Card
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 17da1fad5f767914b8cadd2bd909dfca, type: 2}
   m_SchemaSet:

@@ -7,9 +7,6 @@ using UnityEngine.UI;
 
 public class LevelRewardView : MonoBehaviour
 {
-    [SerializeField] 
-    private List<Sprite> _rewardSprites;
-    
     [SerializeField]
     private TMP_Text _qtyReward = null;
 

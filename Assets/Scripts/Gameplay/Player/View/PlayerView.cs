@@ -1,9 +1,8 @@
 using DG.Tweening;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class PlayerView : MonoBehaviour
@@ -19,10 +18,6 @@ public class PlayerView : MonoBehaviour
     [Space(5)]
     [SerializeField] private GameObject ATKbuffPrefab;
     [SerializeField] private GameObject DEFbuffPrefab;
-
-    [Header(" --- SPRITES ---")]
-    [Space(5)]
-    [SerializeField] List<Sprite> HeroSpriteList = new();
 
     private PlayerAnimations _playerAnimations;
 
@@ -64,7 +59,11 @@ public class PlayerView : MonoBehaviour
 
     public void SetInitialStats()
     {
-        _heroImage.sprite = HeroSpriteList.Find(sprite => sprite.name == _controller.GetHero().AvatarImage);
+        Addressables.LoadAssetAsync<Sprite>(_controller.GetHero().AvatarImage).Completed += handler =>
+        {
+            _heroImage.sprite = handler.Result;
+        };
+
         _hpFill.fillAmount = _controller.GetCurrentStats().HP / _controller.GetHero().Stats.HP;
         _hpText.text = _controller.GetCurrentStats().HP.ToString() + " / " + _controller.GetHero().Stats.HP;
     }

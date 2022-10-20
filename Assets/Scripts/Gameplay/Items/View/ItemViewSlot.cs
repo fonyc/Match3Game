@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class ItemViewSlot : MonoBehaviour
@@ -12,7 +13,6 @@ public class ItemViewSlot : MonoBehaviour
     [SerializeField] private Image _itemIcon;
     [SerializeField] private TMP_Text _itemQty = null;
 
-    [SerializeField] private List<Sprite> ItemSpriteList = new();
     BattleItemModel _model;
     int _amount;
     private event Action<BattleItemModel> _onClickedEvent;
@@ -29,7 +29,10 @@ public class ItemViewSlot : MonoBehaviour
 
     public void UpdateItemSprite()
     {
-        _itemIcon.sprite = ItemSpriteList.Find(sprite => sprite.name == _model.AvatarImage);
+        Addressables.LoadAssetAsync<Sprite>(_model.AvatarImage).Completed += handler =>
+        {
+            _itemIcon.sprite = handler.Result;
+        };
     }
 
     public void UpdateItemQty()
