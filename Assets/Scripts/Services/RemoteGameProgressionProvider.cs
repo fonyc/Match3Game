@@ -8,28 +8,24 @@ using UnityEngine;
 public class RemoteGameProgressionProvider : IGameProgressionProvider
 {
     private string _remoteData = string.Empty;
+    bool isSending;
 
-    public RemoteGameProgressionProvider()
+    private async Task SaveFilesInCloud()
     {
-        Application.focusChanged += OnApplicationFocusChanged;
-    }
+        isSending = true;
+        await Task.Delay(500);
 
-    private async void OnApplicationFocusChanged(bool hasFocus)
-    {
-        if (!hasFocus)
+        try
         {
-            try
-            {
-                await CloudSaveService.Instance.Data
-                    .ForceSaveAsync(new Dictionary<string, object> { { "data", _remoteData } });
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
-
-            Debug.Log("Loaded  " + _remoteData + " for user " + AuthenticationService.Instance.PlayerId);
+            await CloudSaveService.Instance.Data
+                .ForceSaveAsync(new Dictionary<string, object> { { "data", _remoteData } });
         }
+        catch (Exception e)
+        {
+            Debug.LogException(e);
+        }
+        Debug.Log("Loaded  " + _remoteData + " for user " + AuthenticationService.Instance.PlayerId);
+        isSending = false;
     }
 
     public async Task<bool> Initialize()
@@ -53,5 +49,7 @@ public class RemoteGameProgressionProvider : IGameProgressionProvider
     public void Save(string text)
     {
         _remoteData = text;
+
+        if (!isSending) SaveFilesInCloud().ContinueWith(task => Debug.LogException(task.Exception), TaskContinuationOptions.OnlyOnFaulted);
     }
 }

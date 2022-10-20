@@ -1,6 +1,9 @@
 using Board.Model;
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Board.View
 {
@@ -17,19 +20,22 @@ namespace Board.View
 
         public Coroutine PlayAnimation(BoardView board)
         {
-            return board.StartCoroutine(AnimationCoroutine(board));
+            return board.StartCoroutine(AnimationCoroutine(board, _item));
         }
 
-        private IEnumerator AnimationCoroutine(BoardView board)
+        private IEnumerator AnimationCoroutine(BoardView board, EmblemItem item)
         {
-            GameObject emblem = GameObject.Instantiate(
-                board.EmblemPrefabs[(int)_item.EmblemColor],
-                new Vector3(_position.x, board.visualPieceFallPosition, 0),
-                Quaternion.identity,
-                board.transform);
+            AsyncOperationHandle<GameObject> handler =
+            Addressables.InstantiateAsync(item.EmblemColor.ToString(),
+            new Vector3(_position.x, board.visualPieceFallPosition, 0f),
+            Quaternion.identity,
+            board.transform);
 
-            EmblemView emblemView = emblem.GetComponent<EmblemView>();
-            //emblemView.Position = _position;
+            while (!handler.IsDone)
+            {
+                yield return null;
+            }
+            EmblemView emblemView = handler.Result.GetComponent<EmblemView>();
             board.AddEmblemView(emblemView);
 
             yield return emblemView.MoveTo(_position);

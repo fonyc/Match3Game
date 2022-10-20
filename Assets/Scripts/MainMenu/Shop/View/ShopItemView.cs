@@ -1,8 +1,8 @@
 using Shop.Model;
 using System;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 namespace Shop.View
@@ -10,9 +10,6 @@ namespace Shop.View
     public class ShopItemView : MonoBehaviour
     {
         #region UI FIELDS
-        [SerializeField]
-        private List<Sprite> _imageSprites = new List<Sprite>();
-
         [SerializeField]
         private Image _image = null;
 
@@ -56,8 +53,16 @@ namespace Shop.View
         {
             if (_model == null) return;
 
-            _image.sprite = _imageSprites.Find(sprite => sprite.name == _model.Image);
-            _costImage.sprite = _imageSprites.Find(sprite => sprite.name == _model.Cost.Name);
+            Addressables.LoadAssetAsync<Sprite>(_model.Image).Completed += handler =>
+            {
+                _image.sprite = handler.Result;
+            };
+            
+            Addressables.LoadAssetAsync<Sprite>(_model.Cost.Name).Completed += handler =>
+            {
+                _costImage.sprite = handler.Result;
+            };
+
             _title.text = _model.Title;
             _amount.text = "x " + _model.Reward.Amount.ToString();
             _costText.text = _model.Cost.Amount.ToString();

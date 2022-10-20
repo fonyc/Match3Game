@@ -2,13 +2,11 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class TeamBattleItemView : MonoBehaviour
 {
-    [SerializeField]
-    List<Sprite> spriteItems = new();
-
     [SerializeField]
     TMP_Text _itemName = null;
 
@@ -32,7 +30,11 @@ public class TeamBattleItemView : MonoBehaviour
         _gameProgression = gameProgression;
         _battleItemModel = itemModel;
         _onClickedEvent = onClickedEvent;
-        _itemImage.sprite = spriteItems.Find(sprite => sprite.name == _battleItemModel.AvatarImage);
+        Addressables.LoadAssetAsync<Sprite>(_battleItemModel.AvatarImage).Completed += handler =>
+        {
+            _itemImage.sprite = handler.Result;
+        };
+
         _itemName.text = itemModel.Name;
         _amount.text = "x " + qty.ToString();
     }

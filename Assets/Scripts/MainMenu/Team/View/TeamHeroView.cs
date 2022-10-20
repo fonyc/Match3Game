@@ -3,13 +3,11 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class TeamHeroView : MonoBehaviour
 {
-    [SerializeField]
-    List<Sprite> heroList = new();
-
     [SerializeField]
     TMP_Text _heroName = null;
 
@@ -28,7 +26,11 @@ public class TeamHeroView : MonoBehaviour
     {
         _heroModel = heroModel;
         _onClickedEvent = onClickedEvent;
-        _heroAvatar.sprite = heroList.Find(sprite => sprite.name == _heroModel.AvatarImage);
+
+        Addressables.LoadAssetAsync<Sprite>(_heroModel.AvatarImage).Completed += handler =>
+        {
+            _heroAvatar.sprite = handler.Result;
+        };
         _heroName.text = heroModel.Name;
     }
 

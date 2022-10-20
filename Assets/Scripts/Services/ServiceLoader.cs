@@ -78,13 +78,14 @@ public class ServiceLoader : MonoBehaviour
             ["500gems"] = "com.fonangames.timelessheroes.500gems"
         });
 
-        adsService.Initialize(Application.isEditor);
+        bool adsInitialized = await adsService.Initialize(Application.isEditor);
         if (_cancellationTaskSource.IsCancellationRequested) return;
+        Debug.Log("Ads Initialized: " + adsInitialized);
 
         await gameProgressionProvider.Initialize();
+        gameProgression.Initialize(gameConfig, gameProgressionProvider);
 
         gameConfig.Initialize(remoteConfig);
-        gameProgression.Initialize(gameConfig, gameProgressionProvider);
 
         sceneLoader.ChangeScene(1);
     }

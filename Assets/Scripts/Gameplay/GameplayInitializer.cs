@@ -64,6 +64,7 @@ public class GameplayInitializer : MonoBehaviour
         _analytics = ServiceLocator.GetService<AnalyticsGameService>();
         _gameConfigService = ServiceLocator.GetService<GameConfigService>();
         _adsService = ServiceLocator.GetService<AdsGameService>();
+        _gameProgression = ServiceLocator.GetService<GameProgressionService>();
 
         _sceneLoader = Instantiate(_sceneLoaderPrefab);
 
@@ -73,12 +74,12 @@ public class GameplayInitializer : MonoBehaviour
         _enemyController = new EnemyController(_gameProgression, _combatController, _onEnemyAttacks, 
             _onPlayerWin, _gameConfigService, _matchReport);
 
-        _skillController = new SkillController(_gameProgression, SkillList, _gameConfigService);
+        _itemController = new ItemController(_gameProgression, _gameConfigService);
+        
+        _skillController = new SkillController(_gameProgression, SkillList, _gameConfigService, _itemController);
 
         _boardController = new BoardController(_boardSize.x, _boardSize.y, _skillController, inputs, 
             _gameProgression, _onEmblemsDestroyed, _onMovesAvailableChanged, _gameConfigService, _matchReport);
-
-        _itemController = new ItemController(_gameProgression, _gameConfigService);
 
         _playerController = new PlayerController(_gameProgression, _itemController, _gameConfigService,
             _combatController, _onPlayerAttacks, _onPlayerDied, _onPlayerRecievedDamage, _matchReport);

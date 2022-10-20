@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class SkillView : MonoBehaviour
@@ -13,7 +14,6 @@ public class SkillView : MonoBehaviour
     [SerializeField] private Image _skillIcon;
     [SerializeField] private Image _manaFill;
     [SerializeField] private TMP_Text _manaText = null;
-    [SerializeField] private List<Sprite> SkillSpriteList = new();
 
     private SkillController _controller;
     private StatTripleIntArgument_Event _onPlayerAttacks;
@@ -30,7 +30,11 @@ public class SkillView : MonoBehaviour
 
     public void UpdateVisuals()
     {
-        _skillIcon.sprite = SkillSpriteList.Find(sprite => sprite.name == _controller.GetSkillItemModel().Id);
+        Addressables.LoadAssetAsync<Sprite>(_controller.GetSkillItemModel().Id).Completed += handler =>
+        {
+            _skillIcon.sprite = handler.Result;
+        };
+
         _manaFill.fillAmount = _controller.GetCurrentPlayerMana() * 100 / _controller.GetSkillItemModel().Mana;
         _manaText.text = _controller.GetCurrentPlayerMana().ToString() + " / " + _controller.GetSkillItemModel().Mana;
     }

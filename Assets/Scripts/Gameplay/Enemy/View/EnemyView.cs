@@ -3,14 +3,12 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class EnemyView : MonoBehaviour
 {
     #region UI VARIABLES
-    [SerializeField]
-    private List<Sprite> _dragonSprites = new List<Sprite>();
-
     [SerializeField]
     private Image _dragonImage = null;
 
@@ -74,7 +72,12 @@ public class EnemyView : MonoBehaviour
     private void SetStartingVisuals()
     {
         _dragonName = _controller.Model.Enemy.Name;
-        _dragonImage.sprite = _dragonSprites.Find(sprite => sprite.name == _controller.Model.Enemy.Id);
+
+        Addressables.LoadAssetAsync<Sprite>(_controller.Model.Enemy.Id).Completed += handler =>
+        {
+            _dragonImage.sprite = handler.Result;
+        };
+
         _hpFill.fillAmount = _controller.Model.CurrentEnemyStats.HP / _controller.GetEnemyStats().HP;
         _dragonAndHPText.text = _dragonName.ToUpper() + " " + "(" + _controller.Model.CurrentEnemyStats.HP + " / " + _controller.GetEnemyStats().HP + ")";
     }

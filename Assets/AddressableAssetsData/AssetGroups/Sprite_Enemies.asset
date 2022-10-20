@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Sprite_Enemies
+  m_EditorClassIdentifier: 
+  m_GroupName: Sprite_Enemies
+  m_Data:
+    m_SerializedData: []
+  m_GUID: e042bfea5fa69fd48a718753fd15c1f2
+  m_SerializeEntries:
+  - m_GUID: c3c0e7f42e7cbea4dbedf639e3eac317
+    m_Address: BlueDragon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8a3f9f2b8ae63d849921192c728fba6e
+    m_Address: GreenDragon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: df1eda761f5f4e34f80d47b022555c47
+    m_Address: PurpleDragon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d30fc0ad15abce24182816baef7da88c
+    m_Address: RedDragon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 063f6979a5288224bbc2eca405fd260a
+    m_Address: YellowDragon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 17da1fad5f767914b8cadd2bd909dfca, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 796d0ce76207a7e42b538e6f2bf01333, type: 2}
+    - {fileID: 11400000, guid: fdf59e03c60c8f0409b90e27874c2948, type: 2}

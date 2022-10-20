@@ -21,7 +21,7 @@ namespace Board.Controller
         public event Action<Vector2Int, Vector2Int> OnEmblemMoved = delegate (Vector2Int origin, Vector2Int destination) { };
         public event Action<Vector2Int> OnEmblemDestroyed = delegate (Vector2Int emblemDestroyed) { };
         public event Action<Vector2Int, EmblemItem> OnEmblemCreated = delegate (Vector2Int emblemPosition, EmblemItem item) { };
-        public event Action<Vector2Int> OnColorChanged = delegate (Vector2Int emblemPosition) { };
+        public event Action<Vector2Int, EmblemItem> OnColorChanged = delegate (Vector2Int emblemPosition, EmblemItem item) { };
 
         private TripleIntArgument_Event _onPlayerAttacks;
         public IntArgument_Event OnAvailableMovesChanged;
@@ -257,7 +257,7 @@ namespace Board.Controller
             if (Model.GetEmblem(position.x, position.y).IsEmpty() || emblemColor == heroColor) return;
 
             Model.GetEmblem(position.x, position.y).Item.EmblemColor = (EmblemColor)heroColor;
-            OnColorChanged(position);
+            OnColorChanged(position, new EmblemItem((EmblemColor)heroColor));
         }
 
         private bool BoardIsSeparated()
@@ -310,42 +310,6 @@ namespace Board.Controller
             if (emblem.Position.x < Model.Width - 1) neighbourList.Add(Model.GetEmblem(emblem.Position.x + 1, emblem.Position.y));
 
             return neighbourList;
-        }
-
-        public void ShuffleBoard()
-        {
-            List<EmblemModel> emblems = new();
-            List<EmblemModel> randomEmblems = new();
-            for (int x = 0; x < Model.Width; x++)
-            {
-                for (int y = 0; y < Model.Height; y++)
-                {
-                    if (Model.GetEmblem(x, y).IsEmpty()) continue;
-                    emblems.Add(Model.GetEmblem(x, y));
-                    randomEmblems.Add(Model.GetEmblem(x, y));
-                }
-            }
-
-            foreach (EmblemModel emblem in emblems)
-            {
-                int x = 0;
-                if (emblems.Count > 1)
-                {
-                    EmblemItem aux = Model.GetEmblem(emblems[x].Position).Item;
-                    randomEmblems.RemoveAt(x);
-                    int randomInt = Random.Range(0, randomEmblems.Count - 1);
-
-                    Model.GetEmblem(emblems[x].Position).Item = Model.GetEmblem(randomEmblems[randomInt].Position).Item;
-                    Model.GetEmblem(emblems[randomInt].Position).Item = aux;
-
-                    OnEmblemMoved(Model.GetEmblem(emblems[x].Position).Position, Model.GetEmblem(randomEmblems[randomInt].Position).Position);
-                    OnEmblemMoved(Model.GetEmblem(randomEmblems[randomInt].Position).Position, Model.GetEmblem(emblems[x].Position).Position);
-
-                    emblems.RemoveAt(x);
-                    randomEmblems.RemoveAt(randomInt);
-                    x++;
-                }
-            }
         }
 
         #region UTILITY METHODS

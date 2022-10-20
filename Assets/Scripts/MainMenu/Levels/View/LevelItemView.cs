@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class LevelItemView : MonoBehaviour
@@ -11,9 +12,6 @@ public class LevelItemView : MonoBehaviour
 
     [SerializeField]
     private LevelRewardView _levelRewardPrefab;
-
-    [SerializeField]
-    private List<Sprite> _dragonSprites = new List<Sprite>();
 
     [SerializeField]
     private Image _dragonImage = null;
@@ -61,7 +59,12 @@ public class LevelItemView : MonoBehaviour
     private void SetVisuals()
     {
         GetComponent<Button>().interactable = IsInteractable();
-        _dragonImage.sprite = _dragonSprites.Find(sprite => sprite.name == _levelItemModel.Enemy);
+
+        Addressables.LoadAssetAsync<Sprite>(_levelItemModel.Enemy).Completed += handler =>
+        {
+            _dragonImage.sprite = handler.Result;
+        };
+
         _enemyName.text = _levelItemModel.Enemy;
         _levelNumber.text = "LEVEL " + (_levelItemModel.Level + 1).ToString();
     }

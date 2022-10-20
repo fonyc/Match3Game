@@ -20,7 +20,6 @@ public class CombatController
     {
         Model = new CombatModel();
         Model.Vulnerabilities = _gameConfigService.VulnerabilitiesModel;
-        //Model = JsonUtility.FromJson<CombatModel>(Resources.Load<TextAsset>("VulnerabilitiesModel").text);
     }
 
     public int RecieveAttack(int ATK, int DEF, int hits, int colorAttack, int colorDefense)

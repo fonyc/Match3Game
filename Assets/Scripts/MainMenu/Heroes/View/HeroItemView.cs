@@ -2,17 +2,12 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class HeroItemView : MonoBehaviour
 {
     #region UI FIELDS
-    [SerializeField]
-    private List<Sprite> _colorSprites = new List<Sprite>();
-
-    [SerializeField]
-    private List<Sprite> _avatarSprites = new List<Sprite>();
-
     [SerializeField]
     private Image _heroAvatar = null;
 
@@ -59,8 +54,17 @@ public class HeroItemView : MonoBehaviour
     private void UpdateVisuals()
     {
         if (_model == null) return;
-        _heroAvatar.sprite = _avatarSprites.Find(sprite => sprite.name == _model.AvatarImage);
-        _color.sprite = _colorSprites.Find(sprite => sprite.name == _model.ColorImage);
+
+        Addressables.LoadAssetAsync<Sprite>(_model.AvatarImage).Completed += handler =>
+        {
+            _heroAvatar.sprite = handler.Result;
+        };
+
+        Addressables.LoadAssetAsync<Sprite>($"Sprite_{_model.ColorImage}").Completed += handler =>
+        {
+            _color.sprite = handler.Result;
+        };
+
         _heroName.text = _model.Name;
         _ATK.text = ": " + _model.Stats.ATK.ToString();
         _DEF.text = ": " + _model.Stats.DEF.ToString();

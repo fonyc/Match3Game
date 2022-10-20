@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Heroes
+  m_EditorClassIdentifier: 
+  m_GroupName: Heroes
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 9b350dab0ede20142a46fdba0c983a0d
+  m_SerializeEntries:
+  - m_GUID: 0591df3b8576ec748ab4ce6969a2008a
+    m_Address: FranciscoPizarro
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7b5cc8309b38d3c43a2a8068ab68b0d0
+    m_Address: LeonardoDaVinci
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7fa5c0662a7c3f344a2dab1abb9a0e2c
+    m_Address: MorganLeFay
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 34512b7d25f742c4c80a0f4cad314890
+    m_Address: NicolaTesla
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 05c81a8862b350447a08ec03170af4f1
+    m_Address: Redbeard
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5a404914602c881459d455466034474a
+    m_Address: Sprite_Card
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 17da1fad5f767914b8cadd2bd909dfca, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 7406be051cf02b44b901adcfb97abe82, type: 2}
+    - {fileID: 11400000, guid: b66a61f063c6b384ab9aec59a858efde, type: 2}
