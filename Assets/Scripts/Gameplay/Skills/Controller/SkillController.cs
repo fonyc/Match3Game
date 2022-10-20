@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillController
+public class SkillController : IDisposable
 {
     public event Action<string> OnSkillActivated = delegate (string input) { };
 
@@ -12,15 +12,26 @@ public class SkillController
     private List<Skill> _skillBehaviours;
     public Skill SkillSelected;
     private GameConfigService _gameConfigService;
+    private ItemController _itemController;
 
     public event Action<int, int> OnManaChanged = delegate (int mana, int maxMana) { };
+    public event Action<int, int> OnManaItemConsumed = delegate (int mana, int hits) { };
 
-    public SkillController(GameProgressionService GameProgressionService, List<Skill> skillList, GameConfigService gameConfigService)
+    public SkillController(GameProgressionService GameProgressionService, List<Skill> skillList, GameConfigService gameConfigService,
+        ItemController itemController)
     {
+        _itemController = itemController;
         _gameConfigService = gameConfigService;
         _skillBehaviours = skillList;
         _gameProgressionService = GameProgressionService;
         _skillPlayerModel = new SkillPlayerModel();
+
+        _itemController._onManaItemConsumed += ManaPotion;
+    }
+
+    private void ManaPotion(int amount)
+    {
+        AddMana(1, amount);
     }
 
     public void AddMana(int hits, int manaPerHit)
@@ -93,5 +104,10 @@ public class SkillController
             if (skill.Id == skillName) return skill;
         }
         return null;
+    }
+
+    public void Dispose()
+    {
+        _itemController._onManaItemConsumed -= ManaPotion;
     }
 }

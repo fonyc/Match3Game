@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.UIElements;
 
 namespace Board.View
 {
@@ -27,8 +26,6 @@ namespace Board.View
         //Animations
         private List<IViewAnimation> _animations = new List<IViewAnimation>();
         private bool IsAnimating => _animations.Count > 0;
-
-        public GameObject[] EmblemPrefabs { get => emblemPrefabs; set => emblemPrefabs = value; }
 
         private BoardController _controller;
         private List<EmblemView> _emblemViewList = new List<EmblemView>();
@@ -115,14 +112,13 @@ namespace Board.View
             }
         }
 
-        private void OnColorChanged(Vector2Int emblemPosition)
+        private void OnColorChanged(Vector2Int emblemPosition, EmblemItem item)
         {
-            EmblemView emblemView = GetEmblemViewAtPosition(emblemPosition);
-            _emblemViewList.Remove(emblemView);
-            Destroy(emblemView.gameObject);
-            GameObject emblem = Instantiate(EmblemPrefabs[_controller.GetEmblemColor(emblemPosition.x, emblemPosition.y)], new Vector3(emblemPosition.x, emblemPosition.y, 0), Quaternion.identity, transform);
-            emblem.GetComponent<EmblemView>().Position = new Vector2Int(emblemPosition.x, emblemPosition.y);
-            _emblemViewList.Add(emblem.GetComponent<EmblemView>());
+            _animations.Add(new ChangeColorEmblemAnimation(emblemPosition, item));
+            if (_animations.Count == 1)
+            {
+                StartCoroutine(ProcessAnimations());
+            }
         }
 
         private IEnumerator ProcessAnimations()

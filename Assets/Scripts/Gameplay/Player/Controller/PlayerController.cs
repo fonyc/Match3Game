@@ -102,7 +102,7 @@ public class PlayerController : IDisposable
         int maxHP = _playerModel.hero.Stats.HP;
         int currentHP = _playerModel.currentHeroStats.HP;
 
-        _playerModel.currentHeroStats.HP = currentHP + amount <= 0 ? 0 : currentHP + amount;
+        _playerModel.currentHeroStats.HP = Mathf.Clamp(currentHP + amount, 0, maxHP);
         OnHPChanged?.Invoke(_playerModel.currentHeroStats.HP, maxHP);
     }
 

@@ -11,6 +11,6 @@ public class ShuffleSkill : Skill
 
     public override void PerformSkill(BoardController controller, Vector2Int position, int color)
     {
-        controller.ShuffleBoard();
+        controller.RefillBoard();
     }
 }

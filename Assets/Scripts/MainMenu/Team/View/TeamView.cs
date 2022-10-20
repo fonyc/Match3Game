@@ -142,6 +142,8 @@ public class TeamView : MonoBehaviour, IMainMenuAnimation
 
     private void CreateBattleItemCollection()
     {
+        if (_battleItemsParent == null) return;
+
         itemsToSelect.Clear();
         while (_battleItemsParent.childCount > 0)
         {

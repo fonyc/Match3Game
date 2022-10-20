@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class LevelRewardView : MonoBehaviour
@@ -26,6 +27,10 @@ public class LevelRewardView : MonoBehaviour
     private void SetVisuals()
     {
         _qtyReward.text = model.Amount.ToString();
-        _rewardImg.sprite = _rewardSprites.Find(sprite => sprite.name == model.Name);
+        //_rewardImg.sprite = _rewardSprites.Find(sprite => sprite.name == model.Name);
+        Addressables.LoadAssetAsync<Sprite>($"Reward_{model.Name}").Completed += handler =>
+        {
+            _rewardImg.sprite = handler.Result;
+        };
     }
 }

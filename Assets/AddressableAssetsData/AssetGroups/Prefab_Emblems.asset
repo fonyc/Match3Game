@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Prefab_Emblems
+  m_EditorClassIdentifier: 
+  m_GroupName: Prefab_Emblems
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 11890e77e81e4a2468d44ced780c3b0b
+  m_SerializeEntries:
+  - m_GUID: 34471c2725831464b889555e3bc95b74
+    m_Address: Wizard
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f822c654c47bcaf429d83319b215d0c3
+    m_Address: Scientist
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 17e361a6094316b4dbfb04273dee6705
+    m_Address: Pirate
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 15f99179db8fe8e4783b97bda60d4376
+    m_Address: Conqueror
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f4bed4ec3e3ef984c979add8ae17dd7d
+    m_Address: Artist
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 17da1fad5f767914b8cadd2bd909dfca, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 9f3795e2d65318843b6d69cbaf2e9100, type: 2}
+    - {fileID: 11400000, guid: f745a2ee7d03e3c4585aa5c0386548bf, type: 2}
