@@ -305,6 +305,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2867925109659834961, guid: 60acf9d558e196b44bfde1419899cce2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2867925109659834963, guid: 60acf9d558e196b44bfde1419899cce2, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 2fbcaf6f350ee7e4db866c2fbab0dbba, type: 2}
+    - target: {fileID: 2867925109659834963, guid: 60acf9d558e196b44bfde1419899cce2, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 3265558887774970742, guid: 2fbcaf6f350ee7e4db866c2fbab0dbba, type: 2}
+    - target: {fileID: 3218091340885560430, guid: 60acf9d558e196b44bfde1419899cce2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -3.6000137
+      objectReference: {fileID: 0}
     - target: {fileID: 5535685385067764924, guid: 60acf9d558e196b44bfde1419899cce2, type: 3}
       propertyPath: m_Name
       value: SceneLoader
@@ -352,6 +368,10 @@ PrefabInstance:
     - target: {fileID: 5535685385067764925, guid: 60acf9d558e196b44bfde1419899cce2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737748234781955239, guid: 60acf9d558e196b44bfde1419899cce2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60acf9d558e196b44bfde1419899cce2, type: 3}

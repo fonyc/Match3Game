@@ -19,11 +19,10 @@ namespace Board.View
 
         private Vector2Int _boardSize;
         public int visualPieceFallPosition => _boardSize.y;
-        //Input
+
         private Plane _boardPlane;
         private Vector2Int touch;
 
-        //Animations
         private List<IViewAnimation> _animations = new List<IViewAnimation>();
         private bool IsAnimating => _animations.Count > 0;
 

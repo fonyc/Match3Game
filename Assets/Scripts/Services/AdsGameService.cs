@@ -28,7 +28,7 @@ public class AdsGameService : IUnityAdsInitializationListener, IUnityAdsLoadList
         Advertisement.Initialize(_adsGameId, testMode, this);
 
         int count = 0;
-        while (_initializationTaskStatus == TaskStatus.Running && count < 3000)
+        while (_initializationTaskStatus == TaskStatus.Running && count < 1000)
         {
             await Task.Delay(500);
             count += 500;

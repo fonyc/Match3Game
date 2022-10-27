@@ -24,20 +24,13 @@ public class RemoteGameProgressionProvider : IGameProgressionProvider
         {
             Debug.LogException(e);
         }
-        Debug.Log("Loaded  " + _remoteData + " for user " + AuthenticationService.Instance.PlayerId);
         isSending = false;
     }
 
     public async Task<bool> Initialize()
     {
         Dictionary<string, string> savedData = await CloudSaveService.Instance.Data.LoadAsync();
-        foreach (var keyValuePair in savedData)
-        {
-            Debug.Log("Key: " + keyValuePair.Key + " Value: " + keyValuePair.Value);
-        }
-
         savedData.TryGetValue("data", out _remoteData);
-        Debug.Log("Loaded  " + _remoteData + " for user " + AuthenticationService.Instance.PlayerId);
         return true;
     }
 

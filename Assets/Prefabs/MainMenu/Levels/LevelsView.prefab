@@ -215,7 +215,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 73.2
+  m_fontSize: 100
   m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -471,6 +471,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelItemPrefab: {fileID: 2382295691903348553, guid: 58e70808dd92f7c47b7a5b3f1660ec9d, type: 3}
   _itemsParent: {fileID: 4558545709614036671}
+  _noHeroPanel: {fileID: 1444913353885584320, guid: b339abbb4de5a724ebdb4ce8a004db68, type: 3}
 --- !u!1 &4558545709441954095
 GameObject:
   m_ObjectHideFlags: 0

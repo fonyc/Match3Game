@@ -27,6 +27,5 @@ public class ServicesInitializer
             await Task.Delay(200, cancellationToken.Token);
         }
         UnityEngine.Debug.Log(task.Status);
-        //if(task.Status == TaskStatus.Faulted) 
     }
 }

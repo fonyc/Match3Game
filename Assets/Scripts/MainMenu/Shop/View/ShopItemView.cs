@@ -24,6 +24,9 @@ namespace Shop.View
 
         [SerializeField]
         private TMP_Text _costText = null;
+
+        [SerializeField]
+        private Button _button = null;
         #endregion
 
         private ShopItemModel _model;
@@ -67,9 +70,20 @@ namespace Shop.View
             _amount.text = "x " + _model.Reward.Amount.ToString();
             _costText.text = _model.Cost.Amount.ToString();
             _costText.color = CanPay() ? Color.white : Color.red;
+            _button.interactable = CanPay() ? true : false;
+            _button.interactable = !IsHeroOwned();
         }
 
         private bool CanPay() => _gameProgression.GetResourceAmount(_model.Cost.Name) >= _model.Cost.Amount;
+
+        private bool IsHeroOwned() 
+        {
+            foreach(OwnedHero hero in _gameProgression.GetOwnedHeroes())
+            {
+                if (hero.Id == _model.Reward.Name) return true;
+            }
+            return false;
+        }
 
         public void OnClicked()
         {

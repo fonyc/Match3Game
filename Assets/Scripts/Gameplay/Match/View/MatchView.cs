@@ -9,22 +9,28 @@ public class MatchView : MonoBehaviour
     private NoArgument_Event _onPlayerDeath;
     private NoArgument_Event _onEnemyDeath;
     private NoArgument_Event _onBuffReset;
+    private NoArgument_Event _onPlayerRecievedDamage;
+    private StringArgument_Event _onInputChange;
 
     private MatchController _matchController;
+
+    private bool _matchEnded = false;
 
     [SerializeField] private GameObject _winPanelPrefab;
     [SerializeField] private GameObject _losePanelPrefab;
     [SerializeField] private RoundReportView _roundPanelPrefab;
     [SerializeField] private Button _addButton;
 
-    private NoArgument_Event _onPlayerRecievedDamage;
+
     private MatchReport _matchReport;
 
     public void Initialize(MatchController matchController, NoArgument_Event OnPlayerDeath,
         NoArgument_Event OnEnemyDeath, NoArgument_Event OnPlayerRecievedDamage, MatchReport matchReport,
-        NoArgument_Event OnBuffsReset
+        NoArgument_Event OnBuffsReset, StringArgument_Event OnInputDisabled
         )
     {
+        _onInputChange = OnInputDisabled;
+
         _onBuffReset = OnBuffsReset;
         _matchReport = matchReport;
         _matchController = matchController;
@@ -52,10 +58,8 @@ public class MatchView : MonoBehaviour
 
     private void OnRoundOver()
     {
-        //Ask for data to the controller
         _roundPanelPrefab.UpdateVisuals();
         StartCoroutine(AnimateInRoundPanel_Coro(_roundPanelPrefab.GetComponent<RectTransform>(), 0.75f));
-        //Reset model
     }
 
     #region ANIMATIONS
@@ -82,8 +86,11 @@ public class MatchView : MonoBehaviour
 
     private void OnPlayerWins()
     {
+        if (_matchEnded) return;
+        _matchEnded = true;
         _winPanelPrefab.SetActive(true);
         _matchController.GrantRewards();
+        _onInputChange.TriggerEvents("NoInput");
     }
 
     public void ShowAd()
@@ -98,7 +105,10 @@ public class MatchView : MonoBehaviour
 
     private void OnPlayerLose()
     {
+        if (_matchEnded) return;
+        _matchEnded = true;
         _losePanelPrefab.SetActive(true);
+        _onInputChange.TriggerEvents("NoInput");
     }
 
     public void GoBackToMainMenu()

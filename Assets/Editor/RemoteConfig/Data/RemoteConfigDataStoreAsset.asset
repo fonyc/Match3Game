@@ -12,25 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"c506ab17-cec1-4622-9e0f-1d144a36a291\"\r\n   
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"c4e54d96-8b41-41a8-8ae6-fbf894118ea0\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"ShopModel\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Id\": \"HealthPotion\",\r\n            \"Title\": \"Health
     Potion\",\r\n            \"Image\": \"HealthPotion\",\r\n            \"Cost\":
     {\r\n              \"Name\": \"Gold\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 20\r\n            },\r\n            \"Reward\": {\r\n             
+    \"Amount\": 50\r\n            },\r\n            \"Reward\": {\r\n             
     \"Name\": \"HealthPotion\",\r\n              \"Type\": \"BattleItem\",\r\n             
     \"Amount\": 1\r\n            },\r\n            \"IAPId\": \"\"\r\n          },\r\n         
     {\r\n            \"Id\": \"ManaPotion\",\r\n            \"Title\": \"Mana Potion\",\r\n           
     \"Image\": \"ManaPotion\",\r\n            \"Cost\": {\r\n              \"Name\":
     \"Gold\",\r\n              \"Type\": \"Resources\",\r\n              \"Amount\":
-    30\r\n            },\r\n            \"Reward\": {\r\n              \"Name\":
+    50\r\n            },\r\n            \"Reward\": {\r\n              \"Name\":
     \"ManaPotion\",\r\n              \"Type\": \"BattleItem\",\r\n              \"Amount\":
     1\r\n            },\r\n            \"IAPId\": \"\"\r\n          },\r\n         
     {\r\n            \"Id\": \"AttackPotion\",\r\n            \"Title\": \"Attack
     Potion\",\r\n            \"Image\": \"AttackPotion\",\r\n            \"Cost\":
     {\r\n              \"Name\": \"Gold\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 40\r\n            },\r\n            \"Reward\": {\r\n             
+    \"Amount\": 30\r\n            },\r\n            \"Reward\": {\r\n             
     \"Name\": \"AttackPotion\",\r\n              \"Type\": \"BattleItem\",\r\n             
     \"Amount\": 1\r\n            },\r\n            \"IAPId\": \"\"\r\n          },\r\n         
     {\r\n            \"Id\": \"DefensePotion\",\r\n            \"Title\": \"Defense
@@ -51,18 +51,18 @@ MonoBehaviour:
     \"Amount\": 100\r\n            },\r\n            \"Reward\": {\r\n             
     \"Name\": \"FranciscoPizarro\",\r\n              \"Type\": \"Hero\",\r\n             
     \"Amount\": 1\r\n            },\r\n            \"IAPId\": \"\"\r\n          },\r\n         
-    {\r\n            \"Id\": \"Redbeard\",\r\n            \"Title\": \"Redbeard\",\r\n           
-    \"Image\": \"Redbeard\",\r\n            \"Cost\": {\r\n              \"Name\":
-    \"Gems\",\r\n              \"Type\": \"Resources\",\r\n              \"Amount\":
-    100\r\n            },\r\n            \"Reward\": {\r\n              \"Name\":
-    \"Redbeard\",\r\n              \"Type\": \"Hero\",\r\n              \"Amount\":
-    1\r\n            },\r\n            \"IAPId\": \"\"\r\n          },\r\n         
     {\r\n            \"Id\": \"NicolaTesla\",\r\n            \"Title\": \"Nicola
     Tesla\",\r\n            \"Image\": \"NicolaTesla\",\r\n            \"Cost\":
     {\r\n              \"Name\": \"Gems\",\r\n              \"Type\": \"Resources\",\r\n             
     \"Amount\": 100\r\n            },\r\n            \"Reward\": {\r\n             
     \"Name\": \"NicolaTesla\",\r\n              \"Type\": \"Hero\",\r\n             
     \"Amount\": 1\r\n            },\r\n            \"IAPId\": \"\"\r\n          },\r\n         
+    {\r\n            \"Id\": \"Redbeard\",\r\n            \"Title\": \"Redbeard\",\r\n           
+    \"Image\": \"Redbeard\",\r\n            \"Cost\": {\r\n              \"Name\":
+    \"Gems\",\r\n              \"Type\": \"Resources\",\r\n              \"Amount\":
+    100\r\n            },\r\n            \"Reward\": {\r\n              \"Name\":
+    \"Redbeard\",\r\n              \"Type\": \"Hero\",\r\n              \"Amount\":
+    1\r\n            },\r\n            \"IAPId\": \"\"\r\n          },\r\n         
     {\r\n            \"Id\": \"LeonardoDaVinci\",\r\n            \"Title\": \"Leonardo
     Da Vinci\",\r\n            \"Image\": \"LeonardoDaVinci\",\r\n            \"Cost\":
     {\r\n              \"Name\": \"Gems\",\r\n              \"Type\": \"Resources\",\r\n             
@@ -81,7 +81,7 @@ MonoBehaviour:
     \"Name\": \"Gold\",\r\n              \"Type\": \"Resources\",\r\n             
     \"Amount\": 100\r\n            },\r\n            \"IAPId\": \"\"\r\n         
     }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
-    \"entityId\": \"ce3404a2-5433-47fc-873d-03deddcf26a8\"\r\n    },\r\n    \"rs\":
+    \"entityId\": \"c974f564-b8ba-4808-88ea-4474c208e68e\"\r\n    },\r\n    \"rs\":
     {\r\n      \"key\": \"HeroModel\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
     null,\r\n      \"value\": {\r\n        \"data\": [\r\n          {\r\n           
     \"Id\": \"LeonardoDaVinci\",\r\n            \"Name\": \"Leonardo da Vinci\",\r\n           
@@ -115,7 +115,7 @@ MonoBehaviour:
     \"HP\": 100,\r\n              \"ManaPerHit\": 5,\r\n              \"Progression\":
     10\r\n            },\r\n            \"Skill\": \"Transmute\",\r\n           
     \"MaxItems\": 2\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n 
-    {\r\n    \"metadata\": {\r\n      \"entityId\": \"8c198264-965d-4944-b2aa-9826354bb404\"\r\n   
+    {\r\n    \"metadata\": {\r\n      \"entityId\": \"251f362f-f079-4377-b3a0-4238a9a2ae14\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"EnemyModel\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Id\": \"RedDragon\",\r\n            \"Name\": \"Red Dragon\",\r\n           
@@ -144,7 +144,7 @@ MonoBehaviour:
     {\r\n              \"ATK\": 140,\r\n              \"DEF\": 100,\r\n             
     \"HP\": 2000,\r\n              \"ManaPerHit\": 0,\r\n              \"Progression\":
     10\r\n            }\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n 
-    {\r\n    \"metadata\": {\r\n      \"entityId\": \"a1bca331-2cd6-4b07-97ce-7b95faee81e4\"\r\n   
+    {\r\n    \"metadata\": {\r\n      \"entityId\": \"cc7fb4eb-ca7c-49e9-9870-d8275137b6db\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"BattleItemsModel\",\r\n      \"type\":
     \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\":
     [\r\n          {\r\n            \"Id\": \"ManaPotion\",\r\n            \"Name\":
@@ -160,7 +160,7 @@ MonoBehaviour:
     \"Name\": \"Defense Potion\",\r\n            \"AvatarImage\": \"DefensePotion\",\r\n           
     \"ItemEffect\": {\r\n              \"Stat\": \"DEF\",\r\n              \"Amount\":
     30\r\n            }\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n 
-    {\r\n    \"metadata\": {\r\n      \"entityId\": \"fa668e08-534c-4418-8bc0-a7a4ea35496b\"\r\n   
+    {\r\n    \"metadata\": {\r\n      \"entityId\": \"082ad2a7-3084-4612-b6f5-8c8048378dcf\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"SkillModel\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Id\": \"Destroy\",\r\n            \"Name\": \"Destroy\",\r\n           
@@ -174,7 +174,7 @@ MonoBehaviour:
     {\r\n            \"Id\": \"Transmute\",\r\n            \"Name\": \"Transmute\",\r\n           
     \"SpriteName\": \"Transmute\",\r\n            \"Mana\": 50\r\n          }\r\n       
     ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"5b25f920-53c1-4ce4-abaa-b474c31c5a8e\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"611c32af-9c45-4d6e-a86e-480da1d27dd7\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"VulnerabilitiesModel\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
     null,\r\n      \"value\": {\r\n        \"data\": [\r\n          {\r\n           
     \"Color\": 0,\r\n            \"Weakness\": {\r\n              \"Color\": 1,\r\n             
@@ -197,7 +197,7 @@ MonoBehaviour:
     \"Modificator\": 0.5\r\n            },\r\n            \"Strength\": {\r\n             
     \"Color\": 3,\r\n              \"Modificator\": 1.5\r\n            },\r\n           
     \"DefaultModificator\": 1\r\n          }\r\n        ]\r\n      }\r\n    }\r\n 
-    },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"6c32df08-7d44-4b91-8ecf-cd03836f3ea6\"\r\n   
+    },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"39dbc076-f9ab-48d9-baaa-e8a1f09e974e\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"LevelsModel\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Level\": 0,\r\n            \"Enemy\": \"RedDragon\",\r\n           
@@ -226,15 +226,15 @@ MonoBehaviour:
     {\r\n                \"Name\": \"Gold\",\r\n                \"Type\": \"Resources\",\r\n               
     \"Amount\": 500\r\n              }\r\n            ]\r\n          }\r\n       
     ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"bc54d54f-d1b6-4335-87c2-8d63a6ba7144\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"92d4a85c-9fc2-4ce2-aaba-c26e93a71f70\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"dangerThreshold\",\r\n      \"type\": \"int\",\r\n      \"value\":
-    10\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"42e3cb8e-1659-47d3-8c7a-9a01de051b82\"\r\n   
+    10\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"ec316e36-14f3-42bd-b622-5ca76792e91e\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"columnBonus\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 100\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"7f11cf9a-40ff-4c7a-bf3f-b0bd315c4fa1\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"01661a36-df1e-4332-ad8e-5de0e30bdf08\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"TermsAndConditions\",\r\n      \"type\": \"string\",\r\n      \"value\":
     \"https://fonyc.github.io/Match3Game/\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
-    {\r\n      \"entityId\": \"d5e2cfa3-8fee-4a7d-95cf-aee200b9e7ba\"\r\n    },\r\n   
+    {\r\n      \"entityId\": \"fb95eb9c-710a-49e5-9661-393a1b97266e\"\r\n    },\r\n   
     \"rs\": {\r\n      \"key\": \"IAPShopModel\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Id\": \"100gems\",\r\n            \"Title\": \"Gems Pouch\",\r\n           
@@ -249,26 +249,33 @@ MonoBehaviour:
     3.99\r\n            },\r\n            \"Reward\": {\r\n              \"Name\":
     \"Gems\",\r\n              \"Type\": \"Resources\",\r\n              \"Amount\":
     500\r\n            },\r\n            \"IAPId\": \"500gems\"\r\n          }\r\n       
+    ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
+    \"4928af7f-f126-45d2-94f6-0da3a041dccd\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"InitialResources\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
+    null,\r\n      \"value\": {\r\n        \"data\": [\r\n          {\r\n           
+    \"Name\": \"FranciscoPizarro\",\r\n            \"Type\": \"Hero\",\r\n           
+    \"Amount\": 1\r\n          },\r\n          {\r\n            \"Name\": \"Gold\",\r\n           
+    \"Type\": \"Resources\",\r\n            \"Amount\": 100\r\n          }\r\n       
     ]\r\n      }\r\n    }\r\n  }\r\n]"
-  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"c506ab17-cec1-4622-9e0f-1d144a36a291\"\r\n   
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"c4e54d96-8b41-41a8-8ae6-fbf894118ea0\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"ShopModel\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Id\": \"HealthPotion\",\r\n            \"Title\": \"Health
     Potion\",\r\n            \"Image\": \"HealthPotion\",\r\n            \"Cost\":
     {\r\n              \"Name\": \"Gold\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 20\r\n            },\r\n            \"Reward\": {\r\n             
+    \"Amount\": 50\r\n            },\r\n            \"Reward\": {\r\n             
     \"Name\": \"HealthPotion\",\r\n              \"Type\": \"BattleItem\",\r\n             
     \"Amount\": 1\r\n            },\r\n            \"IAPId\": \"\"\r\n          },\r\n         
     {\r\n            \"Id\": \"ManaPotion\",\r\n            \"Title\": \"Mana Potion\",\r\n           
     \"Image\": \"ManaPotion\",\r\n            \"Cost\": {\r\n              \"Name\":
     \"Gold\",\r\n              \"Type\": \"Resources\",\r\n              \"Amount\":
-    30\r\n            },\r\n            \"Reward\": {\r\n              \"Name\":
+    50\r\n            },\r\n            \"Reward\": {\r\n              \"Name\":
     \"ManaPotion\",\r\n              \"Type\": \"BattleItem\",\r\n              \"Amount\":
     1\r\n            },\r\n            \"IAPId\": \"\"\r\n          },\r\n         
     {\r\n            \"Id\": \"AttackPotion\",\r\n            \"Title\": \"Attack
     Potion\",\r\n            \"Image\": \"AttackPotion\",\r\n            \"Cost\":
     {\r\n              \"Name\": \"Gold\",\r\n              \"Type\": \"Resources\",\r\n             
-    \"Amount\": 40\r\n            },\r\n            \"Reward\": {\r\n             
+    \"Amount\": 30\r\n            },\r\n            \"Reward\": {\r\n             
     \"Name\": \"AttackPotion\",\r\n              \"Type\": \"BattleItem\",\r\n             
     \"Amount\": 1\r\n            },\r\n            \"IAPId\": \"\"\r\n          },\r\n         
     {\r\n            \"Id\": \"DefensePotion\",\r\n            \"Title\": \"Defense
@@ -289,18 +296,18 @@ MonoBehaviour:
     \"Amount\": 100\r\n            },\r\n            \"Reward\": {\r\n             
     \"Name\": \"FranciscoPizarro\",\r\n              \"Type\": \"Hero\",\r\n             
     \"Amount\": 1\r\n            },\r\n            \"IAPId\": \"\"\r\n          },\r\n         
-    {\r\n            \"Id\": \"Redbeard\",\r\n            \"Title\": \"Redbeard\",\r\n           
-    \"Image\": \"Redbeard\",\r\n            \"Cost\": {\r\n              \"Name\":
-    \"Gems\",\r\n              \"Type\": \"Resources\",\r\n              \"Amount\":
-    100\r\n            },\r\n            \"Reward\": {\r\n              \"Name\":
-    \"Redbeard\",\r\n              \"Type\": \"Hero\",\r\n              \"Amount\":
-    1\r\n            },\r\n            \"IAPId\": \"\"\r\n          },\r\n         
     {\r\n            \"Id\": \"NicolaTesla\",\r\n            \"Title\": \"Nicola
     Tesla\",\r\n            \"Image\": \"NicolaTesla\",\r\n            \"Cost\":
     {\r\n              \"Name\": \"Gems\",\r\n              \"Type\": \"Resources\",\r\n             
     \"Amount\": 100\r\n            },\r\n            \"Reward\": {\r\n             
     \"Name\": \"NicolaTesla\",\r\n              \"Type\": \"Hero\",\r\n             
     \"Amount\": 1\r\n            },\r\n            \"IAPId\": \"\"\r\n          },\r\n         
+    {\r\n            \"Id\": \"Redbeard\",\r\n            \"Title\": \"Redbeard\",\r\n           
+    \"Image\": \"Redbeard\",\r\n            \"Cost\": {\r\n              \"Name\":
+    \"Gems\",\r\n              \"Type\": \"Resources\",\r\n              \"Amount\":
+    100\r\n            },\r\n            \"Reward\": {\r\n              \"Name\":
+    \"Redbeard\",\r\n              \"Type\": \"Hero\",\r\n              \"Amount\":
+    1\r\n            },\r\n            \"IAPId\": \"\"\r\n          },\r\n         
     {\r\n            \"Id\": \"LeonardoDaVinci\",\r\n            \"Title\": \"Leonardo
     Da Vinci\",\r\n            \"Image\": \"LeonardoDaVinci\",\r\n            \"Cost\":
     {\r\n              \"Name\": \"Gems\",\r\n              \"Type\": \"Resources\",\r\n             
@@ -319,7 +326,7 @@ MonoBehaviour:
     \"Name\": \"Gold\",\r\n              \"Type\": \"Resources\",\r\n             
     \"Amount\": 100\r\n            },\r\n            \"IAPId\": \"\"\r\n         
     }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
-    \"entityId\": \"ce3404a2-5433-47fc-873d-03deddcf26a8\"\r\n    },\r\n    \"rs\":
+    \"entityId\": \"c974f564-b8ba-4808-88ea-4474c208e68e\"\r\n    },\r\n    \"rs\":
     {\r\n      \"key\": \"HeroModel\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
     null,\r\n      \"value\": {\r\n        \"data\": [\r\n          {\r\n           
     \"Id\": \"LeonardoDaVinci\",\r\n            \"Name\": \"Leonardo da Vinci\",\r\n           
@@ -353,7 +360,7 @@ MonoBehaviour:
     \"HP\": 100,\r\n              \"ManaPerHit\": 5,\r\n              \"Progression\":
     10\r\n            },\r\n            \"Skill\": \"Transmute\",\r\n           
     \"MaxItems\": 2\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n 
-    {\r\n    \"metadata\": {\r\n      \"entityId\": \"8c198264-965d-4944-b2aa-9826354bb404\"\r\n   
+    {\r\n    \"metadata\": {\r\n      \"entityId\": \"251f362f-f079-4377-b3a0-4238a9a2ae14\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"EnemyModel\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Id\": \"RedDragon\",\r\n            \"Name\": \"Red Dragon\",\r\n           
@@ -382,7 +389,7 @@ MonoBehaviour:
     {\r\n              \"ATK\": 140,\r\n              \"DEF\": 100,\r\n             
     \"HP\": 2000,\r\n              \"ManaPerHit\": 0,\r\n              \"Progression\":
     10\r\n            }\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n 
-    {\r\n    \"metadata\": {\r\n      \"entityId\": \"a1bca331-2cd6-4b07-97ce-7b95faee81e4\"\r\n   
+    {\r\n    \"metadata\": {\r\n      \"entityId\": \"cc7fb4eb-ca7c-49e9-9870-d8275137b6db\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"BattleItemsModel\",\r\n      \"type\":
     \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\":
     [\r\n          {\r\n            \"Id\": \"ManaPotion\",\r\n            \"Name\":
@@ -398,7 +405,7 @@ MonoBehaviour:
     \"Name\": \"Defense Potion\",\r\n            \"AvatarImage\": \"DefensePotion\",\r\n           
     \"ItemEffect\": {\r\n              \"Stat\": \"DEF\",\r\n              \"Amount\":
     30\r\n            }\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n 
-    {\r\n    \"metadata\": {\r\n      \"entityId\": \"fa668e08-534c-4418-8bc0-a7a4ea35496b\"\r\n   
+    {\r\n    \"metadata\": {\r\n      \"entityId\": \"082ad2a7-3084-4612-b6f5-8c8048378dcf\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"SkillModel\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Id\": \"Destroy\",\r\n            \"Name\": \"Destroy\",\r\n           
@@ -412,7 +419,7 @@ MonoBehaviour:
     {\r\n            \"Id\": \"Transmute\",\r\n            \"Name\": \"Transmute\",\r\n           
     \"SpriteName\": \"Transmute\",\r\n            \"Mana\": 50\r\n          }\r\n       
     ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"5b25f920-53c1-4ce4-abaa-b474c31c5a8e\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"611c32af-9c45-4d6e-a86e-480da1d27dd7\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"VulnerabilitiesModel\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
     null,\r\n      \"value\": {\r\n        \"data\": [\r\n          {\r\n           
     \"Color\": 0,\r\n            \"Weakness\": {\r\n              \"Color\": 1,\r\n             
@@ -435,7 +442,7 @@ MonoBehaviour:
     \"Modificator\": 0.5\r\n            },\r\n            \"Strength\": {\r\n             
     \"Color\": 3,\r\n              \"Modificator\": 1.5\r\n            },\r\n           
     \"DefaultModificator\": 1\r\n          }\r\n        ]\r\n      }\r\n    }\r\n 
-    },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"6c32df08-7d44-4b91-8ecf-cd03836f3ea6\"\r\n   
+    },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"39dbc076-f9ab-48d9-baaa-e8a1f09e974e\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"LevelsModel\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Level\": 0,\r\n            \"Enemy\": \"RedDragon\",\r\n           
@@ -464,15 +471,15 @@ MonoBehaviour:
     {\r\n                \"Name\": \"Gold\",\r\n                \"Type\": \"Resources\",\r\n               
     \"Amount\": 500\r\n              }\r\n            ]\r\n          }\r\n       
     ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"bc54d54f-d1b6-4335-87c2-8d63a6ba7144\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"92d4a85c-9fc2-4ce2-aaba-c26e93a71f70\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"dangerThreshold\",\r\n      \"type\": \"int\",\r\n      \"value\":
-    10\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"42e3cb8e-1659-47d3-8c7a-9a01de051b82\"\r\n   
+    10\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"ec316e36-14f3-42bd-b622-5ca76792e91e\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"columnBonus\",\r\n      \"type\": \"int\",\r\n     
     \"value\": 100\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
-    \"7f11cf9a-40ff-4c7a-bf3f-b0bd315c4fa1\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"01661a36-df1e-4332-ad8e-5de0e30bdf08\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"TermsAndConditions\",\r\n      \"type\": \"string\",\r\n      \"value\":
     \"https://fonyc.github.io/Match3Game/\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
-    {\r\n      \"entityId\": \"d5e2cfa3-8fee-4a7d-95cf-aee200b9e7ba\"\r\n    },\r\n   
+    {\r\n      \"entityId\": \"fb95eb9c-710a-49e5-9661-393a1b97266e\"\r\n    },\r\n   
     \"rs\": {\r\n      \"key\": \"IAPShopModel\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": {\r\n        \"data\": [\r\n         
     {\r\n            \"Id\": \"100gems\",\r\n            \"Title\": \"Gems Pouch\",\r\n           
@@ -487,6 +494,13 @@ MonoBehaviour:
     3.99\r\n            },\r\n            \"Reward\": {\r\n              \"Name\":
     \"Gems\",\r\n              \"Type\": \"Resources\",\r\n              \"Amount\":
     500\r\n            },\r\n            \"IAPId\": \"500gems\"\r\n          }\r\n       
+    ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
+    \"4928af7f-f126-45d2-94f6-0da3a041dccd\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"InitialResources\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
+    null,\r\n      \"value\": {\r\n        \"data\": [\r\n          {\r\n           
+    \"Name\": \"FranciscoPizarro\",\r\n            \"Type\": \"Hero\",\r\n           
+    \"Amount\": 1\r\n          },\r\n          {\r\n            \"Name\": \"Gold\",\r\n           
+    \"Type\": \"Resources\",\r\n            \"Amount\": 100\r\n          }\r\n       
     ]\r\n      }\r\n    }\r\n  }\r\n]"
   _environments: "[\r\n  {\r\n    \"projectId\": \"1b509d16-ab63-4800-8146-d6548c007c92\",\r\n   
     \"name\": \"development\",\r\n    \"id\": \"e8ef398e-2701-4246-8787-4a1fc7235a6c\",\r\n   

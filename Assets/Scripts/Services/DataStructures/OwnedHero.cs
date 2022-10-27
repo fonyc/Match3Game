@@ -7,7 +7,7 @@ public class OwnedHero
     public string Type;
     public int Level;
 
-    public OwnedHero(string id,string type, int level)
+    public OwnedHero(string id, string type, int level)
     {
         Id = id;
         Type = type;

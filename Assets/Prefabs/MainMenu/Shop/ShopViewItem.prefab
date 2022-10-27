@@ -442,23 +442,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 776b733f2bdf5b746991a55515a99510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _imageSprites:
-  - {fileID: 21300000, guid: 9a99d085bb9cc4e72972e075606cf4b9, type: 3}
-  - {fileID: 21300000, guid: dde8316242f0e459c8995ffea0a43f04, type: 3}
-  - {fileID: 21300000, guid: bb94a5a193dc1427fadc70a9be71b3ef, type: 3}
-  - {fileID: 21300000, guid: 7650a4718db954652a436242cbde2366, type: 3}
-  - {fileID: 21300000, guid: e557639d1acd84734b384b6a04b18720, type: 3}
-  - {fileID: 21300000, guid: eaa1fab7e733e454dbacda8cf6fe92b0, type: 3}
-  - {fileID: 21300000, guid: 7b5cc8309b38d3c43a2a8068ab68b0d0, type: 3}
-  - {fileID: 21300000, guid: 05c81a8862b350447a08ec03170af4f1, type: 3}
-  - {fileID: 21300000, guid: 34512b7d25f742c4c80a0f4cad314890, type: 3}
-  - {fileID: 21300000, guid: 0591df3b8576ec748ab4ce6969a2008a, type: 3}
-  - {fileID: 21300000, guid: 7fa5c0662a7c3f344a2dab1abb9a0e2c, type: 3}
   _image: {fileID: 5080351738288359906}
   _title: {fileID: 3606621575141674010}
   _amount: {fileID: 1725719410591955938}
   _costImage: {fileID: 2516038081862527281}
   _costText: {fileID: 2567095029307959171}
+  _button: {fileID: 4294366617330650608}
 --- !u!114 &4294366617330650608
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -57,6 +57,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoaderPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 248303921688121345, guid: f71d91817470c3a4e9cfcb4336d8965a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 248303921688121350, guid: f71d91817470c3a4e9cfcb4336d8965a, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -101,6 +105,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6951940999060752584, guid: f71d91817470c3a4e9cfcb4336d8965a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -3.6000137
+      objectReference: {fileID: 0}
+    - target: {fileID: 7718710399326068469, guid: f71d91817470c3a4e9cfcb4336d8965a, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 2fbcaf6f350ee7e4db866c2fbab0dbba, type: 2}
+    - target: {fileID: 7718710399326068469, guid: f71d91817470c3a4e9cfcb4336d8965a, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 3265558887774970742, guid: 2fbcaf6f350ee7e4db866c2fbab0dbba, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f71d91817470c3a4e9cfcb4336d8965a, type: 3}
 --- !u!4 &5737748234781955232 stripped

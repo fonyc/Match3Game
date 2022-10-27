@@ -25,11 +25,16 @@ namespace Board.Controller
 
         private TripleIntArgument_Event _onPlayerAttacks;
         public IntArgument_Event OnAvailableMovesChanged;
+        private StringArgument_Event _onInputDisabled;
 
         public BoardController(int width, int height, SkillController skillController,
             List<BoardInput> inputList, GameProgressionService gameProgression, TripleIntArgument_Event OnPlayerAttacks,
-            IntArgument_Event OnAvailableMovesChanged, GameConfigService gameConfigService, MatchReport matchReport)
+            IntArgument_Event OnAvailableMovesChanged, GameConfigService gameConfigService, MatchReport matchReport,
+            StringArgument_Event OnInputDisabled)
         {
+
+            _onInputDisabled = OnInputDisabled;
+            _onInputDisabled.AddListener(ChangeInput);
             _matchReport = matchReport;
             _gameConfigService = gameConfigService;
             this.OnAvailableMovesChanged = OnAvailableMovesChanged;
@@ -69,6 +74,7 @@ namespace Board.Controller
         public void Dispose()
         {
             _skillController.OnSkillActivated -= ChangeInput;
+            _onInputDisabled.RemoveListener(ChangeInput);
         }
 
         #region SKILLS
@@ -84,6 +90,7 @@ namespace Board.Controller
 
         public void ChangeInput(string inputId)
         {
+            if (InputSelected.Id == "NoInput") return;
             InputSelected = _inputs.Find(input => input.Id == inputId);
         }
 

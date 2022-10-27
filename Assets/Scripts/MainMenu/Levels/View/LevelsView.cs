@@ -10,7 +10,13 @@ public class LevelsView : MonoBehaviour, IMainMenuAnimation
     [SerializeField]
     private Transform _itemsParent = null;
 
+    [SerializeField]
+    private GameObject _noHeroPanel = null;
+    private GameObject heroPanel = null;
+
     LevelsController _levelsController = null;
+
+    GameProgressionService _gameProgression;
 
     #region MAIN MENU ANIMATIONS
     public string Id { get => "Levels"; set { } }
@@ -40,6 +46,10 @@ public class LevelsView : MonoBehaviour, IMainMenuAnimation
 
     public void Initialize(LevelsController levelsController, GameProgressionService gameProgression)
     {
+        _gameProgression = gameProgression;
+        _gameProgression.OnHeroSelected += RemoveHeroPanel;
+        if (string.IsNullOrEmpty(gameProgression.GetSelectedHero())) heroPanel = Instantiate(_noHeroPanel, transform);
+
         _levelsController = levelsController;
 
         while (_itemsParent.childCount > 0)
@@ -57,8 +67,18 @@ public class LevelsView : MonoBehaviour, IMainMenuAnimation
         }
     }
 
+    private void RemoveHeroPanel()
+    {
+        Destroy(heroPanel);
+    }
+
     public void OnLevelSelected(int levelSelected)
     {
         _levelsController.ChangeGameplayScene(levelSelected);
+    }
+
+    private void OnDestroy()
+    {
+        _gameProgression.OnHeroSelected -= RemoveHeroPanel;
     }
 }
