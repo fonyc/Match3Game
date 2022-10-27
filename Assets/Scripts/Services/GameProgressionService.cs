@@ -36,6 +36,7 @@ public class GameProgressionService : IService
     public event Action OnBattleItemAdded;
     public event Action OnBattleItemSelected;
     public event Action OnBattleItemDeSelected;
+    public event Action OnHeroSelected;
     #endregion
 
     #region RESOURCES
@@ -92,6 +93,7 @@ public class GameProgressionService : IService
     public void SelectHero(string newHero)
     {
         SelectedHero = newHero;
+        OnHeroSelected?.Invoke();
         Save();
     }
 
@@ -234,7 +236,13 @@ public class GameProgressionService : IService
         string data = _progressionProvider.Load();
         if (string.IsNullOrEmpty(data))
         {
-            //Add initial values (Add one hero and 100 gold)
+            List<ResourceItem> initialResources = config.initialResources;
+            foreach(ResourceItem resource in initialResources)
+            {
+                if(resource.Type == "Hero") AddHero(resource);
+                else if(resource.Type == "Resources") AddResource(resource);
+                else AddBattleItem(resource);
+            }
             Save();
         }
         else

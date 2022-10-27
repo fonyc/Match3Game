@@ -16,7 +16,11 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: edcce8891130e9748b56c19ced4a5d92
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 37e412219c053bc44a4c577389fb1193
+    m_Address: Assets/Prefabs/VFX/Root_VFX_Explosion.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 17da1fad5f767914b8cadd2bd909dfca, type: 2}
   m_SchemaSet:

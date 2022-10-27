@@ -14,6 +14,7 @@ public class GameConfigService : IService
     public int dangerThreshold { get; private set; }
     public int columnBonus { get; private set; }
     public string termsAndConditions { get; private set; }
+    public List<ResourceItem> initialResources { get; private set; }
 
     public void Initialize(RemoteConfigGameService dataProvider)
     {
@@ -28,6 +29,7 @@ public class GameConfigService : IService
         dangerThreshold = dataProvider.Get("dangerThreshold", 10);
         columnBonus = dataProvider.Get("columnBonus", 100);
         termsAndConditions = dataProvider.Get("TermsAndConditions", "https://fonyc.github.io/Match3Game/");
+        initialResources = dataProvider.Get("InitialResources", new List<ResourceItem>());
     }
 
     public void Clear()

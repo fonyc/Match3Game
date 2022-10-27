@@ -23,6 +23,8 @@ public class LevelsController
 
     public void ChangeGameplayScene(int level)
     {
+        if (string.IsNullOrEmpty(_gameProgression.GetSelectedHero())) return;
+
         _gameProgression.SetCurrentSelectedLevel(level);
         _sceneLoader.ChangeScene(2);
     }

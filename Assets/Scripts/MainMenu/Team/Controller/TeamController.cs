@@ -1,15 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class TeamController 
 {
     public HeroModel heroModel;
 
     public BattleItemsModel battleItemModel;
-
-    private List<string> itemsSelected = new();
 
     private GameProgressionService _gameProgression;
     private GameConfigService _gameConfig;

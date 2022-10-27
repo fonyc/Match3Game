@@ -126,6 +126,7 @@ MonoBehaviour:
   inputs:
   - {fileID: 11400000, guid: 25e6f689d1d3f6148adbea7c58692389, type: 2}
   - {fileID: 11400000, guid: c6dec106f9fd92545b71acadd95b8b2e, type: 2}
+  - {fileID: 11400000, guid: 5e979c88009a94f41a8ce460662fd7f6, type: 2}
   SkillList:
   - {fileID: 11400000, guid: d61aaf0ee6bc1e844a515585ef15dd12, type: 2}
   - {fileID: 11400000, guid: 48007698f996c7c48ada217eb53a2b4e, type: 2}
@@ -141,3 +142,4 @@ MonoBehaviour:
   _onPlayerWin: {fileID: 11400000, guid: 6e9b95a40066e094792ff335d236f2e4, type: 2}
   _onPlayerRecievedDamage: {fileID: 11400000, guid: bc70140a11b03db4dbf05acdcf000af2, type: 2}
   _onBuffsReset: {fileID: 11400000, guid: 1007da277d2991e46b4618a2918fbea9, type: 2}
+  _onInputChange: {fileID: 11400000, guid: b4c62eab49bc608408d5c4062d8a324e, type: 2}
