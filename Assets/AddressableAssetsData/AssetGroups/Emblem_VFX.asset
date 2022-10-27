@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Emblem_VFX
+  m_EditorClassIdentifier: 
+  m_GroupName: Emblem_VFX
+  m_Data:
+    m_SerializedData: []
+  m_GUID: a113114d9d6a2e24f9026068deeae987
+  m_SerializeEntries:
+  - m_GUID: 2cec24fa5b372d04383fa77716826640
+    m_Address: VFX_Explosion_3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2279320ef6b163340838ab698a68beea
+    m_Address: VFX_Explosion_4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2089acfce262a8c4198b4d3d32d0d4bc
+    m_Address: VFX_Explosion_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d326a15376a5f1e44a4d6263d1bd4e7e
+    m_Address: VFX_Explosion_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a6354408ff07b8f4b8240d9e89e542fe
+    m_Address: VFX_Explosion_0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 17da1fad5f767914b8cadd2bd909dfca, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 4585d7de989aefc498204fc841d301a5, type: 2}
+    - {fileID: 11400000, guid: f759f19643d18d1458f37e3576e8c7f1, type: 2}

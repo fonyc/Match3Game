@@ -1,6 +1,9 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.UIElements;
 
 namespace Board.View
 {
@@ -34,6 +37,7 @@ namespace Board.View
         {
             transform.GetChild(0).GetComponent<SpriteRenderer>().DOFade(0f, 0.1f).SetEase(Ease.InOutBounce);
             yield return new WaitForSeconds(0.15f);
+            
             Destroy(gameObject);
         }
     }

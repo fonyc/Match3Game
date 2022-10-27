@@ -19,7 +19,7 @@ namespace Board.Controller
         private MatchReport _matchReport;
 
         public event Action<Vector2Int, Vector2Int> OnEmblemMoved = delegate (Vector2Int origin, Vector2Int destination) { };
-        public event Action<Vector2Int> OnEmblemDestroyed = delegate (Vector2Int emblemDestroyed) { };
+        public event Action<Vector2Int, int> OnEmblemDestroyed = delegate (Vector2Int emblemDestroyed, int color) { };
         public event Action<Vector2Int, EmblemItem> OnEmblemCreated = delegate (Vector2Int emblemPosition, EmblemItem item) { };
         public event Action<Vector2Int, EmblemItem> OnColorChanged = delegate (Vector2Int emblemPosition, EmblemItem item) { };
 
@@ -90,7 +90,6 @@ namespace Board.Controller
 
         public void ChangeInput(string inputId)
         {
-            if (InputSelected.Id == "NoInput") return;
             InputSelected = _inputs.Find(input => input.Id == inputId);
         }
 
@@ -123,9 +122,8 @@ namespace Board.Controller
             
             foreach (EmblemModel emblem in comboMatches)
             {
+                OnEmblemDestroyed(emblem.Position, GetEmblemColor(emblem.Position.x, emblem.Position.y));
                 Model.GetEmblem(emblem.Position).Item = null;
-
-                OnEmblemDestroyed(emblem.Position);
             }
             VerticalCollapse();
             _onPlayerAttacks.TriggerEvents(comboMatches.Count, colorAttack, _matchReport.GetDestroyedColumns(this));

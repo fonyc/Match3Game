@@ -11,7 +11,7 @@ namespace Board.View
     public class BoardView : MonoBehaviour
     {
         #region VARIABLES
-       
+
         [Header("--- BOARD SETTINGS ---")]
         [Space(5)]
         [SerializeField] private GameObject[] emblemPrefabs;
@@ -28,7 +28,7 @@ namespace Board.View
 
         private BoardController _controller;
         private List<EmblemView> _emblemViewList = new List<EmblemView>();
-        
+
         #endregion
 
         public void Initialize(BoardController boardController, Vector2Int boardSize)
@@ -43,7 +43,7 @@ namespace Board.View
             _controller.OnEmblemCreated += OnEmblemCreated;
             _controller.OnColorChanged += OnColorChanged;
 
-            StartCoroutine(GenerateBoard());   
+            StartCoroutine(GenerateBoard());
         }
 
         private IEnumerator GenerateBoard()
@@ -93,9 +93,9 @@ namespace Board.View
             }
         }
 
-        private void OnEmblemDestroyed(Vector2Int emblemToDestroy)
+        private void OnEmblemDestroyed(Vector2Int emblemToDestroy, int color)
         {
-            _animations.Add(new DestroyEmblemAnimation(GetEmblemViewAtPosition(emblemToDestroy)));
+            _animations.Add(new DestroyEmblemAnimation(GetEmblemViewAtPosition(emblemToDestroy), color));
             if (_animations.Count == 1)
             {
                 StartCoroutine(ProcessAnimations());

@@ -1,18 +1,18 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class VFXController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private float duration = 0.5f;
+
     void Start()
     {
-        
+        StartCoroutine(SelfDestruct(duration));    
     }
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerator SelfDestruct(float duration)
     {
-        
+        yield return new WaitForSeconds(duration);
+        Destroy(gameObject);
     }
 }
