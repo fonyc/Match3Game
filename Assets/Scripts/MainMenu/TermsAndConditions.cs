@@ -10,7 +10,7 @@ public class TermsAndConditions : MonoBehaviour
     public void Initialize(GameConfigService gameConfigService)
     {
         _gameConfigService = gameConfigService;
-        if (_termsReaded) Destroy(gameObject);
+        if (_termsReaded || _gameConfigService == null) Destroy(gameObject);
     }
 
     public void OpenURL()

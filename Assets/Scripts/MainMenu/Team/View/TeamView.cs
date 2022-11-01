@@ -8,6 +8,7 @@ using UnityEngine;
 public class TeamView : MonoBehaviour, IMainMenuAnimation
 {
     #region Variables
+
     [Header("--- HERO SELECTION ---")]
     [Space(5)]
     [SerializeField]
@@ -33,9 +34,9 @@ public class TeamView : MonoBehaviour, IMainMenuAnimation
 
     #endregion
 
-    public string Id { get => "Team"; set { } }
-
     #region MAIN MENU ANIMATIONS
+    public string Id { get => "Team"; set { } }
+    
     public void AppearAnimation(RectTransform rect, float delay)
     {
         gameObject.SetActive(true);

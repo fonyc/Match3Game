@@ -27,8 +27,8 @@ public class MainMenuInitializer : MonoBehaviour
     [SerializeField]
     private SceneLoader _sceneLoaderPrefab = null;
 
-    [SerializeField] 
-    private TermsAndConditions _termsPrefab = null; 
+    [SerializeField]
+    private TermsAndConditions _termsPrefab = null;
     #endregion
 
     //SERVICES
@@ -61,14 +61,11 @@ public class MainMenuInitializer : MonoBehaviour
 
     private void Start()
     {
-        //Terms and Conditions
         TermsAndConditions terms = Instantiate(_termsPrefab, transform);
         terms.Initialize(_gameConfigService);
 
-        //Create bottom main menu
         BottomBarController bottomBar = Instantiate(_bottomBarPrefab, transform);
 
-        //Initialize resources top bar
         ResourcesView resourcesView = Instantiate(_topBarResourcesPrefab, transform);
         resourcesView.Initialize(_gameProgressionService);
 
@@ -81,29 +78,25 @@ public class MainMenuInitializer : MonoBehaviour
 
         #region INIT TABS
 
-        //HEROE COLLECTION TAB
         HeroesView heroesView = Instantiate(_heroesViewPrefab, transform);
         heroesView.Initialize(_heroesController, _gameProgressionService);
         bottomBar.AddTab(heroesView.gameObject);
 
-        //SHOP TAB
-        ShopView shop = Instantiate(_shopViewPrefab, transform); 
+        ShopView shop = Instantiate(_shopViewPrefab, transform);
         shop.Initialize(_shopController, _gameProgressionService, _iapService);
         bottomBar.AddTab(shop.gameObject);
 
-        //TEAM TAB
         TeamView teamView = Instantiate(_teamViewPrefab, transform);
-        teamView.Initialize(_teamController,_gameProgressionService);
+        teamView.Initialize(_teamController, _gameProgressionService);
         bottomBar.AddTab(teamView.gameObject);
 
-        //LEVELS TAB
         LevelsView levelsView = Instantiate(_levelsViewPrefab, transform);
         levelsView.Initialize(_levelController, _gameProgressionService);
         bottomBar.AddTab(levelsView.gameObject);
 
         bottomBar.transform.SetAsLastSibling();
         resourcesView.transform.SetAsLastSibling();
-        terms.transform.SetAsLastSibling();
+        if (terms) terms.transform.SetAsLastSibling();
         #endregion
     }
 }
